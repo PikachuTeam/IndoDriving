@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/common_size_300"
+        android:layout_height="@dimen/common_size_450"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <tatteam.com.app_common.ui.drawable.FlatEffectDrawable
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:id="@+id/txt_apps"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Apps"
+                    android:textColor="@color/dialog_text_color"
+                    android:textSize="@dimen/common_text_size_18" />
+
+                <View
+                    android:layout_width="@dimen/common_size_1"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/dialog_line" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_size_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/dialog_line" />
+            </tatteam.com.app_common.ui.drawable.FlatEffectDrawable>
+
+            <tatteam.com.app_common.ui.drawable.FlatEffectDrawable
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/txt_games"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Games"
+                    android:textColor="@color/dialog_text_color"
+                    android:textSize="@dimen/common_text_size_18" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_size_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/dialog_line" />
+            </tatteam.com.app_common.ui.drawable.FlatEffectDrawable>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="78">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_more_apps" />
+
+            <LinearLayout
+                android:id="@+id/layout_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="@dimen/common_size_80"
+                    android:layout_height="@dimen/common_size_80"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:id="@+id/txt_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/common_size_2"
+                    android:text="Loading..."
+                    android:textColor="@color/dialog_text_color"
+                    android:textSize="@dimen/common_text_size_20" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="12"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <tatteam.com.app_common.ui.drawable.FlatEffectDrawable
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.5">
+
+                <TextView
+                    android:id="@+id/txt_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Close"
+                    android:textColor="@color/dialog_text_color"
+                    android:textSize="@dimen/common_text_size_18" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_size_1"
+                    android:background="@color/dialog_line" />
+
+                <View
+                    android:layout_width="@dimen/common_size_1"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/dialog_line" />
+            </tatteam.com.app_common.ui.drawable.FlatEffectDrawable>
+
+            <tatteam.com.app_common.ui.drawable.FlatEffectDrawable
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5.5">
+
+                <TextView
+                    android:id="@+id/txt_visit_store"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Visit Our Store"
+                    android:textColor="@color/dialog_text_color"
+                    android:textSize="@dimen/common_text_size_18"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_size_1"
+                    android:background="@color/dialog_line" />
+            </tatteam.com.app_common.ui.drawable.FlatEffectDrawable>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
