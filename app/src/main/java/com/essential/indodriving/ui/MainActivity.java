@@ -1,32 +1,32 @@
 package com.essential.indodriving.ui;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.essential.indodriving.R;
+import com.essential.indodriving.base.MyBaseActivity;
+import com.essential.indodriving.ui.learn.LearnChooseSimFragment;
+import com.essential.indodriving.ui.test.TestChooseSimFragment;
 
-import tatteam.com.app_common.ui.activity.BaseActivity;
 import tatteam.com.app_common.ui.fragment.BaseFragment;
 
-public class MainActivity extends BaseActivity {
+/**
+ * Created by dongc_000 on 2/17/2016.
+ */
+public class MainActivity extends MyBaseActivity {
 
-    @Override
-    protected int getLayoutResIdContentView() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected void onCreateContentView() {
-
-    }
+    private int button;
 
     @Override
     protected int getFragmentContainerId() {
-        return 0;
+        return R.id.fragmentContainer;
     }
 
     @Override
     protected BaseFragment getFragmentContent() {
-        return null;
+        return button == HomeActivity.LEARN_BUTTON ? new LearnChooseSimFragment() : new TestChooseSimFragment();
+    }
+
+    @Override
+    protected void onCreateContentView() {
+        super.onCreateContentView();
+        button = getIntent().getIntExtra("button", 1);
     }
 }

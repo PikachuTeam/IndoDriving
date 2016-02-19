@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Indo Driving</string>
+    <string name="title_learn_choose_sim">Choose Sim</string>
+    <string name="title_learn_choose_item">Pick one</string>
 </resources>

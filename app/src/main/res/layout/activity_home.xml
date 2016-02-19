@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.HomeActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_size_15"
+        android:text="Indo Driving"
+        android:textSize="60sp" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/buttonLearnContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        card_view:cardCornerRadius="@dimen/common_size_5"
+        card_view:cardPreventCornerOverlap="false">
+
+        <Button
+            android:id="@+id/buttonLearn"
+            android:layout_width="@dimen/navigation_activity_button_width"
+            android:layout_height="@dimen/navigation_activity_button_height"
+            android:background="@drawable/raised_button"
+            android:text="Learn"
+            android:textAllCaps="false"
+            android:textSize="50sp" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/buttonTestContainer"
+        android:layout_width="@dimen/navigation_activity_button_width"
+        android:layout_height="@dimen/navigation_activity_button_height"
+        android:layout_below="@+id/buttonLearnContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        card_view:cardCornerRadius="@dimen/common_size_5"
+        card_view:cardPreventCornerOverlap="false">
+
+        <Button
+            android:id="@+id/buttonTest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/raised_button"
+            android:text="Test"
+            android:textAllCaps="false"
+            android:textSize="50sp" />
+    </android.support.v7.widget.CardView>
+
+    <View
+        android:id="@+id/ads1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ads_height"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
