@@ -11,6 +11,9 @@ import tatteam.com.app_common.ui.activity.BaseSplashActivity;
  * Created by dongc_000 on 2/17/2016.
  */
 public class SplashActivity extends BaseSplashActivity {
+
+    public static boolean enableAds = false;
+
     @Override
     protected int getLayoutResIdContentView() {
         return R.layout.activity_splash;
