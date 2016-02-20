@@ -17,6 +17,7 @@ public class DatabaseHelper {
     private static DatabaseHelper instance;
 
     private DatabaseHelper() {
+        //test
     }
 
     public static DatabaseHelper getInstance() {
