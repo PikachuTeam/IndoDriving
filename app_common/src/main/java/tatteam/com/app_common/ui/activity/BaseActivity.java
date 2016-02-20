@@ -25,8 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setContentView(getLayoutResIdContentView());
         fragmentContainerId = getFragmentContainerId();
-        addFragmentContent();
         onCreateContentView();
+        addFragmentContent();
     }
 
     @Override

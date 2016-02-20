@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,13 +23,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimA"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim A"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />
@@ -40,13 +42,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimAUmum"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim A Umum"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />
@@ -58,13 +61,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimB1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim B1"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />
@@ -76,13 +80,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimB1Umum"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim B1 Umum"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />
@@ -94,13 +99,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimB2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim B2"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />
@@ -112,13 +118,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimB2Umum"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim B2 Umum"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />
@@ -130,13 +137,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimC"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim C"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />
@@ -146,16 +154,17 @@
                 android:layout_width="@dimen/choose_sim_button_width"
                 android:layout_height="@dimen/choose_sim_button_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/common_size_20"
                 android:layout_marginBottom="@dimen/common_size_20"
+                android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonSimD"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/raised_button"
                     android:text="Sim D"
                     android:textAllCaps="false"
                     android:textSize="@dimen/choose_sim_button_text_size" />

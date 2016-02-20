@@ -14,7 +14,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button buttonLearn;
     private Button buttonTest;
-    public final static int LEARN_BUTTON=1, TEST_BUTTON=2;
+    public final static int LEARN_BUTTON = 1, TEST_BUTTON = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +25,8 @@ public class HomeActivity extends AppCompatActivity {
         buttonLearn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this,"Aloha",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(HomeActivity.this,MainActivity.class);
-                intent.putExtra("button",LEARN_BUTTON);
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                intent.putExtra("button", LEARN_BUTTON);
                 startActivity(intent);
             }
         });
@@ -35,15 +34,15 @@ public class HomeActivity extends AppCompatActivity {
         buttonTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,MainActivity.class);
-                intent.putExtra("button",TEST_BUTTON);
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                intent.putExtra("button", TEST_BUTTON);
                 startActivity(intent);
             }
         });
     }
 
-    private void findViews(){
-        buttonLearn= (Button) findViewById(R.id.buttonLearn);
-        buttonTest= (Button) findViewById(R.id.buttonTest);
+    private void findViews() {
+        buttonLearn = (Button) findViewById(R.id.buttonLearn);
+        buttonTest = (Button) findViewById(R.id.buttonTest);
     }
 }

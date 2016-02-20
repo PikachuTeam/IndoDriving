@@ -1,5 +1,7 @@
 package com.essential.indodriving.base;
 
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +26,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     protected void onCreateContentView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.white));
     }
 
     @Override
