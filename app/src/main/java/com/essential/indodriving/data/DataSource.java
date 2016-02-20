@@ -3,33 +3,22 @@ package com.essential.indodriving.data;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
-import android.util.Base64;
 
 import java.util.ArrayList;
 
+import tatteam.com.app_common.sqlite.BaseDataSource;
 import tatteam.com.app_common.sqlite.DatabaseLoader;
 
 /**
  * Created by dongc_000 on 2/19/2016.
  */
-public class DatabaseHelper {
+public class DataSource extends BaseDataSource {
 
-    private static DatabaseHelper instance;
-
-    private DatabaseHelper() {
-    }
-
-    public static DatabaseHelper getInstance() {
-        if (instance == null) {
-            instance = new DatabaseHelper();
-        }
-        return instance;
-    }
-
-    public ArrayList<Question> getAllQuestionByType(int type) {
+    public static ArrayList<Question> getAllQuestionByType(int type) {
         ArrayList<Question> questions = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = openConnection();
         String query = "SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id WHERE Questions.Type = ?";
-        Cursor cursor = DatabaseLoader.getInstance().openConnection().rawQuery(query, new String[]{"" + type});
+        Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{"" + type});
         cursor.moveToFirst();
         int tmp = 1;
         while (!cursor.isAfterLast()) {
@@ -48,10 +37,12 @@ public class DatabaseHelper {
             cursor.moveToNext();
             tmp++;
         }
+        cursor.close();
+        DatabaseLoader.getInstance().closeConnection();
         return questions;
     }
 
-    public String byteArrayToString(byte[] data) {
+    private static String byteArrayToString(byte[] data) {
         return new String(data);
     }
 }

@@ -2,8 +2,6 @@ package com.essential.indodriving.ui.learn;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +14,10 @@ import android.widget.TextView;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
-import com.essential.indodriving.data.DatabaseHelper;
+import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -136,8 +133,8 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
     }
 
     private void makeData() {
-        questions = DatabaseHelper.getInstance().getAllQuestionByType(type);
-        numbers=new ArrayList<>();
+        questions = DataSource.getAllQuestionByType(type);
+        numbers = new ArrayList<>();
         currentPosition = 0;
         for (int i = 0; i < questions.size(); i++) {
             QuestionNoItemWrapper item = new QuestionNoItemWrapper(getActivity());
@@ -193,27 +190,27 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.item_card_front, container, false);
+//            View view = inflater.inflate(R.layout.item_card_front, container, false);
 
-            findViews(view);
+//            findViews(view);
+//
+//            setImage(image);
+//            setText(question);
 
-            setImage(image);
-            setText(question);
-
-            return view;
+            return null;
         }
 
         private void findViews(View rootView) {
-            imgCardFront = (ImageView) rootView.findViewById(R.id.imgCardFront);
-            textViewCardFront = (TextView) rootView.findViewById(R.id.textViewCardFront);
-            rootView.findViewById(R.id.cardFront).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        listener.onCardFrontTouch();
-                    }
-                }
-            });
+//            imgCardFront = (ImageView) rootView.findViewById(R.id.imgCardFront);
+//            textViewCardFront = (TextView) rootView.findViewById(R.id.textViewCardFront);
+//            rootView.findViewById(R.id.cardFront).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (listener != null) {
+//                        listener.onCardFrontTouch();
+//                    }
+//                }
+//            });
         }
 
         public void setImage(Bitmap image) {
@@ -254,20 +251,20 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.item_card_back, container, false);
-
-            textViewCardBack = (TextView) view.findViewById(R.id.textViewCardBack);
-            view.findViewById(R.id.cardBack).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        listener.onCardBackTouch();
-                    }
-                }
-            });
-
-            setText(answer);
-            return view;
+//            View view = inflater.inflate(R.layout.item_card_back, container, false);
+//
+//            textViewCardBack = (TextView) view.findViewById(R.id.textViewCardBack);
+//            view.findViewById(R.id.cardBack).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (listener != null) {
+//                        listener.onCardBackTouch();
+//                    }
+//                }
+//            });
+//
+//            setText(answer);
+            return null;
         }
 
         public void setText(String answer) {
