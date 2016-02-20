@@ -1,68 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.MainActivity">
 
-        <FrameLayout
-            android:id="@+id/cardContainer"
-            android:layout_width="340dp"
-            android:layout_height="220dp"/>
-
-        <RelativeLayout
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/common_size_3"
+            android:scrollbars="none">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                card_view:cardPreventCornerOverlap="false">
-
-                <ImageButton
-                    android:id="@+id/buttonPrevious"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black"
-                    android:src="@drawable/ic_back" />
-            </android.support.v7.widget.CardView>
-
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="100dp"
+            <LinearLayout
+                android:id="@+id/horizontalScrollViewContent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:scrollbars="none">
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
 
-                <LinearLayout
-                    android:id="@+id/horizontalScrollViewContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                card_view:cardPreventCornerOverlap="false">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <ImageButton
-                    android:id="@+id/buttonNext"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black"
-                    android:src="@drawable/ic_back" />
-            </android.support.v7.widget.CardView>
-        </RelativeLayout>
-    </LinearLayout>
-</RelativeLayout>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/learningCardContainer"
+                    android:layout_width="@dimen/learning_card_width"
+                    android:layout_height="@dimen/learning_card_height">
+
+                    <LinearLayout
+                        android:id="@+id/learningCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imgCard"
+                            android:layout_width="@dimen/learning_card_image_size"
+                            android:layout_height="@dimen/learning_card_image_size" />
+
+                        <TextView
+                            android:id="@+id/textViewCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/common_size_5"
+                            android:layout_marginRight="@dimen/common_size_5"
+                            android:textSize="@dimen/common_text_size_25" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/common_size_30">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/learning_card_image_button_size"
+                    android:layout_height="@dimen/learning_card_image_button_size"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <ImageButton
+                        android:id="@+id/buttonPrevious"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/black"
+                        android:src="@drawable/ic_back" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/learning_card_image_button_size"
+                    android:layout_height="@dimen/learning_card_image_button_size"
+                    android:layout_alignParentRight="true"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <ImageButton
+                        android:id="@+id/buttonNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/black"
+                        android:src="@drawable/ic_back" />
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</tatteam.com.app_common.ui.drawable.FractionFrameLayout>

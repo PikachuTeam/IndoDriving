@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.essential.indodriving">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:name=".ClientApp"
         android:allowBackup="true"
@@ -16,10 +18,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.HomeActivity">
-        </activity>
+        <activity android:name=".ui.HomeActivity"></activity>
 
-        <activity android:name=".ui.MainActivity">
-        </activity>
+        <activity android:name=".ui.MainActivity"></activity>
     </application>
 </manifest>

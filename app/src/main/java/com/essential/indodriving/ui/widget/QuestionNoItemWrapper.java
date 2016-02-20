@@ -2,6 +2,7 @@ package com.essential.indodriving.ui.widget;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -13,8 +14,10 @@ public class QuestionNoItemWrapper {
 
     private Context context;
     private View view;
+    private OnQuestionNoClickListener listener;
 
     private TextView textViewNumber;
+    private LinearLayout questionNoWrapper;
     private View wall;
 
     public QuestionNoItemWrapper(Context context) {
@@ -26,6 +29,24 @@ public class QuestionNoItemWrapper {
     private void findViews(View rootView) {
         textViewNumber = (TextView) rootView.findViewById(R.id.textViewNumber);
         wall = rootView.findViewById(R.id.wall);
+        questionNoWrapper = (LinearLayout) rootView.findViewById(R.id.questionNoWrapper);
+
+        questionNoWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onQuestionNoClick(QuestionNoItemWrapper.this);
+                }
+            }
+        });
+    }
+
+    public int getQuestionNo() {
+        return Integer.parseInt(textViewNumber.getText().toString());
+    }
+
+    public void setOnQuestionNoClickListener(OnQuestionNoClickListener listener) {
+        this.listener = listener;
     }
 
     public void setActive(boolean isActive) {
@@ -36,11 +57,15 @@ public class QuestionNoItemWrapper {
         }
     }
 
-    public void setText(String number){
+    public void setText(String number) {
         textViewNumber.setText(number);
     }
 
-    public View getView(){
+    public View getView() {
         return this.view;
+    }
+
+    public interface OnQuestionNoClickListener {
+        void onQuestionNoClick(QuestionNoItemWrapper item);
     }
 }

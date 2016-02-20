@@ -1,11 +1,13 @@
 package com.essential.indodriving.ui.learn;
 
-import android.app.Fragment;
-import android.graphics.Bitmap;
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.widget.CardView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,24 +23,33 @@ import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import java.util.ArrayList;
 
 /**
- * Created by dongc_000 on 2/19/2016.
+ * Created by dongc_000 on 2/20/2016.
  */
-public class LearnByCardFragment extends MyBaseFragment implements View.OnClickListener {
-
-    private boolean isFront = false;
-    private CardFrontFragment cardFrontFragment;
-    private CardBackFragment cardBackFragment;
+public class LearnByCardFragment extends MyBaseFragment implements View.OnClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener {
+    private View learningCard;
+    private ImageView imgCard;
+    private TextView textViewCard;
     private ArrayList<Question> questions;
     private ArrayList<QuestionNoItemWrapper> numbers;
     private HorizontalScrollView horizontalScrollView;
     private LinearLayout horizontalScrollViewContent;
+    private CardView learningCardContainer;
+    private ImageButton buttonPrevious;
+    private ImageButton buttonNext;
+
     private int type;
     private int currentPosition;
+    private int textRotation;
+    private boolean isFront;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
+        questions = DataSource.getAllQuestionByType(type);
+        isFront = true;
+        currentPosition = getCurrentPosition();
+        getNumberOfQuestions();
     }
 
     @Override
@@ -53,97 +64,106 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-
-            findViews(rootView);
-            makeData();
-
-            String answer = null;
-            String question = questions.get(currentPosition).question;
-            Bitmap image = questions.get(currentPosition).image;
-
-            switch (questions.get(currentPosition).correctAnswer) {
-                case 1:
-                    answer = questions.get(currentPosition).answer1;
-                    break;
-                case 2:
-                    answer = questions.get(currentPosition).answer2;
-                    break;
-                case 3:
-                    answer = questions.get(currentPosition).answer3;
-                    break;
-                case 4:
-                    answer = questions.get(currentPosition).answer4;
-                    break;
-            }
-
-            cardFrontFragment = new CardFrontFragment(question, image);
-            cardBackFragment = new CardBackFragment(answer);
-            cardFrontFragment.setOnCardFrontTouchListener(new CardFrontFragment.OnCardFrontTouchListener() {
-                @Override
-                public void onCardFrontTouch() {
-                    getFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out,
-                            R.animator.card_flip_left_in, R.animator.card_flip_left_out)
-                            .replace(R.id.cardContainer, cardBackFragment)
-                            .addToBackStack(null)
-                            .commit();
-                    isFront = false;
-                }
-            });
-
-            cardBackFragment.setOnCardFrontTouchListener(new CardBackFragment.OnCardBackTouchListener() {
-                @Override
-                public void onCardBackTouch() {
-                    getFragmentManager().popBackStack();
-                    isFront = true;
-                }
-            });
-            getFragmentManager().beginTransaction().add(R.id.cardContainer, cardBackFragment).commit();
-            getFragmentManager().beginTransaction().replace(R.id.cardContainer, cardFrontFragment).commit();
-            isFront = true;
-        }
+        findViews(rootView);
+        setCardData(isFront, currentPosition);
+        addItemToQuestionNoWrapper();
     }
 
     private void findViews(View rootView) {
         horizontalScrollView = (HorizontalScrollView) rootView.findViewById(R.id.horizontalScrollView);
         horizontalScrollViewContent = (LinearLayout) rootView.findViewById(R.id.horizontalScrollViewContent);
+        learningCard = rootView.findViewById(R.id.learningCard);
+        learningCardContainer = (CardView) rootView.findViewById(R.id.learningCardContainer);
+        imgCard = (ImageView) rootView.findViewById(R.id.imgCard);
+        textViewCard = (TextView) rootView.findViewById(R.id.textViewCard);
+        buttonPrevious = (ImageButton) rootView.findViewById(R.id.buttonPrevious);
+        buttonNext = (ImageButton) rootView.findViewById(R.id.buttonNext);
 
-        rootView.findViewById(R.id.buttonPrevious).setOnClickListener(this);
-        rootView.findViewById(R.id.buttonNext).setOnClickListener(this);
+        buttonNext.setOnClickListener(this);
+        buttonPrevious.setOnClickListener(this);
+        learningCard.setOnClickListener(this);
     }
 
-    private void setCardData(int position) {
-        cardFrontFragment.setImage(questions.get(position).image);
-        cardFrontFragment.setText(questions.get(position).question);
+    @Override
+    public void onClick(View v) {
+        if (v == buttonNext) {
+            if (currentPosition != questions.size() + 1) {
+                currentPosition++;
+                setCardData(isFront, currentPosition);
+            }
+        } else if (v == buttonPrevious) {
+            if (currentPosition != 0) {
+                currentPosition--;
+                setCardData(isFront, currentPosition);
+            }
+        } else if (v == learningCard) {
+            ObjectAnimator anim;
+            if (isFront) {
+                anim = (ObjectAnimator) AnimatorInflater.loadAnimator(getActivity(), R.animator.flip);
+                textRotation = -180;
+                isFront = false;
+            } else {
+                anim = (ObjectAnimator) AnimatorInflater.loadAnimator(getActivity(), R.animator.reverse_flip);
+                textRotation = 0;
+                isFront = true;
+            }
+            anim.setTarget(learningCardContainer);
+            anim.setDuration(getResources().getInteger(R.integer.card_flip_time_full));
+            anim.start();
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
 
-        switch (questions.get(position).correctAnswer) {
-            case 1:
-                cardBackFragment.setText(questions.get(position).answer1);
-                break;
-            case 2:
-                cardBackFragment.setText(questions.get(position).answer2);
-                break;
-            case 3:
-                cardBackFragment.setText(questions.get(position).answer3);
-                break;
-            case 4:
-                cardBackFragment.setText(questions.get(position).answer4);
-                break;
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    setCardData(isFront, currentPosition);
+                    textViewCard.setRotationY(textRotation);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
         }
     }
 
-    private void makeData() {
-        questions = DataSource.getAllQuestionByType(type);
-        numbers = new ArrayList<>();
-        currentPosition = 0;
-        for (int i = 0; i < questions.size(); i++) {
-            QuestionNoItemWrapper item = new QuestionNoItemWrapper(getActivity());
-            item.setText("" + (i + 1));
-            horizontalScrollViewContent.addView(item.getView());
-            if (i == 0) {
-                item.setActive(true);
+    private void setCardData(boolean isFront, int position) {
+        Question question = questions.get(position);
+        if (isFront) {
+            if (question.image != null) {
+                imgCard.setVisibility(View.VISIBLE);
+                imgCard.setImageBitmap(question.image);
+            } else {
+                imgCard.setVisibility(View.GONE);
             }
-            numbers.add(item);
+            textViewCard.setText(question.question);
+
+        } else {
+            if (imgCard.getVisibility() != View.GONE) {
+                imgCard.setVisibility(View.GONE);
+            }
+            switch (question.correctAnswer) {
+                case 1:
+                    textViewCard.setText(question.answer1);
+                    break;
+                case 2:
+                    textViewCard.setText(question.answer2);
+                    break;
+                case 3:
+                    textViewCard.setText(question.answer3);
+                    break;
+                case 4:
+                    textViewCard.setText(question.answer4);
+                    break;
+            }
         }
     }
 
@@ -152,131 +172,43 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
         type = bundle.getInt("Type", 1);
     }
 
-    @Override
-    public void onClick(View v) {
-        ImageButton imageButton = (ImageButton) v;
-        switch (imageButton.getId()) {
-            case R.id.buttonPrevious:
-                if (currentPosition != 0) {
-                    currentPosition--;
-                    setCardData(currentPosition);
-                }
-                break;
-            case R.id.buttonNext:
-                if (currentPosition != questions.size() - 1) {
-                    currentPosition++;
-                    setCardData(currentPosition);
-                }
-                break;
-        }
+    private int getCurrentPosition() {
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        return sharedPreferences.getInt("Current Position", 0);
     }
 
-    public static class CardFrontFragment extends Fragment {
-
-        private ImageView imgCardFront;
-        private TextView textViewCardFront;
-        private String question;
-        private Bitmap image;
-
-        private OnCardFrontTouchListener listener;
-
-        public CardFrontFragment() {
-        }
-
-        public CardFrontFragment(String question, Bitmap image) {
-            this.question = question;
-            this.image = image;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//            View view = inflater.inflate(R.layout.item_card_front, container, false);
-
-//            findViews(view);
-//
-//            setImage(image);
-//            setText(question);
-
-            return null;
-        }
-
-        private void findViews(View rootView) {
-//            imgCardFront = (ImageView) rootView.findViewById(R.id.imgCardFront);
-//            textViewCardFront = (TextView) rootView.findViewById(R.id.textViewCardFront);
-//            rootView.findViewById(R.id.cardFront).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (listener != null) {
-//                        listener.onCardFrontTouch();
-//                    }
-//                }
-//            });
-        }
-
-        public void setImage(Bitmap image) {
-            if (image == null) {
-                imgCardFront.setVisibility(View.GONE);
-            } else {
-                imgCardFront.setVisibility(View.VISIBLE);
-                imgCardFront.setImageBitmap(image);
+    private void getNumberOfQuestions() {
+        numbers = new ArrayList<>();
+        for (int i = 0; i < questions.size(); i++) {
+            QuestionNoItemWrapper item = new QuestionNoItemWrapper(getActivity());
+            item.setText("" + (i + 1));
+            if (i == currentPosition) {
+                item.setActive(true);
             }
-        }
-
-        public void setText(String question) {
-            textViewCardFront.setText(question);
-        }
-
-        public void setOnCardFrontTouchListener(OnCardFrontTouchListener listener) {
-            this.listener = listener;
-        }
-
-        private interface OnCardFrontTouchListener {
-            void onCardFrontTouch();
+            item.setOnQuestionNoClickListener(this);
+            numbers.add(item);
         }
     }
 
-    public static class CardBackFragment extends Fragment {
-
-        private TextView textViewCardBack;
-        private String answer;
-
-        private OnCardBackTouchListener listener;
-
-        public CardBackFragment() {
+    private void resetAllQuestionNumber() {
+        for (int i = 0; i < numbers.size(); i++) {
+            numbers.get(i).setActive(false);
         }
+    }
 
-        public CardBackFragment(String answer) {
-            this.answer = answer;
+    private void addItemToQuestionNoWrapper() {
+        for (int i = 0; i < numbers.size(); i++) {
+            horizontalScrollViewContent.addView(numbers.get(i).getView());
         }
+    }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//            View view = inflater.inflate(R.layout.item_card_back, container, false);
-//
-//            textViewCardBack = (TextView) view.findViewById(R.id.textViewCardBack);
-//            view.findViewById(R.id.cardBack).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (listener != null) {
-//                        listener.onCardBackTouch();
-//                    }
-//                }
-//            });
-//
-//            setText(answer);
-            return null;
-        }
+    @Override
+    public void onQuestionNoClick(QuestionNoItemWrapper item) {
+        resetAllQuestionNumber();
+        item.setActive(true);
+        horizontalScrollViewContent.invalidate();
 
-        public void setText(String answer) {
-            textViewCardBack.setText(answer);
-        }
-
-        public void setOnCardFrontTouchListener(OnCardBackTouchListener listener) {
-            this.listener = listener;
-        }
-
-        private interface OnCardBackTouchListener {
-            void onCardBackTouch();
-        }
+        currentPosition = item.getQuestionNo();
+        setCardData(isFront, currentPosition);
     }
 }
