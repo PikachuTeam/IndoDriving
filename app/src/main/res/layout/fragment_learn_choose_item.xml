@@ -24,7 +24,8 @@
                 android:layout_marginBottom="@dimen/common_size_20"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5">
+                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardPreventCornerOverlap="false">
 
                 <Button
                     android:id="@+id/buttonLearnByCard"
@@ -33,8 +34,7 @@
                     android:background="@drawable/raised_button"
                     android:text="@string/learn_by_card"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/choose_sim_button_text_size"
-                    card_view:cardPreventCornerOverlap="false" />
+                    android:textSize="@dimen/choose_sim_button_text_size" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView

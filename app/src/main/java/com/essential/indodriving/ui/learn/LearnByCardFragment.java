@@ -2,17 +2,24 @@ package com.essential.indodriving.ui.learn;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -33,14 +40,19 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
     private ArrayList<QuestionNoItemWrapper> numbers;
     private HorizontalScrollView horizontalScrollView;
     private LinearLayout horizontalScrollViewContent;
+    private LinearLayout layoutTutorial;
     private CardView learningCardContainer;
     private ImageButton buttonPrevious;
     private ImageButton buttonNext;
+    private ImageButton buttonNotShowAgain;
 
     private int type;
     private int currentPosition;
     private int textRotation;
+    private Animator zoomInAnimator;
+    private int shortAnimationDuration;
     private boolean isFront;
+    private boolean isCheck;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,9 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
         isFront = true;
         currentPosition = getCurrentPosition();
         getNumberOfQuestions();
+        isCheck = false;
+
+        shortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
     }
 
     @Override
@@ -67,6 +82,11 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
         findViews(rootView);
         setCardData(isFront, currentPosition);
         addItemToQuestionNoWrapper();
+        moveHorizontalScrollBar(currentPosition);
+        if (!isShowAgain()) {
+            layoutTutorial.setVisibility(View.GONE);
+        }
+        layoutTutorial.setAlpha(0.35f);
     }
 
     private void findViews(View rootView) {
@@ -78,10 +98,34 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
         textViewCard = (TextView) rootView.findViewById(R.id.textViewCard);
         buttonPrevious = (ImageButton) rootView.findViewById(R.id.buttonPrevious);
         buttonNext = (ImageButton) rootView.findViewById(R.id.buttonNext);
+        layoutTutorial = (LinearLayout) rootView.findViewById(R.id.layoutTutorial);
+        buttonNotShowAgain = (ImageButton) rootView.findViewById(R.id.buttonNotShowAgain);
 
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
         learningCard.setOnClickListener(this);
+        layoutTutorial.setOnClickListener(this);
+        imgCard.setOnClickListener(this);
+        buttonNotShowAgain.setOnClickListener(this);
+    }
+
+    private void moveHorizontalScrollBar(int itemIndex) {
+        scrollToCenter(numbers.get(itemIndex));
+        resetAllQuestionNumber();
+        numbers.get(itemIndex).setActive(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        saveState();
+    }
+
+    private void saveState() {
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("Current Position", currentPosition);
+        editor.commit();
     }
 
     @Override
@@ -90,11 +134,13 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
             if (currentPosition != questions.size() + 1) {
                 currentPosition++;
                 setCardData(isFront, currentPosition);
+                moveHorizontalScrollBar(currentPosition);
             }
         } else if (v == buttonPrevious) {
             if (currentPosition != 0) {
                 currentPosition--;
                 setCardData(isFront, currentPosition);
+                moveHorizontalScrollBar(currentPosition);
             }
         } else if (v == learningCard) {
             ObjectAnimator anim;
@@ -132,6 +178,22 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
 
                 }
             });
+        } else if (v == imgCard) {
+            zoomImageFromThumb(imgCard, questions.get(currentPosition).image, this.getView());
+        } else if (v == layoutTutorial) {
+            layoutTutorial.setVisibility(View.GONE);
+            SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("Show Tutorial Again", !isCheck);
+            editor.commit();
+        } else if (v == buttonNotShowAgain) {
+            if (isCheck) {
+                buttonNotShowAgain.setImageResource(R.drawable.ic_check_box_outline);
+                isCheck = false;
+            } else {
+                buttonNotShowAgain.setImageResource(R.drawable.ic_check_box);
+                isCheck = true;
+            }
         }
     }
 
@@ -202,13 +264,155 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
         }
     }
 
+    private void scrollToCenter(QuestionNoItemWrapper item) {
+        int centerX = horizontalScrollView.getWidth() / 2;
+        int[] itemPos = new int[]{0, 0};
+        item.getView().getLocationOnScreen(itemPos);
+        int x = itemPos[0];
+        int offset = x - centerX + item.getView().getWidth() / 2;
+        horizontalScrollView.smoothScrollTo(horizontalScrollView.getScrollX() + offset, 0);
+    }
+
+    private boolean isShowAgain() {
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("Show Tutorial Again", true);
+    }
+
     @Override
     public void onQuestionNoClick(QuestionNoItemWrapper item) {
-        resetAllQuestionNumber();
-        item.setActive(true);
-        horizontalScrollViewContent.invalidate();
-
         currentPosition = item.getQuestionNo();
         setCardData(isFront, currentPosition);
+        moveHorizontalScrollBar(currentPosition);
+    }
+
+    private void zoomImageFromThumb(final View thumbView, Bitmap image, View rootView) {
+        // Load the high-resolution "zoomed-in" image.
+        final ImageView expandedImageView = (ImageView) rootView.findViewById(
+                R.id.expandedImage);
+        expandedImageView.setImageBitmap(image);
+
+        // Calculate the starting and ending bounds for the zoomed-in image.
+        // This step involves lots of math. Yay, math.
+        final Rect startBounds = new Rect();
+        final Rect finalBounds = new Rect();
+        final Point globalOffset = new Point();
+
+        // The start bounds are the global visible rectangle of the thumbnail,
+        // and the final bounds are the global visible rectangle of the container
+        // view. Also set the container view's offset as the origin for the
+        // bounds, since that's the origin for the positioning animation
+        // properties (X, Y).
+        thumbView.getGlobalVisibleRect(startBounds);
+        rootView.findViewById(R.id.container).getGlobalVisibleRect(finalBounds, globalOffset);
+        startBounds.offset(-globalOffset.x, -globalOffset.y);
+        finalBounds.offset(-globalOffset.x, -globalOffset.y);
+
+        // Adjust the start bounds to be the same aspect ratio as the final
+        // bounds using the "center crop" technique. This prevents undesirable
+        // stretching during the animation. Also calculate the start scaling
+        // factor (the end scaling factor is always 1.0).
+        float startScale;
+        if ((float) finalBounds.width() / finalBounds.height()
+                > (float) startBounds.width() / startBounds.height()) {
+            // Extend start bounds horizontally
+            startScale = (float) startBounds.height() / finalBounds.height();
+            float startWidth = startScale * finalBounds.width();
+            float deltaWidth = (startWidth - startBounds.width()) / 2;
+            startBounds.left -= deltaWidth;
+            startBounds.right += deltaWidth;
+        } else {
+            // Extend start bounds vertically
+            startScale = (float) startBounds.width() / finalBounds.width();
+            float startHeight = startScale * finalBounds.height();
+            float deltaHeight = (startHeight - startBounds.height()) / 2;
+            startBounds.top -= deltaHeight;
+            startBounds.bottom += deltaHeight;
+        }
+
+        // Hide the thumbnail and show the zoomed-in view. When the animation
+        // begins, it will position the zoomed-in view in the place of the
+        // thumbnail.
+        thumbView.setAlpha(0f);
+        expandedImageView.setVisibility(View.VISIBLE);
+
+        // Set the pivot point for SCALE_X and SCALE_Y transformations
+        // to the top-left corner of the zoomed-in view (the default
+        // is the center of the view).
+        expandedImageView.setPivotX(0f);
+        expandedImageView.setPivotY(0f);
+
+        // Construct and run the parallel animation of the four translation and
+        // scale properties (X, Y, SCALE_X, and SCALE_Y).
+        AnimatorSet set = new AnimatorSet();
+        set
+                .play(ObjectAnimator.ofFloat(expandedImageView, View.X,
+                        startBounds.left, finalBounds.left))
+                .with(ObjectAnimator.ofFloat(expandedImageView, View.Y,
+                        startBounds.top, finalBounds.top))
+                .with(ObjectAnimator.ofFloat(expandedImageView, View.SCALE_X,
+                        startScale, 1f)).with(ObjectAnimator.ofFloat(expandedImageView,
+                View.SCALE_Y, startScale, 1f));
+        set.setDuration(shortAnimationDuration);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                zoomInAnimator = null;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                zoomInAnimator = null;
+            }
+        });
+        set.start();
+        zoomInAnimator = set;
+
+        // Upon clicking the zoomed-in image, it should zoom back down
+        // to the original bounds and show the thumbnail instead of
+        // the expanded image.
+        final float startScaleFinal = startScale;
+        expandedImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (zoomInAnimator != null) {
+                    zoomInAnimator.cancel();
+                }
+
+                // Animate the four positioning/sizing properties in parallel,
+                // back to their original values.
+                AnimatorSet set = new AnimatorSet();
+                set.play(ObjectAnimator
+                        .ofFloat(expandedImageView, View.X, startBounds.left))
+                        .with(ObjectAnimator
+                                .ofFloat(expandedImageView,
+                                        View.Y, startBounds.top))
+                        .with(ObjectAnimator
+                                .ofFloat(expandedImageView,
+                                        View.SCALE_X, startScaleFinal))
+                        .with(ObjectAnimator
+                                .ofFloat(expandedImageView,
+                                        View.SCALE_Y, startScaleFinal));
+                set.setDuration(shortAnimationDuration);
+                set.setInterpolator(new DecelerateInterpolator());
+                set.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        thumbView.setAlpha(1f);
+                        expandedImageView.setVisibility(View.GONE);
+                        zoomInAnimator = null;
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        thumbView.setAlpha(1f);
+                        expandedImageView.setVisibility(View.GONE);
+                        zoomInAnimator = null;
+                    }
+                });
+                set.start();
+                zoomInAnimator = set;
+            }
+        });
     }
 }

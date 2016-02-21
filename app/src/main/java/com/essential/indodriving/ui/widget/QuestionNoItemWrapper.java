@@ -42,7 +42,7 @@ public class QuestionNoItemWrapper {
     }
 
     public int getQuestionNo() {
-        return Integer.parseInt(textViewNumber.getText().toString());
+        return Integer.parseInt(textViewNumber.getText().toString())-1;
     }
 
     public void setOnQuestionNoClickListener(OnQuestionNoClickListener listener) {

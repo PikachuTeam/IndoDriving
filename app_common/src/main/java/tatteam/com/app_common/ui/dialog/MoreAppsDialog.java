@@ -226,6 +226,7 @@ public class MoreAppsDialog extends Dialog implements AppConstant, View.OnClickL
             holder.txtAppName.setSelected(true);
             holder.txtAppName.setText(myApp.name);
             holder.txtAppDescription.setText(myApp.description);
+
         }
 
         @Override

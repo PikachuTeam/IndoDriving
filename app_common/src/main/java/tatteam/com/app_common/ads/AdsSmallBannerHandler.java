@@ -75,4 +75,6 @@ public class AdsSmallBannerHandler extends BaseAdsBannerHandler {
             adView.setVisibility(View.VISIBLE);
         }
     }
+
+
 }

@@ -14,6 +14,7 @@ import tatteam.com.app_common.ui.activity.BaseActivity;
  */
 public abstract class BaseFragment extends Fragment {
 
+
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayoutResIdContentView(), container, false);

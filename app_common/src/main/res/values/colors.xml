@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="white">#FFFFFF</color>
+
     <color name="dialog_text_color">#000000</color>
     <color name="drawable_flat_effect">#8db1acad</color>
     <color name="drawable_ripple_effect">#dab1acad</color>
@@ -9,4 +11,9 @@
     <color name="tab_normal">#00ffffff</color>
 
     <color name="rippelColor">#FFFFFF</color>
+
+    <color name="raised_button_normal_color">#FFFFFF</color>
+    <color name="raised_button_highlight_color">#D8D8D8</color>
+
+    <color name="flat_button_highlight_color">#D8D8D8</color>
 </resources>

@@ -23,7 +23,7 @@
         android:layout_below="@+id/appTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_size_90"
-        card_view:cardCornerRadius="@dimen/common_size_5"
+        card_view:cardCornerRadius="@dimen/common_size_3"
         card_view:cardPreventCornerOverlap="false">
 
         <Button
@@ -43,7 +43,7 @@
         android:layout_below="@+id/buttonLearnContainer"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_size_50"
-        card_view:cardCornerRadius="@dimen/common_size_5"
+        card_view:cardCornerRadius="@dimen/common_size_3"
         card_view:cardPreventCornerOverlap="false">
 
         <Button

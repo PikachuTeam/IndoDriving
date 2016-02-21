@@ -4,10 +4,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import tatteam.com.app_common.R;
 
 import java.util.HashMap;
+import java.util.Objects;
 
+import tatteam.com.app_common.R;
 import tatteam.com.app_common.ui.fragment.BaseFragment;
 
 /**
