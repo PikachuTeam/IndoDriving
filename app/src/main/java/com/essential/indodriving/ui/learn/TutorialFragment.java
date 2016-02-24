@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
+import com.essential.indodriving.data.DataSource;
 
 /**
  * Created by dongc_000 on 2/20/2016.
@@ -48,10 +49,10 @@ public class TutorialFragment extends MyBaseFragment {
             textViewInternetError.setVisibility(View.GONE);
             tutorialContainer.getSettings().setJavaScriptEnabled(true);
             switch (type) {
-                case LearnChooseSimFragment.TYPE_SIM_A:
+                case DataSource.TYPE_SIM_A:
                     tutorialContainer.loadUrl("https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+A");
                     break;
-                case LearnChooseSimFragment.TYPE_SIM_C:
+                case DataSource.TYPE_SIM_C:
                     tutorialContainer.loadUrl("https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+C");
                     break;
             }
@@ -70,7 +71,7 @@ public class TutorialFragment extends MyBaseFragment {
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", LearnChooseSimFragment.TYPE_SIM_A);
+        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
     }
 
     private boolean isNetworkAvailable() {

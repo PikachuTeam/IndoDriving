@@ -23,7 +23,7 @@ public abstract class MyBaseFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getMyBaseActivity().getSupportActionBar().setTitle(getTitle());
-        getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(enableIndicator());
         if (enableIndicator()) {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         }
@@ -33,7 +33,6 @@ public abstract class MyBaseFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(getActivity(), "Aloha", Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 break;
         }

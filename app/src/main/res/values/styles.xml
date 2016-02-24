@@ -1,14 +1,19 @@
 <resources>
 
+    <style name="MyMaterialTheme" parent="AppTheme">
+
+    </style>
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorButtonNormal">#000FFF</item>
     </style>
 
-    <style name="Button" parent="Base.Widget.AppCompat.Button.Colored">
-    </style>
+    <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

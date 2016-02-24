@@ -4,8 +4,7 @@ import android.widget.FrameLayout;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseActivity;
-import com.essential.indodriving.ui.learn.LearnChooseSimFragment;
-import com.essential.indodriving.ui.test.TestChooseSimFragment;
+import com.essential.indodriving.ui.home.HomeFragment;
 
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.ui.fragment.BaseFragment;
@@ -27,7 +26,7 @@ public class MainActivity extends MyBaseActivity {
 
     @Override
     protected BaseFragment getFragmentContent() {
-        return button == HomeActivity.LEARN_BUTTON ? new LearnChooseSimFragment() : new TestChooseSimFragment();
+        return new HomeFragment();
     }
 
     @Override

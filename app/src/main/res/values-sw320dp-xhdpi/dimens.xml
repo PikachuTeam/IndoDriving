@@ -5,10 +5,16 @@
     <dimen name="navigation_activity_button_width">300dp</dimen>
     <dimen name="navigation_activity_button_height">100dp</dimen>
     <dimen name="choose_sim_button_width">300dp</dimen>
-    <dimen name="choose_sim_button_height">100dp</dimen>
+    <dimen name="choose_sim_button_height">70dp</dimen>
     <dimen name="choose_sim_button_text_size">30sp</dimen>
     <dimen name="learning_card_width">340dp</dimen>
     <dimen name="learning_card_height">220dp</dimen>
     <dimen name="learning_card_image_size">100dp</dimen>
     <dimen name="learning_card_image_button_size">60dp</dimen>
+    <dimen name="choose_item_button_width">250dp</dimen>
+    <dimen name="choose_item_button_height">100dp</dimen>
+    <dimen name="tab_max_width">264dp</dimen>
+    <dimen name="tab_layout_height">72dp</dimen>
+    <dimen name="choose_sim_button_image_size">43dp</dimen>
+    <dimen name="home_image_height">200dp</dimen>
 </resources>

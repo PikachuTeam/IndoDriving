@@ -14,6 +14,8 @@ import tatteam.com.app_common.sqlite.DatabaseLoader;
  */
 public class DataSource extends BaseDataSource {
 
+    public final static int TYPE_SIM_A = 1, TYPE_SIM_A_UMUM = 2, TYPE_SIM_B1 = 3, TYPE_SIM_B1_UMUM = 4, TYPE_SIM_B2 = 5, TYPE_SIM_B2_UMUM = 6, TYPE_SIM_C = 7, TYPE_SIM_D = 8;
+
     public static ArrayList<Question> getAllQuestionByType(int type) {
         ArrayList<Question> questions = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();

@@ -14,8 +14,6 @@ import tatteam.com.app_common.util.AppConstant;
  */
 public class SplashActivity extends BaseSplashActivity {
 
-    public static boolean enableAds = false;
-
     @Override
     protected int getLayoutResIdContentView() {
         return R.layout.activity_splash;
@@ -37,7 +35,7 @@ public class SplashActivity extends BaseSplashActivity {
 
     @Override
     protected void onFinishInitAppCommon() {
-        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

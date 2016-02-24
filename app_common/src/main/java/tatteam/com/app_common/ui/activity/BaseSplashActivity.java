@@ -64,5 +64,4 @@ public abstract class BaseSplashActivity extends Activity {
     protected abstract void onInitAppCommon();
 
     protected abstract void onFinishInitAppCommon();
-
 }

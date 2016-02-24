@@ -28,17 +28,18 @@
                 card_view:cardPreventCornerOverlap="false">
 
                 <Button
-                    android:id="@+id/buttonLearnByCard"
+                    android:id="@+id/buttonLearn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
-                    android:text="@string/learn_by_card"
+                    android:text="@string/title_learn"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/buttonTestContainer"
                 android:layout_width="@dimen/choose_item_button_width"
                 android:layout_height="@dimen/choose_item_button_height"
                 android:layout_gravity="center_horizontal"
@@ -48,11 +49,11 @@
                 card_view:cardPreventCornerOverlap="false">
 
                 <Button
-                    android:id="@+id/buttonTutorial"
+                    android:id="@+id/buttonTest"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
-                    android:text="@string/tutorial"
+                    android:text="@string/title_test"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="@dimen/choose_sim_button_text_size" />

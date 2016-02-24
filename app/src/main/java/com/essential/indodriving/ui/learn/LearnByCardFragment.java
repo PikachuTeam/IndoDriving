@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -28,6 +29,7 @@ import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by dongc_000 on 2/20/2016.
@@ -53,6 +55,8 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
     private int shortAnimationDuration;
     private boolean isFront;
     private boolean isCheck;
+
+    private final static float TUTORIAL_LAYOUT_ALPHA = 0.35f;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +90,7 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
         if (!isShowAgain()) {
             layoutTutorial.setVisibility(View.GONE);
         }
-        layoutTutorial.setAlpha(0.35f);
+        layoutTutorial.setAlpha(TUTORIAL_LAYOUT_ALPHA);
     }
 
     private void findViews(View rootView) {
@@ -124,7 +128,32 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
     private void saveState() {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("Current Position", currentPosition);
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                editor.putInt("Current Position A", currentPosition);
+                break;
+            case DataSource.TYPE_SIM_A_UMUM:
+                editor.putInt("Current Position A Umum", currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B1:
+                editor.putInt("Current Position B1", currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B1_UMUM:
+                editor.putInt("Current Position B1 Umum", currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B2:
+                editor.putInt("Current Position B2", currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B2_UMUM:
+                editor.putInt("Current Position B2 Umum", currentPosition);
+                break;
+            case DataSource.TYPE_SIM_C:
+                editor.putInt("Current Position C", currentPosition);
+                break;
+            case DataSource.TYPE_SIM_D:
+                editor.putInt("Current Position D", currentPosition);
+                break;
+        }
         editor.commit();
     }
 
@@ -231,12 +260,31 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", 1);
+        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
     }
 
     private int getCurrentPosition() {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getInt("Current Position", 0);
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                return sharedPreferences.getInt("Current Position A", 0);
+            case DataSource.TYPE_SIM_A_UMUM:
+                return sharedPreferences.getInt("Current Position A Umum", 0);
+            case DataSource.TYPE_SIM_B1:
+                return sharedPreferences.getInt("Current Position B1", 0);
+            case DataSource.TYPE_SIM_B1_UMUM:
+                return sharedPreferences.getInt("Current Position B1 Umum", 0);
+            case DataSource.TYPE_SIM_B2:
+                return sharedPreferences.getInt("Current Position B2", 0);
+            case DataSource.TYPE_SIM_B2_UMUM:
+                return sharedPreferences.getInt("Current Position B2 Umum", 0);
+            case DataSource.TYPE_SIM_C:
+                return sharedPreferences.getInt("Current Position C", 0);
+            case DataSource.TYPE_SIM_D:
+                return sharedPreferences.getInt("Current Position D", 0);
+            default:
+                return 0;
+        }
     }
 
     private void getNumberOfQuestions() {

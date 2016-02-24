@@ -1,20 +1,17 @@
 package com.essential.indodriving.ui.learn;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
+import com.essential.indodriving.data.DataSource;
 
 /**
  * Created by dongc_000 on 2/17/2016.
  */
 public class LearnChooseItemFragment extends MyBaseFragment {
-
-    private CardView buttonTutorialContainer;
 
     public final static String LEARN_CHOOSE_ITEM_FRAGMENT = "Learn Choose Item Fragment";
 
@@ -38,17 +35,6 @@ public class LearnChooseItemFragment extends MyBaseFragment {
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
-        buttonTutorialContainer = (CardView) rootView.findViewById(R.id.buttonTutorialContainer);
-
-        switch (type) {
-            case LearnChooseSimFragment.TYPE_SIM_A:
-            case LearnChooseSimFragment.TYPE_SIM_C:
-                buttonTutorialContainer.setVisibility(View.VISIBLE);
-                break;
-            default:
-                buttonTutorialContainer.setVisibility(View.GONE);
-                break;
-        }
 
         rootView.findViewById(R.id.buttonLearnByCard).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,14 +52,7 @@ public class LearnChooseItemFragment extends MyBaseFragment {
             public void onClick(View v) {
                 TutorialFragment tutorialFragment = new TutorialFragment();
                 Bundle bundle = new Bundle();
-                switch (type) {
-                    case LearnChooseSimFragment.TYPE_SIM_A:
-                        bundle.putInt("Type", LearnChooseSimFragment.TYPE_SIM_A);
-                        break;
-                    case LearnChooseSimFragment.TYPE_SIM_C:
-                        bundle.putInt("Type", LearnChooseSimFragment.TYPE_SIM_C);
-                        break;
-                }
+                bundle.putInt("Type", type);
                 tutorialFragment.setArguments(bundle);
                 replaceFragment(tutorialFragment, LEARN_CHOOSE_ITEM_FRAGMENT);
             }
@@ -82,6 +61,6 @@ public class LearnChooseItemFragment extends MyBaseFragment {
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", LearnChooseSimFragment.TYPE_SIM_A);
+        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
     }
 }
