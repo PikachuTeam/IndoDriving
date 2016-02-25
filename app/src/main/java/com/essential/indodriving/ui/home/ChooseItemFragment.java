@@ -8,6 +8,7 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.learn.LearnChooseItemFragment;
+import com.essential.indodriving.ui.test.ListQuestionFragment;
 
 /**
  * Created by dongc_000 on 2/24/2016.
@@ -50,7 +51,11 @@ public class ChooseItemFragment extends MyBaseFragment {
         rootView.findViewById(R.id.buttonTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChooseItemFragment.this.getActivity(), "Test", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", type);
+                ListQuestionFragment fragment = new ListQuestionFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, CHOOSE_ITEM_FRAGMENT_TAG);
             }
         });
     }

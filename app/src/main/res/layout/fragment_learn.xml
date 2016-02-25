@@ -19,7 +19,7 @@
             android:id="@+id/buttonLearnSimA"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 
@@ -41,7 +41,7 @@
             android:id="@+id/buttonLearnSimAUmum"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 
@@ -64,7 +64,7 @@
             android:id="@+id/buttonLearnSimB1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 
@@ -86,7 +86,7 @@
             android:id="@+id/buttonLearnSimB1Umum"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 
@@ -108,7 +108,7 @@
             android:id="@+id/buttonLearnSimB2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 
@@ -130,7 +130,7 @@
             android:id="@+id/buttonLearnSimB2Umum"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 
@@ -152,7 +152,7 @@
             android:id="@+id/buttonLearnSimC"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 
@@ -174,7 +174,7 @@
             android:id="@+id/buttonLearnSimD"
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sim_button_height"
-            android:background="@drawable/sim_button"
+            android:background="@drawable/button_without_corner"
             android:clickable="true"
             android:orientation="vertical">
 

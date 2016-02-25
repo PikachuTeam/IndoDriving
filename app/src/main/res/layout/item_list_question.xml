@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/test_list_item_height"
+    android:layout_marginLeft="@dimen/common_size_12"
+    android:layout_marginRight="@dimen/common_size_12"
+    android:layout_marginTop="@dimen/common_size_12"
+    card_view:cardCornerRadius="@dimen/common_size_3"
+    card_view:cardPreventCornerOverlap="false">
+
+    <RelativeLayout
+        android:id="@+id/testListItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/raised_button"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/textViewQuestionPackage"
+            android:layout_width="@dimen/package_text_width"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/common_size_70"
+            android:text="@string/topic"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_size_30" />
+
+        <LinearLayout
+            android:id="@+id/scoreArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/textViewQuestionPackage"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"
+                android:text="@string/last_score"
+                android:textColor="@color/black"
+                android:textSize="@dimen/common_text_size_17" />
+
+            <TextView
+                android:id="@+id/textViewScore"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/common_size_6"
+                android:text="@string/score"
+                android:textColor="@color/black"
+                android:textSize="@dimen/common_text_size_17" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

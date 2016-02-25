@@ -17,4 +17,18 @@
     <dimen name="tab_layout_height">72dp</dimen>
     <dimen name="choose_sim_button_image_size">43dp</dimen>
     <dimen name="home_image_height">200dp</dimen>
+    <dimen name="test_list_item_height">100dp</dimen>
+    <dimen name="package_text_width">240dp</dimen>
+    <dimen name="stroke_line_size">0.5dp</dimen>
+    <dimen name="test_rule_area_width">300dp</dimen>
+    <dimen name="test_rule_area_height">220dp</dimen>
+    <dimen name="button_start_width">180dp</dimen>
+    <dimen name="button_start_height">70dp</dimen>
+    <dimen name="check_box_not_show_again_size">48dp</dimen>
+    <dimen name="choice_height">60dp</dimen>
+    <dimen name="question_image_size">40dp</dimen>
+    <dimen name="button_result_width">120dp</dimen>
+    <dimen name="button_result_height">50dp</dimen>
+    <dimen name="item_question_no_highlight_view_size">1.5dp</dimen>
+    <dimen name="question_area_height">105dp</dimen>
 </resources>

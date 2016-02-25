@@ -1,8 +1,10 @@
 package com.essential.indodriving.ui.widget;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -15,10 +17,11 @@ public class QuestionNoItemWrapper {
     private Context context;
     private View view;
     private OnQuestionNoClickListener listener;
+    public boolean isHighlight;
 
     private TextView textViewNumber;
-    private LinearLayout questionNoWrapper;
-    private View wall;
+    private RelativeLayout questionNoWrapper;
+    private View highlightView;
 
     public QuestionNoItemWrapper(Context context) {
         this.context = context;
@@ -28,8 +31,8 @@ public class QuestionNoItemWrapper {
 
     private void findViews(View rootView) {
         textViewNumber = (TextView) rootView.findViewById(R.id.textViewNumber);
-        wall = rootView.findViewById(R.id.wall);
-        questionNoWrapper = (LinearLayout) rootView.findViewById(R.id.questionNoWrapper);
+        highlightView = rootView.findViewById(R.id.highlightView);
+        questionNoWrapper = (RelativeLayout) rootView.findViewById(R.id.questionNoWrapper);
 
         questionNoWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +45,7 @@ public class QuestionNoItemWrapper {
     }
 
     public int getQuestionNo() {
-        return Integer.parseInt(textViewNumber.getText().toString())-1;
+        return Integer.parseInt(textViewNumber.getText().toString()) - 1;
     }
 
     public void setOnQuestionNoClickListener(OnQuestionNoClickListener listener) {
@@ -51,10 +54,16 @@ public class QuestionNoItemWrapper {
 
     public void setActive(boolean isActive) {
         if (isActive) {
-            textViewNumber.setAlpha(1);
+            highlightView.setVisibility(View.VISIBLE);
         } else {
-            textViewNumber.setAlpha(0);
+            highlightView.setVisibility(View.GONE);
         }
+    }
+
+    public void setHighlight() {
+        isHighlight = true;
+        questionNoWrapper.setBackgroundResource(R.drawable.question_wrapper_highlight_background);
+        textViewNumber.setTextColor(ContextCompat.getColor(context, R.color.white));
     }
 
     public void setText(String number) {

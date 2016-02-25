@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewRule"
+            android:layout_width="@dimen/test_rule_area_width"
+            android:layout_height="@dimen/test_rule_area_height"
+            android:background="@drawable/bg_layout_rule"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/common_size_10"
+            android:text="@string/test_rule"
+            android:textSize="@dimen/common_text_size_16" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/button_start_width"
+            android:layout_height="@dimen/button_start_height"
+            android:layout_marginTop="@dimen/common_size_20"
+            card_view:cardCornerRadius="@dimen/common_size_3"
+            card_view:cardElevation="@dimen/common_size_6"
+            card_view:cardPreventCornerOverlap="false">
+
+            <Button
+                android:id="@+id/buttonStart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_start"
+                android:text="Start"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_text_size_35" />
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/checkBoxContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/check_box_not_show_again_size"
+            android:layout_marginTop="@dimen/common_size_20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/checkBoxShowRule"
+                android:layout_width="@dimen/check_box_not_show_again_size"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check_box_outline_blank_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_size_5"
+                android:text="@string/test_not_show_again"
+                android:textSize="@dimen/common_text_size_16" />
+        </LinearLayout>
+    </LinearLayout>
+</tatteam.com.app_common.ui.drawable.FractionFrameLayout>

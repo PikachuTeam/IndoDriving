@@ -2,12 +2,12 @@ package tatteam.com.app_common.ui.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import tatteam.com.app_common.ui.activity.BaseActivity;
+import tatteam.com.app_common.ui.drawable.FractionFrameLayout;
 
 /**
  * Created by ThanhNH-Mac on 2/10/16.
@@ -19,6 +19,12 @@ public abstract class BaseFragment extends Fragment {
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayoutResIdContentView(), container, false);
         this.onCreateContentView(rootView, savedInstanceState);
+
+        if (!(rootView instanceof FractionFrameLayout)) {
+            FractionFrameLayout fractionFrameLayout = new FractionFrameLayout(getActivity());
+            fractionFrameLayout.addView(rootView);
+            return fractionFrameLayout;
+        }
         return rootView;
     }
 

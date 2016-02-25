@@ -1,7 +1,7 @@
 <resources>
 
     <style name="MyMaterialTheme" parent="AppTheme">
-
+        <item name="actionMenuTextColor">@color/toolbar_menu_item_color</item>
     </style>
 
     <!-- Base application theme. -->

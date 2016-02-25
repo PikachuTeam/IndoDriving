@@ -13,4 +13,14 @@
     <color name="raised_button_highlight_color">#D8D8D8</color>
 
     <color name="background_container_color">#BFBFBF</color>
+    <color name="random_question_button_normal_color">#2196F3</color>
+    <color name="random_question_button_highlight_color">#1976D2</color>
+    <color name="test_rule_stroke_line_color">#039BE5</color>
+    <color name="button_start_normal_color">#FF5722</color>
+    <color name="button_start_highlight_color">#E64A19</color>
+    <color name="radio_button_background_color">#BFBFBF</color>
+    <color name="toolbar_menu_item_color">#2196F3</color>
+    <color name="item_question_no_stroke_color">#03A9F4</color>
+    <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
+    <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
 </resources>

@@ -29,13 +29,6 @@ public abstract class MyBaseActivity extends BaseActivity {
         toolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.white));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
     public Toolbar getToolbar(){
         return toolbar;
     }

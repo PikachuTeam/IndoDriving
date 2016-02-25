@@ -13,5 +13,9 @@ public class Question {
     public int correctAnswer;
     public Bitmap image;
     public int type;
+    public int answer;
 
+    public Question() {
+        answer = -1;
+    }
 }
