@@ -26,6 +26,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     private int type;
     private boolean checked;
     private String examId;
+    private boolean isRandom;
 
     public final static String SHOW_RULE_FRAGMENT_TAG = "Show Rule Fragment";
 
@@ -86,6 +87,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         Bundle bundle = getArguments();
         type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
         examId = bundle.getString("Exam Id", "1         ");
+        isRandom = bundle.getBoolean("Random", false);
     }
 
     private void loadState() {
@@ -101,6 +103,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
             Bundle bundle = new Bundle();
             bundle.putInt("Type", type);
             bundle.putString("Exam Id", examId);
+            bundle.putBoolean("Random", isRandom);
             fragment.setArguments(bundle);
             replaceFragment(fragment, SHOW_RULE_FRAGMENT_TAG);
         } else if (v == checkBoxShowRule) {

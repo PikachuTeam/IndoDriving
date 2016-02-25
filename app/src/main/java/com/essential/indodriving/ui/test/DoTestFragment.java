@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -48,12 +49,13 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     private String examId;
     private int shortAnimationDuration;
     private int currentPosition;
+    private boolean isRandom;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        questions = DataSource.getQuestionsByTypeAndExamId(type, examId);
+        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, isRandom);
         shortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         wrappers = new ArrayList<>();
@@ -109,10 +111,16 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         testHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
     }
 
+    @Override
+    public void onBackPressed() {
+        getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     private void getData() {
         Bundle bundle = getArguments();
         type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
         examId = bundle.getString("Exam Id", "1         ");
+        isRandom = bundle.getBoolean("Random", false);
     }
 
     @Override

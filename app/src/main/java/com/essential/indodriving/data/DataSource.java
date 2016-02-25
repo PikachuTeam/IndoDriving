@@ -62,11 +62,18 @@ public class DataSource extends BaseDataSource {
         return questionPackages;
     }
 
-    public static ArrayList<Question> getQuestionsByTypeAndExamId(int type, String examId) {
+    public static ArrayList<Question> getQuestionsByTypeAndExamId(int type, String examId, boolean isRandom) {
         ArrayList<Question> questions = new ArrayList<>();
-        String query = "select tmp.* from Exams, (SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id) as tmp where Exams.ExamId=? and Exams.Type=? and Exams.QuestionId=tmp.Id";
         SQLiteDatabase sqLiteDatabase = openConnection();
-        Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{examId, "" + type});
+        String query = "";
+        Cursor cursor = null;
+        if (!isRandom) {
+            query = "select tmp.* from Exams, (SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id) as tmp where Exams.ExamId=? and Exams.Type=? and Exams.QuestionId=tmp.Id";
+            cursor = sqLiteDatabase.rawQuery(query, new String[]{examId, "" + type});
+        } else {
+            query = "SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id WHERE Questions.Type = ? order by Random() limit 30";
+            cursor = sqLiteDatabase.rawQuery(query, new String[]{"" + type});
+        }
         cursor.moveToFirst();
         int tmp = 1;
         while (!cursor.isAfterLast()) {

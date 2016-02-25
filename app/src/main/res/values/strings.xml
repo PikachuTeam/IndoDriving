@@ -29,4 +29,8 @@
     <string name="question">Question</string>
     <string name="choices">Choices</string>
     <string name="result">Result</string>
+    <string name="correct_answer">Correct</string>
+    <string name="wrong_answer">Wrong</string>
+    <string name="not_answered">Not answered</string>
+    <string name="total_answer">{0}/30</string>
 </resources>

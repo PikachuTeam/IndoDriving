@@ -23,4 +23,6 @@
     <color name="item_question_no_stroke_color">#03A9F4</color>
     <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
     <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
+    <color name="wrong_answer_color">#F44336</color>
+    <color name="result_stroke_line_color">#FF9F00</color>
 </resources>

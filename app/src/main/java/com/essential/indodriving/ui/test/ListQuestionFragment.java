@@ -65,7 +65,12 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         buttonRandomQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type = 0;
+                ShowRuleFragment fragment = new ShowRuleFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", type);
+                bundle.putBoolean("Random", true);
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
             }
         });
     }

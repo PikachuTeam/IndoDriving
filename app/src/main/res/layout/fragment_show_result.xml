@@ -1,8 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/result_image_container_height"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_size_10"
+                android:gravity="center"
+                android:text="You Fail!"
+                android:textAllCaps="true"
+                android:textColor="@color/wrong_answer_color"
+                android:textSize="@dimen/common_text_size_22" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTotalTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="@dimen/common_size_12"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:text="05:59"
+                    android:textSize="@dimen/text_view_total_time_size" />
+
+                <LinearLayout
+                    android:id="@+id/chartContainer"
+                    android:layout_width="@dimen/pie_chart_width"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_size" />
+
+        <RelativeLayout
+            android:id="@+id/btnCorrectAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_size_45"
+            android:background="@drawable/button_without_corner">
+
+            <ImageView
+                android:id="@+id/imgCorrectAnswer"
+                android:layout_width="@dimen/common_size_45"
+                android:layout_height="@dimen/common_size_30"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_size_25"
+                android:background="@drawable/ic_correct_answer" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:layout_toRightOf="@+id/imgCorrectAnswer"
+                android:text="@string/correct_answer"
+                android:textSize="@dimen/common_text_size_22" />
+
+            <TextView
+                android:id="@+id/tvCorrectAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_size_30"
+                android:text="@string/total_answer"
+                android:textSize="@dimen/common_text_size_22" />
+
+            <ImageView
+                android:layout_width="@dimen/button_next_width"
+                android:layout_height="@dimen/button_next_height"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_size_5"
+                android:background="@drawable/ic_next" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_size"
+            android:background="@color/result_stroke_line_color" />
+
+        <RelativeLayout
+            android:id="@+id/btnWrongAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_size_45"
+            android:background="@drawable/button_without_corner">
+
+            <ImageView
+                android:id="@+id/imgWrongAnswer"
+                android:layout_width="@dimen/common_size_45"
+                android:layout_height="@dimen/common_size_30"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_size_25"
+                android:background="@drawable/ic_wrong_answer" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:layout_toRightOf="@+id/imgWrongAnswer"
+                android:text="@string/wrong_answer"
+                android:textSize="@dimen/common_text_size_22" />
+
+            <TextView
+                android:id="@+id/tvWrongAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_size_30"
+                android:text="@string/total_answer"
+                android:textSize="@dimen/common_text_size_22" />
+
+            <ImageView
+                android:layout_width="@dimen/button_next_width"
+                android:layout_height="@dimen/common_size_20"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_size_5"
+                android:background="@drawable/ic_next" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_size"
+            android:background="@color/result_stroke_line_color" />
+
+        <RelativeLayout
+            android:id="@+id/btnNotAnswered"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_size_45"
+            android:background="@drawable/button_without_corner">
+
+            <ImageView
+                android:id="@+id/imgNotAnswered"
+                android:layout_width="@dimen/common_size_45"
+                android:layout_height="@dimen/common_size_30"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_size_25"
+                android:background="@drawable/ic_not_answered" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:layout_toRightOf="@+id/imgNotAnswered"
+                android:text="@string/not_answered"
+                android:textSize="@dimen/common_text_size_22" />
+
+            <TextView
+                android:id="@+id/tvNotAnswered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_size_30"
+                android:text="@string/total_answer"
+                android:textSize="@dimen/common_text_size_22" />
+
+            <ImageView
+                android:layout_width="@dimen/button_next_width"
+                android:layout_height="@dimen/common_size_20"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_size_5"
+                android:background="@drawable/ic_next" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_size"
+            android:background="@color/result_stroke_line_color" />
+    </LinearLayout>
+</tatteam.com.app_common.ui.drawable.FractionFrameLayout>
