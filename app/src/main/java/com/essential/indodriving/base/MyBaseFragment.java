@@ -28,10 +28,14 @@ public abstract class MyBaseFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getMyBaseActivity().getToolbar().setVisibility(View.VISIBLE);
         getMyBaseActivity().getSupportActionBar().setTitle(getTitle());
         getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(enableIndicator());
-        if (enableIndicator()) {
+        if (enableButtonBack()) {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        }
+        if (enableButtonClear()) {
+            getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_white);
         }
     }
 
@@ -39,7 +43,11 @@ public abstract class MyBaseFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                if (enableButtonBack()) {
+                    onBackPressed();
+                } else if (enableButtonClear()) {
+                    getFragmentManager().popBackStack();
+                }
                 break;
             case R.id.buttonResult:
                 onMenuItemClick(BUTTON_RESULT_ID);
@@ -65,6 +73,14 @@ public abstract class MyBaseFragment extends BaseFragment {
 
     protected boolean enableButtonResult() {
         return false;
+    }
+
+    protected boolean enableButtonClear() {
+        return false;
+    }
+
+    protected boolean enableButtonBack() {
+        return true;
     }
 
     protected abstract String getTitle();

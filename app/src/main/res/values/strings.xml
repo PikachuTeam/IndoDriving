@@ -15,7 +15,7 @@
     <string name="sim_b2_umum">Sim B2 Umum</string>
     <string name="sim_c">Sim C</string>
     <string name="sim_d">Sim D</string>
-    <string name="learn_by_card">Learn By Card</string>
+    <string name="learn_all">Learn All</string>
     <string name="tutorial">Tutorials</string>
     <string name="title_test">Test</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>

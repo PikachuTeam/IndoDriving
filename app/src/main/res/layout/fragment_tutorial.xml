@@ -20,6 +20,6 @@
         <WebView
             android:id="@+id/tutorialContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </RelativeLayout>
 </tatteam.com.app_common.ui.drawable.FractionFrameLayout>

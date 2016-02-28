@@ -28,11 +28,11 @@
                 card_view:cardPreventCornerOverlap="false">
 
                 <Button
-                    android:id="@+id/buttonLearnByCard"
+                    android:id="@+id/buttonLearnAll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
-                    android:text="@string/learn_by_card"
+                    android:text="@string/learn_all"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="@dimen/choose_sim_button_text_size" />

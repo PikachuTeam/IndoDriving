@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -40,7 +39,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private ArrayList<Question> questions;
     private int type;
     private int currentPosition;
-    private float offset;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +75,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     float rate = event.getX() / readingProgress.getWidth();
                     float tmp = questions.size() * rate;
                     currentPosition = (int) tmp;
-                    Toast.makeText(getActivity(), "" + currentPosition + " " + questions.size(), Toast.LENGTH_SHORT).show();
                     setCardData(questions.get(currentPosition));
                 }
                 return false;
@@ -110,6 +107,12 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     @Override
     public void onDestroy() {
         super.onDestroy();
+        saveState();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         saveState();
     }
 

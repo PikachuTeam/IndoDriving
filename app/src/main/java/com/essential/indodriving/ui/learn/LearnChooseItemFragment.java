@@ -1,7 +1,7 @@
 package com.essential.indodriving.ui.learn;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.essential.indodriving.R;
@@ -35,8 +35,7 @@ public class LearnChooseItemFragment extends MyBaseFragment {
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
-
-        rootView.findViewById(R.id.buttonLearnByCard).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.buttonLearnAll).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LearnAllFragment fragment = new LearnAllFragment();
@@ -54,7 +53,11 @@ public class LearnChooseItemFragment extends MyBaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("Type", type);
                 tutorialFragment.setArguments(bundle);
-                replaceFragment(tutorialFragment, LEARN_CHOOSE_ITEM_FRAGMENT);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.animator.fragment_silde_bot_enter, 0, 0, R.animator.fragment_silde_bot_exit);
+                transaction.replace(R.id.fragmentContainer, tutorialFragment, LEARN_CHOOSE_ITEM_FRAGMENT);
+                transaction.addToBackStack(LEARN_CHOOSE_ITEM_FRAGMENT);
+                transaction.commit();
             }
         });
     }

@@ -8,7 +8,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -36,6 +35,16 @@ public class TutorialFragment extends MyBaseFragment {
     }
 
     @Override
+    protected boolean enableButtonBack() {
+        return false;
+    }
+
+    @Override
+    protected boolean enableButtonClear() {
+        return true;
+    }
+
+    @Override
     protected int getLayoutResIdContentView() {
         return R.layout.fragment_tutorial;
     }
@@ -43,11 +52,13 @@ public class TutorialFragment extends MyBaseFragment {
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
+
         if (isNetworkAvailable()) {
-            Toast.makeText(getActivity(), "Internet", Toast.LENGTH_SHORT).show();
             tutorialContainer.setVisibility(View.VISIBLE);
             textViewInternetError.setVisibility(View.GONE);
+            tutorialContainer.setWebViewClient(new MyBrowser());
             tutorialContainer.getSettings().setJavaScriptEnabled(true);
+            tutorialContainer.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             switch (type) {
                 case DataSource.TYPE_SIM_A:
                     tutorialContainer.loadUrl("https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+A");
@@ -56,9 +67,7 @@ public class TutorialFragment extends MyBaseFragment {
                     tutorialContainer.loadUrl("https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+C");
                     break;
             }
-            tutorialContainer.setWebViewClient(new MyBrowser());
         } else {
-            Toast.makeText(getActivity(), "No internet", Toast.LENGTH_SHORT).show();
             tutorialContainer.setVisibility(View.GONE);
             textViewInternetError.setVisibility(View.VISIBLE);
         }
@@ -80,6 +89,15 @@ public class TutorialFragment extends MyBaseFragment {
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         ;
         return isConnected;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (tutorialContainer.canGoBack()) {
+            tutorialContainer.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

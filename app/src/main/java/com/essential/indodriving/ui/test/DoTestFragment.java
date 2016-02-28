@@ -1,27 +1,16 @@
 package com.essential.indodriving.ui.test;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -126,7 +115,6 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     @Override
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT_ID) {
-            Toast.makeText(getActivity(), "Test", Toast.LENGTH_SHORT).show();
         }
     }
 

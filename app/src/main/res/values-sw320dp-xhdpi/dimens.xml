@@ -39,6 +39,7 @@
     <dimen name="learn_all_card_height">180dp</dimen>
     <dimen name="button_previous_width">100dp</dimen>
     <dimen name="button_previous_height">50dp</dimen>
-    <dimen name="learn_all_image_size">105dp</dimen>
+    <dimen name="learn_all_image_size">100dp</dimen>
     <dimen name="dialog_zoom_in_image_size">300dp</dimen>
+    <dimen name="card_question_text_size">12.5dp</dimen>
 </resources>

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.ui.learn.LearnAllFragment;
 import com.essential.indodriving.ui.learn.LearnChooseItemFragment;
 import com.essential.indodriving.ui.test.ListQuestionFragment;
 
@@ -42,9 +43,19 @@ public class ChooseItemFragment extends MyBaseFragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("Type", type);
-                LearnChooseItemFragment fragment = new LearnChooseItemFragment();
-                fragment.setArguments(bundle);
-                replaceFragment(fragment, CHOOSE_ITEM_FRAGMENT_TAG);
+                switch (type) {
+                    case DataSource.TYPE_SIM_A:
+                    case DataSource.TYPE_SIM_C:
+                        LearnChooseItemFragment fragment = new LearnChooseItemFragment();
+                        fragment.setArguments(bundle);
+                        replaceFragment(fragment, CHOOSE_ITEM_FRAGMENT_TAG);
+                        break;
+                    default:
+                        LearnAllFragment learnAllFragment = new LearnAllFragment();
+                        learnAllFragment.setArguments(bundle);
+                        replaceFragment(learnAllFragment, CHOOSE_ITEM_FRAGMENT_TAG);
+                        break;
+                }
             }
         });
 
