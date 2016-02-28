@@ -1,0 +1,96 @@
+package com.essential.indodriving.ui;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.essential.indodriving.R;
+import com.essential.indodriving.data.DataSource;
+
+import tatteam.com.app_common.ads.AdsSmallBannerHandler;
+import tatteam.com.app_common.util.AppConstant;
+
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private LinearLayout buttonLearnSimA;
+    private LinearLayout buttonLearnSimAUmum;
+    private LinearLayout buttonLearnSimB1;
+    private LinearLayout buttonLearnSimB1Umum;
+    private LinearLayout buttonLearnSimB2;
+    private LinearLayout buttonLearnSimB2Umum;
+    private LinearLayout buttonLearnSimC;
+    private LinearLayout buttonLearnSimD;
+    private FrameLayout adsContainer;
+
+    private AdsSmallBannerHandler adsSmallBannerHandler;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        findViews();
+
+        adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
+        adsSmallBannerHandler.setup();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adsSmallBannerHandler.destroy();
+    }
+
+    private void findViews() {
+        buttonLearnSimA = (LinearLayout) findViewById(R.id.buttonLearnSimA);
+        buttonLearnSimAUmum = (LinearLayout) findViewById(R.id.buttonLearnSimAUmum);
+        buttonLearnSimB1 = (LinearLayout) findViewById(R.id.buttonLearnSimB1);
+        buttonLearnSimB1Umum = (LinearLayout) findViewById(R.id.buttonLearnSimB1Umum);
+        buttonLearnSimB2 = (LinearLayout) findViewById(R.id.buttonLearnSimB2);
+        buttonLearnSimB2Umum = (LinearLayout) findViewById(R.id.buttonLearnSimB2Umum);
+        buttonLearnSimC = (LinearLayout) findViewById(R.id.buttonLearnSimC);
+        buttonLearnSimD = (LinearLayout) findViewById(R.id.buttonLearnSimD);
+        adsContainer = (FrameLayout) findViewById(R.id.adsContainer1);
+
+        buttonLearnSimA.setOnClickListener(this);
+        buttonLearnSimAUmum.setOnClickListener(this);
+        buttonLearnSimB1.setOnClickListener(this);
+        buttonLearnSimB1Umum.setOnClickListener(this);
+        buttonLearnSimB2.setOnClickListener(this);
+        buttonLearnSimB2Umum.setOnClickListener(this);
+        buttonLearnSimC.setOnClickListener(this);
+        buttonLearnSimD.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+
+        if (v == buttonLearnSimA) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_A);
+        } else if (v == buttonLearnSimAUmum) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_A_UMUM);
+        } else if (v == buttonLearnSimB1) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_B1);
+        } else if (v == buttonLearnSimB1Umum) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_B1_UMUM);
+        } else if (v == buttonLearnSimB2) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_B2);
+        } else if (v == buttonLearnSimB2Umum) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_B2_UMUM);
+        } else if (v == buttonLearnSimC) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_C);
+        } else if (v == buttonLearnSimD) {
+            intent.putExtra("Type", DataSource.TYPE_SIM_D);
+        }
+
+        startActivity(intent);
+    }
+}

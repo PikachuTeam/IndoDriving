@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/learn_all_card_height"
+            android:layout_marginLeft="@dimen/common_size_10"
+            android:layout_marginRight="@dimen/common_size_10"
+            android:layout_marginTop="@dimen/common_size_10"
+            card_view:cardCornerRadius="@dimen/common_size_5"
+            card_view:cardPreventCornerOverlap="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/cardQuestionImage"
+                    android:layout_width="@dimen/learn_all_image_size"
+                    android:layout_height="@dimen/learn_all_image_size"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/cardTextViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/common_size_3"
+                    android:paddingLeft="@dimen/common_size_7"
+                    android:paddingRight="@dimen/common_size_7"
+                    android:paddingTop="@dimen/common_size_3"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_14" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/textViewProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_size_5"
+            android:layout_marginLeft="@dimen/common_size_10"
+            android:text="12 of 86"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_text_size_14" />
+
+        <ProgressBar
+            android:id="@+id/readingProgress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_size_10"
+            android:layout_marginRight="@dimen/common_size_10"
+            android:maxHeight="@dimen/common_size_13"
+            android:minHeight="@dimen/common_size_13"
+
+            android:progressDrawable="@drawable/progress_bar" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/learn_all_card_height"
+            android:layout_marginLeft="@dimen/common_size_10"
+            android:layout_marginRight="@dimen/common_size_10"
+            android:layout_marginTop="@dimen/common_size_5"
+            card_view:cardCornerRadius="@dimen/common_size_5"
+            card_view:cardPreventCornerOverlap="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewAnswerA"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/common_size_5"
+                    android:text="Alo"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_13" />
+
+                <TextView
+                    android:id="@+id/textViewAnswerB"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/common_size_5"
+                    android:text="Alo"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_13" />
+
+                <TextView
+                    android:id="@+id/textViewAnswerC"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/common_size_5"
+                    android:text="Alo"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_13" />
+
+                <TextView
+                    android:id="@+id/textViewAnswerD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/common_size_5"
+                    android:text="Alo"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_13" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/button_previous_width"
+                android:layout_height="@dimen/button_previous_height"
+                card_view:cardCornerRadius="@dimen/common_size_3"
+                card_view:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:id="@+id/buttonPrevious"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/raised_button"
+                    android:clickable="false"
+                    android:src="@drawable/ic_previous" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/button_previous_width"
+                android:layout_height="@dimen/button_previous_height"
+                android:layout_marginLeft="@dimen/common_size_60"
+                card_view:cardCornerRadius="@dimen/common_size_3"
+                card_view:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:id="@+id/buttonNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/raised_button"
+                    android:clickable="true"
+                    android:src="@drawable/ic_next" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+</tatteam.com.app_common.ui.drawable.FractionFrameLayout>

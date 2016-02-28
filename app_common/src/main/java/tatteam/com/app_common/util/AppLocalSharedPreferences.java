@@ -15,6 +15,7 @@ public class AppLocalSharedPreferences {
     private static final String PREF_RATE_INTERVAL = "app_rate_interval";
     private static final String PREF_RATE_SKIP = "app_rate_skip";
     private static final String PREF_MY_EXTRA_APPS = "my_extra_apps";
+    private static final String PREF_LOCAL_DATABASE_NAME = "database_name";
 
     private static AppLocalSharedPreferences instance;
     private SharedPreferences pref;
@@ -52,6 +53,15 @@ public class AppLocalSharedPreferences {
         long launchTime = getAppLaunchTime() + 1;
         editor.putLong(PREF_LAUNCH_TIME, (launchTime));
         editor.commit();
+    }
+
+    public void setDatabaseName(String databaseName){
+        editor.putString(PREF_LOCAL_DATABASE_NAME, databaseName);
+        editor.commit();
+    }
+
+    public String getDatabaseName(){
+        return pref.getString(PREF_LOCAL_DATABASE_NAME, "");
     }
 
     public long getAppLaunchTime() {

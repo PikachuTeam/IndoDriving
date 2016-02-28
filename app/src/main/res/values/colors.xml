@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF5722</color>
-    <color name="colorPrimaryDark">#E64A19</color>
+    <color name="colorPrimary">#003E93</color>
+    <color name="colorPrimaryDark">#02288D</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="textColorPrimary">#000000</color>
+    <color name="app_background_color">#DFDDDD</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
@@ -24,5 +25,17 @@
     <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
     <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
     <color name="wrong_answer_color">#F44336</color>
+    <color name="correct_answer_color">#4CAF50</color>
     <color name="result_stroke_line_color">#FF9F00</color>
+
+    <color name="home_background_color">#7B80FF</color>
+
+    <color name="progress_start">#fda523</color>
+    <color name="progress_end">#4CAF50</color>
+    <color name="secondary_progress_start_color">#FFD300</color>
+    <color name="secondary_progress_center_color">#FFB600</color>
+    <color name="secondary_progress_end_color">#FFCB00</color>
+    <color name="progress_background_start_color">#FFFFFF</color>
+    <color name="progress_background_center_color">#5A5D5A</color>
+    <color name="progress_background_end_color">#747674</color>
 </resources>

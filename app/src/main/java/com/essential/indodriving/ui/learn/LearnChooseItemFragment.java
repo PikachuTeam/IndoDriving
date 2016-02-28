@@ -39,11 +39,11 @@ public class LearnChooseItemFragment extends MyBaseFragment {
         rootView.findViewById(R.id.buttonLearnByCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LearnByCardFragment learnByCardFragment = new LearnByCardFragment();
+                LearnAllFragment fragment = new LearnAllFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("Type", type);
-                learnByCardFragment.setArguments(bundle);
-                replaceFragment(learnByCardFragment, LEARN_CHOOSE_ITEM_FRAGMENT);
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, LEARN_CHOOSE_ITEM_FRAGMENT);
             }
         });
 

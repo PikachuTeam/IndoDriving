@@ -1,22 +1,14 @@
 package com.essential.indodriving.ui.home;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.ui.ChooseItemFragment;
 import com.essential.indodriving.ui.learn.LearnByCardFragment;
-
-import java.util.ArrayList;
-
-import tatteam.com.app_common.ui.fragment.BaseFragment;
 
 /**
  * Created by dongc_000 on 2/23/2016.

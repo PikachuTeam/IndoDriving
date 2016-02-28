@@ -8,10 +8,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_image_height" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

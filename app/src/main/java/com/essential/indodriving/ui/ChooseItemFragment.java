@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.home;
+package com.essential.indodriving.ui;
 
 import android.os.Bundle;
 import android.view.View;

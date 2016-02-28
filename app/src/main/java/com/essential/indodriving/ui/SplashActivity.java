@@ -35,7 +35,7 @@ public class SplashActivity extends BaseSplashActivity {
 
     @Override
     protected void onFinishInitAppCommon() {
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
