@@ -38,8 +38,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        adapter = new ListQuestionAdapter(getActivity(), questionPackages);
-        adapter.setOnRecyclerViewItemClickListener(this);
     }
 
     @Override
@@ -54,8 +52,12 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
+        questionPackages = DataSource.getQuestionPackagesByType(type);
+        adapter = new ListQuestionAdapter(getActivity(), questionPackages);
+        adapter.setOnRecyclerViewItemClickListener(this);
         findViews(rootView);
         setupRecyclerView();
+        listQuestion.invalidate();
     }
 
     private void findViews(View rootView) {
@@ -78,7 +80,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private void getData() {
         Bundle bundle = getArguments();
         type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
-        questionPackages = DataSource.getQuestionPackagesByType(type);
     }
 
     private void setupRecyclerView() {
@@ -97,7 +98,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
     }
 
-    private static class ListQuestionAdapter extends RecyclerView.Adapter<ListQuestionAdapter.ViewHolder> {
+    private class ListQuestionAdapter extends RecyclerView.Adapter<ListQuestionAdapter.ViewHolder> {
 
         private ArrayList<QuestionPackage> packages;
         private Context context;

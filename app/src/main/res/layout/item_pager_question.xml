@@ -13,7 +13,6 @@
             android:id="@+id/questionImage"
             android:layout_width="@dimen/question_image_size"
             android:layout_height="@dimen/question_image_size"
-            android:layout_marginTop="@dimen/common_size_4"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
@@ -21,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="@dimen/common_size_5"
+            android:paddingLeft="@dimen/common_size_5"
+            android:paddingRight="@dimen/common_size_5"
             android:text="Question"
             android:textSize="@dimen/common_text_size_14"
             android:textColor="@color/black" />

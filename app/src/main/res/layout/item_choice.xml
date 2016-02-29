@@ -9,7 +9,7 @@
         android:layout_height="@dimen/choice_height"
         android:layout_marginLeft="@dimen/common_size_5"
         android:layout_marginRight="@dimen/common_size_5"
-        android:layout_marginTop="@dimen/common_size_5"
+        android:layout_marginTop="@dimen/common_size_3"
         card_view:cardCornerRadius="@dimen/common_size_3"
         card_view:cardPreventCornerOverlap="false">
 
@@ -27,15 +27,15 @@
                 android:background="@color/radio_button_background_color">
 
                 <View
-                    android:layout_width="@dimen/common_size_30"
-                    android:layout_height="@dimen/common_size_30"
+                    android:layout_width="@dimen/common_size_25"
+                    android:layout_height="@dimen/common_size_25"
                     android:layout_centerInParent="true"
                     android:background="@drawable/radio_button" />
 
                 <View
                     android:id="@+id/radioButton"
-                    android:layout_width="@dimen/common_size_15"
-                    android:layout_height="@dimen/common_size_15"
+                    android:layout_width="@dimen/common_size_12"
+                    android:layout_height="@dimen/common_size_12"
                     android:layout_centerInParent="true"
                     android:background="@drawable/radio_button_pressed"
                     android:visibility="visible" />

@@ -5,14 +5,14 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/questionNoWrapper"
-        android:layout_width="@dimen/common_size_31"
+        android:layout_width="@dimen/common_size_41"
         android:layout_height="@dimen/common_size_31"
         android:background="@drawable/button_without_corner"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewNumber"
-            android:layout_width="@dimen/common_size_30"
+            android:layout_width="@dimen/common_size_40"
             android:layout_height="@dimen/common_size_30"
             android:gravity="center"
             android:text="1"
@@ -21,7 +21,9 @@
 
         <View
             android:layout_width="@dimen/stroke_line_size"
-            android:layout_height="@dimen/common_size_40"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/common_size_3"
+            android:layout_marginBottom="@dimen/common_size_3"
             android:layout_toRightOf="@+id/textViewNumber"
             android:background="@color/item_question_no_stroke_color" />
 
@@ -35,6 +37,7 @@
             android:id="@+id/highlightView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_question_no_highlight_view_size"
+            android:layout_marginRight="@dimen/common_size_1"
             android:layout_alignParentBottom="true"
             android:background="@color/item_question_no_stroke_color"
             android:visibility="gone" />

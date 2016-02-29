@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dialog_warning_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvWarning"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/common_size_10"
+        android:text="@string/dialog_warning_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/common_text_size_16" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonOk"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="@dimen/dialog_warning_button_width"
+            android:layout_height="@dimen/dialog_warning_button_height"
+            android:layout_toLeftOf="@+id/buttonCancel"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_text_size_18" />
+
+
+        <Button
+            android:id="@+id/buttonCancel"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="@dimen/dialog_warning_button_width"
+            android:layout_height="@dimen/dialog_warning_button_height"
+            android:layout_alignParentRight="true"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_text_size_18" />
+    </RelativeLayout>
+</LinearLayout>

@@ -19,13 +19,14 @@
     <color name="test_rule_stroke_line_color">#039BE5</color>
     <color name="button_start_normal_color">#FF5722</color>
     <color name="button_start_highlight_color">#E64A19</color>
-    <color name="radio_button_background_color">#BFBFBF</color>
+    <color name="radio_button_background_color">#B4B1B1</color>
     <color name="toolbar_menu_item_color">#2196F3</color>
-    <color name="item_question_no_stroke_color">#03A9F4</color>
+    <color name="item_question_no_stroke_color">#FF5722</color>
     <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
     <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
     <color name="wrong_answer_color">#F44336</color>
     <color name="correct_answer_color">#4CAF50</color>
+    <color name="not_answered_color">#FFEB3B</color>
     <color name="result_stroke_line_color">#FF9F00</color>
 
     <color name="home_background_color">#7B80FF</color>
@@ -38,4 +39,5 @@
     <color name="progress_background_start_color">#FFFFFF</color>
     <color name="progress_background_center_color">#5A5D5A</color>
     <color name="progress_background_end_color">#747674</color>
+    <color name="dialog_warning_stroke_line_color">#616161</color>
 </resources>

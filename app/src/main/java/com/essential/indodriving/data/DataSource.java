@@ -1,5 +1,6 @@
 package com.essential.indodriving.data;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ public class DataSource extends BaseDataSource {
 
     public final static int TYPE_SIM_A = 1, TYPE_SIM_A_UMUM = 2, TYPE_SIM_B1 = 3, TYPE_SIM_B1_UMUM = 4, TYPE_SIM_B2 = 5, TYPE_SIM_B2_UMUM = 6, TYPE_SIM_C = 7, TYPE_SIM_D = 8;
     public final static int ANSWER_A = 0, ANSWER_B = 1, ANSWER_C = 2, ANSWER_D = 3;
+    public final static String TABLE_EXAMS = "Exams", KEY_SCORE = "LastScore";
 
     public static ArrayList<Question> getAllQuestionByType(int type) {
         ArrayList<Question> questions = new ArrayList<>();
@@ -97,7 +99,12 @@ public class DataSource extends BaseDataSource {
         return questions;
     }
 
-    public boolean saveScore(int score) {
+    public static boolean saveScore(String examId, String type, int score) {
+        SQLiteDatabase sqLiteDatabase = openConnection();
+        ContentValues values = new ContentValues();
+        values.put(KEY_SCORE, score);
+        sqLiteDatabase.update(TABLE_EXAMS, values, "ExamId = ? and Type = ?", new String[]{examId, type});
+        closeConnection();
         return true;
     }
 
