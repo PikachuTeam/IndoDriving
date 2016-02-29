@@ -46,4 +46,8 @@
     <string name="total_correct_answers">{0}/30</string>
     <string name="total_wrong_answers">{0}/30</string>
     <string name="total_not_answered">{0}/30</string>
+    <string name="choice_a">A. {0}</string>
+    <string name="choice_b">B. {0}</string>
+    <string name="choice_c">C. {0}</string>
+    <string name="choice_d">D. {0}</string>
 </resources>

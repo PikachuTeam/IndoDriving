@@ -43,7 +43,10 @@
     <dimen name="dialog_zoom_in_image_size">300dp</dimen>
     <dimen name="card_question_text_size">12.5dp</dimen>
     <dimen name="dialog_warning_width">300dp</dimen>
-    <dimen name="dialog_warning_button_width">80dp</dimen>
+    <dimen name="dialog_warning_button_width">90dp</dimen>
     <dimen name="dialog_warning_button_height">40dp</dimen>
     <dimen name="pie_chart_hole_radius">20dp</dimen>
+    <dimen name="list_detail_result_question_image_size">100dp</dimen>
+    <dimen name="dialog_show_result_width">300dp</dimen>
+    <dimen name="dialog_show_result_question_image_size">120dp</dimen>
 </resources>

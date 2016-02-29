@@ -59,10 +59,11 @@
                 android:background="@color/result_stroke_line_color" />
 
             <RelativeLayout
-                android:id="@+id/btnCorrectAnswer"
+                android:id="@+id/buttonCorrectAnswer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_size_60"
-                android:background="@drawable/button_without_corner">
+                android:background="@drawable/button_without_corner"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/imgCorrectAnswer"
@@ -110,10 +111,11 @@
                 android:background="@color/result_stroke_line_color" />
 
             <RelativeLayout
-                android:id="@+id/btnWrongAnswer"
+                android:id="@+id/buttonWrongAnswer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_size_60"
-                android:background="@drawable/button_without_corner">
+                android:background="@drawable/button_without_corner"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/imgWrongAnswer"
@@ -161,10 +163,11 @@
                 android:background="@color/result_stroke_line_color" />
 
             <RelativeLayout
-                android:id="@+id/btnNotAnswered"
+                android:id="@+id/buttonNotAnswered"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_size_60"
-                android:background="@drawable/button_without_corner">
+                android:background="@drawable/button_without_corner"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/imgNotAnswered"

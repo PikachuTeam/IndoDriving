@@ -16,7 +16,7 @@ import tatteam.com.app_common.sqlite.DatabaseLoader;
 public class DataSource extends BaseDataSource {
 
     public final static int TYPE_SIM_A = 1, TYPE_SIM_A_UMUM = 2, TYPE_SIM_B1 = 3, TYPE_SIM_B1_UMUM = 4, TYPE_SIM_B2 = 5, TYPE_SIM_B2_UMUM = 6, TYPE_SIM_C = 7, TYPE_SIM_D = 8;
-    public final static int ANSWER_A = 0, ANSWER_B = 1, ANSWER_C = 2, ANSWER_D = 3;
+    public final static int ANSWER_A = 0, ANSWER_B = 1, ANSWER_C = 2, ANSWER_D = 3, ANSWER_NOT_CHOSEN=-1;
     public final static String TABLE_EXAMS = "Exams", KEY_SCORE = "LastScore";
 
     public static ArrayList<Question> getAllQuestionByType(int type) {

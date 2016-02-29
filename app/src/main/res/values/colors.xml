@@ -40,4 +40,6 @@
     <color name="progress_background_center_color">#5A5D5A</color>
     <color name="progress_background_end_color">#747674</color>
     <color name="dialog_warning_stroke_line_color">#616161</color>
+    <color name="dialog_button_hovered_color">#D8D8D8</color>
+    <color name="dialog_button_highlight_color">#BFBFBF</color>
 </resources>

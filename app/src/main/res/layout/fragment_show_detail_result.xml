@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewType"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_size_30"
+            android:background="@color/not_answered_color"
+            android:gravity="center"
+            android:text="Correct Answers"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_text_size_19"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listDetailResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="true"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+</tatteam.com.app_common.ui.drawable.FractionFrameLayout>

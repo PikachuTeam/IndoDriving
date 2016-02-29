@@ -1,11 +1,13 @@
 package com.essential.indodriving.ui.test;
 
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/28/2016.
  */
-public class OverallResultFragment extends MyBaseFragment {
+public class OverallResultFragment extends MyBaseFragment implements View.OnClickListener {
 
     private TextView textViewTotalTime;
     private TextView textViewState;
@@ -32,6 +34,9 @@ public class OverallResultFragment extends MyBaseFragment {
     private TextView tvWrongAnswer;
     private TextView tvNotAnswered;
     private LinearLayout chartContainer;
+    private RelativeLayout buttonCorrectAnswer;
+    private RelativeLayout buttonWrongAnswer;
+    private RelativeLayout buttonNotAnswered;
 
     private PieChart pieChart;
     private int totalCorrectAnswer;
@@ -44,6 +49,8 @@ public class OverallResultFragment extends MyBaseFragment {
     private String examId;
     private float[] yData;
     private ArrayList<Question> questions;
+
+    public final static String OVERALL_RESULT_FRAGMENT_TAG = "Overall Result Fragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -147,6 +154,13 @@ public class OverallResultFragment extends MyBaseFragment {
         tvNotAnswered = (TextView) rootView.findViewById(R.id.tvNotAnswered);
         textViewState = (TextView) rootView.findViewById(R.id.tvState);
         chartContainer = (LinearLayout) rootView.findViewById(R.id.chartContainer);
+        buttonCorrectAnswer = (RelativeLayout) rootView.findViewById(R.id.buttonCorrectAnswer);
+        buttonWrongAnswer = (RelativeLayout) rootView.findViewById(R.id.buttonWrongAnswer);
+        buttonNotAnswered = (RelativeLayout) rootView.findViewById(R.id.buttonNotAnswered);
+
+        buttonCorrectAnswer.setOnClickListener(this);
+        buttonWrongAnswer.setOnClickListener(this);
+        buttonNotAnswered.setOnClickListener(this);
     }
 
     private void setUpChart() {
@@ -204,5 +218,56 @@ public class OverallResultFragment extends MyBaseFragment {
 
         pieChart.setData(data);
         pieChart.invalidate();
+    }
+
+    private ArrayList<Question> getCorrectAnswers() {
+        ArrayList<Question> data = new ArrayList<>();
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+            if (question.answer == question.correctAnswer) {
+                data.add(question);
+            }
+        }
+        return data;
+    }
+
+    private ArrayList<Question> getWrongAnswers() {
+        ArrayList<Question> data = new ArrayList<>();
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+            if (question.answer != question.correctAnswer && question.answer != DataSource.ANSWER_NOT_CHOSEN) {
+                data.add(question);
+            }
+        }
+        return data;
+    }
+
+    private ArrayList<Question> getNotAnsweredAnswers() {
+        ArrayList<Question> data = new ArrayList<>();
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+            if (question.answer == DataSource.ANSWER_NOT_CHOSEN) {
+                data.add(question);
+            }
+        }
+        return data;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        if (v == buttonCorrectAnswer) {
+            putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
+            bundle.putInt("Type", 0);
+        } else if (v == buttonWrongAnswer) {
+            putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getWrongAnswers());
+            bundle.putInt("Type", 1);
+        } else if (v == buttonNotAnswered) {
+            putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
+            bundle.putInt("Type", 2);
+        }
+        DetailResultFragment fragment = new DetailResultFragment();
+        fragment.setArguments(bundle);
+        replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
     }
 }

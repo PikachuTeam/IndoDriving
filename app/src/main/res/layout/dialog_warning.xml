@@ -13,30 +13,34 @@
         android:textColor="@color/black"
         android:textSize="@dimen/common_text_size_16" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stroke_line_size"
+        android:layout_marginLeft="@dimen/common_size_10"
+        android:layout_marginRight="@dimen/common_size_10"
+        android:background="@color/black" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/buttonOk"
-            style="?attr/borderlessButtonStyle"
             android:layout_width="@dimen/dialog_warning_button_width"
             android:layout_height="@dimen/dialog_warning_button_height"
             android:layout_toLeftOf="@+id/buttonCancel"
+            android:background="@drawable/dialog_button"
             android:text="@string/ok"
-            android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/common_text_size_18" />
 
-
         <Button
             android:id="@+id/buttonCancel"
-            style="?attr/borderlessButtonStyle"
             android:layout_width="@dimen/dialog_warning_button_width"
             android:layout_height="@dimen/dialog_warning_button_height"
             android:layout_alignParentRight="true"
+            android:background="@drawable/dialog_button"
             android:text="@string/cancel"
-            android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/common_text_size_18" />
     </RelativeLayout>
