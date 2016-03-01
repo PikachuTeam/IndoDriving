@@ -216,7 +216,7 @@ public class LearnByCardFragment extends MyBaseFragment implements View.OnClickL
             editor.commit();
         } else if (v == buttonNotShowAgain) {
             if (isCheck) {
-                buttonNotShowAgain.setImageResource(R.drawable.ic_check_box_outline);
+                buttonNotShowAgain.setImageResource(R.drawable.ic_check_box_outline_blank);
                 isCheck = false;
             } else {
                 buttonNotShowAgain.setImageResource(R.drawable.ic_check_box);

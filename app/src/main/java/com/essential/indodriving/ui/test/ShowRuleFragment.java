@@ -109,10 +109,10 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         } else if (v == checkBoxShowRule) {
             if (checked) {
                 checked = false;
-                checkBoxShowRule.setImageResource(R.drawable.ic_check_box_outline_blank_black);
+                checkBoxShowRule.setImageResource(R.drawable.ic_check_box_outline_blank);
             } else {
                 checked = true;
-                checkBoxShowRule.setImageResource(R.drawable.ic_check_box_black);
+                checkBoxShowRule.setImageResource(R.drawable.ic_check_box);
             }
         }
     }

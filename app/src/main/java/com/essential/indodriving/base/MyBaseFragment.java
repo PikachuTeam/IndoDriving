@@ -35,7 +35,7 @@ public abstract class MyBaseFragment extends BaseFragment {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         }
         if (enableButtonClear()) {
-            getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_white);
+            getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         }
     }
 
