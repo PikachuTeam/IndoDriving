@@ -1,14 +1,25 @@
 package com.essential.indodriving.ui.test;
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -26,7 +37,7 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/28/2016.
  */
-public class OverallResultFragment extends MyBaseFragment implements View.OnClickListener {
+public class OverallResultFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
 
     private TextView textViewTotalTime;
     private TextView textViewState;
@@ -37,6 +48,9 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private RelativeLayout buttonCorrectAnswer;
     private RelativeLayout buttonWrongAnswer;
     private RelativeLayout buttonNotAnswered;
+    private ImageView buttonNext1;
+    private ImageView buttonNext2;
+    private ImageView buttonNext3;
 
     private PieChart pieChart;
     private int totalCorrectAnswer;
@@ -46,7 +60,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private int second;
     private int timeLeft;
     private int type;
-    private String examId;
+    private int examId;
     private float[] yData;
     private ArrayList<Question> questions;
 
@@ -91,7 +105,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         Bundle bundle = getArguments();
         timeLeft = bundle.getInt("Time Left", 0);
         type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
-        examId = bundle.getString("Exam Id", "1         ");
+        examId = bundle.getInt("Exam Id", 1);
     }
 
     private void setTime() {
@@ -157,10 +171,16 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         buttonCorrectAnswer = (RelativeLayout) rootView.findViewById(R.id.buttonCorrectAnswer);
         buttonWrongAnswer = (RelativeLayout) rootView.findViewById(R.id.buttonWrongAnswer);
         buttonNotAnswered = (RelativeLayout) rootView.findViewById(R.id.buttonNotAnswered);
+        buttonNext1 = (ImageView) rootView.findViewById(R.id.buttonNext1);
+        buttonNext2 = (ImageView) rootView.findViewById(R.id.buttonNext2);
+        buttonNext3 = (ImageView) rootView.findViewById(R.id.buttonNext3);
 
         buttonCorrectAnswer.setOnClickListener(this);
         buttonWrongAnswer.setOnClickListener(this);
         buttonNotAnswered.setOnClickListener(this);
+        buttonNext1.setOnTouchListener(this);
+        buttonNext2.setOnTouchListener(this);
+        buttonNext3.setOnTouchListener(this);
     }
 
     private void setUpChart() {
@@ -199,7 +219,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             yVals.add(new Entry(yData[2], 2));
             colors.add(new Integer(ContextCompat.getColor(getActivity(), R.color.not_answered_color)));
         }
-
 
         ArrayList<String> xVals = new ArrayList<>();
         for (int i = 0; i < yVals.size(); i++) {
@@ -269,5 +288,47 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         DetailResultFragment fragment = new DetailResultFragment();
         fragment.setArguments(bundle);
         replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (v == buttonNext1) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                buttonNext1.setImageResource(R.drawable.ic_overall_result_highlight_next);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                buttonNext1.setImageResource(R.drawable.ic_overall_result_normal_next);
+                putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", 0);
+                DetailResultFragment fragment = new DetailResultFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+            }
+        } else if (v == buttonNext2) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                buttonNext2.setImageResource(R.drawable.ic_overall_result_highlight_next);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                buttonNext2.setImageResource(R.drawable.ic_overall_result_normal_next);
+                putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getWrongAnswers());
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", 1);
+                DetailResultFragment fragment = new DetailResultFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+            }
+        } else if (v == buttonNext3) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                buttonNext3.setImageResource(R.drawable.ic_overall_result_highlight_next);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                buttonNext3.setImageResource(R.drawable.ic_overall_result_normal_next);
+                putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", 2);
+                DetailResultFragment fragment = new DetailResultFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+            }
+        }
+        return false;
     }
 }

@@ -21,11 +21,10 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     private ImageView checkBoxShowRule;
     private Button buttonStart;
     private TextView textViewRule;
-    private LinearLayout checkBoxContainer;
 
     private int type;
     private boolean checked;
-    private String examId;
+    private int examId;
     private boolean isRandom;
 
     public final static String SHOW_RULE_FRAGMENT_TAG = "Show Rule Fragment";
@@ -33,7 +32,6 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadState();
         getData();
     }
 
@@ -51,17 +49,35 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
 
-        if (checked) {
-            textViewRule.setVisibility(View.GONE);
-            checkBoxContainer.setVisibility(View.GONE);
-        } else {
-            textViewRule.setVisibility(View.VISIBLE);
-            checkBoxContainer.setVisibility(View.VISIBLE);
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                textViewRule.setText(getString(R.string.test_rule_sim_a));
+                break;
+            case DataSource.TYPE_SIM_A_UMUM:
+                textViewRule.setText(getString(R.string.test_rule_sim_a_umum));
+                break;
+            case DataSource.TYPE_SIM_B1:
+                textViewRule.setText(getString(R.string.test_rule_sim_b1));
+                break;
+            case DataSource.TYPE_SIM_B1_UMUM:
+                textViewRule.setText(getString(R.string.test_rule_sim_b1_umum));
+                break;
+            case DataSource.TYPE_SIM_B2:
+                textViewRule.setText(getString(R.string.test_rule_sim_b2));
+                break;
+            case DataSource.TYPE_SIM_B2_UMUM:
+                textViewRule.setText(getString(R.string.test_rule_sim_b2_umum));
+                break;
+            case DataSource.TYPE_SIM_C:
+                textViewRule.setText(getString(R.string.test_rule_sim_c));
+                break;
+            case DataSource.TYPE_SIM_D:
+                textViewRule.setText(getString(R.string.test_rule_sim_d));
+                break;
         }
     }
 
     private void findViews(View rootView) {
-        checkBoxContainer = (LinearLayout) rootView.findViewById(R.id.checkBoxContainer);
         checkBoxShowRule = (ImageView) rootView.findViewById(R.id.checkBoxShowRule);
         buttonStart = (Button) rootView.findViewById(R.id.buttonStart);
         textViewRule = (TextView) rootView.findViewById(R.id.textViewRule);
@@ -73,7 +89,32 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     private void saveState() {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("Show Rule Again", checked);
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                editor.putBoolean("Show Rule Again A", !checked);
+                break;
+            case DataSource.TYPE_SIM_A_UMUM:
+                editor.putBoolean("Show Rule Again A Umum", !checked);
+                break;
+            case DataSource.TYPE_SIM_B1:
+                editor.putBoolean("Show Rule Again B1", !checked);
+                break;
+            case DataSource.TYPE_SIM_B1_UMUM:
+                editor.putBoolean("Show Rule Again B1 Umum", !checked);
+                break;
+            case DataSource.TYPE_SIM_B2:
+                editor.putBoolean("Show Rule Again B2", !checked);
+                break;
+            case DataSource.TYPE_SIM_B2_UMUM:
+                editor.putBoolean("Show Rule Again B2 Umum", !checked);
+                break;
+            case DataSource.TYPE_SIM_C:
+                editor.putBoolean("Show Rule Again C", !checked);
+                break;
+            case DataSource.TYPE_SIM_D:
+                editor.putBoolean("Show Rule Again D", !checked);
+                break;
+        }
         editor.commit();
     }
 
@@ -83,16 +124,17 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         saveState();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        saveState();
+    }
+
     private void getData() {
         Bundle bundle = getArguments();
         type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
-        examId = bundle.getString("Exam Id", "1         ");
+        examId = bundle.getInt("Exam Id", 1);
         isRandom = bundle.getBoolean("Random", false);
-    }
-
-    private void loadState() {
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        checked = sharedPreferences.getBoolean("Show Rule Again", false);
     }
 
     @Override
@@ -102,7 +144,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
             DoTestFragment fragment = new DoTestFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("Type", type);
-            bundle.putString("Exam Id", examId);
+            bundle.putInt("Exam Id", examId);
             bundle.putBoolean("Random", isRandom);
             fragment.setArguments(bundle);
             replaceFragment(fragment, SHOW_RULE_FRAGMENT_TAG);

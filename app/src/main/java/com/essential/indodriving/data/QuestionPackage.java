@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 public class QuestionPackage {
     public int lastScore;
-    public String index;
+    public int index;
 }

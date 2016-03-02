@@ -34,7 +34,6 @@ public class ShowResultDialog extends Dialog {
         super(context);
         this.context = context;
         this.question = question;
-
     }
 
     @Override
@@ -83,7 +82,7 @@ public class ShowResultDialog extends Dialog {
             tvAnswer.setText("Not answered");
             tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.not_answered_color));
         } else if (question.answer == question.correctAnswer) {
-            switch (question.correctAnswer) {
+            switch (question.answer) {
                 case DataSource.ANSWER_A:
                     tvAnswer.setText("A");
                     break;
@@ -99,7 +98,7 @@ public class ShowResultDialog extends Dialog {
             }
             tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
         } else {
-            switch (question.correctAnswer) {
+            switch (question.answer) {
                 case DataSource.ANSWER_A:
                     tvAnswer.setText("A");
                     break;

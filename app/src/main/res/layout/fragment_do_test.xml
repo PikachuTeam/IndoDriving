@@ -4,48 +4,68 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_line_size"
+            android:background="@color/item_question_no_stroke_normal_color" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="@dimen/number_wrapper_height"
+            android:orientation="horizontal">
 
             <View
+                android:layout_width="@dimen/stroke_line_size"
+                android:layout_height="match_parent"
+                android:background="@color/item_question_no_stroke_normal_color" />
+
+            <HorizontalScrollView
+                android:id="@+id/testHorizontalScrollContainer"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/stroke_line_size"
-                android:background="@color/item_question_no_stroke_color" />
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/common_size_31"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="@dimen/stroke_line_size"
-                    android:layout_height="match_parent"
-                    android:background="@color/item_question_no_stroke_color" />
-
-                <HorizontalScrollView
-                    android:id="@+id/testHorizontalScrollContainer"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/testHorizontalScrollView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none">
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+        </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/testHorizontalScrollView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
-                </HorizontalScrollView>
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_size_30"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/common_size_10"
+                android:text="@string/question"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_text_size_16" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/questionPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_size_30"
+                android:layout_marginTop="@dimen/question_area_height"
                 android:background="@color/colorPrimary">
 
                 <TextView
@@ -53,89 +73,57 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/common_size_10"
-                    android:text="@string/question"
+                    android:text="@string/choices"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common_text_size_16" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/common_size_5"
+                android:layout_marginTop="@dimen/common_size_3">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/questionPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/common_size_30"
-                    android:layout_marginTop="@dimen/question_area_height"
-                    android:background="@color/colorPrimary">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/common_size_10"
-                        android:text="@string/choices"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/common_text_size_16" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textViewMinute1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/common_size_5"
-                    android:layout_marginTop="@dimen/common_size_3">
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_25" />
 
-                    <TextView
-                        android:id="@+id/textViewMinute1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/common_text_size_25" />
+                <TextView
+                    android:id="@+id/textViewMinute2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_25" />
 
-                    <TextView
-                        android:id="@+id/textViewMinute2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/common_text_size_25" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_25" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/common_text_size_25" />
+                <TextView
+                    android:id="@+id/textViewSecond1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_25" />
 
-                    <TextView
-                        android:id="@+id/textViewSecond1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/common_text_size_25" />
-
-                    <TextView
-                        android:id="@+id/textViewSecond2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/common_text_size_25" />
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/expandedImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/textViewSecond2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_25" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </tatteam.com.app_common.ui.drawable.FractionFrameLayout>

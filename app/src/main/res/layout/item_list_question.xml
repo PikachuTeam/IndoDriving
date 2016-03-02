@@ -6,7 +6,8 @@
     android:layout_height="@dimen/test_list_item_height"
     android:layout_marginLeft="@dimen/common_size_12"
     android:layout_marginRight="@dimen/common_size_12"
-    android:layout_marginTop="@dimen/common_size_12"
+    android:layout_marginTop="@dimen/common_size_6"
+    android:layout_marginBottom="@dimen/common_size_6"
     card_view:cardCornerRadius="@dimen/common_size_3"
     card_view:cardPreventCornerOverlap="false">
 

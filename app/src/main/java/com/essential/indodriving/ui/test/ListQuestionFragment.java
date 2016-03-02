@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.test;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private int type;
     private ListQuestionAdapter adapter;
     private ArrayList<QuestionPackage> questionPackages;
+    private boolean isShowedRuleAgain;
 
     public final static String LIST_QUESTION_FRAGMENT_TAG = "List Question Fragment";
 
@@ -52,6 +54,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
+        loadState();
         questionPackages = DataSource.getQuestionPackagesByType(type);
         adapter = new ListQuestionAdapter(getActivity(), questionPackages);
         adapter.setOnRecyclerViewItemClickListener(this);
@@ -67,14 +70,53 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         buttonRandomQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowRuleFragment fragment = new ShowRuleFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("Type", type);
-                bundle.putBoolean("Random", true);
-                fragment.setArguments(bundle);
-                replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+                if (isShowedRuleAgain) {
+                    ShowRuleFragment fragment = new ShowRuleFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Type", type);
+                    bundle.putBoolean("Random", true);
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+                } else {
+                    DoTestFragment fragment = new DoTestFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Type", type);
+                    bundle.putBoolean("Random", true);
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+                }
             }
         });
+    }
+
+    private void loadState() {
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again A", true);
+                break;
+            case DataSource.TYPE_SIM_A_UMUM:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again A Umum", true);
+                break;
+            case DataSource.TYPE_SIM_B1:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B1", true);
+                break;
+            case DataSource.TYPE_SIM_B1_UMUM:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B1 Umum", true);
+                break;
+            case DataSource.TYPE_SIM_B2:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B2", true);
+                break;
+            case DataSource.TYPE_SIM_B2_UMUM:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B2 Umum", true);
+                break;
+            case DataSource.TYPE_SIM_C:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again C", true);
+                break;
+            case DataSource.TYPE_SIM_D:
+                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again D", true);
+                break;
+        }
     }
 
     private void getData() {
@@ -90,12 +132,21 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
 
     @Override
     public void onQuestionListItemClick(QuestionPackage questionPackage) {
-        ShowRuleFragment fragment = new ShowRuleFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("Type", type);
-        bundle.putString("Exam Id", questionPackage.index);
-        fragment.setArguments(bundle);
-        replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+        if (isShowedRuleAgain) {
+            ShowRuleFragment fragment = new ShowRuleFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("Type", type);
+            bundle.putInt("Exam Id", questionPackage.index);
+            fragment.setArguments(bundle);
+            replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+        } else {
+            DoTestFragment fragment = new DoTestFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("Type", type);
+            bundle.putInt("Exam Id", questionPackage.index);
+            fragment.setArguments(bundle);
+            replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+        }
     }
 
     private class ListQuestionAdapter extends RecyclerView.Adapter<ListQuestionAdapter.ViewHolder> {
@@ -128,7 +179,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
             } else {
                 holder.scoreArea.setVisibility(View.GONE);
             }
-            holder.textViewQuestionPackage.setText(MessageFormat.format(context.getString(R.string.topic), questionPackage.index));
+            holder.textViewQuestionPackage.setText(MessageFormat.format(context.getString(R.string.topic), "" + questionPackage.index));
             holder.testListItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

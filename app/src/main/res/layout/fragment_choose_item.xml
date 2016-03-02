@@ -24,7 +24,7 @@
                 android:layout_marginBottom="@dimen/common_size_20"
                 android:layout_marginTop="@dimen/common_size_20"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardCornerRadius="@dimen/common_size_3"
                 card_view:cardPreventCornerOverlap="false">
 
                 <Button
@@ -45,7 +45,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/common_size_40"
                 card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_5"
+                card_view:cardCornerRadius="@dimen/common_size_3"
                 card_view:cardPreventCornerOverlap="false">
 
                 <Button

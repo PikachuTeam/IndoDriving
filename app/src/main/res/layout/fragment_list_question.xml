@@ -12,6 +12,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/test_list_item_height"
+            android:layout_marginBottom="@dimen/common_size_6"
             android:layout_marginLeft="@dimen/common_size_12"
             android:layout_marginRight="@dimen/common_size_12"
             android:layout_marginTop="@dimen/common_size_12"
@@ -22,7 +23,7 @@
                 android:id="@+id/buttonRandomQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/random_question_button"
+                android:background="@drawable/raised_button"
                 android:clickable="true">
 
                 <TextView
@@ -30,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/random_questions"
-                    android:textColor="@color/black"
+                    android:textColor="@color/random_questions_text_color"
                     android:textSize="@dimen/common_text_size_30" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>

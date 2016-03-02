@@ -2,7 +2,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/item_list_detail_result_height"
+    android:layout_marginBottom="@dimen/common_size_5"
     android:layout_marginLeft="@dimen/common_size_10"
     android:layout_marginRight="@dimen/common_size_10"
     android:layout_marginTop="@dimen/common_size_5"
@@ -13,20 +14,27 @@
     <LinearLayout
         android:id="@+id/buttonDetailResult"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/list_detail_result_question_image_size"
+        android:layout_height="match_parent"
         android:background="@drawable/raised_button"
         android:clickable="true">
 
         <ImageView
             android:id="@+id/questionImage"
             android:layout_width="@dimen/list_detail_result_question_image_size"
-            android:layout_height="@dimen/list_detail_result_question_image_size" />
+            android:layout_height="@dimen/list_detail_result_question_image_size"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/common_size_20"
+            android:layout_marginRight="@dimen/common_size_20" />
 
         <TextView
             android:id="@+id/textViewQuestion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="@dimen/common_size_10" />
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="3"
+            android:padding="@dimen/common_size_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_text_size_18" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

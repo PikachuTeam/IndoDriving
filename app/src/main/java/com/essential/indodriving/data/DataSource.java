@@ -16,7 +16,7 @@ import tatteam.com.app_common.sqlite.DatabaseLoader;
 public class DataSource extends BaseDataSource {
 
     public final static int TYPE_SIM_A = 1, TYPE_SIM_A_UMUM = 2, TYPE_SIM_B1 = 3, TYPE_SIM_B1_UMUM = 4, TYPE_SIM_B2 = 5, TYPE_SIM_B2_UMUM = 6, TYPE_SIM_C = 7, TYPE_SIM_D = 8;
-    public final static int ANSWER_A = 0, ANSWER_B = 1, ANSWER_C = 2, ANSWER_D = 3, ANSWER_NOT_CHOSEN=-1;
+    public final static int ANSWER_A = 0, ANSWER_B = 1, ANSWER_C = 2, ANSWER_D = 3, ANSWER_NOT_CHOSEN = -1;
     public final static String TABLE_EXAMS = "Exams", KEY_SCORE = "LastScore";
 
     public static ArrayList<Question> getAllQuestionByType(int type) {
@@ -50,11 +50,11 @@ public class DataSource extends BaseDataSource {
     public static ArrayList<QuestionPackage> getQuestionPackagesByType(int type) {
         SQLiteDatabase sqLiteDatabase = openConnection();
         ArrayList<QuestionPackage> questionPackages = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery("select distinct ExamId, LastScore from Exams where Type=?", new String[]{"" + type});
+        Cursor cursor = sqLiteDatabase.rawQuery("select distinct ExamId, LastScore from Exams where Type=? order by ExamId asc", new String[]{"" + type});
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             QuestionPackage questionPackage = new QuestionPackage();
-            questionPackage.index = cursor.getString(0);
+            questionPackage.index = cursor.getInt(0);
             questionPackage.lastScore = cursor.getInt(1);
             questionPackages.add(questionPackage);
             cursor.moveToNext();
@@ -64,14 +64,14 @@ public class DataSource extends BaseDataSource {
         return questionPackages;
     }
 
-    public static ArrayList<Question> getQuestionsByTypeAndExamId(int type, String examId, boolean isRandom) {
+    public static ArrayList<Question> getQuestionsByTypeAndExamId(int type, int examId, boolean isRandom) {
         ArrayList<Question> questions = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
         String query = "";
         Cursor cursor = null;
         if (!isRandom) {
             query = "select tmp.* from Exams, (SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id) as tmp where Exams.ExamId=? and Exams.Type=? and Exams.QuestionId=tmp.Id";
-            cursor = sqLiteDatabase.rawQuery(query, new String[]{examId, "" + type});
+            cursor = sqLiteDatabase.rawQuery(query, new String[]{"" + examId, "" + type});
         } else {
             query = "SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id WHERE Questions.Type = ? order by Random() limit 30";
             cursor = sqLiteDatabase.rawQuery(query, new String[]{"" + type});
@@ -99,11 +99,11 @@ public class DataSource extends BaseDataSource {
         return questions;
     }
 
-    public static boolean saveScore(String examId, String type, int score) {
+    public static boolean saveScore(int examId, String type, int score) {
         SQLiteDatabase sqLiteDatabase = openConnection();
         ContentValues values = new ContentValues();
         values.put(KEY_SCORE, score);
-        sqLiteDatabase.update(TABLE_EXAMS, values, "ExamId = ? and Type = ?", new String[]{examId, type});
+        sqLiteDatabase.update(TABLE_EXAMS, values, "ExamId = ? and Type = ?", new String[]{"" + examId, type});
         closeConnection();
         return true;
     }

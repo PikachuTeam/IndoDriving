@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#003E93</color>
-    <color name="colorPrimaryDark">#02288D</color>
+    <color name="colorPrimary">#011CB2</color>
+    <color name="colorPrimaryDark">#01127F</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="textColorPrimary">#000000</color>
     <color name="app_background_color">#DFDDDD</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="colorMain">#F44336</color>
 
-    <color name="raised_button_color">#FFFFFF</color>
-    <color name="raised_button_highlight_color">#D8D8D8</color>
-
-    <color name="background_container_color">#BFBFBF</color>
     <color name="random_question_button_normal_color">#2196F3</color>
     <color name="random_question_button_highlight_color">#1976D2</color>
     <color name="test_rule_stroke_line_color">#039BE5</color>
     <color name="button_start_normal_color">#FF5722</color>
     <color name="button_start_highlight_color">#E64A19</color>
     <color name="radio_button_background_color">#B4B1B1</color>
-    <color name="toolbar_menu_item_color">#2196F3</color>
-    <color name="item_question_no_stroke_color">#FF5722</color>
+    <color name="item_question_no_stroke_normal_color">#FF5722</color>
+    <color name="item_question_no_stroke_highlight_color">#fae20c</color>
     <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
     <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
     <color name="wrong_answer_color">#F44336</color>
     <color name="correct_answer_color">#4CAF50</color>
     <color name="not_answered_color">#FFEB3B</color>
-    <color name="result_stroke_line_color">#FF9F00</color>
-
-    <color name="home_background_color">#7B80FF</color>
-
+    <color name="home_background_color">#514dbe</color>
     <color name="progress_start">#fda523</color>
-    <color name="progress_end">#4CAF50</color>
     <color name="secondary_progress_start_color">#FFD300</color>
-    <color name="secondary_progress_center_color">#FFB600</color>
-    <color name="secondary_progress_end_color">#FFCB00</color>
     <color name="progress_background_start_color">#FFFFFF</color>
     <color name="progress_background_center_color">#5A5D5A</color>
     <color name="progress_background_end_color">#747674</color>
-    <color name="dialog_warning_stroke_line_color">#616161</color>
     <color name="dialog_button_hovered_color">#D8D8D8</color>
     <color name="dialog_button_highlight_color">#BFBFBF</color>
+    <color name="home_button_highlight_color">#007F70</color>
+    <color name="bg_button_next_stroke_line_normal_color">#B2B2B2</color>
+    <color name="bg_button_next_stroke_line_highlight_color">#DADADA</color>
+    <color name="random_questions_text_color">#FFD300</color>
+    <color name="background_container_color">#D8D8D8</color>
+    <color name="toolbar_menu_item_color">#FFFFFF</color>
+    <color name="ok_text_color">#2196F3</color>
+    <color name="warning_dialog_stroke_line_color">#FF5722</color>
 </resources>

@@ -8,7 +8,7 @@
         android:id="@+id/tvWarning"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/common_size_10"
+        android:padding="@dimen/common_size_12"
         android:text="@string/dialog_warning_text"
         android:textColor="@color/black"
         android:textSize="@dimen/common_text_size_16" />
@@ -18,20 +18,20 @@
         android:layout_height="@dimen/stroke_line_size"
         android:layout_marginLeft="@dimen/common_size_10"
         android:layout_marginRight="@dimen/common_size_10"
-        android:background="@color/black" />
+        android:background="@color/warning_dialog_stroke_line_color" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+         <Button
             android:id="@+id/buttonOk"
             android:layout_width="@dimen/dialog_warning_button_width"
             android:layout_height="@dimen/dialog_warning_button_height"
             android:layout_toLeftOf="@+id/buttonCancel"
             android:background="@drawable/dialog_button"
             android:text="@string/ok"
-            android:textColor="@color/black"
+            android:textColor="@color/ok_text_color"
             android:textSize="@dimen/common_text_size_18" />
 
         <Button

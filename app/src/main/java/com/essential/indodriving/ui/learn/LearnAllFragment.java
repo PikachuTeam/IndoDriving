@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/27/2016.
  */
-public class LearnAllFragment extends MyBaseFragment implements View.OnClickListener {
+public class LearnAllFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
 
     private ImageView cardQuestionImage;
     private TextView cardTextViewQuestion;
@@ -35,6 +36,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private TextView textViewAnswerD;
     private ImageView buttonPrevious;
     private ImageView buttonNext;
+    private ImageView buttonZoomIn;
+    private RelativeLayout imageArea;
 
     private ArrayList<Question> questions;
     private int type;
@@ -93,10 +96,13 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         textViewAnswerD = (TextView) rootView.findViewById(R.id.textViewAnswerD);
         buttonPrevious = (ImageView) rootView.findViewById(R.id.buttonPrevious);
         buttonNext = (ImageView) rootView.findViewById(R.id.buttonNext);
+        buttonZoomIn = (ImageView) rootView.findViewById(R.id.buttonZoomIn);
+        imageArea = (RelativeLayout) rootView.findViewById(R.id.imageArea);
 
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
         cardQuestionImage.setOnClickListener(this);
+        buttonZoomIn.setOnTouchListener(this);
     }
 
     private void getData() {
@@ -174,9 +180,9 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
 
     private void setCardData(Question question) {
         if (question.image == null) {
-            cardQuestionImage.setVisibility(View.GONE);
+            imageArea.setVisibility(View.GONE);
         } else {
-            cardQuestionImage.setVisibility(View.VISIBLE);
+            imageArea.setVisibility(View.VISIBLE);
             cardQuestionImage.setImageBitmap(question.image);
         }
         cardTextViewQuestion.setText(question.question);
@@ -247,5 +253,18 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), questions.get(currentPosition).image);
             dialog.show();
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_highlight);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+            Question question = questions.get(currentPosition);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.image);
+            dialog.show();
+        }
+        return false;
     }
 }

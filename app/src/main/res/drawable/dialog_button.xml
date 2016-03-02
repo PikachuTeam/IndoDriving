@@ -11,10 +11,4 @@
             <solid android:color="@color/dialog_button_highlight_color" />
         </shape>
     </item>
-
-    <item android:state_hovered="true">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/dialog_button_hovered_color" />
-        </shape>
-    </item>
 </selector>
