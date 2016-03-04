@@ -17,7 +17,6 @@ import tatteam.com.app_common.util.AppConstant;
  */
 public class MainActivity extends MyBaseActivity {
 
-    private int button;
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private FrameLayout adsContainer;
     private int type;

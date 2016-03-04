@@ -5,59 +5,139 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/common_size_10"
-        card_view:cardBackgroundColor="@color/background_container_color">
+        android:background="@color/app_background_color">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:background="@color/app_background_color"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="@dimen/choose_item_button_width"
-                android:layout_height="@dimen/choose_item_button_height"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/common_size_20"
-                android:layout_marginTop="@dimen/common_size_20"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_3"
-                card_view:cardPreventCornerOverlap="false">
+            <LinearLayout
+                android:id="@+id/buttonLearnContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/choose_item_flat_button"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/buttonLearn"
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/choose_item_button_size"
+                    android:layout_height="@dimen/choose_item_button_size"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginLeft="@dimen/common_size_40"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:elevation="@dimen/common_size_5"
+                    card_view:cardCornerRadius="@dimen/common_size_9"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <ImageView
+                        android:id="@+id/buttonLearn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_learn"
+                        android:clickable="true"
+                        android:src="@drawable/ic_learn" />
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textViewLearn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/raised_button"
-                    android:text="@string/title_learn"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
-            </android.support.v7.widget.CardView>
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/common_size_20"
+                    android:text="@string/learn_all"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/common_text_size_40" />
+            </LinearLayout>
 
-            <android.support.v7.widget.CardView
+
+            <LinearLayout
                 android:id="@+id/buttonTestContainer"
-                android:layout_width="@dimen/choose_item_button_width"
-                android:layout_height="@dimen/choose_item_button_height"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/common_size_40"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="@dimen/common_size_3"
-                card_view:cardPreventCornerOverlap="false">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/common_size_45"
+                android:background="@drawable/choose_item_flat_button"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/buttonTest"
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/choose_item_button_size"
+                    android:layout_height="@dimen/choose_item_button_size"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginLeft="@dimen/common_size_40"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:elevation="@dimen/common_size_5"
+                    card_view:cardCornerRadius="@dimen/common_size_9"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <ImageView
+                        android:id="@+id/buttonTest"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_learn"
+
+                        android:clickable="true"
+                        android:src="@drawable/ic_test" />
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textViewTest"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/raised_button"
-                    android:text="@string/title_test"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
-            </android.support.v7.widget.CardView>
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/common_size_20"
+                    android:text="@string/test"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/common_text_size_40" />
+            </LinearLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+
+        <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="@dimen/choose_item_button_width"-->
+        <!--android:layout_height="@dimen/choose_item_button_height"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginBottom="@dimen/common_size_20"-->
+        <!--android:layout_marginTop="@dimen/common_size_20"-->
+        <!--card_view:cardBackgroundColor="@color/white"-->
+        <!--card_view:cardCornerRadius="@dimen/common_size_3"-->
+        <!--card_view:cardPreventCornerOverlap="false">-->
+
+        <!--<Button-->
+        <!--android:id="@+id/buttonLearn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/raised_button"-->
+        <!--android:text="@string/title_learn"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="@dimen/choose_sim_button_text_size" />-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/buttonTestContainer"-->
+        <!--android:layout_width="@dimen/choose_item_button_width"-->
+        <!--android:layout_height="@dimen/choose_item_button_height"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="@dimen/common_size_40"-->
+        <!--card_view:cardBackgroundColor="@color/white"-->
+        <!--card_view:cardCornerRadius="@dimen/common_size_3"-->
+        <!--card_view:cardPreventCornerOverlap="false">-->
+
+        <!--<Button-->
+        <!--android:id="@+id/buttonTest"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/raised_button"-->
+        <!--android:text="@string/title_test"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="@dimen/choose_sim_button_text_size" />-->
+        <!--</android.support.v7.widget.CardView>-->
+    </RelativeLayout>
 </tatteam.com.app_common.ui.drawable.FractionFrameLayout>

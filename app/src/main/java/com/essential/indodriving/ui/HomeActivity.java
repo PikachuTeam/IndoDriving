@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
@@ -38,6 +40,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         findViews();
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
+        setFont(font);
+
         adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
         adsSmallBannerHandler.setup();
     }
@@ -67,6 +72,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonLearnSimB2Umum.setOnClickListener(this);
         buttonLearnSimC.setOnClickListener(this);
         buttonLearnSimD.setOnClickListener(this);
+    }
+
+    private void setFont(Typeface font) {
+        ((TextView) findViewById(R.id.textViewSimA)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewSimAUmum)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewSimB1)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewSimB1Umum)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewSimB2)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewSimB2Umum)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewSimC)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewSimD)).setTypeface(font);
     }
 
     @Override

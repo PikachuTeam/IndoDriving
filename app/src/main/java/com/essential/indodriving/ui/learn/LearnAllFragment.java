@@ -1,5 +1,6 @@
 package com.essential.indodriving.ui.learn;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -43,6 +45,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private int type;
     private int currentPosition;
 
+    public final static String LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +57,24 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_learn_all);
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                return MessageFormat.format(getString(R.string.learn_sim_a), "" + questions.size());
+            case DataSource.TYPE_SIM_A_UMUM:
+                return MessageFormat.format(getString(R.string.learn_sim_a_umum), "" + questions.size());
+            case DataSource.TYPE_SIM_B1:
+                return MessageFormat.format(getString(R.string.learn_sim_b1), "" + questions.size());
+            case DataSource.TYPE_SIM_B1_UMUM:
+                return MessageFormat.format(getString(R.string.learn_sim_b1_umum), "" + questions.size());
+            case DataSource.TYPE_SIM_B2:
+                return MessageFormat.format(getString(R.string.learn_sim_b2), "" + questions.size());
+            case DataSource.TYPE_SIM_B2_UMUM:
+                return MessageFormat.format(getString(R.string.learn_sim_b2_umum), "" + questions.size());
+            case DataSource.TYPE_SIM_C:
+                return MessageFormat.format(getString(R.string.learn_sim_c), "" + questions.size());
+            default:
+                return MessageFormat.format(getString(R.string.learn_sim_d), "" + questions.size());
+        }
     }
 
     @Override
@@ -120,6 +141,30 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     public void onPause() {
         super.onPause();
         saveState();
+    }
+
+    @Override
+    protected boolean enableButtonTutorial() {
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+            case DataSource.TYPE_SIM_C:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    protected void onMenuItemClick(int id) {
+        TutorialFragment tutorialFragment = new TutorialFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("Type", type);
+        tutorialFragment.setArguments(bundle);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.fragment_silde_bot_enter, 0, 0, R.animator.fragment_silde_bot_exit);
+        transaction.replace(R.id.fragmentContainer, tutorialFragment, LEARN_ALL_FRAGMENT_TAG);
+        transaction.addToBackStack(LEARN_ALL_FRAGMENT_TAG);
+        transaction.commit();
     }
 
     private void saveState() {
@@ -215,10 +260,10 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void resetAllAnswers() {
-        textViewAnswerA.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
-        textViewAnswerB.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
-        textViewAnswerC.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
-        textViewAnswerD.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+        textViewAnswerA.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+        textViewAnswerB.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+        textViewAnswerC.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+        textViewAnswerD.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
     }
 
     @Override

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#011CB2</color>
-    <color name="colorPrimaryDark">#01127F</color>
+    <color name="colorPrimary">#693393</color>
+    <color name="colorPrimaryDark">#361350</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="app_background_color">#DFDDDD</color>
+    <color name="app_background_color">#7A3DAA</color>
+    <color name="toolbar_flat_button_highlight_color">#7A3DAA</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
@@ -19,14 +20,9 @@
     <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
     <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
     <color name="wrong_answer_color">#F44336</color>
-    <color name="correct_answer_color">#4CAF50</color>
+    <color name="correct_answer_color">#0F9D58</color>
     <color name="not_answered_color">#FFEB3B</color>
-    <color name="home_background_color">#514dbe</color>
-    <color name="progress_start">#fda523</color>
     <color name="secondary_progress_start_color">#FFD300</color>
-    <color name="progress_background_start_color">#FFFFFF</color>
-    <color name="progress_background_center_color">#5A5D5A</color>
-    <color name="progress_background_end_color">#747674</color>
     <color name="dialog_button_hovered_color">#D8D8D8</color>
     <color name="dialog_button_highlight_color">#BFBFBF</color>
     <color name="home_button_highlight_color">#007F70</color>
@@ -37,4 +33,19 @@
     <color name="toolbar_menu_item_color">#FFFFFF</color>
     <color name="ok_text_color">#2196F3</color>
     <color name="warning_dialog_stroke_line_color">#FF5722</color>
+
+    <color name="button_sim_normal_color">#9950328B</color>
+    <color name="button_sim_highlight_color">#CC50328B</color>
+    <color name="home_screen_stroke_line_color">#EBBB26</color>
+    <color name="text_color">#E8E8E8</color>
+    
+    <color name="choose_item_button_normal_color">#A777CD</color>
+    <color name="choose_item_button_highlight_color">#8761A5</color>
+
+    <color name="do_test_highlight_color">#F5CB43</color>
+
+    <color name="progress_bar_color">#0F9D58</color>
+    <color name="progress_bar_background_color">#5C5C5C</color>
+
+    <color name="learn_all_text_color">#693393</color>
 </resources>

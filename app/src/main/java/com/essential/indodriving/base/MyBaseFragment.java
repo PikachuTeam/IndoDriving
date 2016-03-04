@@ -17,7 +17,7 @@ import tatteam.com.app_common.ui.fragment.BaseFragment;
  */
 public abstract class MyBaseFragment extends BaseFragment {
 
-    public final static int BUTTON_RESULT_ID = 1;
+    public final static int BUTTON_RESULT_ID = 1, BUTTON_TUTORIAL_ID=2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,9 @@ public abstract class MyBaseFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getMyBaseActivity().getToolbar().setVisibility(View.VISIBLE);
-        getMyBaseActivity().getSupportActionBar().setTitle(getTitle());
+        getMyBaseActivity().setToolbarTitle(getTitle());
+        getMyBaseActivity().enableButtonResult(enableButtonResult());
+        getMyBaseActivity().enableButtonTutorial(enableButtonTutorial());
         getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(enableIndicator());
         if (enableButtonBack()) {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
@@ -56,12 +58,12 @@ public abstract class MyBaseFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.buttonResult).setVisible(enableButtonResult());
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.main_menu, menu);
+//        menu.findItem(R.id.buttonResult).setVisible(enableButtonResult());
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
     protected void onMenuItemClick(int id) {
         // do something here
@@ -81,6 +83,10 @@ public abstract class MyBaseFragment extends BaseFragment {
 
     protected boolean enableButtonBack() {
         return true;
+    }
+
+    protected boolean enableButtonTutorial() {
+        return false;
     }
 
     protected abstract String getTitle();
