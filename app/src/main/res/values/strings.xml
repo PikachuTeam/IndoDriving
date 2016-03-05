@@ -16,7 +16,7 @@
     <string name="sim_c">Sim C</string>
     <string name="sim_d">Sim D</string>
     <string name="learn_all">Learn All</string>
-    <string name="tutorial">Tutorials</string>
+    <string name="tutorial">Tutorial</string>
     <string name="title_test">Test</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_learn_all">Learn All</string>
@@ -68,4 +68,5 @@
     <string name="learn_sim_b2_umum">Learn Sim B2 Umum ({0})</string>
     <string name="learn_sim_c">Learn Sim C ({0})</string>
     <string name="learn_sim_d">Learn Sim D ({0})</string>
+    <string name="warning_dialog_title">Finish answering</string>
 </resources>

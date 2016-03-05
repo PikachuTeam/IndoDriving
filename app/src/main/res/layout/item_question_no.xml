@@ -5,33 +5,19 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/questionNoWrapper"
-        android:layout_width="@dimen/common_size_41"
+        android:layout_width="@dimen/common_size_35"
         android:layout_height="@dimen/number_wrapper_height"
-        android:background="@drawable/button_without_corner"
+        android:background="@drawable/question_wrapper"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewNumber"
-            android:layout_width="@dimen/common_size_40"
+            android:layout_width="@dimen/common_size_35"
             android:layout_height="@dimen/number_text_height"
             android:gravity="center"
             android:text="1"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_1"
             android:textSize="@dimen/common_text_size_20" />
-
-        <View
-            android:layout_width="@dimen/stroke_line_size"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/common_size_3"
-            android:layout_marginTop="@dimen/common_size_3"
-            android:layout_toRightOf="@+id/textViewNumber"
-            android:background="@color/item_question_no_stroke_normal_color" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_question_no_highlight_view_size"
-            android:layout_alignParentBottom="true"
-            android:background="@color/item_question_no_stroke_normal_color" />
 
         <View
             android:id="@+id/highlightView"

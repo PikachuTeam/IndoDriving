@@ -6,6 +6,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
     android:theme="@style/MyMaterialTheme"
+    android:elevation="@dimen/common_size_5"
     app:layout_collapseMode="pin"
     app:popupTheme="@style/MyMaterialTheme.PopupOverlay">
 
@@ -21,37 +22,39 @@
             android:paddingBottom="@dimen/common_size_5"
             android:text="Title"
             android:textAllCaps="true"
-            android:textColor="@color/text_color"
+            android:textColor="@color/text_color_1"
             android:textSize="@dimen/common_text_size_28" />
 
         <TextView
             android:id="@+id/buttonResult"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@drawable/toolbar_flat_button"
             android:clickable="true"
             android:gravity="center"
             android:paddingBottom="@dimen/common_size_5"
-            android:paddingLeft="@dimen/common_size_5"
+            android:paddingRight="@dimen/common_size_5"
             android:text="@string/result"
+            android:paddingLeft="@dimen/common_size_5"
             android:textAllCaps="true"
             android:textColor="@color/do_test_highlight_color"
             android:textSize="@dimen/common_text_size_28" />
 
-        <LinearLayout
+        <TextView
             android:id="@+id/buttonTutorial"
-            android:layout_width="?attr/actionBarSize"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@drawable/toolbar_flat_button"
             android:clickable="true"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="@dimen/button_tutorial_size"
-                android:layout_height="@dimen/button_tutorial_size"
-                android:src="@drawable/ic_tutorial" />
-        </LinearLayout>
+            android:gravity="center"
+            android:paddingLeft="@dimen/common_size_5"
+            android:paddingBottom="@dimen/common_size_5"
+            android:paddingRight="@dimen/common_size_5"
+            android:text="@string/tutorial"
+            android:textAllCaps="true"
+            android:textColor="@color/do_test_highlight_color"
+            android:textSize="@dimen/common_text_size_28"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

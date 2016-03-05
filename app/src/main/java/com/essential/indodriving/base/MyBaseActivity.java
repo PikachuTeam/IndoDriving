@@ -21,7 +21,7 @@ public abstract class MyBaseActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private TextView textViewTitle;
-    private LinearLayout buttonTutorial;
+    private TextView buttonTutorial;
     private TextView buttonResult;
 
     @Override
@@ -66,7 +66,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private void findViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
-        buttonTutorial = (LinearLayout) findViewById(R.id.buttonTutorial);
+        buttonTutorial = (TextView) findViewById(R.id.buttonTutorial);
         buttonResult = (TextView) findViewById(R.id.buttonResult);
 
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +87,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private void setFont(Typeface font) {
         textViewTitle.setTypeface(font);
         buttonResult.setTypeface(font);
+        buttonTutorial.setTypeface(font);
     }
 
     private MyBaseFragment getMyCurrentFragment() {

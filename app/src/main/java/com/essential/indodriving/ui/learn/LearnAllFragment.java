@@ -3,16 +3,16 @@ package com.essential.indodriving.ui.learn;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -40,10 +40,13 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private ImageView buttonNext;
     private ImageView buttonZoomIn;
     private RelativeLayout imageArea;
+    private RelativeLayout indicator;
 
     private ArrayList<Question> questions;
     private int type;
     private int currentPosition;
+    private float indicatorPosition;
+    private float indicatorPositionOffset;
 
     public final static String LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment";
 
@@ -100,10 +103,18 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     float tmp = questions.size() * rate;
                     currentPosition = (int) tmp;
                     setCardData(questions.get(currentPosition));
+
+                    indicator.setX(event.getX());
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onStart();
+        Toast.makeText(getActivity(), "" + readingProgress.getWidth(), Toast.LENGTH_SHORT).show();
     }
 
     private void findViews(View rootView) {
@@ -119,6 +130,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         buttonNext = (ImageView) rootView.findViewById(R.id.buttonNext);
         buttonZoomIn = (ImageView) rootView.findViewById(R.id.buttonZoomIn);
         imageArea = (RelativeLayout) rootView.findViewById(R.id.imageArea);
+        indicator = (RelativeLayout) rootView.findViewById(R.id.position);
 
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
@@ -254,7 +266,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 break;
         }
 
-        textViewProgress.setText("" + (currentPosition + 1) + "/" + questions.size());
+        textViewProgress.setText("" + (currentPosition + 1));
 
         readingProgress.setProgress(currentPosition + 1);
     }

@@ -2,6 +2,7 @@ package com.essential.indodriving.ui.test;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -51,6 +52,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     private CountDownTimer timer;
     private boolean isRandom;
     private int timeLeft;
+    private Typeface font;
 
     public final static String KEY_HOLDER_QUESTIONS = "Questions";
     public final static String DO_TEST_FRAGMENT_TAG = "Do Test Fragment";
@@ -62,10 +64,12 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         getData();
         questions = DataSource.getQuestionsByTypeAndExamId(type, examId, isRandom);
 
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
+
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             QuestionNoItemWrapper wrapper = new QuestionNoItemWrapper(getActivity());
-            wrapper.setText("" + questions.get(i).index);
+            wrapper.setText("" + questions.get(i).index, font);
             if (i == 0) {
                 wrapper.setActive(true);
             } else {
@@ -147,7 +151,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     @Override
     public void onBackPressed() {
         timer.cancel();
-        WarningDialog warningDialog = new WarningDialog(getActivity(), 0);
+        WarningDialog warningDialog = new WarningDialog(getActivity(), 0,font);
         warningDialog.addListener(this);
         warningDialog.show();
     }
@@ -163,7 +167,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT_ID) {
             timer.cancel();
-            WarningDialog warningDialog = new WarningDialog(getActivity(), 1);
+            WarningDialog warningDialog = new WarningDialog(getActivity(), 1,font);
             warningDialog.addListener(this);
             warningDialog.show();
         }

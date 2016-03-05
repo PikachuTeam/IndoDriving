@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.widget;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -62,12 +63,12 @@ public class QuestionNoItemWrapper {
 
     public void setHighlight() {
         isHighlight = true;
-        questionNoWrapper.setBackgroundResource(R.drawable.question_wrapper_highlight_background);
-        textViewNumber.setTextColor(ContextCompat.getColor(context, R.color.white));
+        textViewNumber.setTextColor(ContextCompat.getColor(context, R.color.question_wrapper_text_highlight_color));
     }
 
-    public void setText(String number) {
+    public void setText(String number, Typeface font) {
         textViewNumber.setText(number);
+        textViewNumber.setTypeface(font);
     }
 
     public View getView() {

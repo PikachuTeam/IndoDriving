@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_a"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_a_umum"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_b1"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_b1_umum"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 
@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_b2"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 
@@ -226,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_b2_umum"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 
@@ -262,7 +262,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_c"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 
@@ -298,7 +298,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/sim_d"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
 

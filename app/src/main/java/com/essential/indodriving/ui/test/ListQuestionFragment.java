@@ -2,16 +2,16 @@ package com.essential.indodriving.ui.test;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerViewItemClickListener {
 
     private RecyclerView listQuestion;
-    private RelativeLayout buttonRandomQuestion;
 
     private int type;
     private ListQuestionAdapter adapter;
@@ -65,28 +64,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
 
     private void findViews(View rootView) {
         listQuestion = (RecyclerView) rootView.findViewById(R.id.listQuestion);
-        buttonRandomQuestion = (RelativeLayout) rootView.findViewById(R.id.buttonRandomQuestion);
-
-        buttonRandomQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isShowedRuleAgain) {
-                    ShowRuleFragment fragment = new ShowRuleFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("Type", type);
-                    bundle.putBoolean("Random", true);
-                    fragment.setArguments(bundle);
-                    replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
-                } else {
-                    DoTestFragment fragment = new DoTestFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("Type", type);
-                    bundle.putBoolean("Random", true);
-                    fragment.setArguments(bundle);
-                    replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
-                }
-            }
-        });
     }
 
     private void loadState() {
@@ -125,39 +102,66 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     }
 
     private void setupRecyclerView() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        listQuestion.setLayoutManager(layoutManager);
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        listQuestion.setLayoutManager(gridLayoutManager);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.isPositionHeader(position) ? gridLayoutManager.getSpanCount() : 1;
+            }
+        });
         listQuestion.setAdapter(adapter);
     }
 
     @Override
-    public void onQuestionListItemClick(QuestionPackage questionPackage) {
-        if (isShowedRuleAgain) {
-            ShowRuleFragment fragment = new ShowRuleFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("Type", type);
-            bundle.putInt("Exam Id", questionPackage.index);
-            fragment.setArguments(bundle);
-            replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+    public void onQuestionListItemClick(QuestionPackage questionPackage, boolean isHeader) {
+        if (!isHeader) {
+            if (isShowedRuleAgain) {
+                ShowRuleFragment fragment = new ShowRuleFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", type);
+                bundle.putInt("Exam Id", questionPackage.index);
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+            } else {
+                DoTestFragment fragment = new DoTestFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", type);
+                bundle.putInt("Exam Id", questionPackage.index);
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+            }
         } else {
-            DoTestFragment fragment = new DoTestFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("Type", type);
-            bundle.putInt("Exam Id", questionPackage.index);
-            fragment.setArguments(bundle);
-            replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+            if (isShowedRuleAgain) {
+                ShowRuleFragment fragment = new ShowRuleFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", type);
+                bundle.putBoolean("Random", true);
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+            } else {
+                DoTestFragment fragment = new DoTestFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Type", type);
+                bundle.putBoolean("Random", true);
+                fragment.setArguments(bundle);
+                replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
+            }
         }
     }
 
-    private class ListQuestionAdapter extends RecyclerView.Adapter<ListQuestionAdapter.ViewHolder> {
+    private class ListQuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private ArrayList<QuestionPackage> packages;
         private Context context;
         private OnRecyclerViewItemClickListener listener;
+        private final static int TYPE_HEADER = 0, TYPE_ITEM = 1;
+        private Typeface font;
 
         public ListQuestionAdapter(Context context, ArrayList<QuestionPackage> packages) {
             this.packages = packages;
             this.context = context;
+            font = Typeface.createFromAsset(context.getAssets(), "fonts/Menu Sim.ttf");
         }
 
         public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener listener) {
@@ -165,49 +169,93 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_question, parent, false);
-            return new ViewHolder(view);
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            if (viewType == TYPE_HEADER) {
+                View view = View.inflate(context, R.layout.header_list_question, null);
+                return new ViewHolderHeader(view);
+            } else {
+                View view = View.inflate(context, R.layout.item_list_question, null);
+                return new ViewHolderItem(view);
+            }
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            final QuestionPackage questionPackage = packages.get(position);
-            if (questionPackage.lastScore != 0) {
-                holder.scoreArea.setVisibility(View.VISIBLE);
-                holder.textViewScore.setText(MessageFormat.format(context.getString(R.string.score), "" + questionPackage.lastScore));
-            } else {
-                holder.scoreArea.setVisibility(View.GONE);
-            }
-            holder.textViewQuestionPackage.setText(MessageFormat.format(context.getString(R.string.topic), "" + questionPackage.index));
-            holder.testListItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        listener.onQuestionListItemClick(questionPackage);
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+            if (holder instanceof ViewHolderItem) {
+                final QuestionPackage questionPackage = packages.get(position - 1);
+                ((ViewHolderItem) holder).textViewPackage.setText(MessageFormat.format(context.getString(R.string.topic), "" + questionPackage.index));
+                ((ViewHolderItem) holder).textViewPackage.setTypeface(font);
+                if (questionPackage.lastScore == 0) {
+                    ((ViewHolderItem) holder).textViewLastScore.setVisibility(View.GONE);
+                } else {
+                    ((ViewHolderItem) holder).textViewLastScore.setVisibility(View.VISIBLE);
+                    if (questionPackage.lastScore >= 21) {
+                        ((ViewHolderItem) holder).textViewLastScore.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
+                    } else {
+                        ((ViewHolderItem) holder).textViewLastScore.setTextColor(ContextCompat.getColor(context, R.color.wrong_answer_color));
                     }
+                    ((ViewHolderItem) holder).textViewLastScore.setText(MessageFormat.format(context.getString(R.string.score), "" + questionPackage.lastScore));
+                    ((ViewHolderItem) holder).textViewLastScore.setTypeface(font);
                 }
-            });
+                ((ViewHolderItem) holder).buttonPackage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listener != null) {
+                            listener.onQuestionListItemClick(questionPackage, false);
+                        }
+                    }
+                });
+            } else if (holder instanceof ViewHolderHeader) {
+                ((ViewHolderHeader) holder).buttonRandomQuestion.setTypeface(font);
+                ((ViewHolderHeader) holder).buttonRandomQuestion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listener != null) {
+                            listener.onQuestionListItemClick(questionPackages.get(position), true);
+                        }
+                    }
+                });
+            }
         }
 
         @Override
         public int getItemCount() {
-            return packages.size();
+            return packages.size() + 1;
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        @Override
+        public int getItemViewType(int position) {
+            if (isPositionHeader(position)) {
+                return TYPE_HEADER;
+            }
+            return TYPE_ITEM;
+        }
 
-            TextView textViewQuestionPackage;
-            RelativeLayout testListItem;
-            LinearLayout scoreArea;
-            TextView textViewScore;
+        private boolean isPositionHeader(int position) {
+            return position == 0;
+        }
 
-            public ViewHolder(View itemView) {
+        class ViewHolderItem extends RecyclerView.ViewHolder {
+
+            TextView textViewPackage;
+            TextView textViewLastScore;
+            RelativeLayout buttonPackage;
+
+            public ViewHolderItem(View itemView) {
                 super(itemView);
-                textViewQuestionPackage = (TextView) itemView.findViewById(R.id.textViewQuestionPackage);
-                testListItem = (RelativeLayout) itemView.findViewById(R.id.testListItem);
-                scoreArea = (LinearLayout) itemView.findViewById(R.id.scoreArea);
-                textViewScore = (TextView) itemView.findViewById(R.id.textViewScore);
+                textViewPackage = (TextView) itemView.findViewById(R.id.textViewPackage);
+                textViewLastScore = (TextView) itemView.findViewById(R.id.textViewLastScore);
+                buttonPackage = (RelativeLayout) itemView.findViewById(R.id.buttonPackage);
+            }
+        }
+
+        class ViewHolderHeader extends RecyclerView.ViewHolder {
+
+            TextView buttonRandomQuestion;
+
+            public ViewHolderHeader(View itemView) {
+                super(itemView);
+                buttonRandomQuestion = (TextView) itemView.findViewById(R.id.buttonRandomQuestion);
             }
         }
     }

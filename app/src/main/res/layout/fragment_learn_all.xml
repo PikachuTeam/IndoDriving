@@ -28,7 +28,8 @@
                 <RelativeLayout
                     android:id="@+id/imageArea"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/learn_all_image_size">
+                    android:layout_height="@dimen/learn_all_image_size"
+                    android:layout_marginTop="@dimen/common_size_5">
 
                     <ImageView
                         android:id="@+id/cardQuestionImage"
@@ -59,26 +60,55 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/textViewProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_size_10"
-            android:layout_marginTop="@dimen/common_size_3"
-            android:text="12 of 86"
-            android:textColor="@color/black"
-            android:textSize="@dimen/common_text_size_14" />
-
-        <ProgressBar
-            android:id="@+id/readingProgress"
-            style="@android:style/Widget.ProgressBar.Horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_size_10"
-            android:layout_marginRight="@dimen/common_size_10"
-            android:maxHeight="@dimen/common_size_10"
-            android:minHeight="@dimen/common_size_10"
-            android:progressDrawable="@drawable/progress_bar" />
+            android:layout_height="55dp"
+            android:layout_marginTop="@dimen/common_size_5">
+
+            <!--<TextView-->
+                <!--android:id="@+id/textViewProgress"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/common_size_10"-->
+                <!--android:layout_marginTop="@dimen/common_size_3"-->
+                <!--android:text="12 of 86"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="@dimen/common_text_size_14" />-->
+
+            <RelativeLayout
+                android:id="@+id/position"
+                android:layout_width="24dp"
+                android:layout_height="35dp"
+                android:layout_above="@+id/readingProgress">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_position" />
+
+                <TextView
+                    android:id="@+id/textViewProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/common_size_7"
+                    android:text="174"
+                    android:textColor="@color/white"
+                    android:textSize="8dp" />
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/readingProgress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/common_size_10"
+                android:layout_marginRight="@dimen/common_size_10"
+                android:maxHeight="@dimen/common_size_10"
+                android:minHeight="@dimen/common_size_10"
+                android:progressDrawable="@drawable/progress_bar" />
+        </RelativeLayout>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"

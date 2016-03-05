@@ -3,8 +3,8 @@
     <color name="colorPrimary">#693393</color>
     <color name="colorPrimaryDark">#361350</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="app_background_color">#7A3DAA</color>
-    <color name="toolbar_flat_button_highlight_color">#7A3DAA</color>
+    <color name="app_background_color">#823fb6</color>
+    <color name="toolbar_flat_button_highlight_color">#3f251f1f</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
@@ -15,8 +15,7 @@
     <color name="button_start_normal_color">#FF5722</color>
     <color name="button_start_highlight_color">#E64A19</color>
     <color name="radio_button_background_color">#B4B1B1</color>
-    <color name="item_question_no_stroke_normal_color">#FF5722</color>
-    <color name="item_question_no_stroke_highlight_color">#fae20c</color>
+    <color name="item_question_no_stroke_highlight_color">#EBBB26</color>
     <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
     <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
     <color name="wrong_answer_color">#F44336</color>
@@ -37,9 +36,12 @@
     <color name="button_sim_normal_color">#9950328B</color>
     <color name="button_sim_highlight_color">#CC50328B</color>
     <color name="home_screen_stroke_line_color">#EBBB26</color>
-    <color name="text_color">#E8E8E8</color>
+
+    <color name="text_color_1">#E8E8E8</color>
+    <color name="text_color_2">#693393</color>
+    <color name="text_color_3">#7A3DAA</color>
     
-    <color name="choose_item_button_normal_color">#A777CD</color>
+    <color name="choose_item_button_normal_color">#ab6fd9</color>
     <color name="choose_item_button_highlight_color">#8761A5</color>
 
     <color name="do_test_highlight_color">#F5CB43</color>
@@ -48,4 +50,10 @@
     <color name="progress_bar_background_color">#5C5C5C</color>
 
     <color name="learn_all_text_color">#693393</color>
+    <color name="item_list_question_text_color">#693393</color>
+
+    <color name="question_wrapper_normal_color">#693393</color>
+    <color name="question_wrapper_highlight_color">#562A79</color>
+    <color name="question_wrapper_text_highlight_color">#EBBB26</color>
+    <color name="dialog_background_color">#80ffffff</color>
 </resources>
