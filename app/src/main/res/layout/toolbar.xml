@@ -6,7 +6,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
     android:theme="@style/MyMaterialTheme"
-    android:elevation="@dimen/common_size_5"
+    android:elevation="@dimen/toolbar_elevation"
     app:layout_collapseMode="pin"
     app:popupTheme="@style/MyMaterialTheme.PopupOverlay">
 

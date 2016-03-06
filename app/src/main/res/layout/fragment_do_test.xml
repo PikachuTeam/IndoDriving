@@ -34,11 +34,13 @@
             android:layout_height="@dimen/common_size_30">
 
             <TextView
+                android:id="@+id/headerQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/common_size_10"
                 android:text="@string/question"
+                android:textAllCaps="true"
                 android:textColor="@color/text_color_1"
                 android:textSize="@dimen/common_text_size_16" />
         </LinearLayout>
@@ -58,11 +60,13 @@
                 android:layout_marginTop="@dimen/question_area_height">
 
                 <TextView
+                    android:id="@+id/headerChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/common_size_10"
                     android:text="@string/choices"
+                    android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common_text_size_16" />
             </LinearLayout>

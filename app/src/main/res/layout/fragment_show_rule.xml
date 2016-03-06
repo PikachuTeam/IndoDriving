@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/app_background_color"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textViewTitleTestRule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/common_size_20"
+            android:text="@string/title_test_rule"
+            android:textAllCaps="true"
+            android:textColor="@color/text_color_4"
+            android:textSize="@dimen/common_text_size_30" />
+
+        <TextView
             android:id="@+id/textViewRule"
             android:layout_width="@dimen/test_rule_area_width"
-            android:layout_height="@dimen/test_rule_area_height"
-            android:background="@drawable/bg_layout_rule"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:gravity="left"
             android:paddingLeft="@dimen/common_size_5"
             android:paddingRight="@dimen/common_size_5"
             android:text="@string/test_rule_sim_a"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_1"
             android:textSize="@dimen/common_text_size_18" />
 
         <android.support.v7.widget.CardView
             android:layout_width="@dimen/button_start_width"
             android:layout_height="@dimen/button_start_height"
             android:layout_marginTop="@dimen/common_size_20"
-            card_view:cardCornerRadius="@dimen/common_size_3"
-            card_view:cardElevation="@dimen/common_size_6"
-            card_view:cardPreventCornerOverlap="false">
+            app:cardCornerRadius="@dimen/common_size_3"
+            app:cardElevation="@dimen/common_size_6"
+            app:cardPreventCornerOverlap="false">
 
-            <Button
+            <TextView
                 android:id="@+id/buttonStart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_start"
                 android:text="@string/start"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textColor="@color/text_color_2"
                 android:textSize="@dimen/common_text_size_30" />
         </android.support.v7.widget.CardView>
 
@@ -46,22 +56,25 @@
             android:id="@+id/checkBoxContainer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/check_box_not_show_again_size"
-            android:layout_marginTop="@dimen/common_size_20"
+            android:layout_marginTop="@dimen/common_size_10"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checkBoxShowRule"
-                android:layout_width="@dimen/check_box_not_show_again_size"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_check_box_outline_blank" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/common_size_5"
+                android:checked="false"
+                app:buttonTint="@color/show_rule_check_box_color" />
+
+            <TextView
+                android:id="@+id/textViewNotShowAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_size_3"
                 android:text="@string/test_not_show_again"
-                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textColor="@color/text_color_1"
                 android:textSize="@dimen/common_text_size_16" />
         </LinearLayout>
     </LinearLayout>

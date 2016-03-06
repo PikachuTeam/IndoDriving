@@ -2,7 +2,10 @@ package com.essential.indodriving.ui.test;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,14 +21,15 @@ import com.essential.indodriving.data.DataSource;
  */
 public class ShowRuleFragment extends MyBaseFragment implements View.OnClickListener {
 
-    private ImageView checkBoxShowRule;
-    private Button buttonStart;
+    private AppCompatCheckBox checkBoxShowRule;
+    private TextView buttonStart;
     private TextView textViewRule;
 
     private int type;
     private boolean checked;
     private int examId;
     private boolean isRandom;
+    private Typeface font;
 
     public final static String SHOW_RULE_FRAGMENT_TAG = "Show Rule Fragment";
 
@@ -33,6 +37,9 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
+
+        checked = false;
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
     }
 
     @Override
@@ -78,9 +85,11 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void findViews(View rootView) {
-        checkBoxShowRule = (ImageView) rootView.findViewById(R.id.checkBoxShowRule);
-        buttonStart = (Button) rootView.findViewById(R.id.buttonStart);
+        checkBoxShowRule = (AppCompatCheckBox) rootView.findViewById(R.id.checkBoxShowRule);
+        buttonStart = (TextView) rootView.findViewById(R.id.buttonStart);
         textViewRule = (TextView) rootView.findViewById(R.id.textViewRule);
+
+        setFont(font, rootView);
 
         buttonStart.setOnClickListener(this);
         checkBoxShowRule.setOnClickListener(this);
@@ -137,6 +146,14 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         isRandom = bundle.getBoolean("Random", false);
     }
 
+    private void setFont(Typeface font, View rootView) {
+        textViewRule.setTypeface(font);
+        buttonStart.setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.textViewNotShowAgain)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.textViewTitleTestRule)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.textViewTitleTestRule)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+    }
+
     @Override
     public void onClick(View v) {
         if (v == buttonStart) {
@@ -151,10 +168,10 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         } else if (v == checkBoxShowRule) {
             if (checked) {
                 checked = false;
-                checkBoxShowRule.setImageResource(R.drawable.ic_check_box_outline_blank);
+                checkBoxShowRule.setChecked(checked);
             } else {
                 checked = true;
-                checkBoxShowRule.setImageResource(R.drawable.ic_check_box);
+                checkBoxShowRule.setChecked(checked);
             }
         }
     }

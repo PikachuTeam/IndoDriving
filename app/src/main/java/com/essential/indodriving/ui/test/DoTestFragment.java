@@ -2,6 +2,7 @@ package com.essential.indodriving.ui.test;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -50,7 +51,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     private CountDownTimer timer;
     private boolean isRandom;
     private int timeLeft;
-    private Typeface font;
+    private Typeface font1;
+    private Typeface font2;
 
     public final static String KEY_HOLDER_QUESTIONS = "Questions";
     public final static String DO_TEST_FRAGMENT_TAG = "Do Test Fragment";
@@ -62,12 +64,13 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         getData();
         questions = DataSource.getQuestionsByTypeAndExamId(type, examId, isRandom);
 
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
+        font1 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
+        font2 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
 
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             QuestionNoItemWrapper wrapper = new QuestionNoItemWrapper(getActivity());
-            wrapper.setText("" + questions.get(i).index, font);
+            wrapper.setText("" + questions.get(i).index, font1);
             if (i == 0) {
                 wrapper.setActive(true);
             } else {
@@ -103,14 +106,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
-
         findViews(rootView);
-
-        textViewMinute1.setTypeface(font);
-        textViewMinute2.setTypeface(font);
-        textViewSecond1.setTypeface(font);
-        textViewSecond2.setTypeface(font);
-        ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(font);
 
         adapter = new ViewPagerAdapter(getActivity(), questions);
         adapter.setOnQuestionPagerItemClickListener(this);
@@ -150,12 +146,26 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         textViewMinute2 = (TextView) rootView.findViewById(R.id.textViewMinute2);
         textViewSecond1 = (TextView) rootView.findViewById(R.id.textViewSecond1);
         textViewSecond2 = (TextView) rootView.findViewById(R.id.textViewSecond2);
+
+        setFont(rootView);
+    }
+
+    private void setFont(View rootView) {
+        textViewMinute1.setTypeface(font1);
+        textViewMinute2.setTypeface(font1);
+        textViewSecond1.setTypeface(font1);
+        textViewSecond2.setTypeface(font1);
+        ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(font1);
+        ((TextView) rootView.findViewById(R.id.headerChoice)).setTypeface(font2);
+        ((TextView) rootView.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(font2);
+        ((TextView) rootView.findViewById(R.id.headerQuestion)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override
     public void onBackPressed() {
         timer.cancel();
-        WarningDialog warningDialog = new WarningDialog(getActivity(), 0, font);
+        WarningDialog warningDialog = new WarningDialog(getActivity(), 0, font1);
         warningDialog.addListener(this);
         warningDialog.show();
     }
@@ -171,7 +181,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT_ID) {
             timer.cancel();
-            WarningDialog warningDialog = new WarningDialog(getActivity(), 1, font);
+            WarningDialog warningDialog = new WarningDialog(getActivity(), 1, font1);
             warningDialog.addListener(this);
             warningDialog.show();
         }
