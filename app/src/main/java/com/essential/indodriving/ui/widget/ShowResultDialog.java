@@ -114,6 +114,13 @@ public class ShowResultDialog extends Dialog {
             }
             tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.wrong_answer_color));
         }
+
+        findViewById(R.id.dialogShowRuleContainer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     private void findViews() {

@@ -71,7 +71,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_test_result);
+        return getString(R.string.title_overall_result);
     }
 
     @Override

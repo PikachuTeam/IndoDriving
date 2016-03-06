@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">Indo Driving</string>
-    <string name="title_learn">Learn</string>
-    <string name="title_learn_choose_item">Pick one</string>
-    <string name="title_learn_by_card">Learn by card</string>
-    <string name="title_tutorial">Driving Tips</string>
     <string name="no_internet_connection">Internet Connection Error!</string>
     <string name="button_learn">Learn</string>
     <string name="button_test">Test</string>
@@ -17,9 +13,6 @@
     <string name="sim_d">Sim D</string>
     <string name="learn_all">Learn All</string>
     <string name="tutorial">Tutorial</string>
-    <string name="title_test">Test</string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="title_learn_all">Learn All</string>
     <string name="last_score">Last score:</string>
     <string name="action_settings">Settings</string>
     <string name="topic">Package {0}</string>
@@ -36,7 +29,6 @@
     <string name="finish_test_1">You have finished the test after {0} minutes and {1} seconds</string>
     <string name="finish_test_2">You have finished the test after {0} seconds</string>
     <string name="finish_test_3">You have finished the test after {0} minutes</string>
-    <string name="title_test_result">Test Result</string>
     <string name="dialog_warning_text">\tFinish answering all the questions?\nYou will be shown with the final result.\n\t\t\t\tProceed to end this test?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
@@ -69,8 +61,22 @@
     <string name="learn_sim_c">Learn Sim C ({0})</string>
     <string name="learn_sim_d">Learn Sim D ({0})</string>
     <string name="warning_dialog_title">Finish answering</string>
+
+
     <string name="title_correct_answer">Correct Answers</string>
     <string name="title_wrong_answer">Wrong Answers</string>
     <string name="title_not_answered">Not Answered Questions</string>
     <string name="title_test_rule">Test Rule</string>
+    <string name="title_choose_package">Test Packages</string>
+    <string name="title_random_questions">Random Questions</string>
+    <string name="title_do_package">Package {0}</string>
+    <string name="title_test">Test</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="title_learn_all">Learn All</string>
+    <string name="title_learn">Learn</string>
+    <string name="title_learn_choose_item">Pick one</string>
+    <string name="title_learn_by_card">Learn by card</string>
+    <string name="title_tutorial">Driving Tips</string>
+    <string name="title_overall_result">Overall Result</string>
+    <string name="title_detail_result">Detail Result</string>
 </resources>

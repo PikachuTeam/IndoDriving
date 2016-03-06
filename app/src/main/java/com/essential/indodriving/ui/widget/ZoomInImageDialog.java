@@ -23,8 +23,8 @@ public class ZoomInImageDialog extends Dialog {
 
     public ZoomInImageDialog(Context context, Bitmap image) {
         super(context);
-        this.context=context;
-        this.image=image;
+        this.context = context;
+        this.image = image;
     }
 
     @Override
@@ -35,8 +35,15 @@ public class ZoomInImageDialog extends Dialog {
         this.setCanceledOnTouchOutside(true);
         setContentView(R.layout.dialog_zoom_in_picture);
 
-        zoomedInImage= (ImageView) findViewById(R.id.zoomedInImage);
+        zoomedInImage = (ImageView) findViewById(R.id.zoomedInImage);
 
         zoomedInImage.setImageBitmap(image);
+
+        zoomedInImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 }

@@ -45,7 +45,7 @@
     <color name="question_wrapper_normal_color">#693393</color>
     <color name="question_wrapper_highlight_color">#562A79</color>
     <color name="question_wrapper_text_highlight_color">#EBBB26</color>
-    <color name="dialog_background_color">#80ffffff</color>
+    <color name="dialog_background_color">@android:color/transparent</color>
 
     <color name="total_time_text_color">#FFF5D5</color>
     <color name="item_choice_check_box_color">#0F9D58</color>

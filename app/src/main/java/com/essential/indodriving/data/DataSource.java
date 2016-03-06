@@ -111,4 +111,33 @@ public class DataSource extends BaseDataSource {
     private static String byteArrayToString(byte[] data) {
         return new String(data);
     }
+
+    private static String fixQuestion(String question) {
+        question = question.replace('&', ':');
+        question = question.replace(" :", ":");
+        question = question.replace(" ?", "?");
+        String tmp = "";
+        boolean isTaken = false;
+        for (int i = 0; i < question.length(); i++) {
+            if (question.charAt(i) == '#') {
+                isTaken = true;
+            }
+            if(isTaken){
+
+            }else{
+
+            }
+        }
+        return question;
+    }
+
+    private static String fixAnswer(String answer) {
+        StringBuilder tmp = new StringBuilder(answer);
+        for (int i = 0; i < tmp.length(); i++) {
+            if (tmp.charAt(i) == ';') {
+                tmp.deleteCharAt(i);
+            }
+        }
+        return tmp.toString();
+    }
 }

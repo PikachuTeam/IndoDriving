@@ -40,7 +40,7 @@ public class DetailResultFragment extends MyBaseFragment {
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_test_result);
+        return getString(R.string.title_detail_result);
     }
 
     @Override

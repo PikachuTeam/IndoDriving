@@ -16,6 +16,8 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 
+import java.text.MessageFormat;
+
 /**
  * Created by dongc_000 on 2/24/2016.
  */
@@ -44,7 +46,11 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_test);
+        if (isRandom) {
+            return getString(R.string.title_random_questions);
+        } else {
+            return MessageFormat.format(getString(R.string.title_do_package), "" + examId);
+        }
     }
 
     @Override

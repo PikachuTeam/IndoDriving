@@ -26,6 +26,7 @@ import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -91,7 +92,11 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_test);
+        if (isRandom) {
+            return getString(R.string.title_random_questions);
+        } else {
+            return MessageFormat.format(getString(R.string.title_do_package), "" + examId);
+        }
     }
 
     @Override

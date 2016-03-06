@@ -43,7 +43,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_test);
+        return getString(R.string.title_choose_package);
     }
 
     @Override
