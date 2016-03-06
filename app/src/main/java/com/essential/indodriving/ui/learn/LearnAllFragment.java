@@ -41,6 +41,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private ImageView buttonZoomIn;
     private RelativeLayout imageArea;
     private RelativeLayout indicator;
+    private RelativeLayout progressBarContainer;
 
     private ArrayList<Question> questions;
     private int type;
@@ -95,7 +96,11 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         readingProgress.setMax(questions.size());
         readingProgress.setProgress(currentPosition + 1);
 
-        readingProgress.setOnTouchListener(new View.OnTouchListener() {
+        indicatorPositionOffset = getActivity().getResources().getDimension(R.dimen.progress_bar_width) / questions.size();
+        indicatorPosition = (currentPosition + 1) * indicatorPositionOffset;
+        indicator.setX(indicatorPosition);
+
+        progressBarContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -104,7 +109,21 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     currentPosition = (int) tmp;
                     setCardData(questions.get(currentPosition));
 
-                    indicator.setX(event.getX());
+                    indicatorPosition = event.getX();
+                    indicator.setX(indicatorPosition);
+
+                    if (currentPosition == 0) {
+                        disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
+                    } else if (currentPosition == questions.size() - 1) {
+                        disableButton(buttonNext, R.drawable.ic_next_disabled);
+                    } else if (currentPosition > 0 && currentPosition < questions.size()) {
+                        if (!buttonNext.isEnabled()) {
+                            enableButton(buttonNext, R.drawable.ic_next);
+                        }
+                        if (!buttonPrevious.isEnabled()) {
+                            enableButton(buttonPrevious, R.drawable.ic_previous);
+                        }
+                    }
                 }
                 return false;
             }
@@ -114,7 +133,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onStart();
-        Toast.makeText(getActivity(), "" + readingProgress.getWidth(), Toast.LENGTH_SHORT).show();
     }
 
     private void findViews(View rootView) {
@@ -131,9 +149,12 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         buttonZoomIn = (ImageView) rootView.findViewById(R.id.buttonZoomIn);
         imageArea = (RelativeLayout) rootView.findViewById(R.id.imageArea);
         indicator = (RelativeLayout) rootView.findViewById(R.id.position);
+        progressBarContainer = (RelativeLayout) rootView.findViewById(R.id.progressBarContainer);
 
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
+        buttonNext.setOnTouchListener(this);
+        buttonPrevious.setOnTouchListener(this);
         cardQuestionImage.setOnClickListener(this);
         buttonZoomIn.setOnTouchListener(this);
     }
@@ -281,30 +302,34 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == buttonNext) {
-            if (currentPosition < questions.size()) {
+            if (currentPosition < questions.size() - 1) {
                 currentPosition++;
                 if (currentPosition == questions.size() - 1) {
-                    buttonNext.setEnabled(false);
+                    disableButton(buttonNext, R.drawable.ic_next_disabled);
                 }
                 if (currentPosition != 0) {
                     if (!buttonPrevious.isEnabled()) {
-                        buttonPrevious.setEnabled(true);
+                        enableButton(buttonPrevious, R.drawable.ic_previous);
                     }
                 }
                 setCardData(questions.get(currentPosition));
+                indicatorPosition += indicatorPositionOffset;
+                indicator.setX(indicatorPosition);
             }
         } else if (v == buttonPrevious) {
             if (currentPosition > 0) {
                 currentPosition--;
                 if (currentPosition == 0) {
-                    buttonPrevious.setEnabled(false);
+                    disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
                 }
                 if (currentPosition != questions.size()) {
                     if (!buttonNext.isEnabled()) {
-                        buttonNext.setEnabled(true);
+                        enableButton(buttonNext, R.drawable.ic_next);
                     }
                 }
                 setCardData(questions.get(currentPosition));
+                indicatorPosition -= indicatorPositionOffset;
+                indicator.setX(indicatorPosition);
             }
         } else if (v == cardQuestionImage) {
             ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), questions.get(currentPosition).image);
@@ -312,15 +337,65 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
     }
 
+    private void enableButton(ImageView button, int image) {
+        button.setEnabled(true);
+        button.setImageResource(image);
+    }
+
+    private void disableButton(ImageView button, int image) {
+        button.setEnabled(false);
+        button.setImageResource(image);
+    }
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_highlight);
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
-            Question question = questions.get(currentPosition);
-            ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.image);
-            dialog.show();
+        if (v == buttonZoomIn) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_highlight);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+                Question question = questions.get(currentPosition);
+                ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.image);
+                dialog.show();
+            }
+        } else if (v == buttonNext) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getEventTime() == 200) {
+                    if (currentPosition < questions.size() - 1) {
+                        currentPosition++;
+                        if (currentPosition == questions.size() - 1) {
+                            disableButton(buttonNext, R.drawable.ic_next_disabled);
+                        }
+                        if (currentPosition != 0) {
+                            if (!buttonPrevious.isEnabled()) {
+                                enableButton(buttonPrevious, R.drawable.ic_previous);
+                            }
+                        }
+                        setCardData(questions.get(currentPosition));
+                        indicatorPosition += indicatorPositionOffset;
+                        indicator.setX(indicatorPosition);
+                    }
+                }
+            }
+        } else if (v == buttonPrevious) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getEventTime() == 200) {
+                    if (currentPosition > 0) {
+                        currentPosition--;
+                        if (currentPosition == 0) {
+                            disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
+                        }
+                        if (currentPosition != questions.size()) {
+                            if (!buttonNext.isEnabled()) {
+                                enableButton(buttonNext, R.drawable.ic_next);
+                            }
+                        }
+                        setCardData(questions.get(currentPosition));
+                        indicatorPosition -= indicatorPositionOffset;
+                        indicator.setX(indicatorPosition);
+                    }
+                }
+            }
         }
         return false;
     }

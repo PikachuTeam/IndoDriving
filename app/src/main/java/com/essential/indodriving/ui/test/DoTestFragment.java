@@ -21,7 +21,6 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
-import com.essential.indodriving.tools.AnimatorHelper;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;

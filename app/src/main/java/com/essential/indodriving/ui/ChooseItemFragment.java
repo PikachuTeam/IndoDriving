@@ -4,13 +4,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.learn.LearnAllFragment;
-import com.essential.indodriving.ui.learn.LearnChooseItemFragment;
 import com.essential.indodriving.ui.test.ListQuestionFragment;
 
 /**

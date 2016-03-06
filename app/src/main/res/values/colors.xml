@@ -9,8 +9,6 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="random_question_button_normal_color">#2196F3</color>
-    <color name="random_question_button_highlight_color">#1976D2</color>
     <color name="test_rule_stroke_line_color">#039BE5</color>
     <color name="button_start_normal_color">#FF5722</color>
     <color name="button_start_highlight_color">#E64A19</color>
