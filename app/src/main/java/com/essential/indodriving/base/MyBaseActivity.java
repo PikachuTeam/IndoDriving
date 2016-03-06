@@ -1,5 +1,7 @@
 package com.essential.indodriving.base;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -93,5 +95,15 @@ public abstract class MyBaseActivity extends BaseActivity {
     private MyBaseFragment getMyCurrentFragment() {
         MyBaseFragment fragment = (MyBaseFragment) getFragmentManager().findFragmentById(R.id.fragmentContainer);
         return fragment;
+    }
+
+    public static void startActivityAnimation(Activity activity, Intent intent) {
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
+    }
+
+    public static void finishActivityAnimation(Activity activity) {
+        activity.finish();
+        activity.overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
     }
 }
