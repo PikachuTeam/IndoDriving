@@ -55,15 +55,15 @@ public class DetailResultFragment extends MyBaseFragment {
         switch (type) {
             case 0:
                 textViewType.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
-                textViewType.setText(getString(R.string.correct_answer));
+                textViewType.setText(getString(R.string.title_correct_answer));
                 break;
             case 1:
                 textViewType.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
-                textViewType.setText(getString(R.string.wrong_answer));
+                textViewType.setText(getString(R.string.title_wrong_answer));
                 break;
             case 2:
                 textViewType.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.not_answered_color));
-                textViewType.setText(getString(R.string.not_answered));
+                textViewType.setText(getString(R.string.title_not_answered));
                 break;
         }
 

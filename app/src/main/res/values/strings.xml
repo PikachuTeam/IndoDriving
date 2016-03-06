@@ -26,8 +26,8 @@
     <string name="score">{0}/30</string>
     <string name="random_questions">Random questions</string>
     <string name="test_not_show_again">Do not show this rule again</string>
-    <string name="question">Question</string>
-    <string name="choices">Choices</string>
+    <string name="question"><u>Question</u></string>
+    <string name="choices"><u>Choices</u></string>
     <string name="result">Result</string>
     <string name="correct_answer">Correct</string>
     <string name="wrong_answer">Wrong</string>
@@ -69,4 +69,7 @@
     <string name="learn_sim_c">Learn Sim C ({0})</string>
     <string name="learn_sim_d">Learn Sim D ({0})</string>
     <string name="warning_dialog_title">Finish answering</string>
+    <string name="title_correct_answer">Correct Answers</string>
+    <string name="title_wrong_answer">Wrong Answers</string>
+    <string name="title_not_answered">Not Answered Questions</string>
 </resources>

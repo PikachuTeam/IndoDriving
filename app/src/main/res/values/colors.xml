@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#693393</color>
     <color name="colorPrimaryDark">#361350</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#0F9D58</color>
     <color name="app_background_color">#823fb6</color>
+    <color name="container_background_color">#FFFFFF</color>
     <color name="toolbar_flat_button_highlight_color">#3f251f1f</color>
 
     <color name="black">#000000</color>
@@ -16,17 +17,15 @@
     <color name="item_question_no_stroke_highlight_color">#EBBB26</color>
     <color name="question_wrapper_highlight_background_normal_color">#FFCCBC</color>
     <color name="question_wrapper_highlight_background_highlight_color">#E5B7A9</color>
-    <color name="wrong_answer_color">#F44336</color>
+    <color name="wrong_answer_color">#FF5019</color>
     <color name="correct_answer_color">#0F9D58</color>
-    <color name="not_answered_color">#FFEB3B</color>
+    <color name="not_answered_color">#ECB912</color>
     <color name="secondary_progress_start_color">#FFD300</color>
-    <color name="dialog_button_hovered_color">#D8D8D8</color>
-    <color name="dialog_button_highlight_color">#BFBFBF</color>
+    <color name="dialog_button_highlight_color">#9aca6cec</color>
     <color name="home_button_highlight_color">#007F70</color>
-    <color name="bg_button_next_stroke_line_normal_color">#B2B2B2</color>
-    <color name="bg_button_next_stroke_line_highlight_color">#DADADA</color>
+    <color name="bg_button_next_stroke_line_normal_color">#7B3DAA</color>
+    <color name="bg_button_next_stroke_line_highlight_color">#AA7B3DAA</color>
     <color name="random_questions_text_color">#FFD300</color>
-    <color name="background_container_color">#D8D8D8</color>
     <color name="toolbar_menu_item_color">#FFFFFF</color>
     <color name="ok_text_color">#2196F3</color>
     <color name="warning_dialog_stroke_line_color">#FF5722</color>
@@ -54,4 +53,6 @@
     <color name="question_wrapper_highlight_color">#562A79</color>
     <color name="question_wrapper_text_highlight_color">#EBBB26</color>
     <color name="dialog_background_color">#80ffffff</color>
+
+    <color name="total_time_text_color">#FFF5D5</color>
 </resources>

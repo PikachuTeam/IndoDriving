@@ -54,8 +54,8 @@
 
                             <ImageView
                                 android:id="@+id/buttonZoomIn"
-                                android:layout_width="@dimen/button_zoom_in"
-                                android:layout_height="@dimen/button_zoom_in"
+                                android:layout_width="@dimen/button_zoom_in_size"
+                                android:layout_height="@dimen/button_zoom_in_size"
                                 android:layout_toRightOf="@id/cardQuestionImage"
                                 android:clickable="true"
                                 android:src="@drawable/ic_zoom_in_normal" />

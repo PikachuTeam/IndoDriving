@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.widget;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,8 +19,7 @@ public class AnswerChoicesItem implements View.OnClickListener {
     private Context context;
 
     private RelativeLayout choiceLayout;
-    private RelativeLayout radioButtonContainer;
-    private View radioButton;
+    private AppCompatCheckBox checkBox;
     private TextView textViewAnswer;
 
     private OnChooseAnswerListener listener;
@@ -34,11 +34,11 @@ public class AnswerChoicesItem implements View.OnClickListener {
 
     private void findViews(View rootView) {
         choiceLayout = (RelativeLayout) rootView.findViewById(R.id.choiceLayout);
-        radioButtonContainer = (RelativeLayout) rootView.findViewById(R.id.radioButtonContainer);
-        radioButton = (View) rootView.findViewById(R.id.radioButton);
+        checkBox = (AppCompatCheckBox) rootView.findViewById(R.id.checkBox);
+
         textViewAnswer = (TextView) rootView.findViewById(R.id.textViewAnswer);
 
-        radioButtonContainer.setOnClickListener(this);
+        checkBox.setOnClickListener(this);
         choiceLayout.setOnClickListener(this);
     }
 
@@ -51,11 +51,7 @@ public class AnswerChoicesItem implements View.OnClickListener {
     }
 
     public void setActive(boolean isActive) {
-        if (isActive) {
-            radioButton.setVisibility(View.VISIBLE);
-        } else {
-            radioButton.setVisibility(View.GONE);
-        }
+        checkBox.setChecked(isActive);
     }
 
     public void setOnChooseAnswerListener(OnChooseAnswerListener listener) {

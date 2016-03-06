@@ -12,7 +12,8 @@
         <RelativeLayout
             android:id="@+id/imageArea"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/question_image_size">
+            android:layout_height="@dimen/question_image_size"
+            android:layout_marginTop="@dimen/common_size_5">
 
             <ImageView
                 android:id="@+id/questionImage"
@@ -23,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/buttonZoomIn"
-                android:layout_width="@dimen/button_zoom_in"
-                android:layout_height="@dimen/button_zoom_in"
+                android:layout_width="@dimen/button_zoom_in_size"
+                android:layout_height="@dimen/button_zoom_in_size"
                 android:layout_toRightOf="@id/questionImage"
                 android:clickable="true"
                 android:src="@drawable/ic_zoom_in_normal" />
@@ -38,7 +39,7 @@
             android:paddingLeft="@dimen/common_size_5"
             android:paddingRight="@dimen/common_size_5"
             android:text="Question"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_1"
             android:textSize="@dimen/common_text_size_15" />
     </LinearLayout>
 

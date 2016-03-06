@@ -11,11 +11,11 @@
         <TextView
             android:id="@+id/textViewType"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_size_30"
+            android:layout_height="@dimen/common_size_40"
             android:background="@color/not_answered_color"
             android:gravity="center"
             android:text="Correct Answers"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_1"
             android:textSize="@dimen/common_text_size_19"
             android:textStyle="bold" />
 

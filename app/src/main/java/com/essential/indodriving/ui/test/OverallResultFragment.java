@@ -1,15 +1,7 @@
 package com.essential.indodriving.ui.test;
 
 import android.app.FragmentManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
-import android.os.Build;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
@@ -19,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -63,6 +54,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private int examId;
     private float[] yData;
     private ArrayList<Question> questions;
+    private Typeface font;
 
     public final static String OVERALL_RESULT_FRAGMENT_TAG = "Overall Result Fragment";
 
@@ -74,6 +66,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         totalCorrectAnswer = calculateCorrectAnswer();
         totalWrongAnswer = calculateWrongAnswer();
         totalNotAnswered = questions.size() - totalCorrectAnswer - totalWrongAnswer;
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
     }
 
     @Override
@@ -91,7 +84,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         findViews(rootView);
         setText();
 
-        setUpChart();
+        setupChart();
         chartContainer.addView(pieChart);
         pieChart.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
@@ -175,6 +168,8 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         buttonNext2 = (ImageView) rootView.findViewById(R.id.buttonNext2);
         buttonNext3 = (ImageView) rootView.findViewById(R.id.buttonNext3);
 
+        setFont(font, rootView);
+
         buttonCorrectAnswer.setOnClickListener(this);
         buttonWrongAnswer.setOnClickListener(this);
         buttonNotAnswered.setOnClickListener(this);
@@ -183,7 +178,18 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         buttonNext3.setOnTouchListener(this);
     }
 
-    private void setUpChart() {
+    private void setFont(Typeface font, View rootView) {
+        tvCorrectAnswer.setTypeface(font);
+        tvWrongAnswer.setTypeface(font);
+        tvNotAnswered.setTypeface(font);
+        textViewState.setTypeface(font);
+        textViewTotalTime.setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.textViewCorrectAnswer)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.textViewWrongAnswer)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.textViewNotAnswered)).setTypeface(font);
+    }
+
+    private void setupChart() {
         float tmp = 100 / 30f;
         yData = new float[]{totalCorrectAnswer * tmp, totalWrongAnswer * tmp, totalNotAnswered * tmp};
 

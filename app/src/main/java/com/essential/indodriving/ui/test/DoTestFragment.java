@@ -3,7 +3,6 @@ package com.essential.indodriving.ui.test;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.PagerAdapter;
@@ -107,6 +106,12 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
         findViews(rootView);
 
+        textViewMinute1.setTypeface(font);
+        textViewMinute2.setTypeface(font);
+        textViewSecond1.setTypeface(font);
+        textViewSecond2.setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(font);
+
         adapter = new ViewPagerAdapter(getActivity(), questions);
         adapter.setOnQuestionPagerItemClickListener(this);
 
@@ -150,7 +155,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     @Override
     public void onBackPressed() {
         timer.cancel();
-        WarningDialog warningDialog = new WarningDialog(getActivity(), 0,font);
+        WarningDialog warningDialog = new WarningDialog(getActivity(), 0, font);
         warningDialog.addListener(this);
         warningDialog.show();
     }
@@ -166,7 +171,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT_ID) {
             timer.cancel();
-            WarningDialog warningDialog = new WarningDialog(getActivity(), 1,font);
+            WarningDialog warningDialog = new WarningDialog(getActivity(), 1, font);
             warningDialog.addListener(this);
             warningDialog.show();
         }
