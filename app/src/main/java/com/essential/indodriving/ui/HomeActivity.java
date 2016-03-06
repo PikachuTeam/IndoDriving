@@ -3,6 +3,7 @@ package com.essential.indodriving.ui;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,14 +11,17 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
 
+import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.util.AppConstant;
+import tatteam.com.app_common.util.CloseAppHandler;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, CloseAppHandler.OnCloseAppListener {
 
     private LinearLayout buttonLearnSimA;
     private LinearLayout buttonLearnSimAUmum;
@@ -28,8 +32,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout buttonLearnSimC;
     private LinearLayout buttonLearnSimD;
     private FrameLayout adsContainer;
+    private FloatingActionButton fab;
 
     private AdsSmallBannerHandler adsSmallBannerHandler;
+    private CloseAppHandler closeAppHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +51,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
         adsSmallBannerHandler.setup();
+
+        closeAppHandler = new CloseAppHandler(this);
+        closeAppHandler.setListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         adsSmallBannerHandler.destroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        closeAppHandler.setKeyBackPress(this);
     }
 
     private void findViews() {
@@ -63,6 +78,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonLearnSimC = (LinearLayout) findViewById(R.id.buttonLearnSimC);
         buttonLearnSimD = (LinearLayout) findViewById(R.id.buttonLearnSimD);
         adsContainer = (FrameLayout) findViewById(R.id.adsContainer1);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         buttonLearnSimA.setOnClickListener(this);
         buttonLearnSimAUmum.setOnClickListener(this);
@@ -72,6 +88,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonLearnSimB2Umum.setOnClickListener(this);
         buttonLearnSimC.setOnClickListener(this);
         buttonLearnSimD.setOnClickListener(this);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCommon.getInstance().openMoreAppDialog(HomeActivity.this);
+            }
+        });
     }
 
     private void setFont(Typeface font) {
@@ -108,5 +130,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         startActivity(intent);
+    }
+
+    @Override
+    public void onRateAppDialogClose() {
+
+    }
+
+    @Override
+    public void onTryToCloseApp() {
+        Toast.makeText(this, closeAppHandler.getDefaultExitMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onReallyWantToCloseApp() {
+        finish();
     }
 }

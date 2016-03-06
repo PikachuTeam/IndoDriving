@@ -114,8 +114,14 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
 
                     if (currentPosition == 0) {
                         disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
+                        if (!buttonNext.isEnabled()) {
+                            enableButton(buttonNext, R.drawable.ic_next);
+                        }
                     } else if (currentPosition == questions.size() - 1) {
                         disableButton(buttonNext, R.drawable.ic_next_disabled);
+                        if (!buttonPrevious.isEnabled()) {
+                            enableButton(buttonPrevious, R.drawable.ic_previous);
+                        }
                     } else if (currentPosition > 0 && currentPosition < questions.size()) {
                         if (!buttonNext.isEnabled()) {
                             enableButton(buttonNext, R.drawable.ic_next);
@@ -194,7 +200,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         bundle.putInt("Type", type);
         tutorialFragment.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.fragment_silde_bot_enter, 0, 0, R.animator.fragment_silde_bot_exit);
+        transaction.setCustomAnimations(R.anim.fragment_silde_bot_enter, 0, 0, R.anim.fragment_silde_bot_exit);
         transaction.replace(R.id.fragmentContainer, tutorialFragment, LEARN_ALL_FRAGMENT_TAG);
         transaction.addToBackStack(LEARN_ALL_FRAGMENT_TAG);
         transaction.commit();
