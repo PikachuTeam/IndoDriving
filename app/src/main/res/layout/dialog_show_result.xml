@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialogShowRuleContainer"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/dialog_show_result_width"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
     android:clickable="true"
@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="@dimen/dialog_show_result_width"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:orientation="vertical">
 
         <LinearLayout
@@ -39,66 +40,78 @@
                 android:textSize="@dimen/common_text_size_18" />
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_size_10"
-            android:layout_marginRight="@dimen/common_size_10"
-            android:orientation="vertical">
+            android:scrollbars="vertical">
 
-            <TextView
-                android:id="@+id/tvChoiceA"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:text="@string/choice_a"
-                android:textSize="@dimen/common_text_size_18" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvChoiceB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:text="@string/choice_b"
-                android:textSize="@dimen/common_text_size_18" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_10"
+                    android:layout_marginRight="@dimen/common_size_10"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvChoiceC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:text="@string/choice_c"
-                android:textSize="@dimen/common_text_size_18" />
+                    <TextView
+                        android:id="@+id/tvChoiceA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_a"
+                        android:textSize="@dimen/common_text_size_18" />
 
-            <TextView
-                android:id="@+id/tvChoiceD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:text="@string/choice_d"
-                android:textSize="@dimen/common_text_size_18" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvChoiceB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_b"
+                        android:textSize="@dimen/common_text_size_18" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_size_10">
+                    <TextView
+                        android:id="@+id/tvChoiceC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_c"
+                        android:textSize="@dimen/common_text_size_18" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:text="Your answer: "
-                android:textSize="@dimen/common_text_size_18"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvChoiceD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_d"
+                        android:textSize="@dimen/common_text_size_18" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvAnswer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:text="Alo"
-                android:textSize="@dimen/common_text_size_18" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="Your answer: "
+                        android:textSize="@dimen/common_text_size_18"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAnswer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="Alo"
+                        android:textSize="@dimen/common_text_size_18" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>

@@ -49,4 +49,5 @@
     <dimen name="dialog_warning_width">300dp</dimen>
     <dimen name="item_list_detail_result_height">100dp</dimen>
     <dimen name="item_choice_vertical_margin">3dp</dimen>
+    <dimen name="indicator_margin">3dp</dimen>
 </resources>

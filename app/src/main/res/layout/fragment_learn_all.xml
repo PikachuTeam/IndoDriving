@@ -90,7 +90,7 @@
                         <ImageView
                             android:layout_width="@dimen/progress_indicator_width"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/common_size_2"
+                            android:layout_marginLeft="@dimen/indicator_margin"
                             android:src="@drawable/ic_indicator" />
 
                         <TextView

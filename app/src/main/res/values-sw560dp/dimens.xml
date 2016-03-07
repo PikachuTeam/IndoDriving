@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_bar_height">296.47dp</dimen>
+    <dimen name="fab_margin">26.353dp</dimen>
     <dimen name="toolbar_elevation">7.87dp</dimen>
     <dimen name="choose_sim_button_height">110.19dp</dimen>
     <dimen name="choose_sim_button_text_size">47.22sp</dimen>
@@ -8,15 +10,15 @@
     <dimen name="stroke_line_size">0.79dp</dimen>
     <dimen name="test_rule_area_width">472.22dp</dimen>
     <dimen name="button_start_width">267.59dp</dimen>
-    <dimen name="button_start_height">90dp</dimen>
+    <dimen name="button_start_height">107.06dp</dimen>
     <dimen name="check_box_not_show_again_size">62.96dp</dimen>
-    <dimen name="choice_height">78.7dp</dimen>
+    <dimen name="choice_height">85.65dp</dimen>
     <dimen name="question_image_size">141.67dp</dimen>
     <dimen name="item_question_no_highlight_view_size">4.72dp</dimen>
-    <dimen name="question_area_height">267.59dp</dimen>
+    <dimen name="question_area_height">280dp</dimen>
     <dimen name="text_view_total_time_size">28.33sp</dimen>
-    <dimen name="learn_all_card_height">236.11dp</dimen>
-    <dimen name="learn_all_answer_height">62.96dp</dimen>
+    <dimen name="learn_all_card_height">263.53dp</dimen>
+    <dimen name="learn_all_answer_height">65.8825dp</dimen>
     <dimen name="button_previous_width">173.15dp</dimen>
     <dimen name="button_previous_height">78.7dp</dimen>
     <dimen name="learn_all_image_size">141.67dp</dimen>
@@ -40,11 +42,12 @@
     <dimen name="progress_bar_width">546.2dp</dimen>
     <dimen name="progress_area_height">86.57dp</dimen>
     <dimen name="progress_indicator_width">45.65dp</dimen>
-    <dimen name="progress_bar_container_height">31.48dp</dimen>
+    <dimen name="progress_bar_container_height">32.94dp</dimen>
     <dimen name="learn_all_indicator_area_height">125.93dp</dimen>
     <dimen name="warning_dialog_button_area_height">62.96dp</dimen>
     <dimen name="button_result_height">78.7dp</dimen>
     <dimen name="dialog_warning_width">472.22dp</dimen>
     <dimen name="item_list_detail_result_height">157.41dp</dimen>
     <dimen name="item_choice_vertical_margin">4.5dp</dimen>
+    <dimen name="indicator_margin">3dp</dimen>
 </resources>

@@ -3,6 +3,7 @@
     <item>
         <shape android:shape="rectangle">
             <stroke android:width="@dimen/stroke_line_size" android:color="@color/black" />
+            <solid android:color="@android:color/transparent" />
         </shape>
     </item>
 </selector>
