@@ -10,7 +10,7 @@
     <dimen name="button_start_width">170dp</dimen>
     <dimen name="button_start_height">70dp</dimen>
     <dimen name="check_box_not_show_again_size">40dp</dimen>
-    <dimen name="choice_height">50dp</dimen>
+    <dimen name="choice_height">52dp</dimen>
     <dimen name="question_image_size">90dp</dimen>
     <dimen name="item_question_no_highlight_view_size">3dp</dimen>
     <dimen name="question_area_height">170dp</dimen>
@@ -46,4 +46,5 @@
     <dimen name="button_result_height">50dp</dimen>
     <dimen name="dialog_warning_width">300dp</dimen>
     <dimen name="item_list_detail_result_height">100dp</dimen>
+    <dimen name="item_choice_vertical_margin">3dp</dimen>
 </resources>

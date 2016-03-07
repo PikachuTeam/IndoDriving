@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseActivity;
 import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.Question;
 
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
@@ -32,10 +33,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout buttonLearnSimB2Umum;
     private LinearLayout buttonLearnSimC;
     private LinearLayout buttonLearnSimD;
-    private FrameLayout adsContainer;
     private FloatingActionButton fab;
 
-    private AdsSmallBannerHandler adsSmallBannerHandler;
     private CloseAppHandler closeAppHandler;
 
     @Override
@@ -49,18 +48,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(font);
-
-       // adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
-       // adsSmallBannerHandler.setup();
-
         closeAppHandler = new CloseAppHandler(this);
         closeAppHandler.setListener(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-       // adsSmallBannerHandler.destroy();
     }
 
     @Override
@@ -77,7 +66,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonLearnSimB2Umum = (LinearLayout) findViewById(R.id.buttonLearnSimB2Umum);
         buttonLearnSimC = (LinearLayout) findViewById(R.id.buttonLearnSimC);
         buttonLearnSimD = (LinearLayout) findViewById(R.id.buttonLearnSimD);
-        adsContainer = (FrameLayout) findViewById(R.id.adsContainer1);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         buttonLearnSimA.setOnClickListener(this);

@@ -46,4 +46,5 @@
     <dimen name="button_result_height">78.7dp</dimen>
     <dimen name="dialog_warning_width">472.22dp</dimen>
     <dimen name="item_list_detail_result_height">157.41dp</dimen>
+    <dimen name="item_choice_vertical_margin">4.5dp</dimen>
 </resources>

@@ -29,11 +29,11 @@ public class DataSource extends BaseDataSource {
         while (!cursor.isAfterLast()) {
             Question question = new Question();
             question.index = tmp;
-            question.question = byteArrayToString(cursor.getBlob(2));
-            question.answer1 = cursor.getString(3);
-            question.answer2 = cursor.getString(4);
-            question.answer3 = cursor.getString(5);
-            question.answer4 = cursor.getString(6);
+            question.question = fixQuestion(byteArrayToString(cursor.getBlob(2)));
+            question.answer1 = fixAnswer(cursor.getString(3));
+            question.answer2 = fixAnswer(cursor.getString(4));
+            question.answer3 = fixAnswer(cursor.getString(5));
+            question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
             byte[] imgData = cursor.getBlob(9);
             question.image = imgData != null ? BitmapFactory.decodeByteArray(imgData, 0, imgData.length) : null;
@@ -81,11 +81,11 @@ public class DataSource extends BaseDataSource {
         while (!cursor.isAfterLast()) {
             Question question = new Question();
             question.index = tmp;
-            question.question = byteArrayToString(cursor.getBlob(2));
-            question.answer1 = cursor.getString(3);
-            question.answer2 = cursor.getString(4);
-            question.answer3 = cursor.getString(5);
-            question.answer4 = cursor.getString(6);
+            question.question = fixQuestion(byteArrayToString(cursor.getBlob(2)));
+            question.answer1 = fixAnswer(cursor.getString(3));
+            question.answer2 = fixAnswer(cursor.getString(4));
+            question.answer3 = fixAnswer(cursor.getString(5));
+            question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
             byte[] imgData = cursor.getBlob(9);
             question.image = imgData != null ? BitmapFactory.decodeByteArray(imgData, 0, imgData.length) : null;
@@ -113,31 +113,40 @@ public class DataSource extends BaseDataSource {
     }
 
     private static String fixQuestion(String question) {
-        question = question.replace('&', ':');
-        question = question.replace(" :", ":");
-        question = question.replace(" ?", "?");
-        String tmp = "";
-        boolean isTaken = false;
-        for (int i = 0; i < question.length(); i++) {
-            if (question.charAt(i) == '#') {
-                isTaken = true;
-            }
-            if(isTaken){
-
-            }else{
-
+        String[] tmp = question.split(" ");
+        question = "";
+        for (int i = 0; i < tmp.length; i++) {
+            if (!tmp[i].contains("#")) {
+                if (tmp[i].contains("?")) {
+                    tmp[i] = ":";
+                }
+                if (tmp[i].contains("&")) {
+                    tmp[i] = tmp[i].replace('&', ':');
+                }
+                question += tmp[i] + " ";
+            } else {
+                if (tmp[i].contains("&")) {
+                    tmp[i] = ":";
+                    question += tmp[i] + " ";
+                }
             }
         }
-        return question;
+        return question.replace(" :", ":").trim();
+
     }
 
     private static String fixAnswer(String answer) {
-        StringBuilder tmp = new StringBuilder(answer);
-        for (int i = 0; i < tmp.length(); i++) {
-            if (tmp.charAt(i) == ';') {
-                tmp.deleteCharAt(i);
+        if (answer != null) {
+            String[] tmp = answer.split(" ");
+            answer = "";
+            for (int i = 0; i < tmp.length; i++) {
+                if (!tmp[i].contains("#")) {
+                    answer += tmp[i] + " ";
+                }
             }
+            return answer.trim();
+        } else {
+            return null;
         }
-        return tmp.toString();
     }
 }

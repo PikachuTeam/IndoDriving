@@ -144,11 +144,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onStart();
-    }
-
     private void findViews(View rootView) {
         cardQuestionImage = (ImageView) rootView.findViewById(R.id.cardQuestionImage);
         cardTextViewQuestion = (TextView) rootView.findViewById(R.id.cardTextViewQuestion);
@@ -179,12 +174,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        saveState();
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         saveState();
@@ -212,6 +201,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         transaction.replace(R.id.fragmentContainer, tutorialFragment, LEARN_ALL_FRAGMENT_TAG);
         transaction.addToBackStack(LEARN_ALL_FRAGMENT_TAG);
         transaction.commit();
+        saveState();
     }
 
     private void saveState() {
@@ -280,21 +270,25 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         cardTextViewQuestion.setText(question.question);
 
         if (question.answer1 != null) {
+            textViewAnswerA.setVisibility(View.VISIBLE);
             textViewAnswerA.setText("A. " + question.answer1);
         } else {
             textViewAnswerA.setVisibility(View.GONE);
         }
-        if (question.answer1 != null) {
+        if (question.answer2 != null) {
+            textViewAnswerB.setVisibility(View.VISIBLE);
             textViewAnswerB.setText("B. " + question.answer2);
         } else {
             textViewAnswerB.setVisibility(View.GONE);
         }
-        if (question.answer1 != null) {
+        if (question.answer3 != null) {
+            textViewAnswerC.setVisibility(View.VISIBLE);
             textViewAnswerC.setText("C. " + question.answer3);
         } else {
             textViewAnswerC.setVisibility(View.GONE);
         }
-        if (question.answer1 != null) {
+        if (question.answer4 != null) {
+            textViewAnswerD.setVisibility(View.VISIBLE);
             textViewAnswerD.setText("D. " + question.answer4);
         } else {
             textViewAnswerD.setVisibility(View.GONE);
