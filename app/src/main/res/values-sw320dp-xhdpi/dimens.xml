@@ -15,7 +15,7 @@
     <dimen name="item_question_no_highlight_view_size">3dp</dimen>
     <dimen name="question_area_height">170dp</dimen>
     <dimen name="text_view_total_time_size">18sp</dimen>
-    <dimen name="learn_all_card_height">160dp</dimen>
+    <dimen name="learn_all_card_height">150dp</dimen>
     <dimen name="learn_all_answer_height">40dp</dimen>
     <dimen name="button_previous_width">110dp</dimen>
     <dimen name="button_previous_height">50dp</dimen>
@@ -37,7 +37,7 @@
     <dimen name="item_list_question_width">162dp</dimen>
     <dimen name="item_list_question_height">60dp</dimen>
     <dimen name="progress_bar_height">8dp</dimen>
-    <dimen name="progress_bar_width">352dp</dimen>
+    <dimen name="progress_bar_width">347dp</dimen>
     <dimen name="progress_area_height">55dp</dimen>
     <dimen name="progress_indicator_width">29dp</dimen>
     <dimen name="progress_bar_container_height">20dp</dimen>

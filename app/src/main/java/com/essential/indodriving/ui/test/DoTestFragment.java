@@ -377,22 +377,22 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
         private ArrayList<AnswerChoicesItem> makeChoices(Question question) {
             ArrayList<AnswerChoicesItem> answerChoicesItems = new ArrayList<>();
-            if (question.answer1 != "") {
+            if (question.answer1 != null) {
                 AnswerChoicesItem answer1 = new AnswerChoicesItem(context, DataSource.ANSWER_A);
                 answer1.setChoice(question.answer1);
                 answerChoicesItems.add(answer1);
             }
-            if (question.answer2 != "") {
+            if (question.answer2 != null) {
                 AnswerChoicesItem answer2 = new AnswerChoicesItem(context, DataSource.ANSWER_B);
                 answer2.setChoice(question.answer2);
                 answerChoicesItems.add(answer2);
             }
-            if (question.answer3 != "") {
+            if (question.answer3 != null) {
                 AnswerChoicesItem answer3 = new AnswerChoicesItem(context, DataSource.ANSWER_C);
                 answer3.setChoice(question.answer3);
                 answerChoicesItems.add(answer3);
             }
-            if (question.answer4 != "") {
+            if (question.answer4 != null) {
                 AnswerChoicesItem answer4 = new AnswerChoicesItem(context, DataSource.ANSWER_D);
                 answer4.setChoice(question.answer4);
                 answerChoicesItems.add(answer4);

@@ -55,6 +55,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private float[] yData;
     private ArrayList<Question> questions;
     private Typeface font;
+    private boolean isSaved;
 
     public final static String OVERALL_RESULT_FRAGMENT_TAG = "Overall Result Fragment";
 
@@ -67,6 +68,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         totalWrongAnswer = calculateWrongAnswer();
         totalNotAnswered = questions.size() - totalCorrectAnswer - totalWrongAnswer;
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
+        isSaved = false;
     }
 
     @Override
@@ -111,7 +113,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     @Override
     public void onBackPressed() {
         getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        DataSource.saveScore(examId, "" + type, totalCorrectAnswer);
+        saveData();
     }
 
     private int calculateCorrectAnswer() {
@@ -278,6 +280,19 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         return data;
     }
 
+    private void saveData() {
+        if (!isSaved) {
+            isSaved = true;
+            DataSource.saveScore(examId, "" + type, totalCorrectAnswer);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveData();
+    }
+
     @Override
     public void onClick(View v) {
         Bundle bundle = new Bundle();
@@ -291,6 +306,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
             bundle.putInt("Type", 2);
         }
+        saveData();
         DetailResultFragment fragment = new DetailResultFragment();
         fragment.setArguments(bundle);
         replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
@@ -335,6 +351,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
             }
         }
+        saveData();
         return false;
     }
 }

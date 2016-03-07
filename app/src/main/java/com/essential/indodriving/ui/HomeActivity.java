@@ -64,7 +64,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         closeAppHandler.setKeyBackPress(this);
     }
 

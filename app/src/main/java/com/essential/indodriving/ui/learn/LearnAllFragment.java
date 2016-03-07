@@ -100,6 +100,14 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         indicatorPosition = (currentPosition + 1) * indicatorPositionOffset;
         indicator.setX(indicatorPosition);
 
+        if (currentPosition == 0) {
+            buttonPrevious.setImageResource(R.drawable.ic_previous_disabled);
+            buttonPrevious.setEnabled(false);
+        } else if (currentPosition == questions.size() - 1) {
+            buttonNext.setImageResource(R.drawable.ic_next_disabled);
+            buttonNext.setEnabled(false);
+        }
+
         progressBarContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -271,10 +279,26 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
         cardTextViewQuestion.setText(question.question);
 
-        textViewAnswerA.setText("A. " + question.answer1);
-        textViewAnswerB.setText("B. " + question.answer2);
-        textViewAnswerC.setText("C. " + question.answer3);
-        textViewAnswerD.setText("D. " + question.answer4);
+        if (question.answer1 != null) {
+            textViewAnswerA.setText("A. " + question.answer1);
+        } else {
+            textViewAnswerA.setVisibility(View.GONE);
+        }
+        if (question.answer1 != null) {
+            textViewAnswerB.setText("B. " + question.answer2);
+        } else {
+            textViewAnswerB.setVisibility(View.GONE);
+        }
+        if (question.answer1 != null) {
+            textViewAnswerC.setText("C. " + question.answer3);
+        } else {
+            textViewAnswerC.setVisibility(View.GONE);
+        }
+        if (question.answer1 != null) {
+            textViewAnswerD.setText("D. " + question.answer4);
+        } else {
+            textViewAnswerD.setVisibility(View.GONE);
+        }
 
         resetAllAnswers();
 

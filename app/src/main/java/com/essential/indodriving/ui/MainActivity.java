@@ -21,6 +21,8 @@ public class MainActivity extends MyBaseActivity {
     private FrameLayout adsContainer;
     private int type;
 
+    private final static boolean ADS_ENABLE = false;
+
     @Override
     protected int getFragmentContainerId() {
         return R.id.fragmentContainer;
@@ -41,14 +43,18 @@ public class MainActivity extends MyBaseActivity {
 
         type = getIntent().getIntExtra("Type", DataSource.TYPE_SIM_A);
 
-        adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
-        adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
-        adsSmallBannerHandler.setup();
+        if (ADS_ENABLE) {
+            adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
+            adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
+            adsSmallBannerHandler.setup();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        adsSmallBannerHandler.destroy();
+        if (ADS_ENABLE) {
+            adsSmallBannerHandler.destroy();
+        }
     }
 }
