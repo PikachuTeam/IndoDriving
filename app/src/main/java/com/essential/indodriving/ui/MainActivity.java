@@ -57,4 +57,10 @@ public class MainActivity extends MyBaseActivity {
             adsSmallBannerHandler.destroy();
         }
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
+    }
 }

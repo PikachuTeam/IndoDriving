@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.base.MyBaseActivity;
 import com.essential.indodriving.data.DataSource;
 
 import tatteam.com.app_common.AppCommon;
@@ -49,8 +50,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(font);
 
-        adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
-        adsSmallBannerHandler.setup();
+       // adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
+       // adsSmallBannerHandler.setup();
 
         closeAppHandler = new CloseAppHandler(this);
         closeAppHandler.setListener(this);
@@ -59,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        adsSmallBannerHandler.destroy();
+       // adsSmallBannerHandler.destroy();
     }
 
     @Override
@@ -128,12 +129,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("Type", DataSource.TYPE_SIM_D);
         }
 
-        startActivity(intent);
+        MyBaseActivity.startActivityAnimation(this, intent);
     }
 
     @Override
     public void onRateAppDialogClose() {
-
+        finish();
     }
 
     @Override
