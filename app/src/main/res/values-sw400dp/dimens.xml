@@ -8,7 +8,7 @@
     <dimen name="stroke_line_size">0.6dp</dimen>
     <dimen name="test_rule_area_width">360dp</dimen>
     <dimen name="button_start_width">204dp</dimen>
-    <dimen name="button_start_height">84dp</dimen>
+    <dimen name="button_start_height">72dp</dimen>
     <dimen name="check_box_not_show_again_size">48dp</dimen>
     <dimen name="choice_height">62.4dp</dimen>
     <dimen name="question_image_size">108dp</dimen>
@@ -34,10 +34,10 @@
     <dimen name="number_text_height">34.8dp</dimen>
     <dimen name="home_screen_stroke_line_size">2.4dp</dimen>
     <dimen name="choose_item_button_size">180dp</dimen>
-    <dimen name="item_list_question_width">194.4dp</dimen>
+    <dimen name="item_list_question_width">170dp</dimen>
     <dimen name="item_list_question_height">72dp</dimen>
     <dimen name="progress_bar_height">9.6dp</dimen>
-    <dimen name="progress_bar_width">416.4dp</dimen>
+    <dimen name="progress_bar_width">368dp</dimen>
     <dimen name="progress_area_height">66dp</dimen>
     <dimen name="progress_indicator_width">34.8dp</dimen>
     <dimen name="progress_bar_container_height">24dp</dimen>

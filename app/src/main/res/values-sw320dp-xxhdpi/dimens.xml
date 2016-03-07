@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="toolbar_elevation">4.69dp</dimen>
-    <dimen name="choose_sim_button_height">65.62dp</dimen>
+    <dimen name="app_bar_height">196dp</dimen>
+    <dimen name="fab_margin">17.6dp</dimen>
+    <dimen name="toolbar_elevation">5.5dp</dimen>
+    <dimen name="choose_sim_button_height">77dp</dimen>
     <dimen name="choose_sim_button_text_size">28.12sp</dimen>
     <dimen name="choose_sim_button_image_size">40.31dp</dimen>
     <dimen name="test_list_header_height">60.6dp</dimen>
     <dimen name="stroke_line_size">0.47dp</dimen>
     <dimen name="test_rule_area_width">281.25dp</dimen>
     <dimen name="button_start_width">159.38dp</dimen>
-    <dimen name="button_start_height">65.62dp</dimen>
+    <dimen name="button_start_height">66dp</dimen>
     <dimen name="check_box_not_show_again_size">37.5dp</dimen>
-    <dimen name="choice_height">57.2dp</dimen>
+    <dimen name="choice_height">56.588dp</dimen>
     <dimen name="question_image_size">84.38dp</dimen>
     <dimen name="item_question_no_highlight_view_size">2.81dp</dimen>
-    <dimen name="question_area_height">159.38dp</dimen>
+    <dimen name="question_area_height">185dp</dimen>
     <dimen name="text_view_total_time_size">16.88sp</dimen>
-    <dimen name="learn_all_card_height">151.1dp</dimen>
-    <dimen name="learn_all_answer_height">37.5dp</dimen>
+    <dimen name="learn_all_card_height">176dp</dimen>
+    <dimen name="learn_all_answer_height">44dp</dimen>
     <dimen name="button_previous_width">103.12dp</dimen>
     <dimen name="button_previous_height">46.88dp</dimen>
     <dimen name="learn_all_image_size">84.38dp</dimen>
@@ -46,5 +48,5 @@
     <dimen name="button_result_height">46.88dp</dimen>
     <dimen name="dialog_warning_width">281.25dp</dimen>
     <dimen name="item_list_detail_result_height">93.75dp</dimen>
-    <dimen name="item_choice_vertical_margin">5dp</dimen>
+    <dimen name="item_choice_vertical_margin">3.265dp</dimen>
 </resources>

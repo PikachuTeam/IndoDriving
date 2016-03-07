@@ -131,6 +131,7 @@ public class DataSource extends BaseDataSource {
                 }
             }
         }
+        question = question.replace(';', ' ');
         return question.replace(" :", ":").trim();
 
     }
@@ -144,6 +145,7 @@ public class DataSource extends BaseDataSource {
                     answer += tmp[i] + " ";
                 }
             }
+            answer = answer.replace(';', ' ');
             return answer.trim();
         } else {
             return null;

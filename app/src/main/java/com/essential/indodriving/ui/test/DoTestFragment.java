@@ -57,7 +57,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     public final static String KEY_HOLDER_QUESTIONS = "Questions";
     public final static String DO_TEST_FRAGMENT_TAG = "Do Test Fragment";
-    public final static int INTERVAL = 1000, TOTAL_TIME = 3600000;
+    public final static int INTERVAL = 1000, TOTAL_TIME = 3601000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,11 +92,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected String getTitle() {
-        if (isRandom) {
-            return getString(R.string.title_random_questions);
-        } else {
-            return MessageFormat.format(getString(R.string.title_do_package), "" + examId);
-        }
+        return getString(R.string.title_test);
     }
 
     @Override
@@ -128,8 +124,12 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         textViewMinute2.setText("" + minute2);
         textViewSecond1.setText("" + second1);
         textViewSecond2.setText("" + second2);
+    }
 
-        timer = new CountDownTimer(TOTAL_TIME, INTERVAL) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        timer = new CountDownTimer(TOTAL_TIME - INTERVAL * timeLeft, INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
                 makeTime();
@@ -137,9 +137,9 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
             @Override
             public void onFinish() {
+                moveToNextFragment();
             }
         };
-
         timer.start();
     }
 
@@ -190,6 +190,12 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             warningDialog.addListener(this);
             warningDialog.show();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
     }
 
     @Override
@@ -280,14 +286,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             case WarningDialog.BUTTON_OK:
                 dialog.dismiss();
                 if (type == 1) {
-                    OverallResultFragment fragment = new OverallResultFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("Type", type);
-                    bundle.putInt("Exam Id", examId);
-                    bundle.putInt("Time Left", TOTAL_TIME - INTERVAL * timeLeft);
-                    fragment.setArguments(bundle);
-                    replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);
-                    putHolder(KEY_HOLDER_QUESTIONS, questions);
+                    moveToNextFragment();
                 } else if (type == 0) {
                     getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 }
@@ -302,11 +301,23 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
                     @Override
                     public void onFinish() {
+                        moveToNextFragment();
                     }
                 };
                 timer.start();
                 break;
         }
+    }
+
+    private void moveToNextFragment() {
+        OverallResultFragment fragment = new OverallResultFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("Type", this.type);
+        bundle.putInt("Exam Id", examId);
+        bundle.putInt("Time Left", TOTAL_TIME - INTERVAL * timeLeft);
+        fragment.setArguments(bundle);
+        replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);
+        putHolder(KEY_HOLDER_QUESTIONS, questions);
     }
 
     private class ViewPagerAdapter extends PagerAdapter implements AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {

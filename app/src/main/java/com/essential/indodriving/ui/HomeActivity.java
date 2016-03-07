@@ -3,7 +3,9 @@ package com.essential.indodriving.ui;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -34,7 +36,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout buttonLearnSimC;
     private LinearLayout buttonLearnSimD;
     private FloatingActionButton fab;
+    private CoordinatorLayout coordinatorLayout;
 
+    private Snackbar snackbar;
     private CloseAppHandler closeAppHandler;
 
     @Override
@@ -50,6 +54,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setFont(font);
         closeAppHandler = new CloseAppHandler(this);
         closeAppHandler.setListener(this);
+
+        snackbar = Snackbar.make(coordinatorLayout, closeAppHandler.getDefaultExitMessage(), Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -67,6 +73,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonLearnSimC = (LinearLayout) findViewById(R.id.buttonLearnSimC);
         buttonLearnSimD = (LinearLayout) findViewById(R.id.buttonLearnSimD);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         buttonLearnSimA.setOnClickListener(this);
         buttonLearnSimAUmum.setOnClickListener(this);
@@ -127,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onTryToCloseApp() {
-        Toast.makeText(this, closeAppHandler.getDefaultExitMessage(), Toast.LENGTH_SHORT).show();
+        snackbar.show();
     }
 
     @Override

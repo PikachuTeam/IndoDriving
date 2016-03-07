@@ -203,6 +203,8 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setRotationEnabled(false);
         pieChart.setClickable(false);
+        pieChart.setEnabled(false);
+        pieChart.setActivated(false);
 
         addData();
 

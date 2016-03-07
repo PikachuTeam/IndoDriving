@@ -53,5 +53,6 @@
             android:src="@drawable/ic_shopping"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|end" />
+
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>
