@@ -29,47 +29,22 @@
             </HorizontalScrollView>
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/common_size_5"
+            android:paddingTop="@dimen/common_size_5">
 
             <TextView
                 android:id="@+id/headerQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/common_size_10"
                 android:text="@string/question"
                 android:textAllCaps="true"
                 android:textColor="@color/text_color_1"
                 android:textSize="@dimen/common_text_size_16" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/questionPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/question_area_height">
-
-                <TextView
-                    android:id="@+id/headerChoice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/common_size_10"
-                    android:text="@string/choices"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/common_text_size_16" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -118,5 +93,10 @@
                     android:textSize="@dimen/common_text_size_25" />
             </LinearLayout>
         </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/questionPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </tatteam.com.app_common.ui.drawable.FractionFrameLayout>

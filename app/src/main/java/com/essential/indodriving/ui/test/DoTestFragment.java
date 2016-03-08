@@ -162,8 +162,6 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         textViewSecond1.setTypeface(font1);
         textViewSecond2.setTypeface(font1);
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(font1);
-        ((TextView) rootView.findViewById(R.id.headerChoice)).setTypeface(font2);
-        ((TextView) rootView.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(font2);
         ((TextView) rootView.findViewById(R.id.headerQuestion)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
@@ -350,6 +348,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
             RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
             ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
+            ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(font2);
+            ((TextView) view.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             if (question.image == null) {
                 imageArea.setVisibility(View.GONE);
             } else {
