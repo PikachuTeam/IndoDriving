@@ -51,4 +51,6 @@
     <dimen name="progress_area_height">55dp</dimen>
     <dimen name="progress_indicator_width">29dp</dimen>
     <dimen name="progress_bar_container_height">20dp</dimen>
+
+    <dimen name="question_number_wrapper_width">42.8dp</dimen>
 </resources>
