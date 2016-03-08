@@ -39,7 +39,6 @@
     <dimen name="item_list_question_width">202dp</dimen>
     <dimen name="item_list_question_height">75dp</dimen>
     <dimen name="progress_bar_height">10dp</dimen>
-    <dimen name="progress_bar_width">432dp</dimen>
     <dimen name="progress_area_height">68.75dp</dimen>
     <dimen name="progress_indicator_width">36.25dp</dimen>
     <dimen name="progress_bar_container_height">25dp</dimen>

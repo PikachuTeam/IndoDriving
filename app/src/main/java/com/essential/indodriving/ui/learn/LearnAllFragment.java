@@ -3,16 +3,16 @@ package com.essential.indodriving.ui.learn;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -48,6 +48,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private int currentPosition;
     private float indicatorPosition;
     private float indicatorPositionOffset;
+    private boolean isFirst;
 
     public final static String LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment";
 
@@ -57,6 +58,9 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         getData();
         questions = DataSource.getAllQuestionByType(type);
         currentPosition = loadState();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        isFirst = true;
     }
 
     @Override
@@ -96,10 +100,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         readingProgress.setMax(questions.size());
         readingProgress.setProgress(currentPosition + 1);
 
-        indicatorPositionOffset = getActivity().getResources().getDimension(R.dimen.progress_bar_width) / questions.size();
-        indicatorPosition = (currentPosition + 1) * indicatorPositionOffset;
-        indicator.setX(indicatorPosition);
-
         if (currentPosition == 0) {
             buttonPrevious.setImageResource(R.drawable.ic_previous_disabled);
             buttonPrevious.setEnabled(false);
@@ -107,6 +107,18 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             buttonNext.setImageResource(R.drawable.ic_next_disabled);
             buttonNext.setEnabled(false);
         }
+
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (isFirst) {
+                    isFirst = false;
+                    indicatorPositionOffset = (float) readingProgress.getWidth() / questions.size();
+                }
+                indicatorPosition = progressBarContainer.getX() - indicator.getWidth() / 2 + indicatorPositionOffset * (currentPosition + 1);
+                indicator.setX(indicatorPosition);
+            }
+        });
 
         progressBarContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -116,9 +128,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     float tmp = questions.size() * rate;
                     currentPosition = (int) tmp;
                     setCardData(questions.get(currentPosition));
-
-                    indicatorPosition = event.getX();
-                    indicator.setX(indicatorPosition);
 
                     if (currentPosition == 0) {
                         disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
