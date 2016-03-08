@@ -183,7 +183,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof ViewHolderItem) {
                 final QuestionPackage questionPackage = packages.get(position - 1);
-                ((ViewHolderItem) holder).textViewPackage.setText(MessageFormat.format(context.getString(R.string.topic), "" + questionPackage.index));
+                ((ViewHolderItem) holder).textViewPackage.setText(MessageFormat.format(context.getString(R.string.title_package), "" + questionPackage.index));
                 ((ViewHolderItem) holder).textViewPackage.setTypeface(font);
                 if (questionPackage.lastScore == 0) {
                     ((ViewHolderItem) holder).textViewLastScore.setVisibility(View.GONE);

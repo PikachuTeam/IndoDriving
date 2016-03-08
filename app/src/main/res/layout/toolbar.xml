@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
-    android:theme="@style/MyMaterialTheme"
     android:elevation="@dimen/toolbar_elevation"
+    android:theme="@style/MyMaterialTheme"
     app:layout_collapseMode="pin"
     app:popupTheme="@style/MyMaterialTheme.PopupOverlay">
 
@@ -34,9 +34,9 @@
             android:clickable="true"
             android:gravity="center"
             android:paddingBottom="@dimen/common_size_5"
+            android:paddingLeft="@dimen/common_size_7"
             android:paddingRight="@dimen/common_size_7"
             android:text="@string/result"
-            android:paddingLeft="@dimen/common_size_7"
             android:textAllCaps="true"
             android:textColor="@color/do_test_highlight_color"
             android:textSize="@dimen/common_text_size_28" />
@@ -49,12 +49,20 @@
             android:background="@drawable/toolbar_flat_button"
             android:clickable="true"
             android:gravity="center"
-            android:paddingLeft="@dimen/common_size_7"
             android:paddingBottom="@dimen/common_size_5"
+            android:paddingLeft="@dimen/common_size_7"
             android:paddingRight="@dimen/common_size_7"
             android:text="@string/tips"
             android:textAllCaps="true"
             android:textColor="@color/do_test_highlight_color"
-            android:textSize="@dimen/common_text_size_28"/>
+            android:textSize="@dimen/common_text_size_28" />
+
+        <ImageView
+            android:id="@+id/buttonShare"
+            android:layout_width="@dimen/common_size_60"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toolbar_flat_button"
+            android:src="@android:drawable/ic_menu_share" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

@@ -91,6 +91,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         chartContainer.addView(pieChart);
         pieChart.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
+
         setDefaultColor(rootView);
     }
 
@@ -120,6 +121,16 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         totalTime = totalTime / 1000;
         minute = totalTime / 60;
         second = totalTime % 60;
+    }
+
+    @Override
+    protected boolean enableButtonShare() {
+        return true;
+    }
+
+    @Override
+    protected void onMenuItemClick(int id) {
+        // Button share click listener
     }
 
     @Override
@@ -214,9 +225,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         pieChart.setHoleRadius(getResources().getDimension(R.dimen.pie_chart_hole_radius));
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setRotationEnabled(false);
-        pieChart.setClickable(false);
-        pieChart.setEnabled(false);
-        pieChart.setActivated(false);
+        pieChart.setTouchEnabled(false);
 
         addData();
 

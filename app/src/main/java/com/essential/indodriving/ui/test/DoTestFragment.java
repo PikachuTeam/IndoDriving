@@ -26,8 +26,6 @@ import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
-import java.io.UnsupportedEncodingException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -183,7 +181,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected void onMenuItemClick(int id) {
-        if (id == MyBaseFragment.BUTTON_RESULT_ID) {
+        if (id == MyBaseFragment.BUTTON_RESULT) {
             timer.cancel();
             WarningDialog warningDialog = new WarningDialog(getActivity(), 1, font1);
             warningDialog.addListener(this);

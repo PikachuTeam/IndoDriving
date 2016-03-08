@@ -1,12 +1,8 @@
 package com.essential.indodriving.base;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 
@@ -17,7 +13,7 @@ import tatteam.com.app_common.ui.fragment.BaseFragment;
  */
 public abstract class MyBaseFragment extends BaseFragment {
 
-    public final static int BUTTON_RESULT_ID = 1, BUTTON_TUTORIAL_ID=2;
+    public final static int BUTTON_RESULT = 1, BUTTON_TUTORIAL = 2, BUTTON_SHARE = 3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +28,7 @@ public abstract class MyBaseFragment extends BaseFragment {
         getMyBaseActivity().setToolbarTitle(getTitle());
         getMyBaseActivity().enableButtonResult(enableButtonResult());
         getMyBaseActivity().enableButtonTutorial(enableButtonTutorial());
+        getMyBaseActivity().enableButtonShare(enableButtonShare());
         getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(enableIndicator());
         if (enableButtonBack()) {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
@@ -52,7 +49,7 @@ public abstract class MyBaseFragment extends BaseFragment {
                 }
                 break;
             case R.id.buttonResult:
-                onMenuItemClick(BUTTON_RESULT_ID);
+                onMenuItemClick(BUTTON_RESULT);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -67,6 +64,10 @@ public abstract class MyBaseFragment extends BaseFragment {
 
     protected void onMenuItemClick(int id) {
         // do something here
+    }
+
+    protected boolean enableButtonShare() {
+        return false;
     }
 
     protected boolean enableIndicator() {

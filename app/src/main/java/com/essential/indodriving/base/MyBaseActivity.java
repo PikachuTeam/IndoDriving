@@ -3,13 +3,9 @@ package com.essential.indodriving.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -25,6 +21,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private TextView textViewTitle;
     private TextView buttonTutorial;
     private TextView buttonResult;
+    private ImageView buttonShare;
 
     @Override
     protected int getLayoutResIdContentView() {
@@ -65,23 +62,39 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
+    public void enableButtonShare(boolean isVisible) {
+        if (isVisible) {
+            buttonShare.setVisibility(View.VISIBLE);
+        } else {
+            buttonShare.setVisibility(View.GONE);
+        }
+    }
+
     private void findViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         buttonTutorial = (TextView) findViewById(R.id.buttonTutorial);
         buttonResult = (TextView) findViewById(R.id.buttonResult);
+        buttonShare = (ImageView) findViewById(R.id.buttonShare);
 
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_TUTORIAL_ID);
+                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_TUTORIAL);
             }
         });
 
         buttonResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_RESULT_ID);
+                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_RESULT);
+            }
+        });
+
+        buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_SHARE);
             }
         });
     }

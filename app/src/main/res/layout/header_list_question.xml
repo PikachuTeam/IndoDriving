@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/test_list_header_height"
         android:layout_marginBottom="@dimen/common_size_5"
-        android:layout_marginRight="@dimen/common_size_20"
         android:layout_marginTop="@dimen/common_size_10"
         card_view:cardCornerRadius="@dimen/common_size_3"
         card_view:cardPreventCornerOverlap="false">
@@ -21,7 +20,7 @@
             android:background="@drawable/raised_button"
             android:clickable="true"
             android:gravity="center"
-            android:text="@string/random_questions"
+            android:text="@string/simulation_test"
             android:textColor="@color/item_list_question_text_color"
             android:textSize="@dimen/common_text_size_30" />
     </android.support.v7.widget.CardView>

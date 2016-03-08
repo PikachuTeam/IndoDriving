@@ -44,6 +44,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/common_size_10"
                 android:layout_marginTop="@dimen/common_size_25"
+                android:clickable="false"
                 android:gravity="center"
                 android:orientation="horizontal" />
         </LinearLayout>
