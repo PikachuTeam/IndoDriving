@@ -41,7 +41,7 @@
                 android:paddingLeft="@dimen/common_size_10"
                 android:paddingTop="@dimen/common_size_5"
                 android:text="Aloha"
-                android:textColor="@color/text_color_2"
+                android:textColor="@color/text_color_3"
                 android:textSize="@dimen/common_text_size_18" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dialog_warning_width"
     android:layout_height="wrap_content"
-    android:background="@color/dialog_background_color"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <TextView
@@ -13,7 +13,7 @@
         android:paddingTop="@dimen/common_size_10"
         android:text="@string/warning_dialog_title"
         android:textAllCaps="true"
-        android:textColor="@color/text_color_3"
+        android:textColor="@color/text_color_2"
         android:textSize="@dimen/common_text_size_20" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_gravity="center"
         android:padding="@dimen/common_size_12"
         android:text="@string/dialog_warning_text"
-        android:textColor="@color/text_color_2"
+        android:textColor="@color/text_color_3"
         android:textSize="@dimen/common_text_size_16" />
 
     <RelativeLayout
@@ -40,7 +40,7 @@
             android:gravity="center"
             android:text="@string/cancel"
             android:textAllCaps="true"
-            android:textColor="@color/text_color_3"
+            android:textColor="@color/text_color_2"
             android:textSize="@dimen/common_text_size_18" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:gravity="center"
             android:text="@string/ok"
             android:textAllCaps="true"
-            android:textColor="@color/text_color_3"
+            android:textColor="@color/text_color_2"
             android:textSize="@dimen/common_text_size_18" />
     </RelativeLayout>
 </LinearLayout>

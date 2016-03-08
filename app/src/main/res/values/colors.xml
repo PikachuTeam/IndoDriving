@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#693393</color>
-    <color name="colorPrimaryDark">#361350</color>
+    <color name="colorPrimary">#0095cd</color>
+    <color name="colorPrimaryDark">#0079a7</color>
     <color name="colorAccent">#0F9D58</color>
-    <color name="app_background_color">#823fb6</color>
+    <color name="app_background_color">#00a8e7</color>
     <color name="container_background_color">#FFFFFF</color>
     <color name="toolbar_flat_button_highlight_color">#3f251f1f</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="button_start_normal_color">#F5CB43</color>
+    <color name="button_start_normal_color">#FFFD4C</color>
     <color name="button_start_highlight_color">#bde7e5e0</color>
-    <color name="item_question_no_stroke_highlight_color">#EBBB26</color>
+    <color name="item_question_no_stroke_highlight_color">#FFFD4C</color>
     <color name="wrong_answer_color">#FF5019</color>
     <color name="correct_answer_color">#0F9D58</color>
     <color name="not_answered_color">#ECB912</color>
     <color name="secondary_progress_start_color">#FFD300</color>
-    <color name="dialog_button_highlight_color">#9aca6cec</color>
-    <color name="bg_button_next_stroke_line_normal_color">#7B3DAA</color>
-    <color name="bg_button_next_stroke_line_highlight_color">#AA7B3DAA</color>
+    <color name="dialog_button_highlight_color">#D236C1F5</color>
+    <color name="bg_button_next_stroke_line_normal_color">#22B3E9</color>
+    <color name="bg_button_next_stroke_line_highlight_color">#CB22B3E9</color>
     <color name="toolbar_menu_item_color">#FFFFFF</color>
 
-    <color name="button_sim_normal_color">#9950328B</color>
-    <color name="button_sim_highlight_color">#CC50328B</color>
-    <color name="home_screen_stroke_line_color">#EBBB26</color>
+    <color name="button_sim_normal_color">#64076182</color>
+    <color name="button_sim_highlight_color">#8c076182</color>
+    <color name="home_screen_stroke_line_color">#FFFD4C</color>
 
-    <color name="text_color_1">#E8E8E8</color>
-    <color name="text_color_2">#693393</color>
-    <color name="text_color_3">#7A3DAA</color>
-    <color name="text_color_4">#F5CB43</color>
-    
-    <color name="choose_item_button_normal_color">#ab6fd9</color>
-    <color name="choose_item_button_highlight_color">#8761A5</color>
+    <color name="text_color_1">#FFFFFF</color>
+    <color name="text_color_2">#0095cd</color>
+    <color name="text_color_3">#03465F</color>
+    <color name="text_color_4">#FFFD4C</color>
 
-    <color name="do_test_highlight_color">#F5CB43</color>
+    <color name="choose_item_button_normal_color">#36c1f5</color>
+    <color name="choose_item_button_highlight_color">#2EB7EA</color>
+
+    <color name="do_test_highlight_color">#FFFD4C</color>
 
     <color name="progress_bar_color">#0F9D58</color>
     <color name="progress_bar_background_color">#5C5C5C</color>
 
-    <color name="learn_all_text_color">#693393</color>
-    <color name="item_list_question_text_color">#693393</color>
+    <color name="learn_all_text_color">#0095cd</color>
+    <color name="item_list_question_text_color">#0095cd</color>
 
-    <color name="question_wrapper_normal_color">#693393</color>
-    <color name="question_wrapper_highlight_color">#562A79</color>
-    <color name="question_wrapper_text_highlight_color">#EBBB26</color>
-    <color name="dialog_background_color">@android:color/transparent</color>
+    <color name="question_wrapper_normal_color">#0095cd</color>
+    <color name="question_wrapper_highlight_color">#0084B6</color>
+    <color name="question_wrapper_text_highlight_color">#FFFD4C</color>
 
     <color name="total_time_text_color">#FFF5D5</color>
     <color name="item_choice_check_box_color">#0F9D58</color>
-    <color name="show_rule_check_box_color">#F5CB43</color>
+    <color name="show_rule_check_box_color">#FFFD4C</color>
 
     <color name="learn_all_button_normal_color">#0F9D58</color>
     <color name="learn_all_button_disabled_color">#c9c1c1</color>
 
-    <color name="overall_result_button_next_normal_color">#7B3DAA</color>
-    <color name="overall_result_button_next_highlight_color">#AA7B3DAA</color>
+    <color name="overall_result_button_next_normal_color">#0095cd</color>
+    <color name="overall_result_button_next_highlight_color">#0084B6</color>
 </resources>
