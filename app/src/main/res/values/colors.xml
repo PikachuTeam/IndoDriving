@@ -50,4 +50,10 @@
     <color name="total_time_text_color">#FFF5D5</color>
     <color name="item_choice_check_box_color">#0F9D58</color>
     <color name="show_rule_check_box_color">#F5CB43</color>
+
+    <color name="learn_all_button_normal_color">#0F9D58</color>
+    <color name="learn_all_button_disabled_color">#c9c1c1</color>
+
+    <color name="overall_result_button_next_normal_color">#7B3DAA</color>
+    <color name="overall_result_button_next_highlight_color">#AA7B3DAA</color>
 </resources>

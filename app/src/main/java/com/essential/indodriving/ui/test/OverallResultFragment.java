@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.test;
 
 import android.app.FragmentManager;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -89,6 +90,17 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         setupChart();
         chartContainer.addView(pieChart);
         pieChart.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        setDefaultColor(rootView);
+    }
+
+    private void setDefaultColor(View rootView) {
+        ((ImageView) rootView.findViewById(R.id.imgCorrectAnswer)).setColorFilter(ContextCompat.getColor(getActivity(), R.color.correct_answer_color), PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgWrongAnswer)).setColorFilter(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color), PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgNotAnswered)).setColorFilter(ContextCompat.getColor(getActivity(), R.color.not_answered_color), PorterDuff.Mode.SRC_ATOP);
+        buttonNext1.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
+        buttonNext2.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
+        buttonNext3.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
     }
 
     private void getData() {
@@ -318,9 +330,9 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     public boolean onTouch(View v, MotionEvent event) {
         if (v == buttonNext1) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                buttonNext1.setImageResource(R.drawable.ic_overall_result_highlight_next);
+                buttonNext1.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_highlight_color), PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                buttonNext1.setImageResource(R.drawable.ic_overall_result_normal_next);
+                buttonNext1.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
                 putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
                 Bundle bundle = new Bundle();
                 bundle.putInt("Type", 0);
@@ -330,9 +342,9 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             }
         } else if (v == buttonNext2) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                buttonNext2.setImageResource(R.drawable.ic_overall_result_highlight_next);
+                buttonNext2.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_highlight_color), PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                buttonNext2.setImageResource(R.drawable.ic_overall_result_normal_next);
+                buttonNext2.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
                 putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getWrongAnswers());
                 Bundle bundle = new Bundle();
                 bundle.putInt("Type", 1);
@@ -342,9 +354,9 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             }
         } else if (v == buttonNext3) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                buttonNext3.setImageResource(R.drawable.ic_overall_result_highlight_next);
+                buttonNext3.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_highlight_color), PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                buttonNext3.setImageResource(R.drawable.ic_overall_result_normal_next);
+                buttonNext3.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
                 putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
                 Bundle bundle = new Bundle();
                 bundle.putInt("Type", 2);

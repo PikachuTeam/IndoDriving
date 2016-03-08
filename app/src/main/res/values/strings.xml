@@ -12,7 +12,7 @@
     <string name="sim_c">Sim C</string>
     <string name="sim_d">Sim D</string>
     <string name="learn_all">Learn All</string>
-    <string name="tutorial">Tutorial</string>
+    <string name="tips">Tips</string>
     <string name="last_score">Last score:</string>
     <string name="action_settings">Settings</string>
     <string name="topic">Package {0}</string>

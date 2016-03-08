@@ -26,6 +26,7 @@ import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
+import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import tatteam.com.app_common.sqlite.BaseDataSource;
@@ -133,8 +134,24 @@ public class DataSource extends BaseDataSource {
         }
         question = question.replace(';', ' ');
         return question.replace(" :", ":").trim();
-
     }
+
+//    private static String fixQuestion(String question) {
+//        String temp = question.trim();
+//        temp = temp.replace('?', ':');
+//        temp = temp.replace('&', ':');
+//        temp = temp.replace(';', ':');
+//        int i1 = temp.lastIndexOf('#');
+//        if (i1 != -1) {
+//            int i2 = temp.indexOf(" ", i1);
+//            if (i2 == -1) {
+//                temp = temp.substring(0, i1);
+//            } else {
+//                temp = temp.substring(0, i1).trim() + temp.substring(i2, temp.length());
+//            }
+//        }
+//        return temp.replace(" :", ":").trim();
+//    }
 
     private static String fixAnswer(String answer) {
         if (answer != null) {

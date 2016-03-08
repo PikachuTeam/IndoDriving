@@ -3,6 +3,7 @@ package com.essential.indodriving.ui.learn;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
@@ -20,6 +21,7 @@ import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
+import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
@@ -101,11 +103,14 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         readingProgress.setProgress(currentPosition + 1);
 
         if (currentPosition == 0) {
-            buttonPrevious.setImageResource(R.drawable.ic_previous_disabled);
-            buttonPrevious.setEnabled(false);
+            disableButton(buttonPrevious, R.drawable.ic_previous);
+            buttonNext.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
         } else if (currentPosition == questions.size() - 1) {
-            buttonNext.setImageResource(R.drawable.ic_next_disabled);
-            buttonNext.setEnabled(false);
+            disableButton(buttonNext, R.drawable.ic_next);
+            buttonPrevious.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            buttonPrevious.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
+            buttonNext.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
         }
 
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -130,12 +135,12 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     setCardData(questions.get(currentPosition));
 
                     if (currentPosition == 0) {
-                        disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
+                        disableButton(buttonPrevious, R.drawable.ic_previous);
                         if (!buttonNext.isEnabled()) {
                             enableButton(buttonNext, R.drawable.ic_next);
                         }
                     } else if (currentPosition == questions.size() - 1) {
-                        disableButton(buttonNext, R.drawable.ic_next_disabled);
+                        disableButton(buttonNext, R.drawable.ic_next);
                         if (!buttonPrevious.isEnabled()) {
                             enableButton(buttonPrevious, R.drawable.ic_previous);
                         }
@@ -338,7 +343,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             if (currentPosition < questions.size() - 1) {
                 currentPosition++;
                 if (currentPosition == questions.size() - 1) {
-                    disableButton(buttonNext, R.drawable.ic_next_disabled);
+                    disableButton(buttonNext, R.drawable.ic_next);
                 }
                 if (currentPosition != 0) {
                     if (!buttonPrevious.isEnabled()) {
@@ -353,7 +358,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             if (currentPosition > 0) {
                 currentPosition--;
                 if (currentPosition == 0) {
-                    disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
+                    disableButton(buttonPrevious, R.drawable.ic_previous);
                 }
                 if (currentPosition != questions.size()) {
                     if (!buttonNext.isEnabled()) {
@@ -373,11 +378,13 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private void enableButton(ImageView button, int image) {
         button.setEnabled(true);
         button.setImageResource(image);
+        button.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
     }
 
     private void disableButton(ImageView button, int image) {
         button.setEnabled(false);
         button.setImageResource(image);
+        button.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_disabled_color), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override
@@ -397,7 +404,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     if (currentPosition < questions.size() - 1) {
                         currentPosition++;
                         if (currentPosition == questions.size() - 1) {
-                            disableButton(buttonNext, R.drawable.ic_next_disabled);
+                            disableButton(buttonNext, R.drawable.ic_next);
                         }
                         if (currentPosition != 0) {
                             if (!buttonPrevious.isEnabled()) {
@@ -416,7 +423,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     if (currentPosition > 0) {
                         currentPosition--;
                         if (currentPosition == 0) {
-                            disableButton(buttonPrevious, R.drawable.ic_previous_disabled);
+                            disableButton(buttonPrevious, R.drawable.ic_previous);
                         }
                         if (currentPosition != questions.size()) {
                             if (!buttonNext.isEnabled()) {
