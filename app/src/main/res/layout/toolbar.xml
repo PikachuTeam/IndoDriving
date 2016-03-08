@@ -67,8 +67,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="@dimen/common_size_40"
-                android:layout_height="@dimen/common_size_40"
+                android:layout_width="@dimen/common_size_30"
+                android:layout_height="@dimen/common_size_30"
                 android:src="@drawable/ic_share" />
         </LinearLayout>
     </RelativeLayout>
