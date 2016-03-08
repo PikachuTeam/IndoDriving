@@ -46,7 +46,11 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_test);
+        if (isRandom) {
+            return getString(R.string.title_test);
+        } else {
+            return MessageFormat.format(getString(R.string.title_package), "" + examId);
+        }
     }
 
     @Override

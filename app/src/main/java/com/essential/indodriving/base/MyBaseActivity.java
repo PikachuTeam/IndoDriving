@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -21,7 +22,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private TextView textViewTitle;
     private TextView buttonTutorial;
     private TextView buttonResult;
-    private ImageView buttonShare;
+    private LinearLayout buttonShare;
 
     @Override
     protected int getLayoutResIdContentView() {
@@ -75,7 +76,7 @@ public abstract class MyBaseActivity extends BaseActivity {
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         buttonTutorial = (TextView) findViewById(R.id.buttonTutorial);
         buttonResult = (TextView) findViewById(R.id.buttonResult);
-        buttonShare = (ImageView) findViewById(R.id.buttonShare);
+        buttonShare = (LinearLayout) findViewById(R.id.buttonShare);
 
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
             @Override

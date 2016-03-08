@@ -26,6 +26,7 @@ import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -56,7 +57,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     public final static String KEY_HOLDER_QUESTIONS = "Questions";
     public final static String DO_TEST_FRAGMENT_TAG = "Do Test Fragment";
-    public final static int INTERVAL = 1000, TOTAL_TIME = 3601000;
+    public final static int INTERVAL = 1000, TOTAL_TIME = 1801000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             wrappers.add(wrapper);
         }
 
-        minute1 = 6;
+        minute1 = 3;
         minute2 = 0;
         second1 = 0;
         second2 = 0;
@@ -91,7 +92,11 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected String getTitle() {
-        return getString(R.string.title_test);
+        if (isRandom) {
+            return getString(R.string.title_test);
+        } else {
+            return MessageFormat.format(getString(R.string.title_package), "" + examId);
+        }
     }
 
     @Override

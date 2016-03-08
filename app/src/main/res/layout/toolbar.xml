@@ -57,12 +57,19 @@
             android:textColor="@color/do_test_highlight_color"
             android:textSize="@dimen/common_text_size_28" />
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/buttonShare"
-            android:layout_width="@dimen/common_size_60"
-            android:layout_height="match_parent"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:clickable="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/toolbar_flat_button"
-            android:src="@android:drawable/ic_menu_share" />
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/common_size_40"
+                android:layout_height="@dimen/common_size_40"
+                android:src="@drawable/ic_share" />
+        </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

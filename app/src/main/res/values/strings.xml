@@ -51,7 +51,6 @@
     <string name="test_rule_sim_b2_umum">-This Test Simulation is for class B2 public driving license.\n-To be able to get this license, you have to be over 17 years old.\n-This test consists of 30 multiple-choice driving theory questions.\n-To pass the test, you must get at least 21 correct answers of the total.</string>
     <string name="test_rule_sim_c">-This Test Simulation is for class C driving license.\n-To be able to get this license, you have to be over 17 years old.\n-This test consists of 30 multiple-choice driving theory questions.\n-To pass the test, you must get at least 21 correct answers of the total.</string>
     <string name="test_rule_sim_d">-This Test Simulation is for class D driving license.\n-To be able to get this license, you have to be over 17 years old.\n-This test consists of 30 multiple-choice driving theory questions.\n-To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test">Test</string>
     <string name="learn_sim_a">Learn Sim A ({0})</string>
     <string name="learn_sim_a_umum">Learn Sim A Umum ({0})</string>
     <string name="learn_sim_b1">Learn Sim B1 ({0})</string>
