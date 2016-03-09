@@ -43,11 +43,13 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical">
+            android:scrollbars="none">
 
             <LinearLayout
+                android:id="@+id/scrollArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:orientation="vertical">
 
                 <LinearLayout

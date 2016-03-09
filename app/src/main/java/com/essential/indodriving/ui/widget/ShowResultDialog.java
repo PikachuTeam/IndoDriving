@@ -121,6 +121,13 @@ public class ShowResultDialog extends Dialog {
                 dismiss();
             }
         });
+
+        findViewById(R.id.scrollArea).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     private void findViews() {

@@ -221,17 +221,27 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     public void onQuestionPagerItemClick(AnswerChoicesItem item) {
-        questions.get(currentPosition).answer = item.getIndex();
-        adapter.notifyDataSetChanged();
-        QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
-        if (!wrapper.isHighlight) {
-            wrapper.setHighlight();
-            testHorizontalScrollView.invalidate();
-        }
-        if (currentPosition < 29) {
-            currentPosition++;
-            questionPager.setCurrentItem(currentPosition, true);
-            scrollToCenter(wrappers.get(currentPosition));
+        if (questions.get(currentPosition).answer == DataSource.ANSWER_NOT_CHOSEN) {
+            questions.get(currentPosition).answer = item.getIndex();
+            adapter.notifyDataSetChanged();
+            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
+            if (!wrapper.isHighlight) {
+                wrapper.setHighlight();
+                testHorizontalScrollView.invalidate();
+            }
+            if (currentPosition < 29) {
+                currentPosition++;
+                questionPager.setCurrentItem(currentPosition, true);
+                scrollToCenter(wrappers.get(currentPosition));
+            }
+        }else{
+            questions.get(currentPosition).answer = item.getIndex();
+            adapter.notifyDataSetChanged();
+            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
+            if (!wrapper.isHighlight) {
+                wrapper.setHighlight();
+                testHorizontalScrollView.invalidate();
+            }
         }
     }
 

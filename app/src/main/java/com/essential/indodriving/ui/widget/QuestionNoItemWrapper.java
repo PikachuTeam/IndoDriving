@@ -21,7 +21,7 @@ public class QuestionNoItemWrapper {
     public boolean isHighlight;
 
     private TextView textViewNumber;
-    private RelativeLayout questionNoWrapper;
+    private LinearLayout questionNoWrapper;
     private View highlightView;
 
     public QuestionNoItemWrapper(Context context) {
@@ -33,7 +33,7 @@ public class QuestionNoItemWrapper {
     private void findViews(View rootView) {
         textViewNumber = (TextView) rootView.findViewById(R.id.textViewNumber);
         highlightView = rootView.findViewById(R.id.highlightView);
-        questionNoWrapper = (RelativeLayout) rootView.findViewById(R.id.questionNoWrapper);
+        questionNoWrapper = (LinearLayout) rootView.findViewById(R.id.questionNoWrapper);
 
         questionNoWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
