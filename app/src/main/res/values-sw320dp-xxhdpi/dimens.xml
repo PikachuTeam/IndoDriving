@@ -41,11 +41,11 @@
     <dimen name="item_list_detail_result_height">93.75dp</dimen>
     <dimen name="item_choice_vertical_margin">3.265dp</dimen>
 
-    <dimen name="dialog_warning_width">281.25dp</dimen>
+    <dimen name="dialog_warning_width">330dp</dimen>
     <dimen name="warning_dialog_button_area_height">46.875dp</dimen>
-    <dimen name="dialog_show_result_width">281.25dp</dimen>
+    <dimen name="dialog_show_result_width">330dp</dimen>
     <dimen name="dialog_show_result_question_image_size">103.12dp</dimen>
-    <dimen name="dialog_zoom_in_image_size">281.25dp</dimen>
+    <dimen name="dialog_zoom_in_image_size">330dp</dimen>
     <dimen name="dialog_warning_button_ok_width">56.25dp</dimen>
     <dimen name="dialog_warning_button_cancel_width">65.625dp</dimen>
     <dimen name="dialog_warning_button_height">37.5dp</dimen>

@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="@dimen/common_size_20"
+                    android:padding="@dimen/common_size_15"
                     android:text="@string/learn_all"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/common_text_size_35" />
@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="@dimen/common_size_20"
+                    android:padding="@dimen/common_size_15"
                     android:text="@string/simulation_test"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/common_text_size_35" />

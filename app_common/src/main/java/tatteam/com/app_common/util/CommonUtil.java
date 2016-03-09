@@ -38,4 +38,12 @@ public class CommonUtil {
             return false;
         }
     }
+
+    public static void sharePlainText(Context context, String message) {
+        Intent intent2 = new Intent();
+        intent2.setAction(Intent.ACTION_SEND);
+        intent2.setType("text/plain");
+        intent2.putExtra(Intent.EXTRA_TEXT, message);
+        context.startActivity(Intent.createChooser(intent2, "Share via"));
+    }
 }

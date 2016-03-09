@@ -2,6 +2,6 @@
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
     android:fromYDelta="40%p"
     android:toYDelta="0%p"
-    android:duration="300"
+    android:duration="500"
     android:startOffset="0"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator" />

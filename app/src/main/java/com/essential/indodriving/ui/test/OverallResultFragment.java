@@ -26,6 +26,8 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
+import tatteam.com.app_common.util.CommonUtil;
+
 /**
  * Created by dongc_000 on 2/28/2016.
  */
@@ -130,7 +132,9 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
 
     @Override
     protected void onMenuItemClick(int id) {
-        // Button share click listener
+        String androidLink = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
+        String sharedText = "This is an awesome app.\nAndroid: " + androidLink;
+        CommonUtil.sharePlainText(getActivity(), sharedText);
     }
 
     @Override

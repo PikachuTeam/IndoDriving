@@ -4,8 +4,6 @@ package tatteam.com.app_common.util;
  * Created by ThanhNH-Mac on 10/31/15.
  */
 public interface AppConstant {
-    //splash screen
-    int SPLASH_DURATION = 2000;
 
     //text to speech
     float TEXT_TO_SPEECH_RATE = 0.8f;
