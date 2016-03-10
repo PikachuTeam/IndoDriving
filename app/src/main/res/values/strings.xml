@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Indo Driving</string>
     <string name="no_internet_connection">Internet Connection Error!</string>
-    <string name="button_learn">Learn</string>
-    <string name="button_test">Test</string>
     <string name="sim_a">Sim A</string>
     <string name="sim_a_umum">Sim A Umum</string>
     <string name="sim_b1">Sim B1</string>
@@ -11,11 +9,8 @@
     <string name="sim_b2_umum">Sim B2 Umum</string>
     <string name="sim_c">Sim C</string>
     <string name="sim_d">Sim D</string>
-    <string name="learn_all">Learn All</string>
+    <string name="learn_theory">Learn Theory</string>
     <string name="tips">Tips</string>
-    <string name="last_score">Last score:</string>
-    <string name="action_settings">Settings</string>
-    <string name="topic">Package {0}</string>
     <string name="score">{0}/30</string>
     <string name="simulation_test">Simulation Test</string>
     <string name="test_not_show_again">Do not show again</string>
@@ -61,16 +56,13 @@
     <string name="learn_sim_d">Learn Sim D ({0})</string>
     <string name="warning_dialog_title">Finish answering</string>
 
-
     <string name="title_correct_answer">Correct Answers</string>
     <string name="title_wrong_answer">Wrong Answers</string>
     <string name="title_not_answered">Not Answered Questions</string>
     <string name="title_test_rule">Test Rule</string>
     <string name="title_choose_package">Test Packages</string>
-    <string name="title_random_questions">Random Questions</string>
     <string name="title_package">Package {0}</string>
     <string name="title_test">Simulation Test</string>
-    <string name="title_learn_all">Learn All</string>
     <string name="title_tutorial">Driving Tips</string>
     <string name="title_overall_result">Overall Result</string>
     <string name="title_detail_result">Detail Result</string>

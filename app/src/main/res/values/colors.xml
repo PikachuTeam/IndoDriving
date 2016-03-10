@@ -11,14 +11,14 @@
     <color name="white">#FFFFFF</color>
 
     <color name="button_start_normal_color">#FFFD4C</color>
-    <color name="button_start_highlight_color">#bde7e5e0</color>
+    <color name="button_start_highlight_color">#FAF82A</color>
     <color name="item_question_no_stroke_highlight_color">#FFFD4C</color>
     <color name="wrong_answer_color">#FF5019</color>
     <color name="correct_answer_color">#0F9D58</color>
     <color name="not_answered_color">#ECB912</color>
     <color name="secondary_progress_start_color">#FFD300</color>
-    <color name="dialog_button_highlight_color">#D236C1F5</color>
-    <color name="bg_button_next_stroke_line_normal_color">#22B3E9</color>
+    <color name="dialog_button_highlight_color">#b2ebf2</color>
+    <color name="bg_button_next_stroke_line_normal_color">#16a7dd</color>
     <color name="bg_button_next_stroke_line_highlight_color">#CB22B3E9</color>
     <color name="toolbar_menu_item_color">#FFFFFF</color>
 
@@ -36,7 +36,7 @@
 
     <color name="do_test_highlight_color">#FFFD4C</color>
 
-    <color name="progress_bar_color">#0F9D58</color>
+    <color name="progress_bar_color">#FFFD4C</color>
     <color name="progress_bar_background_color">#5C5C5C</color>
 
     <color name="learn_all_text_color">#0095cd</color>
@@ -53,6 +53,9 @@
     <color name="learn_all_button_normal_color">#0F9D58</color>
     <color name="learn_all_button_disabled_color">#c9c1c1</color>
 
-    <color name="overall_result_button_next_normal_color">#0095cd</color>
-    <color name="overall_result_button_next_highlight_color">#0084B6</color>
+    <color name="overall_result_button_next_normal_color">#027faf</color>
+    <color name="overall_result_button_next_highlight_color">#0095cd</color>
+
+    <color name="learn_all_button_zoom_in_normal_color">#027faf</color>
+    <color name="learn_all_button_zoom_in_highlight_color">#0095cd</color>
 </resources>

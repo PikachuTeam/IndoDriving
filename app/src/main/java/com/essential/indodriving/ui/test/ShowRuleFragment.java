@@ -26,6 +26,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     private AppCompatCheckBox checkBoxShowRule;
     private TextView buttonStart;
     private TextView textViewRule;
+    private LinearLayout checkBoxContainer;
 
     private int type;
     private boolean checked;
@@ -94,11 +95,13 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         checkBoxShowRule = (AppCompatCheckBox) rootView.findViewById(R.id.checkBoxShowRule);
         buttonStart = (TextView) rootView.findViewById(R.id.buttonStart);
         textViewRule = (TextView) rootView.findViewById(R.id.textViewRule);
+        checkBoxContainer = (LinearLayout) rootView.findViewById(R.id.checkBoxContainer);
 
         setFont(font, rootView);
 
         buttonStart.setOnClickListener(this);
         checkBoxShowRule.setOnClickListener(this);
+        checkBoxContainer.setOnClickListener(this);
     }
 
     private void saveState() {
@@ -172,6 +175,14 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
             fragment.setArguments(bundle);
             replaceFragment(fragment, SHOW_RULE_FRAGMENT_TAG);
         } else if (v == checkBoxShowRule) {
+            if (checked) {
+                checked = false;
+                checkBoxShowRule.setChecked(checked);
+            } else {
+                checked = true;
+                checkBoxShowRule.setChecked(checked);
+            }
+        } else if (v == checkBoxContainer) {
             if (checked) {
                 checked = false;
                 checkBoxShowRule.setChecked(checked);

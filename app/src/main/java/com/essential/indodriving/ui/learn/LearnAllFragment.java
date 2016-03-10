@@ -3,6 +3,7 @@ package com.essential.indodriving.ui.learn;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -95,6 +96,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
+
+        buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
 
         Question question = questions.get(currentPosition);
         setCardData(question);
@@ -391,9 +394,11 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     public boolean onTouch(View v, MotionEvent event) {
         if (v == buttonZoomIn) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_highlight);
+                buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+                buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_zoom_in_highlight_color), PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+                buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
                 Question question = questions.get(currentPosition);
                 ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.image);
                 dialog.show();

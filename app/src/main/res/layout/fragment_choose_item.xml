@@ -30,7 +30,7 @@
                     android:layout_width="@dimen/choose_item_button_size"
                     android:layout_height="@dimen/choose_item_button_size"
                     android:layout_marginBottom="@dimen/common_size_5"
-                    android:layout_marginLeft="@dimen/common_size_35"
+                    android:layout_marginLeft="@dimen/common_size_30"
                     android:layout_marginTop="@dimen/common_size_5"
                     android:elevation="@dimen/common_size_5"
                     card_view:cardCornerRadius="@dimen/common_size_9"
@@ -51,7 +51,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="@dimen/common_size_15"
-                    android:text="@string/learn_all"
+                    android:text="@string/learn_theory"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/common_text_size_35" />
             </LinearLayout>
@@ -69,7 +69,7 @@
                     android:layout_width="@dimen/choose_item_button_size"
                     android:layout_height="@dimen/choose_item_button_size"
                     android:layout_marginBottom="@dimen/common_size_5"
-                    android:layout_marginLeft="@dimen/common_size_35"
+                    android:layout_marginLeft="@dimen/common_size_30"
                     android:layout_marginTop="@dimen/common_size_5"
                     android:elevation="@dimen/common_size_5"
                     card_view:cardCornerRadius="@dimen/common_size_9"

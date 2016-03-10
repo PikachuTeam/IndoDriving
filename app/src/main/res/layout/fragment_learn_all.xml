@@ -98,7 +98,7 @@
                             android:layout_centerInParent="true"
                             android:paddingBottom="@dimen/common_size_7"
                             android:text="174"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_color_3"
                             android:textSize="@dimen/common_size_12" />
                     </RelativeLayout>
 

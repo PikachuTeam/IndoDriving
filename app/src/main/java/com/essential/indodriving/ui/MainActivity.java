@@ -21,7 +21,7 @@ public class MainActivity extends MyBaseActivity {
     private FrameLayout adsContainer;
     private int type;
 
-    private final static boolean ADS_ENABLE = false;
+    private final static boolean ADS_ENABLE = true;
 
     @Override
     protected int getFragmentContainerId() {

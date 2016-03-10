@@ -26,8 +26,6 @@
             android:layout_width="@dimen/test_rule_area_width"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:paddingLeft="@dimen/common_size_5"
-            android:paddingRight="@dimen/common_size_5"
             android:text="@string/test_rule_sim_a"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/common_text_size_18" />
@@ -45,20 +43,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_start"
+                android:gravity="center"
+                android:paddingBottom="@dimen/common_size_3"
                 android:text="@string/start"
                 android:textAllCaps="true"
-                android:gravity="center"
                 android:textColor="@color/text_color_2"
                 android:textSize="@dimen/common_text_size_30" />
         </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:id="@+id/checkBoxContainer"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/check_box_not_show_again_size"
-            android:layout_marginTop="@dimen/common_size_10"
+            android:layout_marginTop="@dimen/common_size_20"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/common_size_5">
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checkBoxShowRule"

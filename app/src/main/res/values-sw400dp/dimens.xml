@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="app_bar_height">232.94dp</dimen>
-    <dimen name="fab_margin">20.71dp</dimen>
+    <dimen name="app_bar_height">216dp</dimen>
+    <dimen name="fab_margin">19.2dp</dimen>
     <dimen name="toolbar_elevation">6dp</dimen>
-    <dimen name="choose_sim_button_height">90.6dp</dimen>
+    <dimen name="choose_sim_button_height">84dp</dimen>
     <dimen name="choose_sim_button_text_size">36sp</dimen>
     <dimen name="choose_sim_button_image_size">51.6dp</dimen>
-    <dimen name="test_list_header_height">72dp</dimen>
     <dimen name="stroke_line_size">0.6dp</dimen>
     <dimen name="test_rule_area_width">360dp</dimen>
     <dimen name="button_start_width">204dp</dimen>
-    <dimen name="button_start_height">84.12dp</dimen>
-    <dimen name="check_box_not_show_again_size">48dp</dimen>
+    <dimen name="button_start_height">78dp</dimen>
+    <dimen name="check_box_not_show_again_size">60dp</dimen>
     <dimen name="choice_height">62.4dp</dimen>
     <dimen name="question_image_size">108dp</dimen>
     <dimen name="item_question_no_highlight_view_size">3.6dp</dimen>
-    <dimen name="question_area_height">220dp</dimen>
+    <dimen name="question_area_height">186dp</dimen>
     <dimen name="text_view_total_time_size">21.6sp</dimen>
-    <dimen name="learn_all_card_height">207.06dp</dimen>
-    <dimen name="learn_all_answer_height">51.765dp</dimen>
+    <dimen name="learn_all_card_height">192dp</dimen>
+    <dimen name="learn_all_answer_height">48dp</dimen>
     <dimen name="button_previous_width">132dp</dimen>
     <dimen name="button_previous_height">60dp</dimen>
     <dimen name="learn_all_image_size">108dp</dimen>
-    <dimen name="dialog_zoom_in_image_size">360dp</dimen>
-    <dimen name="dialog_warning_button_ok_width">60dp</dimen>
-    <dimen name="dialog_warning_button_cancel_width">72dp</dimen>
-    <dimen name="dialog_warning_button_height">36dp</dimen>
-    <dimen name="pie_chart_hole_radius">18dp</dimen>
+    <dimen name="pie_chart_hole_radius">15.6dp</dimen>
     <dimen name="list_detail_result_question_image_size">96dp</dimen>
-    <dimen name="dialog_show_result_width">360dp</dimen>
-    <dimen name="dialog_show_result_question_image_size">132dp</dimen>
     <dimen name="show_result_button_next_size">36dp</dimen>
     <dimen name="button_zoom_in_size">36dp</dimen>
-    <dimen name="number_wrapper_height">38.4dp</dimen>
-    <dimen name="number_text_height">34.8dp</dimen>
     <dimen name="home_screen_stroke_line_size">2.4dp</dimen>
-    <dimen name="choose_item_button_size">160dp</dimen>
-    <dimen name="item_list_question_width">170dp</dimen>
+    <dimen name="choose_item_button_size">180dp</dimen>
     <dimen name="item_list_question_height">72dp</dimen>
+
+    <dimen name="learn_all_indicator_area_height">108dp</dimen>
+    <dimen name="button_result_height">66dp</dimen>
+    <dimen name="dialog_warning_width">360dp</dimen>
+    <dimen name="item_list_detail_result_height">120dp</dimen>
+
+    <dimen name="dialog_zoom_in_image_size">360dp</dimen>
+    <dimen name="dialog_show_result_width">360dp</dimen>
+    <dimen name="dialog_show_result_question_image_size">132dp</dimen>
+    <dimen name="warning_dialog_button_area_height">60dp</dimen>
+    <dimen name="dialog_warning_button_ok_width">72dp</dimen>
+    <dimen name="dialog_warning_button_cancel_width">84dp</dimen>
+    <dimen name="dialog_warning_button_height">48dp</dimen>
+
     <dimen name="progress_bar_height">9.6dp</dimen>
     <dimen name="progress_area_height">66dp</dimen>
     <dimen name="progress_indicator_width">34.8dp</dimen>
     <dimen name="progress_bar_container_height">24dp</dimen>
-    <dimen name="learn_all_indicator_area_height">96dp</dimen>
-    <dimen name="warning_dialog_button_area_height">48dp</dimen>
-    <dimen name="button_result_height">60dp</dimen>
-    <dimen name="dialog_warning_width">360dp</dimen>
-    <dimen name="item_list_detail_result_height">120dp</dimen>
-    <dimen name="item_choice_vertical_margin">3.6dp</dimen>
+
+    <dimen name="question_number_wrapper_width">51.36dp</dimen>
 </resources>
