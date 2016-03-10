@@ -38,7 +38,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton fab;
     private CoordinatorLayout coordinatorLayout;
 
-    private Snackbar snackbar;
     private CloseAppHandler closeAppHandler;
 
     @Override
@@ -54,8 +53,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setFont(font);
         closeAppHandler = new CloseAppHandler(this);
         closeAppHandler.setListener(this);
-
-        snackbar = Snackbar.make(coordinatorLayout, closeAppHandler.getDefaultExitMessage(), Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -134,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onTryToCloseApp() {
-        snackbar.show();
+        Snackbar.make(coordinatorLayout, closeAppHandler.getDefaultExitMessage(), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.essential.indodriving.ui.test;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +33,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private ListQuestionAdapter adapter;
     private ArrayList<QuestionPackage> questionPackages;
     private boolean isShowedRuleAgain;
+    private SpaceItemDecoration spaceItemDecoration;
 
     public final static String LIST_QUESTION_FRAGMENT_TAG = "List Question Fragment";
 
@@ -39,6 +41,8 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
+
+        spaceItemDecoration = new SpaceItemDecoration(getResources().getInteger(R.integer.grid_layout_item_space));
     }
 
     @Override
@@ -110,6 +114,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 return adapter.isPositionHeader(position) ? gridLayoutManager.getSpanCount() : 1;
             }
         });
+        listQuestion.addItemDecoration(spaceItemDecoration);
         listQuestion.setAdapter(adapter);
     }
 
@@ -147,6 +152,33 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 fragment.setArguments(bundle);
                 replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
             }
+        }
+    }
+
+    private class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+        private int space;
+
+        public SpaceItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            if (parent.getChildLayoutPosition(view) == 0) {
+                outRect.top = space * 2;
+                outRect.left = space * 2;
+                outRect.right = space * 2;
+            } else {
+                outRect.top = 0;
+                if (parent.getChildLayoutPosition(view) % 2 == 0) {
+                    outRect.left = space;
+                    outRect.right = space * 2;
+                } else {
+                    outRect.left = space * 2;
+                    outRect.right = space;
+                }
+            }
+            outRect.bottom = space * 2;
         }
     }
 

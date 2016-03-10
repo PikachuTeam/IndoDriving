@@ -12,7 +12,6 @@
             android:id="@+id/listQuestion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/common_size_15"
             android:fadeScrollbars="false"
             android:scrollbars="none" />
     </LinearLayout>
