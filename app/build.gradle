@@ -8,13 +8,25 @@ android {
         applicationId "com.essential.indodriving"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        pro {
+            applicationId = "com.essential.indodriving.pro"
+            buildConfigField 'boolean', 'IS_PRO_VERSION', 'true'
+            versionCode 1
+            versionName "1.0"
+        }
+        free {
+            applicationId = "com.essential.indodriving.free"
+            buildConfigField 'boolean', 'IS_PRO_VERSION', 'false'
+            versionCode 1
+            versionName "1.0"
         }
     }
 }

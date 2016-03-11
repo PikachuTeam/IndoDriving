@@ -46,7 +46,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private int number;
     private boolean isProVersion;
 
-    public final static String SHARED_PREFERENCES = "Indo Driving";
+    public final static String SHARED_PREFERENCES = "Indo_Driving";
+    public final static String PRE_IS_PRO_VERSION = "is_pro_version";
+    public final static String PRE_IS_RATE_APP = "is_rate_app";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

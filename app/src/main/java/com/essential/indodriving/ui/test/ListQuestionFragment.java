@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.BaseConfirmDialog;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -125,7 +126,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_D, true);
                 break;
         }
-        isRated = sharedPreferences.getBoolean(REF_RATE_APP, false);
+        isRated = sharedPreferences.getBoolean("Rate App", false);
         isProVersion = sharedPreferences.getBoolean("Is Pro Version", false);
     }
 
@@ -242,7 +243,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 }
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(REF_RATE_APP, true);
+                editor.putBoolean(HomeActivity.PRE_IS_RATE_APP, true);
                 editor.commit();
                 break;
             case CANCEL:
