@@ -58,4 +58,6 @@
 
     <color name="learn_all_button_zoom_in_normal_color">#027faf</color>
     <color name="learn_all_button_zoom_in_highlight_color">#0095cd</color>
+
+    <color name="yellow_star">#FFFD00</color>
 </resources>

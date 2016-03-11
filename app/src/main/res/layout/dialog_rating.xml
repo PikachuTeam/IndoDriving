@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dialog_show_result_width"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_size_40"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/common_size_30"
+            android:layout_height="@dimen/common_size_30"
+            android:layout_marginLeft="@dimen/common_size_5"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="@dimen/common_size_30"
+            android:layout_height="@dimen/common_size_30"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="@dimen/common_size_30"
+            android:layout_height="@dimen/common_size_30"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="@dimen/common_size_30"
+            android:layout_height="@dimen/common_size_30"
+            android:src="@drawable/ic_star" />
+
+        <ImageView
+            android:layout_width="@dimen/common_size_30"
+            android:layout_height="@dimen/common_size_30"
+            android:src="@drawable/ic_star" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/common_size_10"
+        android:paddingRight="@dimen/common_size_10"
+        android:text="@string/rating_dialog_text"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/common_text_size_18" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/warning_dialog_button_area_height">
+
+        <TextView
+            android:id="@+id/buttonCancel"
+            android:layout_width="@dimen/dialog_warning_button_cancel_width"
+            android:layout_height="@dimen/dialog_warning_button_height"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/buttonOk"
+            android:background="@drawable/dialog_button"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_18" />
+
+        <TextView
+            android:id="@+id/buttonOk"
+            android:layout_width="@dimen/dialog_warning_button_ok_width"
+            android:layout_height="@dimen/dialog_warning_button_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_size_5"
+            android:layout_marginRight="@dimen/common_size_5"
+            android:background="@drawable/dialog_button"
+            android:gravity="center"
+            android:text="@string/ok"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/common_text_size_18" />
+    </RelativeLayout>
+</LinearLayout>

@@ -22,6 +22,7 @@ import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
+import com.essential.indodriving.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/24/2016.
  */
-public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, OnQuestionPagerItemClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener, WarningDialog.OnWarningDialogButtonClickListener {
+public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, OnQuestionPagerItemClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
@@ -172,7 +173,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     @Override
     public void onBackPressed() {
         timer.cancel();
-        WarningDialog warningDialog = new WarningDialog(getActivity(), 0, font1);
+        WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING1, font1);
         warningDialog.addListener(this);
         warningDialog.show();
     }
@@ -188,7 +189,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT) {
             timer.cancel();
-            WarningDialog warningDialog = new WarningDialog(getActivity(), 1, font1);
+            WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING2, font1);
             warningDialog.addListener(this);
             warningDialog.show();
         }
@@ -234,7 +235,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 questionPager.setCurrentItem(currentPosition, true);
                 scrollToCenter(wrappers.get(currentPosition));
             }
-        }else{
+        } else {
             questions.get(currentPosition).answer = item.getIndex();
             adapter.notifyDataSetChanged();
             QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
@@ -292,18 +293,32 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         testHorizontalScrollContainer.smoothScrollTo(testHorizontalScrollContainer.getScrollX() + offset, 0);
     }
 
+    private void moveToNextFragment() {
+        OverallResultFragment fragment = new OverallResultFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("Type", this.type);
+        bundle.putInt("Exam Id", examId);
+        bundle.putInt("Time Left", TOTAL_TIME - INTERVAL * timeLeft);
+        fragment.setArguments(bundle);
+        replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);
+        putHolder(KEY_HOLDER_QUESTIONS, questions);
+    }
+
     @Override
-    public void onWarningDialogButtonClick(int buttonId, int type, WarningDialog dialog) {
-        switch (buttonId) {
-            case WarningDialog.BUTTON_OK:
+    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, BaseConfirmDialog.Type type, BaseConfirmDialog dialog) {
+        switch (button) {
+            case OK:
                 dialog.dismiss();
-                if (type == 1) {
-                    moveToNextFragment();
-                } else if (type == 0) {
-                    getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                switch (type) {
+                    case WARNING1: // happen when user presses back
+                        getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        break;
+                    case WARNING2: // happen when user presses Result
+                        moveToNextFragment();
+                        break;
                 }
                 break;
-            case WarningDialog.BUTTON_CANCEL:
+            case CANCEL:
                 dialog.dismiss();
                 timer = new CountDownTimer(TOTAL_TIME - INTERVAL * timeLeft, INTERVAL) {
                     @Override
@@ -319,17 +334,6 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 timer.start();
                 break;
         }
-    }
-
-    private void moveToNextFragment() {
-        OverallResultFragment fragment = new OverallResultFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("Type", this.type);
-        bundle.putInt("Exam Id", examId);
-        bundle.putInt("Time Left", TOTAL_TIME - INTERVAL * timeLeft);
-        fragment.setArguments(bundle);
-        replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);
-        putHolder(KEY_HOLDER_QUESTIONS, questions);
     }
 
     private class ViewPagerAdapter extends PagerAdapter implements AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {

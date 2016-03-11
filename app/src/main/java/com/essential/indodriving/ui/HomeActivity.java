@@ -1,6 +1,8 @@
 package com.essential.indodriving.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -10,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,8 +40,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout buttonLearnSimD;
     private FloatingActionButton fab;
     private CoordinatorLayout coordinatorLayout;
+    private ImageView banner;
 
     private CloseAppHandler closeAppHandler;
+    private int number;
+    private boolean isProVersion;
+
+    public final static String SHARED_PREFERENCES = "Indo Driving";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setFont(font);
         closeAppHandler = new CloseAppHandler(this);
         closeAppHandler.setListener(this);
+
+        loadState();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        number = 0;
     }
 
     @Override
@@ -71,6 +87,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonLearnSimD = (LinearLayout) findViewById(R.id.buttonLearnSimD);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        banner = (ImageView) findViewById(R.id.banner);
 
         buttonLearnSimA.setOnClickListener(this);
         buttonLearnSimAUmum.setOnClickListener(this);
@@ -86,6 +103,32 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 AppCommon.getInstance().openMoreAppDialog(HomeActivity.this);
             }
         });
+
+        banner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isProVersion) {
+                    number++;
+                    if (number == 10) {
+                        isProVersion = true;
+                        Snackbar.make(coordinatorLayout, getString(R.string.hacked), Snackbar.LENGTH_SHORT).show();
+                        saveState();
+                    }
+                }
+            }
+        });
+    }
+
+    private void saveState() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("Is Pro Version", isProVersion);
+        editor.commit();
+    }
+
+    private void loadState() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        isProVersion = sharedPreferences.getBoolean("Is Pro Version", false);
     }
 
     private void setFont(Typeface font) {

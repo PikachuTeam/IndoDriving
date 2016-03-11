@@ -42,6 +42,29 @@
                 android:textColor="@color/wrong_answer_color"
                 android:textSize="@dimen/common_text_size_15"
                 android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/lockArea"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/common_size_25"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/star"
+                    android:layout_width="@dimen/common_size_20"
+                    android:layout_height="@dimen/common_size_20"
+                    android:src="@drawable/ic_star" />
+
+                <ImageView
+                    android:layout_width="@dimen/common_size_20"
+                    android:layout_height="@dimen/common_size_20"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/common_size_5"
+                    android:src="@drawable/ic_lock" />
+            </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.ui.HomeActivity;
 
 import java.text.MessageFormat;
 
@@ -105,7 +106,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (type) {
             case DataSource.TYPE_SIM_A:

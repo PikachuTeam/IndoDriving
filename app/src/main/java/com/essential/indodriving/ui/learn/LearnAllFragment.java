@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -20,11 +21,14 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
+import com.essential.indodriving.ui.HomeActivity;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
 import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+
+import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by dongc_000 on 2/27/2016.
@@ -45,6 +49,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private RelativeLayout imageArea;
     private RelativeLayout indicator;
     private RelativeLayout progressBarContainer;
+    private ViewGroup blurArea;
 
     private ArrayList<Question> questions;
     private int type;
@@ -52,6 +57,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private float indicatorPosition;
     private float indicatorPositionOffset;
     private boolean isFirst;
+    private boolean isRated;
 
     public final static String LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment";
 
@@ -176,6 +182,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         imageArea = (RelativeLayout) rootView.findViewById(R.id.imageArea);
         indicator = (RelativeLayout) rootView.findViewById(R.id.position);
         progressBarContainer = (RelativeLayout) rootView.findViewById(R.id.progressBarContainer);
+        blurArea = (ViewGroup) rootView.findViewById(R.id.blurArea);
 
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
@@ -222,7 +229,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (type) {
             case DataSource.TYPE_SIM_A:
@@ -254,7 +261,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private int loadState() {
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         switch (type) {
             case DataSource.TYPE_SIM_A:
                 return sharedPreferences.getInt("Current Position A", 0);

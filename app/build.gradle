@@ -10,6 +10,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -26,4 +28,5 @@ dependencies {
     compile project(':app_common')
     compile 'com.android.support:design:23.1.1'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.2'
+    compile 'jp.wasabeef:blurry:2.0.0'
 }

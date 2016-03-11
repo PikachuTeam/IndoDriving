@@ -3,6 +3,7 @@ package com.essential.indodriving.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private TextView buttonTutorial;
     private TextView buttonResult;
     private LinearLayout buttonShare;
+    private CoordinatorLayout mainCoordinatorLayout;
 
     @Override
     protected int getLayoutResIdContentView() {
@@ -77,6 +79,7 @@ public abstract class MyBaseActivity extends BaseActivity {
         buttonTutorial = (TextView) findViewById(R.id.buttonTutorial);
         buttonResult = (TextView) findViewById(R.id.buttonResult);
         buttonShare = (LinearLayout) findViewById(R.id.buttonShare);
+        mainCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
 
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +107,10 @@ public abstract class MyBaseActivity extends BaseActivity {
         textViewTitle.setTypeface(font);
         buttonResult.setTypeface(font);
         buttonTutorial.setTypeface(font);
+    }
+
+    public CoordinatorLayout getMainCoordinatorLayout() {
+        return mainCoordinatorLayout;
     }
 
     private MyBaseFragment getMyCurrentFragment() {

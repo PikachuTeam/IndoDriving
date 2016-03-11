@@ -55,6 +55,9 @@
     <string name="learn_sim_c">Learn Sim C ({0})</string>
     <string name="learn_sim_d">Learn Sim D ({0})</string>
     <string name="warning_dialog_title">Finish answering</string>
+    <string name="rating_dialog_text">Rate us 5 stars to open all locked features</string>
+    <string name="will_be_updated">Will be updated soon!</string>
+    <string name="hacked">Hacked</string>
 
     <string name="title_correct_answer">Correct Answers</string>
     <string name="title_wrong_answer">Wrong Answers</string>

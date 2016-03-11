@@ -133,63 +133,74 @@
                     card_view:cardCornerRadius="@dimen/common_size_10"
                     card_view:cardPreventCornerOverlap="false">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/normal_background_with_corner"
-                        android:minHeight="@dimen/learn_all_card_height"
-                        android:orientation="vertical">
+                        android:minHeight="@dimen/learn_all_card_height">
 
-                        <TextView
-                            android:id="@+id/textViewAnswerA"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/learn_all_answer_height"
-                            android:paddingLeft="@dimen/common_size_5"
-                            android:paddingRight="@dimen/common_size_5"
-                            android:paddingTop="@dimen/common_size_5"
-                            android:text="Alo"
-                            android:textColor="@color/learn_all_text_color"
-                            android:textSize="@dimen/common_text_size_18" />
+                            android:background="@drawable/normal_background_with_corner"
+                            android:minHeight="@dimen/learn_all_card_height"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/textViewAnswerB"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/learn_all_answer_height"
-                            android:paddingLeft="@dimen/common_size_5"
-                            android:paddingRight="@dimen/common_size_5"
-                            android:paddingTop="@dimen/common_size_5"
-                            android:text="Alo"
-                            android:textColor="@color/learn_all_text_color"
-                            android:textSize="@dimen/common_text_size_18" />
+                            <TextView
+                                android:id="@+id/textViewAnswerA"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:minHeight="@dimen/learn_all_answer_height"
+                                android:paddingLeft="@dimen/common_size_5"
+                                android:paddingRight="@dimen/common_size_5"
+                                android:paddingTop="@dimen/common_size_5"
+                                android:text="Alo"
+                                android:textColor="@color/learn_all_text_color"
+                                android:textSize="@dimen/common_text_size_18" />
 
-                        <TextView
-                            android:id="@+id/textViewAnswerC"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/learn_all_answer_height"
-                            android:paddingLeft="@dimen/common_size_5"
-                            android:paddingRight="@dimen/common_size_5"
-                            android:paddingTop="@dimen/common_size_5"
-                            android:text="Alo"
-                            android:textColor="@color/learn_all_text_color"
-                            android:textSize="@dimen/common_text_size_18" />
+                            <TextView
+                                android:id="@+id/textViewAnswerB"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:minHeight="@dimen/learn_all_answer_height"
+                                android:paddingLeft="@dimen/common_size_5"
+                                android:paddingRight="@dimen/common_size_5"
+                                android:paddingTop="@dimen/common_size_5"
+                                android:text="Alo"
+                                android:textColor="@color/learn_all_text_color"
+                                android:textSize="@dimen/common_text_size_18" />
 
-                        <TextView
-                            android:id="@+id/textViewAnswerD"
+                            <TextView
+                                android:id="@+id/textViewAnswerC"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:minHeight="@dimen/learn_all_answer_height"
+                                android:paddingLeft="@dimen/common_size_5"
+                                android:paddingRight="@dimen/common_size_5"
+                                android:paddingTop="@dimen/common_size_5"
+                                android:text="Alo"
+                                android:textColor="@color/learn_all_text_color"
+                                android:textSize="@dimen/common_text_size_18" />
+
+                            <TextView
+                                android:id="@+id/textViewAnswerD"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:minHeight="@dimen/learn_all_answer_height"
+                                android:padding="@dimen/common_size_5"
+                                android:text="Alo"
+                                android:textColor="@color/learn_all_text_color"
+                                android:textSize="@dimen/common_text_size_18" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/blurArea"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/learn_all_answer_height"
-                            android:padding="@dimen/common_size_5"
-                            android:text="Alo"
-                            android:textColor="@color/learn_all_text_color"
-                            android:textSize="@dimen/common_text_size_18" />
-                    </LinearLayout>
+                            android:layout_height="match_parent" />
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </ScrollView>
@@ -232,5 +243,6 @@
                     android:src="@drawable/ic_next" />
             </android.support.v7.widget.CardView>
         </LinearLayout>
+
     </RelativeLayout>
 </tatteam.com.app_common.ui.drawable.FractionFrameLayout>
