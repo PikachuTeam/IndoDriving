@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public final static String SHARED_PREFERENCES = "Indo_Driving";
     public final static String PRE_IS_PRO_VERSION = "is_pro_version";
     public final static String PRE_IS_RATE_APP = "is_rate_app";
-
+    public final static int PRESSING_TIMES=10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(font);
-        closeAppHandler = new CloseAppHandler(this);
+        closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
 
         loadState();
@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 if (!isProVersion) {
                     number++;
-                    if (number == 10) {
+                    if (number == PRESSING_TIMES) {
                         isProVersion = true;
                         Snackbar.make(coordinatorLayout, getString(R.string.hacked), Snackbar.LENGTH_SHORT).show();
                         saveState();
@@ -125,13 +125,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void saveState() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("Is Pro Version", isProVersion);
+        editor.putBoolean(PRE_IS_PRO_VERSION, isProVersion);
         editor.commit();
     }
 
     private void loadState() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean("Is Pro Version", false);
+        isProVersion = sharedPreferences.getBoolean(PRE_IS_PRO_VERSION, false);
     }
 
     private void setFont(Typeface font) {

@@ -108,28 +108,28 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (type) {
             case DataSource.TYPE_SIM_A:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_A, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A, !checked);
                 break;
             case DataSource.TYPE_SIM_A_UMUM:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_A_UMUM, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A_UMUM, !checked);
                 break;
             case DataSource.TYPE_SIM_B1:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B1, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1, !checked);
                 break;
             case DataSource.TYPE_SIM_B1_UMUM:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B1_UMUM, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM, !checked);
                 break;
             case DataSource.TYPE_SIM_B2:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B2, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2, !checked);
                 break;
             case DataSource.TYPE_SIM_B2_UMUM:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B2_UMUM, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM, !checked);
                 break;
             case DataSource.TYPE_SIM_C:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_C, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_C, !checked);
                 break;
             case DataSource.TYPE_SIM_D:
-                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_D, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_D, !checked);
                 break;
         }
         editor.commit();

@@ -11,7 +11,7 @@
     <dimen name="essential_text_height">32.5dp</dimen>
     <dimen name="text_padding">3.75dp</dimen>
 
-//////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
     <dimen name="common_size_1">1.25dp</dimen>
     <dimen name="common_size_2">2.5dp</dimen>
     <dimen name="common_size_3">3.75dp</dimen>
@@ -114,8 +114,8 @@
     <dimen name="common_size_100">125dp</dimen>
 
 
-////////////////////////////////////////////////////////////////////
-  
+    ////////////////////////////////////////////////////////////////////
+
     <dimen name="common_text_size_10">12.5sp</dimen>
     <dimen name="common_text_size_11">13.75sp</dimen>
     <dimen name="common_text_size_12">15sp</dimen>
@@ -158,7 +158,7 @@
     <dimen name="common_text_size_49">61.25sp</dimen>
     <dimen name="common_text_size_50">62.5sp</dimen>
 
-///////////////////////////
+    ///////////////////////////
     <dimen name="common_size_300">375dp</dimen>
     <dimen name="common_size_450">562.5dp</dimen>
 </resources>
