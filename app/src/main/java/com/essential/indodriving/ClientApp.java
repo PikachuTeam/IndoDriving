@@ -13,13 +13,13 @@ public class ClientApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AppCommon.getInstance().initIfNeeded(getApplicationContext());
+        DatabaseLoader.getInstance().restoreState(getApplicationContext());
     }
 
     @Override
     public void onTerminate() {
         AppCommon.getInstance().destroy();
-        DatabaseLoader.getInstance().destroy();
-
         super.onTerminate();
     }
 }

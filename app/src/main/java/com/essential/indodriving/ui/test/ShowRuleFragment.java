@@ -7,8 +7,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -110,28 +108,28 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (type) {
             case DataSource.TYPE_SIM_A:
-                editor.putBoolean("Show Rule Again A", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_A, !checked);
                 break;
             case DataSource.TYPE_SIM_A_UMUM:
-                editor.putBoolean("Show Rule Again A Umum", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_A_UMUM, !checked);
                 break;
             case DataSource.TYPE_SIM_B1:
-                editor.putBoolean("Show Rule Again B1", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B1, !checked);
                 break;
             case DataSource.TYPE_SIM_B1_UMUM:
-                editor.putBoolean("Show Rule Again B1 Umum", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B1_UMUM, !checked);
                 break;
             case DataSource.TYPE_SIM_B2:
-                editor.putBoolean("Show Rule Again B2", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B2, !checked);
                 break;
             case DataSource.TYPE_SIM_B2_UMUM:
-                editor.putBoolean("Show Rule Again B2 Umum", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_B2_UMUM, !checked);
                 break;
             case DataSource.TYPE_SIM_C:
-                editor.putBoolean("Show Rule Again C", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_C, !checked);
                 break;
             case DataSource.TYPE_SIM_D:
-                editor.putBoolean("Show Rule Again D", !checked);
+                editor.putBoolean(ListQuestionFragment.REF_SHOW_RULE_AGAIN_SIM_D, !checked);
                 break;
         }
         editor.commit();

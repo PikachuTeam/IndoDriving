@@ -3,7 +3,6 @@ package com.essential.indodriving.ui.learn;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -24,11 +23,9 @@ import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.HomeActivity;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
-import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by dongc_000 on 2/27/2016.

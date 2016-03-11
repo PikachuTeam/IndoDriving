@@ -60,4 +60,7 @@
     <color name="learn_all_button_zoom_in_highlight_color">#0095cd</color>
 
     <color name="yellow_star">#FFFD00</color>
+
+    <color name="locked_item_normal_color">#E6E1E1</color>
+    <color name="locked_item_highlight_color">#D8D8D8</color>
 </resources>

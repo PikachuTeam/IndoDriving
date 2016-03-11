@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="grid_layout_item_space">5</integer>
+    <integer name="grid_layout_item_space">4</integer>
 </resources>

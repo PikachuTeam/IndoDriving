@@ -13,14 +13,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.BaseConfirmDialog;
@@ -50,6 +48,16 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private boolean isProVersion;
 
     public final static String LIST_QUESTION_FRAGMENT_TAG = "List Question Fragment";
+    public final static String
+            REF_SHOW_RULE_AGAIN_SIM_A = "Show Rule Again A",
+            REF_SHOW_RULE_AGAIN_SIM_A_UMUM = "Show Rule Again A Umum",
+            REF_SHOW_RULE_AGAIN_SIM_B1 = "Show Rule Again B1",
+            REF_SHOW_RULE_AGAIN_SIM_B1_UMUM = "Show Rule Again B1 Umum",
+            REF_SHOW_RULE_AGAIN_SIM_B2 = "Show Rule Again B2",
+            REF_SHOW_RULE_AGAIN_SIM_B2_UMUM = "Show Rule Again B2 Umum",
+            REF_SHOW_RULE_AGAIN_SIM_C = "Show Rule Again C",
+            REF_SHOW_RULE_AGAIN_SIM_D = "Show Rule Again D";
+    public final static String REF_RATE_APP = "Is Rated";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,31 +101,31 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         switch (type) {
             case DataSource.TYPE_SIM_A:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again A", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_A, true);
                 break;
             case DataSource.TYPE_SIM_A_UMUM:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again A Umum", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_A_UMUM, true);
                 break;
             case DataSource.TYPE_SIM_B1:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B1", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_B1, true);
                 break;
             case DataSource.TYPE_SIM_B1_UMUM:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B1 Umum", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_B1_UMUM, true);
                 break;
             case DataSource.TYPE_SIM_B2:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B2", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_B2, true);
                 break;
             case DataSource.TYPE_SIM_B2_UMUM:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again B2 Umum", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_B2_UMUM, true);
                 break;
             case DataSource.TYPE_SIM_C:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again C", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_C, true);
                 break;
             case DataSource.TYPE_SIM_D:
-                isShowedRuleAgain = sharedPreferences.getBoolean("Show Rule Again D", true);
+                isShowedRuleAgain = sharedPreferences.getBoolean(REF_SHOW_RULE_AGAIN_SIM_D, true);
                 break;
         }
-        isRated = sharedPreferences.getBoolean("Rate App", false);
+        isRated = sharedPreferences.getBoolean(REF_RATE_APP, false);
         isProVersion = sharedPreferences.getBoolean("Is Pro Version", false);
     }
 
@@ -177,9 +185,13 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                             Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout(), getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
                         }
                     } else {
-                        RatingDialog ratingDialog = new RatingDialog(getActivity(), font);
-                        ratingDialog.show();
-                        ratingDialog.addListener(this);
+                        if (questionPackage.index < 7) {
+                            RatingDialog ratingDialog = new RatingDialog(getActivity(), font);
+                            ratingDialog.show();
+                            ratingDialog.addListener(this);
+                        } else {
+                            Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout(), getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
                     if (isShowedRuleAgain) {
@@ -230,7 +242,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 }
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("Rate App", true);
+                editor.putBoolean(REF_RATE_APP, true);
                 editor.commit();
                 break;
             case CANCEL:
@@ -249,20 +261,20 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             if (parent.getChildLayoutPosition(view) == 0) {
-                outRect.top = space * 2;
-                outRect.left = space * 2;
-                outRect.right = space * 2;
+                outRect.top = space;
+                outRect.left = space;
+                outRect.right = space;
             } else {
                 outRect.top = 0;
                 if (parent.getChildLayoutPosition(view) % 2 == 0) {
-                    outRect.left = space;
-                    outRect.right = space * 2;
-                } else {
-                    outRect.left = space * 2;
+                    outRect.left = space / 2;
                     outRect.right = space;
+                } else {
+                    outRect.left = space;
+                    outRect.right = space / 2;
                 }
             }
-            outRect.bottom = space * 2;
+            outRect.bottom = space;
         }
     }
 
@@ -327,12 +339,26 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 if (!ListQuestionFragment.this.isProVersion) {
                     if (position - 1 == 0) {
                         ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
+                        ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
                     } else {
                         if (isRated) {
-                            ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
+                            if (position - 1 < 6) {
+                                ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
+                            } else {
+                                ((ViewHolderItem) holder).star.setVisibility(View.GONE);
+                                ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(R.drawable.list_question_locked_item);
+                            }
                         } else {
                             ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
-                            ((ViewHolderItem) holder).star.setColorFilter(ContextCompat.getColor(context, R.color.yellow_star), PorterDuff.Mode.SRC_ATOP);
+                            if (position - 1 < 6) {
+                                ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).star.setColorFilter(ContextCompat.getColor(context, R.color.yellow_star), PorterDuff.Mode.SRC_ATOP);
+                            } else {
+                                ((ViewHolderItem) holder).star.setVisibility(View.GONE);
+                                ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(R.drawable.list_question_locked_item);
+                            }
                         }
                     }
                 } else {
@@ -374,6 +400,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
             TextView textViewLastScore;
             RelativeLayout buttonPackage;
             ImageView star;
+            ImageView lock;
             LinearLayout lockArea;
 
             public ViewHolderItem(View itemView) {
@@ -383,6 +410,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 buttonPackage = (RelativeLayout) itemView.findViewById(R.id.buttonPackage);
                 star = (ImageView) itemView.findViewById(R.id.star);
                 lockArea = (LinearLayout) itemView.findViewById(R.id.lockArea);
+                lock = (ImageView) itemView.findViewById(R.id.lock);
             }
         }
 
