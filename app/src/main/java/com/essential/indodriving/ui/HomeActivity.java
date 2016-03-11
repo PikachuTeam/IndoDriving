@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseActivity;
 import com.essential.indodriving.data.DataSource;
@@ -49,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public final static String SHARED_PREFERENCES = "Indo_Driving";
     public final static String PRE_IS_PRO_VERSION = "is_pro_version";
     public final static String PRE_IS_RATE_APP = "is_rate_app";
-    public final static int PRESSING_TIMES=10;
+    public final static int PRESSING_TIMES = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +132,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void loadState() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(PRE_IS_PRO_VERSION, false);
+        isProVersion = sharedPreferences.getBoolean(PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
     }
 
     private void setFont(Typeface font) {

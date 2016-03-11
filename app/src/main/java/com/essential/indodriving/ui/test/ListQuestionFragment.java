@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.BaseConfirmDialog;
 import com.essential.indodriving.base.MyBaseFragment;
@@ -125,7 +126,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 break;
         }
         isRated = sharedPreferences.getBoolean(HomeActivity.PRE_IS_RATE_APP, false);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, false);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
     }
 
     private void getData() {
