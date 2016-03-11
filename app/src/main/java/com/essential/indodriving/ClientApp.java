@@ -13,6 +13,8 @@ public class ClientApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AppCommon.getInstance().initIfNeeded(getApplicationContext());
+        DatabaseLoader.getInstance().restoreState(getApplicationContext());
     }
 
     @Override
