@@ -8,6 +8,8 @@ android {
         applicationId "com.essential.indodriving"
         minSdkVersion 14
         targetSdkVersion 23
+        renderscriptTargetApi 14
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
