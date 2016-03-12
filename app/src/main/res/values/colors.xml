@@ -31,6 +31,7 @@
     <color name="text_color_3">#03465F</color>
     <color name="text_color_4">#FFFD4C</color>
     <color name="text_color_5">#E1DF2A</color>
+    <color name="text_color_6">#d4ca0f</color>
 
     <color name="choose_item_button_normal_color">#36c1f5</color>
     <color name="choose_item_button_highlight_color">#2EB7EA</color>
@@ -64,4 +65,6 @@
 
     <color name="locked_item_normal_color">#E6E1E1</color>
     <color name="locked_item_highlight_color">#D8D8D8</color>
+
+    <color name="blur_default">#b703719b</color>
 </resources>
