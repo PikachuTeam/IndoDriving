@@ -264,25 +264,20 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             if (parent.getChildLayoutPosition(view) == 0) {
-                outRect.top = space * 2;
-                outRect.left = space * 2;
-                outRect.right = space * 2;
-                outRect.bottom = space;
+                outRect.top = space;
+                outRect.left = space;
+                outRect.right = space;
             } else {
                 outRect.top = 0;
                 if (parent.getChildLayoutPosition(view) % 2 == 0) {
                     outRect.left = space / 2;
-                    outRect.right = space * 2;
+                    outRect.right = space;
                 } else {
-                    outRect.left = space * 2;
+                    outRect.left = space;
                     outRect.right = space / 2;
                 }
-                if (parent.getChildLayoutPosition(view) == size) {
-                    outRect.bottom = space * 2;
-                } else {
-                    outRect.bottom = space;
-                }
             }
+            outRect.bottom = space;
         }
     }
 
