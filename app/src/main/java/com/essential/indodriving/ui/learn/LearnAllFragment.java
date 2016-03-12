@@ -324,10 +324,10 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A_UMUM, 0);
                 break;
             case DataSource.TYPE_SIM_B1:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, 0);
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1, 0);
                 break;
             case DataSource.TYPE_SIM_B1_UMUM:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1, 0);
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, 0);
                 break;
             case DataSource.TYPE_SIM_B2:
                 currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B2, 0);
