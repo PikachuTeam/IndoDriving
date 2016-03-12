@@ -65,7 +65,7 @@
     <string name="title_wrong_answer">Jawaban yang salah</string>
     <string name="title_not_answered">Pertanyaan tidak dijawab</string>
     <string name="title_test_rule">Aturan</string>
-    <string name="title_choose_package">Topik</string>
+    <string name="title_choose_package">Topik &amp; Simulasi Ujian</string>
     <string name="title_package">Topik {0}</string>
     <string name="title_test">Simulasi Ujian</string>
     <string name="title_tutorial">Tips</string>

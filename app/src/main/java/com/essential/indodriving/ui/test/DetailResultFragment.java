@@ -70,6 +70,8 @@ public class DetailResultFragment extends MyBaseFragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listDetailResult.setLayoutManager(layoutManager);
         listDetailResult.setAdapter(adapter);
+
+        getMyBaseActivity().showBigAdsIfNeeded();
     }
 
     private void findViews(View rootView) {

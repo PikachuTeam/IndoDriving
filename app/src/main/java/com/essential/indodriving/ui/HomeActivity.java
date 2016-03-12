@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -42,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton fab;
     private CoordinatorLayout coordinatorLayout;
     private ImageView banner;
+    private CollapsingToolbarLayout toolbar_layout;
 
     private CloseAppHandler closeAppHandler;
     private int number;
@@ -62,6 +64,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         findViews();
+
+        toolbar_layout.setExpandedTitleTextAppearance(R.style.ExpandedCollapsingToolbar);
 
         defaultFont = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(defaultFont);
@@ -94,6 +98,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         fab = (FloatingActionButton) findViewById(R.id.fab);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         banner = (ImageView) findViewById(R.id.banner);
+        toolbar_layout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
         buttonLearnSimA.setOnClickListener(this);
         buttonLearnSimAUmum.setOnClickListener(this);

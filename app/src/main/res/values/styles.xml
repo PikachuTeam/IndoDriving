@@ -4,6 +4,10 @@
         <item name="actionMenuTextColor">@color/toolbar_menu_item_color</item>
     </style>
 
+    <style name="ExpandedCollapsingToolbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/common_text_size_20</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
