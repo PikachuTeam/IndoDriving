@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -140,7 +141,14 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                             if (lockedArea.getVisibility() == View.GONE) {
                                 lockedArea.setVisibility(View.VISIBLE);
                             }
-                            blurryImage.setImageBitmap(getBlurredBackground(getScreenshot(answerArea)));
+                            try {
+                                Bitmap blurBitmap = getBlurredBackground(getScreenshot(answerArea));
+                                blurryImage.setImageBitmap(blurBitmap);
+                            } catch (Exception e) {
+//                                e.printStackTrace();
+                                blurryImage.setBackgroundResource(R.drawable.default_blur_background);
+                            }
+
                         } else {
                             if (lockedArea.getVisibility() == View.VISIBLE) {
                                 lockedArea.setVisibility(View.GONE);
@@ -533,7 +541,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         return b;
     }
 
-    private Bitmap getBlurredBackground(Bitmap image) {
+    private Bitmap getBlurredBackground(Bitmap image) throws Exception{
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);
 
