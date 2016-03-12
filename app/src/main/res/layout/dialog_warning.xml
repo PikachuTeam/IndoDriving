@@ -40,7 +40,7 @@
             android:gravity="center"
             android:text="@string/cancel"
             android:textAllCaps="true"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/common_text_size_18" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:gravity="center"
             android:text="@string/ok"
             android:textAllCaps="true"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/common_text_size_18" />
     </RelativeLayout>
 </LinearLayout>

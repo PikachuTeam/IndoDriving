@@ -1,9 +1,12 @@
 package com.essential.indodriving.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseActivity;
 import com.essential.indodriving.data.DataSource;
@@ -19,7 +22,9 @@ public class MainActivity extends MyBaseActivity {
 
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private FrameLayout adsContainer;
+
     private int type;
+    private boolean isProVersion;
 
     private final static boolean ADS_ENABLE = true;
 
@@ -43,11 +48,24 @@ public class MainActivity extends MyBaseActivity {
 
         type = getIntent().getIntExtra("Type", DataSource.TYPE_SIM_A);
 
-        if (ADS_ENABLE) {
-            adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
-            adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
-            adsSmallBannerHandler.setup();
+        loadState();
+        adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
+
+        if (!isProVersion) {
+            if (ADS_ENABLE) {
+                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
+                adsSmallBannerHandler.setup();
+            } else {
+                adsContainer.setVisibility(View.GONE);
+            }
+        } else {
+            adsContainer.setVisibility(View.GONE);
         }
+    }
+
+    private void loadState() {
+        SharedPreferences sharedPreferences = getSharedPreferences(HomeActivity.SHARED_PREFERENCES, MODE_PRIVATE);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
     }
 
     @Override
