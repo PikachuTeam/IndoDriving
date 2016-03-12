@@ -20,6 +20,7 @@ import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -133,15 +134,17 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 indicatorPosition = progressBarContainer.getX() - indicator.getWidth() / 2 + indicatorPositionOffset * (currentPosition + 1);
                 indicator.setX(indicatorPosition);
 
-                if (!isProVersion && !isRated) {
-                    if (currentPosition >= 10) {
-                        if (lockedArea.getVisibility() == View.GONE) {
-                            lockedArea.setVisibility(View.VISIBLE);
-                        }
-                        blurryImage.setImageBitmap(getBlurredBackground(getScreenshot(answerArea)));
-                    } else {
-                        if (lockedArea.getVisibility() == View.VISIBLE) {
-                            lockedArea.setVisibility(View.GONE);
+                if (getActivity() != null) {
+                    if (!isProVersion && !isRated) {
+                        if (currentPosition >= 10) {
+                            if (lockedArea.getVisibility() == View.GONE) {
+                                lockedArea.setVisibility(View.VISIBLE);
+                            }
+                            blurryImage.setImageBitmap(getBlurredBackground(getScreenshot(answerArea)));
+                        } else {
+                            if (lockedArea.getVisibility() == View.VISIBLE) {
+                                lockedArea.setVisibility(View.GONE);
+                            }
                         }
                     }
                 }
@@ -226,6 +229,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         lockedArea = (RelativeLayout) rootView.findViewById(R.id.lockedArea);
         answerArea = (LinearLayout) rootView.findViewById(R.id.answerArea);
         blurryImage = (ImageView) rootView.findViewById(R.id.blurryImage);
+        ((TextView) rootView.findViewById(R.id.textViewPressToUnlock)).setTypeface(HomeActivity.defaultFont);
 
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
@@ -245,6 +249,12 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     public void onPause() {
         super.onPause();
         saveState();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("Destroy", "Now");
     }
 
     @Override
@@ -538,6 +548,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         theIntrinsic.setInput(tmpIn);
         theIntrinsic.forEach(tmpOut);
         tmpOut.copyTo(outputBitmap);
+
+        rs.destroy();
 
         return getRoundedCornerBitmap(Bitmap.createScaledBitmap(outputBitmap, image.getWidth(), image.getHeight(), false));
     }

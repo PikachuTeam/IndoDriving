@@ -30,6 +30,7 @@
     <color name="text_color_2">#0095cd</color>
     <color name="text_color_3">#03465F</color>
     <color name="text_color_4">#FFFD4C</color>
+    <color name="text_color_5">#E1DF2A</color>
 
     <color name="choose_item_button_normal_color">#36c1f5</color>
     <color name="choose_item_button_highlight_color">#2EB7EA</color>
