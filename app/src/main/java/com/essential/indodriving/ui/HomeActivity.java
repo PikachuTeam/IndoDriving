@@ -185,7 +185,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onTryToCloseApp() {
-        Snackbar.make(coordinatorLayout, closeAppHandler.getDefaultExitMessage(), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(coordinatorLayout, getResources().getText(R.string.press_again_to_exit), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
