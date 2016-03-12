@@ -58,6 +58,8 @@
     <string name="rating_dialog_text">Rate us 5 stars to open all locked features</string>
     <string name="will_be_updated">Will be updated soon!</string>
     <string name="hacked">Hacked</string>
+    <string name="press_again_to_exit">Press again to exit!</string>
+    <string name="click_to_see_answer">Press here to see the answer</string>
 
     <string name="title_correct_answer">Correct Answers</string>
     <string name="title_wrong_answer">Wrong Answers</string>
