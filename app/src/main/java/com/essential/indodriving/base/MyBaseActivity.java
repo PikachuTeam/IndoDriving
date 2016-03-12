@@ -2,17 +2,24 @@ package com.essential.indodriving.base;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
+import com.essential.indodriving.ui.HomeActivity;
 
+import tatteam.com.app_common.ads.AdsBigBannerHandler;
+import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.ui.activity.BaseActivity;
+import tatteam.com.app_common.util.AppConstant;
 
 /**
  * Created by dongc_000 on 2/17/2016.
@@ -25,6 +32,16 @@ public abstract class MyBaseActivity extends BaseActivity {
     private TextView buttonResult;
     private LinearLayout buttonShare;
     private CoordinatorLayout mainCoordinatorLayout;
+    private FrameLayout adsContainer;
+
+    private boolean isProVersion;
+    private AdsSmallBannerHandler adsSmallBannerHandler;
+    private AdsBigBannerHandler adsBigBannerHandler;
+
+    public final static boolean ADS_ENABLE = true;
+    public final static int BIG_ADS_SHOWING_INTERVAL = 15;
+
+    public static int count;
 
     @Override
     protected int getLayoutResIdContentView() {
@@ -39,6 +56,22 @@ public abstract class MyBaseActivity extends BaseActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(font);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(HomeActivity.SHARED_PREFERENCES, MODE_PRIVATE);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+
+        setupAds();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (adsSmallBannerHandler != null) {
+            adsSmallBannerHandler.destroy();
+        }
+        if (adsBigBannerHandler != null) {
+            adsBigBannerHandler.destroy();
+        }
     }
 
     public Toolbar getToolbar() {
@@ -47,6 +80,33 @@ public abstract class MyBaseActivity extends BaseActivity {
 
     public void setToolbarTitle(String title) {
         textViewTitle.setText(title);
+    }
+
+    private void setupAds() {
+        if (isProVersion) {
+            if (ADS_ENABLE) {
+                adsContainer.setVisibility(View.GONE);
+                if (adsSmallBannerHandler != null) {
+                    adsSmallBannerHandler.destroy();
+                }
+                if (adsBigBannerHandler != null) {
+                    adsBigBannerHandler.destroy();
+                }
+            } else {
+                adsContainer.setVisibility(View.GONE);
+            }
+        } else {
+            count = 0;
+            if (ADS_ENABLE) {
+                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
+                adsSmallBannerHandler.setup();
+
+                adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_TEST);
+                adsBigBannerHandler.setup();
+            } else {
+                adsContainer.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void enableButtonTutorial(boolean isVisible) {
@@ -73,6 +133,17 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
+    public void showBigAdsIfNeeded() {
+        if (!isProVersion) {
+            if (ADS_ENABLE) {
+                count++;
+                if (count % BIG_ADS_SHOWING_INTERVAL == 0) {
+                    adsBigBannerHandler.show();
+                }
+            }
+        }
+    }
+
     private void findViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
@@ -80,6 +151,7 @@ public abstract class MyBaseActivity extends BaseActivity {
         buttonResult = (TextView) findViewById(R.id.buttonResult);
         buttonShare = (LinearLayout) findViewById(R.id.buttonShare);
         mainCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
+        adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
 
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -47,6 +47,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private int number;
     private boolean isProVersion;
 
+    public static Typeface defaultFont;
+
     public final static String SHARED_PREFERENCES = "Indo_Driving";
     public final static String PRE_IS_PRO_VERSION = "is_pro_version";
     public final static String PRE_IS_RATE_APP = "is_rate_app";
@@ -61,8 +63,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         findViews();
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
-        setFont(font);
+        defaultFont = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
+        setFont(defaultFont);
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
 

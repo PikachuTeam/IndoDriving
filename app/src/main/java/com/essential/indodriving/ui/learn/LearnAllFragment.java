@@ -21,6 +21,7 @@ import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.HomeActivity;
+import com.essential.indodriving.ui.MainActivity;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
 import java.text.MessageFormat;
@@ -360,6 +361,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 setCardData(questions.get(currentPosition));
                 indicatorPosition += indicatorPositionOffset;
                 indicator.setX(indicatorPosition);
+                getMyBaseActivity().showBigAdsIfNeeded();
             }
         } else if (v == buttonPrevious) {
             if (currentPosition > 0) {
@@ -375,6 +377,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 setCardData(questions.get(currentPosition));
                 indicatorPosition -= indicatorPositionOffset;
                 indicator.setX(indicatorPosition);
+                getMyBaseActivity().showBigAdsIfNeeded();
             }
         } else if (v == cardQuestionImage) {
             ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), questions.get(currentPosition).image);

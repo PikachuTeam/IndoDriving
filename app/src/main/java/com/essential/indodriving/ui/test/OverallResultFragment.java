@@ -17,6 +17,7 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
+import com.essential.indodriving.ui.HomeActivity;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -57,7 +58,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private int examId;
     private float[] yData;
     private ArrayList<Question> questions;
-    private Typeface font;
     private boolean isSaved;
 
     public final static String OVERALL_RESULT_FRAGMENT_TAG = "Overall Result Fragment";
@@ -70,7 +70,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         totalCorrectAnswer = calculateCorrectAnswer();
         totalWrongAnswer = calculateWrongAnswer();
         totalNotAnswered = questions.size() - totalCorrectAnswer - totalWrongAnswer;
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
         isSaved = false;
     }
 
@@ -197,7 +196,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         buttonNext2 = (ImageView) rootView.findViewById(R.id.buttonNext2);
         buttonNext3 = (ImageView) rootView.findViewById(R.id.buttonNext3);
 
-        setFont(font, rootView);
+        setFont(HomeActivity.defaultFont, rootView);
 
         buttonCorrectAnswer.setOnClickListener(this);
         buttonWrongAnswer.setOnClickListener(this);

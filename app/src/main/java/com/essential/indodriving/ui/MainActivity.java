@@ -11,6 +11,7 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseActivity;
 import com.essential.indodriving.data.DataSource;
 
+import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.ui.fragment.BaseFragment;
 import tatteam.com.app_common.util.AppConstant;
@@ -20,13 +21,7 @@ import tatteam.com.app_common.util.AppConstant;
  */
 public class MainActivity extends MyBaseActivity {
 
-    private AdsSmallBannerHandler adsSmallBannerHandler;
-    private FrameLayout adsContainer;
-
     private int type;
-    private boolean isProVersion;
-
-    private final static boolean ADS_ENABLE = true;
 
     @Override
     protected int getFragmentContainerId() {
@@ -49,31 +44,15 @@ public class MainActivity extends MyBaseActivity {
         type = getIntent().getIntExtra("Type", DataSource.TYPE_SIM_A);
 
         loadState();
-        adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
-
-        if (!isProVersion) {
-            if (ADS_ENABLE) {
-                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
-                adsSmallBannerHandler.setup();
-            } else {
-                adsContainer.setVisibility(View.GONE);
-            }
-        } else {
-            adsContainer.setVisibility(View.GONE);
-        }
     }
 
     private void loadState() {
         SharedPreferences sharedPreferences = getSharedPreferences(HomeActivity.SHARED_PREFERENCES, MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (ADS_ENABLE) {
-            adsSmallBannerHandler.destroy();
-        }
     }
 
     @Override

@@ -21,6 +21,8 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
+import com.essential.indodriving.ui.HomeActivity;
+import com.essential.indodriving.ui.MainActivity;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
@@ -53,8 +55,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     private CountDownTimer timer;
     private boolean isRandom;
     private int timeLeft;
-    private Typeface font1;
-    private Typeface font2;
+    private Typeface font;
 
     public final static String KEY_HOLDER_QUESTIONS = "Questions";
     public final static String DO_TEST_FRAGMENT_TAG = "Do Test Fragment";
@@ -66,13 +67,12 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         getData();
         questions = DataSource.getQuestionsByTypeAndExamId(type, examId, isRandom);
 
-        font1 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
-        font2 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
 
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             QuestionNoItemWrapper wrapper = new QuestionNoItemWrapper(getActivity());
-            wrapper.setText("" + questions.get(i).index, font1);
+            wrapper.setText("" + questions.get(i).index, HomeActivity.defaultFont);
             if (i == 0) {
                 wrapper.setActive(true);
             } else {
@@ -161,19 +161,19 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     }
 
     private void setFont(View rootView) {
-        textViewMinute1.setTypeface(font1);
-        textViewMinute2.setTypeface(font1);
-        textViewSecond1.setTypeface(font1);
-        textViewSecond2.setTypeface(font1);
-        ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(font1);
-        ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(font2);
+        textViewMinute1.setTypeface(HomeActivity.defaultFont);
+        textViewMinute2.setTypeface(HomeActivity.defaultFont);
+        textViewSecond1.setTypeface(HomeActivity.defaultFont);
+        textViewSecond2.setTypeface(HomeActivity.defaultFont);
+        ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(HomeActivity.defaultFont);
+        ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(font);
         ((TextView) rootView.findViewById(R.id.headerQuestion)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override
     public void onBackPressed() {
         timer.cancel();
-        WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING1, font1);
+        WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING1, HomeActivity.defaultFont);
         warningDialog.addListener(this);
         warningDialog.show();
     }
@@ -189,7 +189,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT) {
             timer.cancel();
-            WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING2, font1);
+            WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING2, HomeActivity.defaultFont);
             warningDialog.addListener(this);
             warningDialog.show();
         }
@@ -294,14 +294,16 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     }
 
     private void moveToNextFragment() {
+        getMyBaseActivity().showBigAdsIfNeeded();
+
         OverallResultFragment fragment = new OverallResultFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("Type", this.type);
         bundle.putInt("Exam Id", examId);
         bundle.putInt("Time Left", TOTAL_TIME - INTERVAL * timeLeft);
+        putHolder(KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
         replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);
-        putHolder(KEY_HOLDER_QUESTIONS, questions);
     }
 
     @Override
@@ -365,7 +367,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
             RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
             ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
-            ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(font2);
+            ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(font);
             ((TextView) view.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             if (question.image == null) {
                 imageArea.setVisibility(View.GONE);

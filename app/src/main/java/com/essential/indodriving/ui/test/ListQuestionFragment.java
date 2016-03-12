@@ -43,7 +43,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private ListQuestionAdapter adapter;
     private ArrayList<QuestionPackage> questionPackages;
     private SpaceItemDecoration spaceItemDecoration;
-    private Typeface font;
     private boolean isShowedRuleAgain;
     private boolean isRated;
     private boolean isProVersion;
@@ -64,7 +63,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         super.onCreate(savedInstanceState);
         getData();
         spaceItemDecoration = new SpaceItemDecoration(getResources().getInteger(R.integer.grid_layout_item_space));
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
     }
 
     @Override
@@ -80,17 +78,19 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
+        loadState();
+
+        questionPackages = DataSource.getQuestionPackagesByType(type);
+        adapter = new ListQuestionAdapter(getActivity(), questionPackages, HomeActivity.defaultFont);
+        adapter.setOnRecyclerViewItemClickListener(this);
+        setupRecyclerView();
+        listQuestion.invalidate();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadState();
-        questionPackages = DataSource.getQuestionPackagesByType(type);
-        adapter = new ListQuestionAdapter(getActivity(), questionPackages, isRated);
-        adapter.setOnRecyclerViewItemClickListener(this);
-        setupRecyclerView();
-        listQuestion.invalidate();
+        adapter.notifyDataSetChanged();
     }
 
     private void findViews(View rootView) {
@@ -186,7 +186,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                         }
                     } else {
                         if (questionPackage.index < 7) {
-                            RatingDialog ratingDialog = new RatingDialog(getActivity(), font);
+                            RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
                             ratingDialog.show();
                             ratingDialog.addListener(this);
                         } else {
@@ -240,9 +240,10 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
                 }
+                isRated = true;
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(HomeActivity.PRE_IS_RATE_APP, true);
+                editor.putBoolean(HomeActivity.PRE_IS_RATE_APP, isRated);
                 editor.commit();
                 break;
             case CANCEL:
@@ -285,13 +286,11 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         private OnRecyclerViewItemClickListener listener;
         private final static int TYPE_HEADER = 0, TYPE_ITEM = 1;
         private Typeface font;
-        private boolean isRated;
 
-        public ListQuestionAdapter(Context context, ArrayList<QuestionPackage> packages, boolean isRated) {
+        public ListQuestionAdapter(Context context, ArrayList<QuestionPackage> packages, Typeface font) {
             this.packages = packages;
             this.context = context;
-            font = Typeface.createFromAsset(context.getAssets(), "fonts/Menu Sim.ttf");
-            this.isRated = isRated;
+            this.font = font;
         }
 
         public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener listener) {
@@ -315,6 +314,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 final QuestionPackage questionPackage = packages.get(position - 1);
                 ((ViewHolderItem) holder).textViewPackage.setText(MessageFormat.format(context.getString(R.string.title_package), "" + questionPackage.index));
                 ((ViewHolderItem) holder).textViewPackage.setTypeface(font);
+
                 if (questionPackage.lastScore == 0) {
                     ((ViewHolderItem) holder).textViewLastScore.setVisibility(View.GONE);
                 } else {
@@ -341,10 +341,12 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                         ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
                         ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
                     } else {
-                        if (isRated) {
+                        if (ListQuestionFragment.this.isRated) {
                             if (position - 1 < 6) {
                                 ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
                             } else {
+                                ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
                                 ((ViewHolderItem) holder).star.setVisibility(View.GONE);
                                 ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
                                 ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(R.drawable.list_question_locked_item);
@@ -352,8 +354,10 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                         } else {
                             ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
                             if (position - 1 < 6) {
-                                ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).star.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
                                 ((ViewHolderItem) holder).star.setColorFilter(ContextCompat.getColor(context, R.color.yellow_star), PorterDuff.Mode.SRC_ATOP);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
                             } else {
                                 ((ViewHolderItem) holder).star.setVisibility(View.GONE);
                                 ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);

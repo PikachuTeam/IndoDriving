@@ -17,7 +17,6 @@ import com.essential.indodriving.ui.test.ListQuestionFragment;
 public class ChooseItemFragment extends MyBaseFragment {
 
     private int type;
-    private Typeface font;
 
     public final static String CHOOSE_ITEM_FRAGMENT_TAG = "Choose Item Fragment";
 
@@ -25,7 +24,6 @@ public class ChooseItemFragment extends MyBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
     }
 
     @Override
@@ -85,7 +83,7 @@ public class ChooseItemFragment extends MyBaseFragment {
             }
         });
 
-        setFont(rootView, font);
+        setFont(rootView, HomeActivity.defaultFont);
     }
 
     private void moveToLearnFragment() {

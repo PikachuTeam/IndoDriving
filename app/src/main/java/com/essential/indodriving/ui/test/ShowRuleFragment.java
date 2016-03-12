@@ -31,7 +31,6 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     private boolean checked;
     private int examId;
     private boolean isRandom;
-    private Typeface font;
 
     public final static String SHOW_RULE_FRAGMENT_TAG = "Show Rule Fragment";
 
@@ -41,7 +40,6 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         getData();
 
         checked = false;
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Menu Sim.ttf");
     }
 
     @Override
@@ -96,7 +94,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         textViewRule = (TextView) rootView.findViewById(R.id.textViewRule);
         checkBoxContainer = (LinearLayout) rootView.findViewById(R.id.checkBoxContainer);
 
-        setFont(font, rootView);
+        setFont(HomeActivity.defaultFont, rootView);
 
         buttonStart.setOnClickListener(this);
         checkBoxShowRule.setOnClickListener(this);
