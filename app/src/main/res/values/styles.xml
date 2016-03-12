@@ -5,7 +5,7 @@
     </style>
 
     <style name="ExpandedCollapsingToolbar" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">@dimen/common_text_size_20</item>
+        <item name="android:textSize">@dimen/common_text_size_25</item>
     </style>
 
     <!-- Base application theme. -->

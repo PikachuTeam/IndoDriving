@@ -21,9 +21,6 @@
     <string name="wrong_answer">Wrong</string>
     <string name="not_answered">Not answered</string>
     <string name="title_activity_home">Indo Driving</string>
-    <string name="finish_test_1">You have finished the test after {0} minutes and {1} seconds</string>
-    <string name="finish_test_2">You have finished the test after {0} seconds</string>
-    <string name="finish_test_3">You have finished the test after {0} minutes</string>
     <string name="dialog_warning_text">\tFinish answering all the questions?\nYou will be shown with the final result.\n\t\t\t\tProceed to end this test?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>

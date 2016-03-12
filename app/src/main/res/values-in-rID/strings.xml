@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Soal &amp; Simulasi Ujian Sim</string>
+    <string name="app_name">Soal &amp; Simulasi Ujian</string>
     <string name="no_internet_connection">Internet Connection Error!</string>
     <string name="sim_a">Sim A</string>
     <string name="sim_a_umum">Sim A Umum</string>
@@ -20,10 +20,7 @@
     <string name="correct_answer">Benar</string>
     <string name="wrong_answer">Salah</string>
     <string name="not_answered">Tidak dijawab</string>
-    <string name="title_activity_home">Soal &amp; Simulasi Ujian Sim</string>
-    <string name="finish_test_1"></string>
-    <string name="finish_test_2"></string>
-    <string name="finish_test_3"></string>
+    <string name="title_activity_home">Soal &amp; Simulasi Ujian</string>
     <string name="dialog_warning_text">Apakah Anda ingin menyelesaikan tes?</string>
     <string name="ok">OK</string>
     <string name="cancel">Batal</string>
@@ -41,9 +38,9 @@
     <string name="test_rule_sim_a">-Untuk SIM A usia minimal 17 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
     <string name="test_rule_sim_a_umum">-Untuk SIM A Umum usia minimal 20 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
     <string name="test_rule_sim_b1">-Untuk SIM B1 usia minimal 20 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
-    <string name="test_rule_sim_b1_umum">-Untuk SIM B1 Umum usia minimal 20 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
+    <string name="test_rule_sim_b1_umum">-Untuk SIM B1 Umum usia minimal 22 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
     <string name="test_rule_sim_b2">-Untuk SIM B2 usia minimal 21 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
-    <string name="test_rule_sim_b2_umum">-Untuk SIM B2 Umum usia minimal 20 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
+    <string name="test_rule_sim_b2_umum">-Untuk SIM B2 Umum usia minimal 23 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
     <string name="test_rule_sim_c">-Untuk SIM C usia minimal 17 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
     <string name="test_rule_sim_d">-Untuk SIM D usia minimal 17 tahun.\n-Untuk lulus minimal harus benar 21 dari 30 soal.</string>
     <string name="learn_sim_a">Sim A ({0})</string>
