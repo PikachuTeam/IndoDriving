@@ -300,7 +300,6 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         Bundle bundle = new Bundle();
         bundle.putInt("Type", this.type);
         bundle.putInt("Exam Id", examId);
-        bundle.putInt("Time Left", TOTAL_TIME - INTERVAL * timeLeft);
         putHolder(KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
         replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);

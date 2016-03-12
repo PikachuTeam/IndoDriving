@@ -54,7 +54,7 @@
     <string name="learn_sim_b2_umum">Sim B2 Umum ({0})</string>
     <string name="learn_sim_c">Sim C ({0})</string>
     <string name="learn_sim_d">Sim D ({0})</string>
-    <string name="warning_dialog_title">Finish answering</string>
+    <string name="warning_dialog_title">Selesai</string>
     <string name="rating_dialog_text">Menilai 5 bintang untuk membuka</string>
     <string name="will_be_updated">Akan diperbarui nanti!</string>
     <string name="hacked">Hacked</string>
@@ -64,11 +64,11 @@
     <string name="title_correct_answer">Jawaban yang benar</string>
     <string name="title_wrong_answer">Jawaban yang salah</string>
     <string name="title_not_answered">Pertanyaan tidak dijawab</string>
-    <string name="title_test_rule">Test Rule</string>
-    <string name="title_choose_package">Test Packages</string>
+    <string name="title_test_rule">Aturan</string>
+    <string name="title_choose_package">Topik</string>
     <string name="title_package">Topik {0}</string>
     <string name="title_test">Simulasi Ujian</string>
-    <string name="title_tutorial">Driving Tips</string>
-    <string name="title_overall_result">Overall Result</string>
-    <string name="title_detail_result">Detail Result</string>
+    <string name="title_tutorial">Tips</string>
+    <string name="title_overall_result">Hasil</string>
+    <string name="title_detail_result">Hasil</string>
 </resources>

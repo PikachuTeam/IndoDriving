@@ -34,7 +34,6 @@ import tatteam.com.app_common.util.CommonUtil;
  */
 public class OverallResultFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
 
-    private TextView textViewTotalTime;
     private TextView textViewState;
     private TextView tvCorrectAnswer;
     private TextView tvWrongAnswer;
@@ -51,9 +50,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private int totalCorrectAnswer;
     private int totalWrongAnswer;
     private int totalNotAnswered;
-    private int minute;
-    private int second;
-    private int timeLeft;
     private int type;
     private int examId;
     private float[] yData;
@@ -66,7 +62,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        setTime();
         totalCorrectAnswer = calculateCorrectAnswer();
         totalWrongAnswer = calculateWrongAnswer();
         totalNotAnswered = questions.size() - totalCorrectAnswer - totalWrongAnswer;
@@ -112,16 +107,8 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             questions = new ArrayList<>();
         }
         Bundle bundle = getArguments();
-        timeLeft = bundle.getInt("Time Left", 0);
         type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
         examId = bundle.getInt("Exam Id", 1);
-    }
-
-    private void setTime() {
-        int totalTime = DoTestFragment.TOTAL_TIME - timeLeft;
-        totalTime = totalTime / 1000;
-        minute = totalTime / 60;
-        second = totalTime % 60;
     }
 
     @Override
@@ -170,20 +157,12 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             textViewState.setText(getString(R.string.fail));
             textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
         }
-        if (minute == 0) {
-            textViewTotalTime.setText(MessageFormat.format(getString(R.string.finish_test_2), second));
-        } else if (second == 0) {
-            textViewTotalTime.setText(MessageFormat.format(getString(R.string.finish_test_3), minute));
-        } else {
-            textViewTotalTime.setText(MessageFormat.format(getString(R.string.finish_test_1), minute, second));
-        }
         tvCorrectAnswer.setText(MessageFormat.format(getString(R.string.total_correct_answers), totalCorrectAnswer));
         tvWrongAnswer.setText(MessageFormat.format(getString(R.string.total_wrong_answers), totalWrongAnswer));
         tvNotAnswered.setText(MessageFormat.format(getString(R.string.total_not_answered), totalNotAnswered));
     }
 
     private void findViews(View rootView) {
-        textViewTotalTime = (TextView) rootView.findViewById(R.id.tvTotalTime);
         tvCorrectAnswer = (TextView) rootView.findViewById(R.id.tvCorrectAnswer);
         tvWrongAnswer = (TextView) rootView.findViewById(R.id.tvWrongAnswer);
         tvNotAnswered = (TextView) rootView.findViewById(R.id.tvNotAnswered);
@@ -211,7 +190,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         tvWrongAnswer.setTypeface(font);
         tvNotAnswered.setTypeface(font);
         textViewState.setTypeface(font);
-        textViewTotalTime.setTypeface(font);
         ((TextView) rootView.findViewById(R.id.textViewCorrectAnswer)).setTypeface(font);
         ((TextView) rootView.findViewById(R.id.textViewWrongAnswer)).setTypeface(font);
         ((TextView) rootView.findViewById(R.id.textViewNotAnswered)).setTypeface(font);

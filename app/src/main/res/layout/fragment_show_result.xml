@@ -27,16 +27,6 @@
                 android:textColor="@color/wrong_answer_color"
                 android:textSize="@dimen/common_text_size_28" />
 
-            <TextView
-                android:id="@+id/tvTotalTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_size_10"
-                android:gravity="center_horizontal"
-                android:text="@string/finish_test_1"
-                android:textColor="@color/total_time_text_color"
-                android:textSize="@dimen/text_view_total_time_size" />
-
             <LinearLayout
                 android:id="@+id/chartContainer"
                 android:layout_width="match_parent"
