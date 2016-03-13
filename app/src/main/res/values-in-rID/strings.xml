@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Soal &amp; Simulasi Ujian</string>
+    <string name="app_name">Soal &amp; Simulasi Ujian SIM</string>
     <string name="no_internet_connection">Internet Connection Error!</string>
     <string name="sim_a">Sim A</string>
     <string name="sim_a_umum">Sim A Umum</string>
