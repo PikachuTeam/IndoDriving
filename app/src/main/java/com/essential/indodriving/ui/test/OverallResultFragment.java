@@ -150,7 +150,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     }
 
     private void setText() {
-        if (totalCorrectAnswer >= 25) {
+        if (totalCorrectAnswer >= 21) {
             textViewState.setText(getString(R.string.pass));
             textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
         } else {

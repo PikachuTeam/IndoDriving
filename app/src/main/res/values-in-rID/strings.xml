@@ -57,6 +57,7 @@
     <string name="hacked">Hacked</string>
     <string name="press_again_to_exit">Ketuk lagi untuk keluar!</string>
     <string name="click_to_see_answer">Klik disini untuk melihat jawaban</string>
+    <string name="your_answer">Pilihanmu: </string>
 
     <string name="title_correct_answer">Jawaban yang benar</string>
     <string name="title_wrong_answer">Jawaban yang salah</string>
