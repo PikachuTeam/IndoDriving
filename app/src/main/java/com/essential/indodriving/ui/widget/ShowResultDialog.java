@@ -79,7 +79,7 @@ public class ShowResultDialog extends Dialog {
         }
 
         if (question.answer == DataSource.ANSWER_NOT_CHOSEN) {
-            tvAnswer.setText("Not answered");
+            tvAnswer.setText(getContext().getResources().getText(R.string.not_answered));
             tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.not_answered_color));
         } else if (question.answer == question.correctAnswer) {
             switch (question.answer) {
