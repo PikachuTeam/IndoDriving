@@ -38,7 +38,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private AdsBigBannerHandler adsBigBannerHandler;
 
-    public final static boolean ADS_ENABLE = false;
+    public final static boolean ADS_ENABLE = true;
     public final static int BIG_ADS_SHOWING_INTERVAL = 15;
 
     public static int count;
@@ -98,10 +98,10 @@ public abstract class MyBaseActivity extends BaseActivity {
         } else {
             count = 0;
             if (ADS_ENABLE) {
-                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_TEST);
+                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST);
                 adsSmallBannerHandler.setup();
 
-                adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_TEST);
+                adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
                 adsBigBannerHandler.setup();
             } else {
                 adsContainer.setVisibility(View.GONE);

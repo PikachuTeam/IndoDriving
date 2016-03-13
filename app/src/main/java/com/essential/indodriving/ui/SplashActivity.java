@@ -31,7 +31,7 @@ public class SplashActivity extends EssentialSplashActivity {
     protected void onInitAppCommon() {
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
-        AppCommon.getInstance().syncAdsIfNeeded(AppConstant.AdsType.SMALL_BANNER_TEST, AppConstant.AdsType.BIG_BANNER_TEST);
+        AppCommon.getInstance().syncAdsIfNeeded(AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "indo_driving.db");
     }
 
