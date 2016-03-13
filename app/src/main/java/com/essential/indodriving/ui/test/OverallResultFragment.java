@@ -119,7 +119,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     @Override
     protected void onMenuItemClick(int id) {
         String androidLink = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
-        String sharedText = "This is an awesome app.\nAndroid: " + androidLink;
+        String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
         CommonUtil.sharePlainText(getActivity(), sharedText);
     }
 
