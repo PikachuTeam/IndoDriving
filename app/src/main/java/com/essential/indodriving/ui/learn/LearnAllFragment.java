@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -25,6 +24,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -76,9 +76,11 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private boolean isFirst;
     private boolean isRated;
     private boolean isProVersion;
+    private AlphaAnimation alphaAnimation;
 
     private static final float BITMAP_SCALE = 0.4f;
-    private static final float BLUR_RADIUS = 7.5f;
+    private static final float BLUR_RADIUS = 5f;
+    private static final long ALPHA_ANIM_DURATION = 300;
 
     public final static String LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment";
     public final static String
@@ -100,6 +102,9 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         isFirst = true;
+
+        alphaAnimation = new AlphaAnimation(0f, 1f);
+        alphaAnimation.setDuration(ALPHA_ANIM_DURATION);
     }
 
     @Override
@@ -144,8 +149,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                             try {
                                 Bitmap blurBitmap = getBlurredBackground(getScreenshot(answerArea));
                                 blurryImage.setImageBitmap(blurBitmap);
+                                lockedArea.startAnimation(alphaAnimation);
                             } catch (Exception e) {
-//                                e.printStackTrace();
                                 blurryImage.setBackgroundResource(R.drawable.default_blur_background);
                             }
 
@@ -541,7 +546,24 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         return b;
     }
 
-    private Bitmap getBlurredBackground(Bitmap image) throws Exception{
+    public Bitmap blur(Bitmap image) {
+        if (null == image) return null;
+
+        Bitmap outputBitmap = Bitmap.createBitmap(image);
+        final RenderScript renderScript = RenderScript.create(getActivity());
+        Allocation tmpIn = Allocation.createFromBitmap(renderScript, image);
+        Allocation tmpOut = Allocation.createFromBitmap(renderScript, outputBitmap);
+
+        //Intrinsic Gausian blur filter
+        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
+        theIntrinsic.setRadius(BLUR_RADIUS);
+        theIntrinsic.setInput(tmpIn);
+        theIntrinsic.forEach(tmpOut);
+        tmpOut.copyTo(outputBitmap);
+        return outputBitmap;
+    }
+
+    private Bitmap getBlurredBackground(Bitmap image) throws Exception {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);
 

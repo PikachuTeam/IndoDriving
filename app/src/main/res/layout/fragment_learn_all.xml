@@ -201,24 +201,24 @@
                             android:id="@+id/lockedArea"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_alignTop="@+id/answerArea"
-                            android:layout_alignBottom="@+id/answerArea">
+                            android:layout_alignBottom="@+id/answerArea"
+                            android:layout_alignTop="@+id/answerArea">
 
                             <ImageView
                                 android:id="@+id/blurryImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                />
+                                android:scaleType="fitXY" />
 
                             <TextView
                                 android:id="@+id/textViewPressToUnlock"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="@string/click_to_see_answer"
                                 android:gravity="center"
+                                android:text="@string/click_to_see_answer"
                                 android:textAllCaps="true"
-                                android:textColor="@color/text_color_6"
+                                android:textColor="@color/text_color_4"
                                 android:textSize="@dimen/common_text_size_28" />
                         </RelativeLayout>
                     </RelativeLayout>

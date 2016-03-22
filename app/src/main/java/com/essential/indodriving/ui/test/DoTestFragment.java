@@ -224,7 +224,6 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     public void onQuestionPagerItemClick(AnswerChoicesItem item) {
         if (questions.get(currentPosition).answer == DataSource.ANSWER_NOT_CHOSEN) {
             questions.get(currentPosition).answer = item.getIndex();
-            adapter.notifyDataSetChanged();
             QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
             if (!wrapper.isHighlight) {
                 wrapper.setHighlight();
@@ -237,13 +236,13 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             }
         } else {
             questions.get(currentPosition).answer = item.getIndex();
-            adapter.notifyDataSetChanged();
             QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
             if (!wrapper.isHighlight) {
                 wrapper.setHighlight();
                 testHorizontalScrollView.invalidate();
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
     private void resetAllWrapper() {
@@ -428,19 +427,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 answerChoicesItems.add(answer4);
             }
             resetAllChoices(answerChoicesItems);
-            switch (question.answer) {
-                case DataSource.ANSWER_A:
-                    answerChoicesItems.get(0).setActive(true);
-                    break;
-                case DataSource.ANSWER_B:
-                    answerChoicesItems.get(1).setActive(true);
-                    break;
-                case DataSource.ANSWER_C:
-                    answerChoicesItems.get(2).setActive(true);
-                    break;
-                case DataSource.ANSWER_D:
-                    answerChoicesItems.get(3).setActive(true);
-                    break;
+            if (question.answer != DataSource.ANSWER_NOT_CHOSEN) {
+                answerChoicesItems.get(question.answer).setActive(true);
             }
             return answerChoicesItems;
         }

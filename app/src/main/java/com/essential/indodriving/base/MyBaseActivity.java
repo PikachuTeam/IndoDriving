@@ -39,7 +39,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private AdsBigBannerHandler adsBigBannerHandler;
 
     public final static boolean ADS_ENABLE = true;
-    public final static int BIG_ADS_SHOWING_INTERVAL = 15;
+    public final static int BIG_ADS_SHOWING_INTERVAL = 20;
 
     public static int count;
 

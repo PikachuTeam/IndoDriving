@@ -16,7 +16,7 @@ import com.essential.indodriving.data.Question;
 /**
  * Created by dongc_000 on 2/29/2016.
  */
-public class ShowResultDialog extends Dialog {
+public class ShowResultDialog extends Dialog implements View.OnClickListener {
 
     private Context context;
 
@@ -128,6 +128,13 @@ public class ShowResultDialog extends Dialog {
                 dismiss();
             }
         });
+
+        findViewById(R.id.questionArea).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     private void findViews() {
@@ -138,5 +145,13 @@ public class ShowResultDialog extends Dialog {
         tvChoiceC = (TextView) findViewById(R.id.tvChoiceC);
         tvChoiceD = (TextView) findViewById(R.id.tvChoiceD);
         tvAnswer = (TextView) findViewById(R.id.tvAnswer);
+
+        imgQuestion.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        ZoomInImageDialog dialog = new ZoomInImageDialog(getContext(), question.image);
+        dialog.show();
     }
 }
