@@ -24,8 +24,8 @@
     <string name="dialog_warning_text">\tFinish answering all the questions?\nYou will be shown with the final result.\n\t\t\t\tProceed to end this test?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
-    <string name="pass">You pass!</string>
-    <string name="fail">You fail!</string>
+    <string name="pass">You passed!</string>
+    <string name="fail">You failed!</string>
     <string name="total_correct_answers">{0}/30</string>
     <string name="total_wrong_answers">{0}/30</string>
     <string name="total_not_answered">{0}/30</string>
