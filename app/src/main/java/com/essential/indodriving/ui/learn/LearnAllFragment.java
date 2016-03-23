@@ -79,8 +79,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private AlphaAnimation alphaAnimation;
 
     private static final float BITMAP_SCALE = 0.4f;
-    private static final float BLUR_RADIUS = 5f;
-    private static final long ALPHA_ANIM_DURATION = 300;
+    private static final float BLUR_RADIUS = 7f;
+    private static final long ALPHA_ANIM_DURATION = 600;
 
     public final static String LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment";
     public final static String
