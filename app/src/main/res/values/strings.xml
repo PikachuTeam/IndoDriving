@@ -54,7 +54,7 @@
     <string name="warning_dialog_title">Finish answering</string>
     <string name="rating_dialog_text">Rate us 5 stars to open all locked features</string>
     <string name="will_be_updated">Will be updated soon!</string>
-    <string name="hacked">Hacked</string>
+    <string name="hacked">^__^</string>
     <string name="press_again_to_exit">Press again to exit!</string>
     <string name="click_to_see_answer">Press here to see the answer</string>
 
