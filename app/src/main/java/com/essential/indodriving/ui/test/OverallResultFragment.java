@@ -117,13 +117,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     }
 
     @Override
-    protected void onMenuItemClick(int id) {
-        String androidLink = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
-        String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
-        CommonUtil.sharePlainText(getActivity(), sharedText);
-    }
-
-    @Override
     public void onBackPressed() {
         getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         saveData();

@@ -170,7 +170,7 @@ public abstract class MyBaseActivity extends BaseActivity {
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_SHARE);
+                getMyCurrentFragment().sharingEvent();
             }
         });
     }

@@ -27,6 +27,11 @@ public class ChooseItemFragment extends MyBaseFragment {
     }
 
     @Override
+    protected boolean enableButtonShare() {
+        return true;
+    }
+
+    @Override
     protected String getTitle() {
         switch (type) {
             case DataSource.TYPE_SIM_A_UMUM:

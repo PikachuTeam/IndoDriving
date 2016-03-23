@@ -39,6 +39,11 @@ public class DetailResultFragment extends MyBaseFragment {
     }
 
     @Override
+    protected boolean enableButtonShare() {
+        return true;
+    }
+
+    @Override
     protected String getTitle() {
         return getString(R.string.title_detail_result);
     }

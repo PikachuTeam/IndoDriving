@@ -7,6 +7,7 @@ import android.view.View;
 import com.essential.indodriving.R;
 
 import tatteam.com.app_common.ui.fragment.BaseFragment;
+import tatteam.com.app_common.util.CommonUtil;
 
 /**
  * Created by dongc_000 on 2/17/2016.
@@ -48,9 +49,9 @@ public abstract class MyBaseFragment extends BaseFragment {
                     getFragmentManager().popBackStack();
                 }
                 break;
-            case R.id.buttonResult:
-                onMenuItemClick(BUTTON_RESULT);
-                break;
+//            case R.id.buttonResult:
+//                onMenuItemClick(BUTTON_RESULT);
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -61,6 +62,12 @@ public abstract class MyBaseFragment extends BaseFragment {
 //        menu.findItem(R.id.buttonResult).setVisible(enableButtonResult());
 //        super.onCreateOptionsMenu(menu, inflater);
 //    }
+
+    public void sharingEvent(){
+        String androidLink = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
+        String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
+        CommonUtil.sharePlainText(getActivity(), sharedText);
+    }
 
     protected void onMenuItemClick(int id) {
         // do something here

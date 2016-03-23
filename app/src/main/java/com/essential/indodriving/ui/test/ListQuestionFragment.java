@@ -65,6 +65,11 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     }
 
     @Override
+    protected boolean enableButtonShare() {
+        return true;
+    }
+
+    @Override
     protected String getTitle() {
         return getString(R.string.title_choose_package);
     }
