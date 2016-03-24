@@ -24,8 +24,8 @@
     <string name="dialog_warning_text">\tFinish answering all the questions?\nYou will be shown with the final result.\n\t\t\t\tProceed to end this test?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
-    <string name="pass">You pass!</string>
-    <string name="fail">You fail!</string>
+    <string name="pass">You passed!</string>
+    <string name="fail">You failed!</string>
     <string name="total_correct_answers">{0}/30</string>
     <string name="total_wrong_answers">{0}/30</string>
     <string name="total_not_answered">{0}/30</string>
@@ -54,7 +54,7 @@
     <string name="warning_dialog_title">Finish answering</string>
     <string name="rating_dialog_text">Rate us 5 stars to open all locked features</string>
     <string name="will_be_updated">Will be updated soon!</string>
-    <string name="hacked">Hacked</string>
+    <string name="hacked">^__^</string>
     <string name="press_again_to_exit">Press again to exit!</string>
     <string name="click_to_see_answer">Press here to see the answer</string>
     <string name="no_correct_answer">There is no correct answer</string>

@@ -54,7 +54,7 @@
     <string name="warning_dialog_title">Selesai</string>
     <string name="rating_dialog_text">Menilai 5 bintang untuk membuka</string>
     <string name="will_be_updated">Akan diperbarui nanti!</string>
-    <string name="hacked">Hacked</string>
+    <string name="hacked">^__^</string>
     <string name="press_again_to_exit">Ketuk lagi untuk keluar!</string>
     <string name="click_to_see_answer">Klik disini untuk melihat jawaban</string>
 
