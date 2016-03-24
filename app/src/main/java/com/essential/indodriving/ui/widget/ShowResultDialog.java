@@ -2,11 +2,14 @@ package com.essential.indodriving.ui.widget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -16,7 +19,7 @@ import com.essential.indodriving.data.Question;
 /**
  * Created by dongc_000 on 2/29/2016.
  */
-public class ShowResultDialog extends Dialog implements View.OnClickListener {
+public class ShowResultDialog extends Dialog implements View.OnClickListener, View.OnTouchListener {
 
     private Context context;
 
@@ -27,6 +30,8 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener {
     private TextView tvChoiceC;
     private TextView tvChoiceD;
     private TextView tvAnswer;
+    private ImageView buttonZoomIn;
+    private RelativeLayout imageArea;
 
     private Question question;
 
@@ -46,10 +51,11 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener {
         findViews();
 
         if (question.image != null) {
-            imgQuestion.setVisibility(View.VISIBLE);
+            imageArea.setVisibility(View.VISIBLE);
             imgQuestion.setImageBitmap(question.image);
+            buttonZoomIn.setColorFilter(ContextCompat.getColor(context, R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
         } else {
-            imgQuestion.setVisibility(View.GONE);
+            imageArea.setVisibility(View.GONE);
         }
 
         tvQuestion.setText(question.question);
@@ -145,13 +151,30 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener {
         tvChoiceC = (TextView) findViewById(R.id.tvChoiceC);
         tvChoiceD = (TextView) findViewById(R.id.tvChoiceD);
         tvAnswer = (TextView) findViewById(R.id.tvAnswer);
+        buttonZoomIn = (ImageView) findViewById(R.id.buttonZoomIn);
+        imageArea = (RelativeLayout) findViewById(R.id.imageArea);
 
         imgQuestion.setOnClickListener(this);
+        buttonZoomIn.setOnTouchListener(this);
     }
 
     @Override
     public void onClick(View v) {
         ZoomInImageDialog dialog = new ZoomInImageDialog(getContext(), question.image);
         dialog.show();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+            buttonZoomIn.setColorFilter(ContextCompat.getColor(context, R.color.learn_all_button_zoom_in_highlight_color), PorterDuff.Mode.SRC_ATOP);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+            buttonZoomIn.setColorFilter(ContextCompat.getColor(context, R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+            dialog.show();
+        }
+        return false;
     }
 }

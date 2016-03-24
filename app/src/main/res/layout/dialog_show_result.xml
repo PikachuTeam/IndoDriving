@@ -25,17 +25,31 @@
                 android:layout_marginLeft="@dimen/common_size_15"
                 android:layout_marginRight="@dimen/common_size_15"
                 android:layout_marginTop="@dimen/common_size_15"
-                android:clickable="true"
                 android:background="@drawable/bg_dialog"
+                android:clickable="true"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/questionImage"
-                    android:layout_width="@dimen/dialog_show_result_question_image_size"
-                    android:layout_height="@dimen/dialog_show_result_question_image_size"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/common_size_5"
-                    android:clickable="true" />
+                <RelativeLayout
+                    android:id="@+id/imageArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/questionImage"
+                        android:layout_width="@dimen/dialog_show_result_question_image_size"
+                        android:layout_height="@dimen/dialog_show_result_question_image_size"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:clickable="true" />
+
+                    <ImageView
+                        android:id="@+id/buttonZoomIn"
+                        android:layout_width="@dimen/button_zoom_in_size"
+                        android:layout_height="@dimen/button_zoom_in_size"
+                        android:layout_toRightOf="@+id/questionImage"
+                        android:src="@drawable/ic_zoom_in_normal"
+                        android:clickable="true" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvQuestion"

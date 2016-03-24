@@ -19,11 +19,28 @@
             android:textSize="@dimen/common_text_size_19"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listDetailResult"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadeScrollbars="true"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listDetailResult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="true"
+                android:scrollbars="vertical" />
+
+            <TextView
+                android:id="@+id/textViewReport"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/common_size_10"
+                android:text="@string/answer_all"
+                android:textAllCaps="true"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/common_text_size_23"
+                android:visibility="visible" />
+        </RelativeLayout>
     </LinearLayout>
 </tatteam.com.app_common.ui.drawable.FractionFrameLayout>

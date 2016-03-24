@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class DetailResultFragment extends MyBaseFragment {
 
     private TextView textViewType;
+    private TextView textViewReport;
     private RecyclerView listDetailResult;
 
     private ArrayList<Question> questions;
@@ -61,14 +62,32 @@ public class DetailResultFragment extends MyBaseFragment {
             case 0:
                 textViewType.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
                 textViewType.setText(getString(R.string.title_correct_answer));
+                if (questions.size() == 0) {
+                    textViewReport.setVisibility(View.VISIBLE);
+                    textViewReport.setText(getString(R.string.no_correct_answer));
+                }else{
+                    textViewReport.setVisibility(View.GONE);
+                }
                 break;
             case 1:
                 textViewType.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
                 textViewType.setText(getString(R.string.title_wrong_answer));
+                if (questions.size() == 0) {
+                    textViewReport.setVisibility(View.VISIBLE);
+                    textViewReport.setText(getString(R.string.no_wrong_answer));
+                }else{
+                    textViewReport.setVisibility(View.GONE);
+                }
                 break;
             case 2:
                 textViewType.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.not_answered_color));
                 textViewType.setText(getString(R.string.title_not_answered));
+                if (questions.size() == 0) {
+                    textViewReport.setVisibility(View.VISIBLE);
+                    textViewReport.setText(getString(R.string.answer_all));
+                }else{
+                    textViewReport.setVisibility(View.GONE);
+                }
                 break;
         }
 
@@ -82,6 +101,7 @@ public class DetailResultFragment extends MyBaseFragment {
     private void findViews(View rootView) {
         textViewType = (TextView) rootView.findViewById(R.id.textViewType);
         listDetailResult = (RecyclerView) rootView.findViewById(R.id.listDetailResult);
+        textViewReport = (TextView) rootView.findViewById(R.id.textViewReport);
     }
 
     private void getData() {
