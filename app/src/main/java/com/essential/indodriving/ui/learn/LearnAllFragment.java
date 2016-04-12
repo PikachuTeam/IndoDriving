@@ -97,8 +97,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             PREF_CURRENT_POSITION_SIM_C = "Current Position Sim C",
             PREF_CURRENT_POSITION_SIM_D = "Current Position Sim D";
 
-    private final static String TAG_INDICATOR = "indicator";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -259,9 +257,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         buttonZoomIn.setOnTouchListener(this);
         lockedArea.setOnClickListener(this);
 
-        indicator.setTag(TAG_INDICATOR);
-//        indicator.setOnLongClickListener(indicatorLongClickListener);
-//        indicator.setOnDragListener(indicatorDragListener);
         indicator.setOnTouchListener(indicatorTouchListener);
     }
 
@@ -552,23 +547,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         return b;
     }
 
-    public Bitmap blur(Bitmap image) {
-        if (null == image) return null;
-
-        Bitmap outputBitmap = Bitmap.createBitmap(image);
-        final RenderScript renderScript = RenderScript.create(getActivity());
-        Allocation tmpIn = Allocation.createFromBitmap(renderScript, image);
-        Allocation tmpOut = Allocation.createFromBitmap(renderScript, outputBitmap);
-
-        //Intrinsic Gausian blur filter
-        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
-        theIntrinsic.setRadius(BLUR_RADIUS);
-        theIntrinsic.setInput(tmpIn);
-        theIntrinsic.forEach(tmpOut);
-        tmpOut.copyTo(outputBitmap);
-        return outputBitmap;
-    }
-
     private Bitmap getBlurredBackground(Bitmap image) throws Exception {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);
@@ -644,39 +622,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
         return false;
     }
-
-    private View.OnDragListener indicatorDragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    Toast.makeText(getActivity(), "Drag enter: " + event.getX() + " " + event.getY(), Toast.LENGTH_SHORT).show();
-                    break;
-                case DragEvent.ACTION_DRAG_LOCATION:
-                    Toast.makeText(getActivity(), "Drag location: " + event.getX() + " " + event.getY(), Toast.LENGTH_SHORT).show();
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    Toast.makeText(getActivity(), "Drag exit: " + event.getX() + " " + event.getY(), Toast.LENGTH_SHORT).show();
-                    break;
-            }
-            return false;
-        }
-    };
-
-    private View.OnLongClickListener indicatorLongClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
-
-            String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
-            ClipData dragData = new ClipData(v.getTag().toString(), mimeTypes, item);
-            View.DragShadowBuilder myShadow = new View.DragShadowBuilder(indicator);
-
-            v.startDrag(dragData, myShadow, null, 0);
-
-            return true;
-        }
-    };
 
     private View.OnTouchListener indicatorTouchListener = new View.OnTouchListener() {
         @Override
