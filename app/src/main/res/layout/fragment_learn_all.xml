@@ -84,7 +84,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/progress_bar_container_height">
+                        android:layout_marginBottom="@dimen/progress_bar_container_height"
+                        android:clickable="true">
 
                         <ImageView
                             android:layout_width="@dimen/progress_indicator_width"

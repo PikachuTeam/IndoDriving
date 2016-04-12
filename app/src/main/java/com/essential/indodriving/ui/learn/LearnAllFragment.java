@@ -2,6 +2,8 @@ package com.essential.indodriving.ui.learn;
 
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +23,7 @@ import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -30,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
@@ -92,6 +96,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             PREF_CURRENT_POSITION_SIM_B2_UMUM = "Current Position Sim B2 Umum",
             PREF_CURRENT_POSITION_SIM_C = "Current Position Sim C",
             PREF_CURRENT_POSITION_SIM_D = "Current Position Sim D";
+
+    private final static String TAG_INDICATOR = "indicator";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,6 +175,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     float rate = event.getX() / readingProgress.getWidth();
+
                     float tmp = questions.size() * rate;
                     currentPosition = (int) tmp;
                     setCardData(questions.get(currentPosition));
@@ -251,6 +258,11 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         cardQuestionImage.setOnClickListener(this);
         buttonZoomIn.setOnTouchListener(this);
         lockedArea.setOnClickListener(this);
+
+        indicator.setTag(TAG_INDICATOR);
+//        indicator.setOnLongClickListener(indicatorLongClickListener);
+//        indicator.setOnDragListener(indicatorDragListener);
+        indicator.setOnTouchListener(indicatorTouchListener);
     }
 
     private void getData() {
@@ -262,12 +274,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     public void onPause() {
         super.onPause();
         saveState();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.e("Destroy", "Now");
     }
 
     @Override
@@ -288,7 +294,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         bundle.putInt("Type", type);
         tutorialFragment.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.fragment_silde_bot_enter, 0, 0, R.anim.fragment_silde_bot_exit);
+        transaction.setCustomAnimations(R.animator.fragment_silde_bot_enter, 0, 0, R.animator.fragment_silde_bot_exit);
         transaction.replace(R.id.fragmentContainer, tutorialFragment, LEARN_ALL_FRAGMENT_TAG);
         transaction.addToBackStack(LEARN_ALL_FRAGMENT_TAG);
         transaction.commit();
@@ -638,4 +644,76 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
         return false;
     }
+
+    private View.OnDragListener indicatorDragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    Toast.makeText(getActivity(), "Drag enter: " + event.getX() + " " + event.getY(), Toast.LENGTH_SHORT).show();
+                    break;
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    Toast.makeText(getActivity(), "Drag location: " + event.getX() + " " + event.getY(), Toast.LENGTH_SHORT).show();
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    Toast.makeText(getActivity(), "Drag exit: " + event.getX() + " " + event.getY(), Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            return false;
+        }
+    };
+
+    private View.OnLongClickListener indicatorLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
+
+            String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
+            ClipData dragData = new ClipData(v.getTag().toString(), mimeTypes, item);
+            View.DragShadowBuilder myShadow = new View.DragShadowBuilder(indicator);
+
+            v.startDrag(dragData, myShadow, null, 0);
+
+            return true;
+        }
+    };
+
+    private View.OnTouchListener indicatorTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    float realX = event.getRawX() - getResources().getDimension(R.dimen.common_size_20);
+                    float ratio = realX / readingProgress.getWidth();
+                    int tmp = (int) (ratio * questions.size());
+                    if (tmp > 0 && tmp < questions.size()) {
+                        currentPosition = tmp;
+                        setCardData(questions.get(currentPosition));
+
+                        if (currentPosition == 0) {
+                            disableButton(buttonPrevious, R.drawable.ic_previous);
+                            if (!buttonNext.isEnabled()) {
+                                enableButton(buttonNext, R.drawable.ic_next);
+                            }
+                        } else if (currentPosition == questions.size() - 1) {
+                            disableButton(buttonNext, R.drawable.ic_next);
+                            if (!buttonPrevious.isEnabled()) {
+                                enableButton(buttonPrevious, R.drawable.ic_previous);
+                            }
+                        } else if (currentPosition > 0 && currentPosition < questions.size()) {
+                            if (!buttonNext.isEnabled()) {
+                                enableButton(buttonNext, R.drawable.ic_next);
+                            }
+                            if (!buttonPrevious.isEnabled()) {
+                                enableButton(buttonPrevious, R.drawable.ic_previous);
+                            }
+                        }
+                    }
+                    break;
+            }
+
+            return false;
+        }
+    };
 }
