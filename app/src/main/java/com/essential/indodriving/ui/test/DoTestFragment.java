@@ -382,6 +382,9 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
             for (int i = 0; i < answerChoicesItems.size(); i++) {
                 choicesContainer.addView(answerChoicesItems.get(i).getView());
+                LinearLayout.MarginLayoutParams marginParams = (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getView().getLayoutParams();
+                marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
+                answerChoicesItems.get(i).getView().requestLayout();
                 answerChoicesItems.get(i).setOnChooseAnswerListener(this);
             }
             choicesContainer.invalidate();
