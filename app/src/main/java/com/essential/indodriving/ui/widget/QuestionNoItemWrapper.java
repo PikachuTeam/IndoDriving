@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
@@ -15,11 +14,10 @@ import com.essential.indodriving.R;
  */
 public class QuestionNoItemWrapper {
 
+    public boolean isHighlight;
     private Context context;
     private View view;
     private OnQuestionNoClickListener listener;
-    public boolean isHighlight;
-
     private TextView textViewNumber;
     private LinearLayout questionNoWrapper;
     private View highlightView;

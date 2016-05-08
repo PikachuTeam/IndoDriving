@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.widget.ShowResultDialog;
@@ -57,7 +58,6 @@ public class DetailResultFragment extends MyBaseFragment {
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
-
         switch (type) {
             case 0:
                 textViewType.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
@@ -65,7 +65,7 @@ public class DetailResultFragment extends MyBaseFragment {
                 if (questions.size() == 0) {
                     textViewReport.setVisibility(View.VISIBLE);
                     textViewReport.setText(getString(R.string.no_correct_answer));
-                }else{
+                } else {
                     textViewReport.setVisibility(View.GONE);
                 }
                 break;
@@ -75,7 +75,7 @@ public class DetailResultFragment extends MyBaseFragment {
                 if (questions.size() == 0) {
                     textViewReport.setVisibility(View.VISIBLE);
                     textViewReport.setText(getString(R.string.no_wrong_answer));
-                }else{
+                } else {
                     textViewReport.setVisibility(View.GONE);
                 }
                 break;
@@ -85,16 +85,14 @@ public class DetailResultFragment extends MyBaseFragment {
                 if (questions.size() == 0) {
                     textViewReport.setVisibility(View.VISIBLE);
                     textViewReport.setText(getString(R.string.answer_all));
-                }else{
+                } else {
                     textViewReport.setVisibility(View.GONE);
                 }
                 break;
         }
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listDetailResult.setLayoutManager(layoutManager);
         listDetailResult.setAdapter(adapter);
-
         getMyBaseActivity().showBigAdsIfNeeded();
     }
 
@@ -110,7 +108,7 @@ public class DetailResultFragment extends MyBaseFragment {
         } else {
             questions = new ArrayList<>();
         }
-        type = getArguments().getInt("Type", 0);
+        type = getArguments().getInt(Constants.BUNDLE_TYPE, 0);
     }
 
     private class DetailResultAdapter extends RecyclerView.Adapter<DetailResultAdapter.ViewHolder> {

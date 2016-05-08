@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
@@ -29,42 +28,96 @@ import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
- * Created by dongc_000 on 2/24/2016.
+ * Created by yue on 07/05/2016.
  */
-public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, OnQuestionPagerItemClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
+public class WrittenTestFragment extends MyBaseFragment {
 
     public final static String KEY_HOLDER_QUESTIONS = "Questions";
-    public final static String DO_TEST_FRAGMENT_TAG = "Do Test Fragment";
-    public final static String BUNDLE_IS_RANDOM = "is random";
-    public final static int INTERVAL = 1000, TOTAL_TIME = 1801000;
+    public final static String TAG_WRITTEN_TEST_FRAGMENT = "Written Test Fragment";
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
     private HorizontalScrollView testHorizontalScrollContainer;
-    private TextView textViewMinute1;
-    private TextView textViewMinute2;
-    private TextView textViewSecond1;
-    private TextView textViewSecond2;
     private ViewPagerAdapter adapter;
     private ArrayList<Question> questions;
     private ArrayList<QuestionNoItemWrapper> wrappers;
     private int type;
     private int examId;
     private int currentPosition;
-    private int minute1, minute2, second1, second2;
-    private CountDownTimer timer;
-    private boolean isRandom;
-    private int timeLeft;
     private Typeface font;
+    private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener = new QuestionNoItemWrapper.OnQuestionNoClickListener() {
+        @Override
+        public void onQuestionNoClick(QuestionNoItemWrapper item) {
+            resetAllWrapper();
+            item.setActive(true);
+            testHorizontalScrollView.invalidate();
+            int index = wrappers.indexOf(item);
+            questionPager.setCurrentItem(index, true);
+            currentPosition = index;
+            scrollToCenter(item);
+        }
+    };
+    private OnQuestionPagerItemClickListener mOnQuestionPagerItemClickListener = new OnQuestionPagerItemClickListener() {
+        @Override
+        public void onQuestionPagerItemClick(AnswerChoicesItem item) {
+            questions.get(currentPosition).answer = item.getIndex();
+            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
+            if (!wrapper.isHighlight) {
+                wrapper.setHighlight();
+                testHorizontalScrollView.invalidate();
+            }
+            adapter.notifyDataSetChanged();
+        }
+    };
+    private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            currentPosition = position;
+            resetAllWrapper();
+            wrappers.get(currentPosition).setActive(true);
+            testHorizontalScrollView.invalidate();
+            scrollToCenter(wrappers.get(currentPosition));
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener = new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
+        @Override
+        public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, BaseConfirmDialog.Type type, BaseConfirmDialog dialog) {
+            switch (button) {
+                case OK:
+                    dialog.dismiss();
+                    switch (type) {
+                        case WARNING1: // happen when user presses back
+                            getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            break;
+                        case WARNING2: // happen when user presses Result
+                            moveToNextFragment();
+                            break;
+                    }
+                    break;
+                case CANCEL:
+                    dialog.dismiss();
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, isRandom);
+        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, true);
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
@@ -75,14 +128,9 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             } else {
                 wrapper.setActive(false);
             }
-            wrapper.setOnQuestionNoClickListener(this);
+            wrapper.setOnQuestionNoClickListener(mOnQuestionNoClickListener);
             wrappers.add(wrapper);
         }
-        minute1 = 3;
-        minute2 = 0;
-        second1 = 0;
-        second2 = 0;
-        timeLeft = 0;
         currentPosition = 0;
     }
 
@@ -90,48 +138,17 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
         adapter = new ViewPagerAdapter(getActivity(), questions);
-        adapter.setOnQuestionPagerItemClickListener(this);
+        adapter.setOnQuestionPagerItemClickListener(mOnQuestionPagerItemClickListener);
         questionPager.setAdapter(adapter);
-        questionPager.addOnPageChangeListener(this);
+        questionPager.addOnPageChangeListener(mOnPageChangeListener);
         for (int i = 0; i < wrappers.size(); i++) {
             testHorizontalScrollView.addView(wrappers.get(i).getView());
         }
-        testHorizontalScrollView.invalidate();
-        textViewMinute1.setText("" + minute1);
-        textViewMinute2.setText("" + minute2);
-        textViewSecond1.setText("" + second1);
-        textViewSecond2.setText("" + second2);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        timer = new CountDownTimer(TOTAL_TIME - INTERVAL * timeLeft, INTERVAL) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                makeTime();
-            }
-
-            @Override
-            public void onFinish() {
-                moveToNextFragment();
-            }
-        };
-        timer.start();
     }
 
     @Override
     protected String getTitle() {
-        if (isRandom) {
-            return getString(R.string.title_test);
-        } else {
-            return MessageFormat.format(getString(R.string.title_package), "" + examId);
-        }
-    }
-
-    @Override
-    protected boolean enableButtonResult() {
-        return true;
+        return getString(R.string.title_written_test);
     }
 
     @Override
@@ -141,88 +158,29 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     public void onBackPressed() {
-        timer.cancel();
         WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING1, HomeActivity.defaultFont);
-        warningDialog.addListener(this);
+        warningDialog.addListener(mOnConfirmDialogButtonClickListener);
         warningDialog.show();
     }
 
     @Override
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT) {
-            timer.cancel();
             WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING2, HomeActivity.defaultFont);
-            warningDialog.addListener(this);
+            warningDialog.addListener(mOnConfirmDialogButtonClickListener);
             warningDialog.show();
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        timer.cancel();
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        currentPosition = position;
-        resetAllWrapper();
-        wrappers.get(currentPosition).setActive(true);
-        testHorizontalScrollView.invalidate();
-        scrollToCenter(wrappers.get(currentPosition));
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onQuestionPagerItemClick(AnswerChoicesItem item) {
-        if (questions.get(currentPosition).answer == DataSource.ANSWER_NOT_CHOSEN) {
-            questions.get(currentPosition).answer = item.getIndex();
-            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
-            if (!wrapper.isHighlight) {
-                wrapper.setHighlight();
-                testHorizontalScrollView.invalidate();
-            }
-            if (currentPosition < 29) {
-                currentPosition++;
-                questionPager.setCurrentItem(currentPosition, true);
-                scrollToCenter(wrappers.get(currentPosition));
-            }
-        } else {
-            questions.get(currentPosition).answer = item.getIndex();
-            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
-            if (!wrapper.isHighlight) {
-                wrapper.setHighlight();
-                testHorizontalScrollView.invalidate();
-            }
-        }
-        adapter.notifyDataSetChanged();
-    }
-
     private void findViews(View rootView) {
+        rootView.findViewById(R.id.linear_clock).setVisibility(View.GONE);
         questionPager = (ViewPager) rootView.findViewById(R.id.questionPager);
         testHorizontalScrollContainer = (HorizontalScrollView) rootView.findViewById(R.id.testHorizontalScrollContainer);
         testHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
-        textViewMinute1 = (TextView) rootView.findViewById(R.id.textViewMinute1);
-        textViewMinute2 = (TextView) rootView.findViewById(R.id.textViewMinute2);
-        textViewSecond1 = (TextView) rootView.findViewById(R.id.textViewSecond1);
-        textViewSecond2 = (TextView) rootView.findViewById(R.id.textViewSecond2);
         setFont(rootView);
     }
 
     private void setFont(View rootView) {
-        textViewMinute1.setTypeface(HomeActivity.defaultFont);
-        textViewMinute2.setTypeface(HomeActivity.defaultFont);
-        textViewSecond1.setTypeface(HomeActivity.defaultFont);
-        textViewSecond2.setTypeface(HomeActivity.defaultFont);
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(HomeActivity.defaultFont);
         ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(font);
         ((TextView) rootView.findViewById(R.id.headerQuestion)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -232,45 +190,12 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         Bundle bundle = getArguments();
         type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
         examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
-        isRandom = bundle.getBoolean(BUNDLE_IS_RANDOM, false);
     }
 
     private void resetAllWrapper() {
         for (int i = 0; i < wrappers.size(); i++) {
             wrappers.get(i).setActive(false);
         }
-    }
-
-    private void makeTime() {
-        second2--;
-        if (second2 == -1) {
-            second2 = 9;
-            second1--;
-            if (second1 == -1) {
-                second1 = 5;
-                minute2--;
-                if (minute2 == -1) {
-                    minute2 = 9;
-                    minute1--;
-                }
-            }
-        }
-        textViewMinute1.setText("" + minute1);
-        textViewMinute2.setText("" + minute2);
-        textViewSecond1.setText("" + second1);
-        textViewSecond2.setText("" + second2);
-        timeLeft++;
-    }
-
-    @Override
-    public void onQuestionNoClick(QuestionNoItemWrapper item) {
-        resetAllWrapper();
-        item.setActive(true);
-        testHorizontalScrollView.invalidate();
-        int index = wrappers.indexOf(item);
-        questionPager.setCurrentItem(index, true);
-        currentPosition = index;
-        scrollToCenter(item);
     }
 
     private void scrollToCenter(QuestionNoItemWrapper questionNoItemWrapper) {
@@ -290,50 +215,18 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         bundle.putInt(Constants.BUNDLE_EXAM_ID, examId);
         putHolder(KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
-        replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);
-    }
-
-    @Override
-    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, BaseConfirmDialog.Type type, BaseConfirmDialog dialog) {
-        switch (button) {
-            case OK:
-                dialog.dismiss();
-                switch (type) {
-                    case WARNING1: // happen when user presses back
-                        getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                        break;
-                    case WARNING2: // happen when user presses Result
-                        moveToNextFragment();
-                        break;
-                }
-                break;
-            case CANCEL:
-                dialog.dismiss();
-                timer = new CountDownTimer(TOTAL_TIME - INTERVAL * timeLeft, INTERVAL) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        makeTime();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        moveToNextFragment();
-                    }
-                };
-                timer.start();
-                break;
-        }
+        replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
     }
 
     private class ViewPagerAdapter extends PagerAdapter implements AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {
 
-        private ArrayList<Question> questions;
-        private Context context;
+        private ArrayList<Question> mQuestions;
+        private Context mContext;
         private OnQuestionPagerItemClickListener listener;
 
         public ViewPagerAdapter(Context context, ArrayList<Question> questions) {
-            this.context = context;
-            this.questions = questions;
+            this.mContext = context;
+            this.mQuestions = questions;
         }
 
         public void setOnQuestionPagerItemClickListener(OnQuestionPagerItemClickListener listener) {
@@ -342,13 +235,13 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
         @Override
         public int getCount() {
-            return questions.size();
+            return mQuestions.size();
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            Question question = questions.get(position);
-            View view = View.inflate(context, R.layout.item_pager_question, null);
+            Question question = mQuestions.get(position);
+            View view = View.inflate(mContext, R.layout.item_pager_question, null);
             ImageView questionImage = (ImageView) view.findViewById(R.id.questionImage);
             TextView textViewQuestion = (TextView) view.findViewById(R.id.textViewQuestion);
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
@@ -399,28 +292,29 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         private ArrayList<AnswerChoicesItem> makeChoices(Question question) {
             ArrayList<AnswerChoicesItem> answerChoicesItems = new ArrayList<>();
             if (question.answer1 != null) {
-                AnswerChoicesItem answer1 = new AnswerChoicesItem(context, DataSource.ANSWER_A);
+                AnswerChoicesItem answer1 = new AnswerChoicesItem(mContext, DataSource.ANSWER_A);
                 answer1.setChoice(question.answer1);
                 answerChoicesItems.add(answer1);
             }
             if (question.answer2 != null) {
-                AnswerChoicesItem answer2 = new AnswerChoicesItem(context, DataSource.ANSWER_B);
+                AnswerChoicesItem answer2 = new AnswerChoicesItem(mContext, DataSource.ANSWER_B);
                 answer2.setChoice(question.answer2);
                 answerChoicesItems.add(answer2);
             }
             if (question.answer3 != null) {
-                AnswerChoicesItem answer3 = new AnswerChoicesItem(context, DataSource.ANSWER_C);
+                AnswerChoicesItem answer3 = new AnswerChoicesItem(mContext, DataSource.ANSWER_C);
                 answer3.setChoice(question.answer3);
                 answerChoicesItems.add(answer3);
             }
             if (question.answer4 != null) {
-                AnswerChoicesItem answer4 = new AnswerChoicesItem(context, DataSource.ANSWER_D);
+                AnswerChoicesItem answer4 = new AnswerChoicesItem(mContext, DataSource.ANSWER_D);
                 answer4.setChoice(question.answer4);
                 answerChoicesItems.add(answer4);
             }
             resetAllChoices(answerChoicesItems);
             if (question.answer != DataSource.ANSWER_NOT_CHOSEN) {
                 answerChoicesItems.get(question.answer).setActive(true);
+                answerChoicesItems.get(question.answer).showTextNotify(question.correctAnswer == question.answer);
             }
             return answerChoicesItems;
         }
@@ -428,6 +322,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         private void resetAllChoices(ArrayList<AnswerChoicesItem> answerChoicesItems) {
             for (int i = 0; i < answerChoicesItems.size(); i++) {
                 answerChoicesItems.get(i).setActive(false);
+                answerChoicesItems.get(i).hideTextNotify();
             }
         }
 
@@ -442,7 +337,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         public void onClick(View v) {
             ImageView image = (ImageView) v;
             Question question = (Question) image.getTag();
-            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(mContext, question.image);
             dialog.show();
         }
 
@@ -452,7 +347,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 image.setImageResource(R.drawable.ic_zoom_in_normal);
                 Question question = (Question) image.getTag();
-                ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+                ZoomInImageDialog dialog = new ZoomInImageDialog(mContext, question.image);
                 dialog.show();
             } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 image.setImageResource(R.drawable.ic_zoom_in_highlight);

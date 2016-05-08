@@ -39,5 +39,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':app_common')
     compile 'com.android.support:design:23.1.1'
+    compile 'com.getbase:floatingactionbutton:1.10.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.2'
 }

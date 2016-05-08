@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.HomeActivity;
@@ -22,17 +23,15 @@ import java.text.MessageFormat;
  */
 public class ShowRuleFragment extends MyBaseFragment implements View.OnClickListener {
 
+    public final static String TAG_SHOW_RULE_FRAGMENT = "Show Rule Fragment";
     private AppCompatCheckBox checkBoxShowRule;
     private TextView buttonStart;
     private TextView textViewRule;
     private LinearLayout checkBoxContainer;
-
     private int type;
     private boolean checked;
     private int examId;
     private boolean isRandom;
-
-    public final static String SHOW_RULE_FRAGMENT_TAG = "Show Rule Fragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,7 +101,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (type) {
             case DataSource.TYPE_SIM_A:
@@ -147,9 +146,9 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
-        examId = bundle.getInt("Exam Id", 1);
-        isRandom = bundle.getBoolean("Random", false);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
+        isRandom = bundle.getBoolean(DoTestFragment.BUNDLE_IS_RANDOM, false);
     }
 
     private void setFont(Typeface font, View rootView) {
@@ -164,13 +163,13 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     public void onClick(View v) {
         if (v == buttonStart) {
             saveState();
-            DoTestFragment fragment = new DoTestFragment();
+            WrittenTestFragment fragment = new WrittenTestFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt("Type", type);
-            bundle.putInt("Exam Id", examId);
-            bundle.putBoolean("Random", isRandom);
+            bundle.putInt(Constants.BUNDLE_TYPE, type);
+            bundle.putInt(Constants.BUNDLE_EXAM_ID, examId);
+            bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, isRandom);
             fragment.setArguments(bundle);
-            replaceFragment(fragment, SHOW_RULE_FRAGMENT_TAG);
+            replaceFragment(fragment, TAG_SHOW_RULE_FRAGMENT);
         } else if (v == checkBoxShowRule) {
             if (checked) {
                 checked = false;

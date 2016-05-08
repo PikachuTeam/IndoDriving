@@ -8,7 +8,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +25,9 @@ import tatteam.com.app_common.util.AppConstant;
  */
 public abstract class MyBaseActivity extends BaseActivity {
 
+    public final static boolean ADS_ENABLE = true;
+    public final static int BIG_ADS_SHOWING_INTERVAL = 20;
+    public static int count;
     private Toolbar toolbar;
     private TextView textViewTitle;
     private TextView buttonTutorial;
@@ -33,15 +35,19 @@ public abstract class MyBaseActivity extends BaseActivity {
     private LinearLayout buttonShare;
     private CoordinatorLayout mainCoordinatorLayout;
     private FrameLayout adsContainer;
-
     private boolean isProVersion;
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private AdsBigBannerHandler adsBigBannerHandler;
 
-    public final static boolean ADS_ENABLE = true;
-    public final static int BIG_ADS_SHOWING_INTERVAL = 20;
+    public static void startActivityAnimation(Activity activity, Intent intent) {
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
+    }
 
-    public static int count;
+    public static void finishActivityAnimation(Activity activity) {
+        activity.finish();
+        activity.overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
+    }
 
     @Override
     protected int getLayoutResIdContentView() {
@@ -53,13 +59,10 @@ public abstract class MyBaseActivity extends BaseActivity {
         findViews();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(font);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(HomeActivity.SHARED_PREFERENCES, MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
-
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
         setupAds();
     }
 
@@ -188,15 +191,5 @@ public abstract class MyBaseActivity extends BaseActivity {
     private MyBaseFragment getMyCurrentFragment() {
         MyBaseFragment fragment = (MyBaseFragment) getFragmentManager().findFragmentById(R.id.fragmentContainer);
         return fragment;
-    }
-
-    public static void startActivityAnimation(Activity activity, Intent intent) {
-        activity.startActivity(intent);
-        activity.overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
-    }
-
-    public static void finishActivityAnimation(Activity activity) {
-        activity.finish();
-        activity.overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
     }
 }

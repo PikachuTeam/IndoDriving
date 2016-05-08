@@ -26,10 +26,6 @@ public abstract class BaseConfirmDialog extends Dialog {
 
     protected abstract void onCreateContentView();
 
-    public interface OnConfirmDialogButtonClickListener {
-        void onConfirmDialogButtonClick(ConfirmButton button, Type type, BaseConfirmDialog dialog);
-    }
-
     public enum Type {
         WARNING1,
         WARNING2,
@@ -39,5 +35,9 @@ public abstract class BaseConfirmDialog extends Dialog {
     public enum ConfirmButton {
         OK,
         CANCEL
+    }
+
+    public interface OnConfirmDialogButtonClickListener {
+        void onConfirmDialogButtonClick(ConfirmButton button, Type type, BaseConfirmDialog dialog);
     }
 }

@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 
@@ -80,7 +81,7 @@ public class TutorialFragment extends MyBaseFragment {
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
     }
 
     private boolean isNetworkAvailable() {

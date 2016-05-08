@@ -2,8 +2,6 @@ package com.essential.indodriving.ui.learn;
 
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
-import android.content.ClipData;
-import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +20,6 @@ import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -33,11 +29,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.BaseConfirmDialog;
+import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
@@ -48,12 +44,24 @@ import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-
 /**
  * Created by dongc_000 on 2/27/2016.
  */
 public class LearnAllFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
 
+    public final static String
+            LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment",
+            PREF_CURRENT_POSITION_SIM_A = "Current Position Sim A",
+            PREF_CURRENT_POSITION_SIM_A_UMUM = "Current Position Sim A Umum",
+            PREF_CURRENT_POSITION_SIM_B1 = "Current Position Sim B1",
+            PREF_CURRENT_POSITION_SIM_B1_UMUM = "Current Position Sim B1 Umum",
+            PREF_CURRENT_POSITION_SIM_B2 = "Current Position Sim B2",
+            PREF_CURRENT_POSITION_SIM_B2_UMUM = "Current Position Sim B2 Umum",
+            PREF_CURRENT_POSITION_SIM_C = "Current Position Sim C",
+            PREF_CURRENT_POSITION_SIM_D = "Current Position Sim D";
+    private static final float BITMAP_SCALE = 0.4f;
+    private static final float BLUR_RADIUS = 7f;
+    private static final long ALPHA_ANIM_DURATION = 600;
     private ImageView cardQuestionImage;
     private TextView cardTextViewQuestion;
     private TextView textViewProgress;
@@ -71,7 +79,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private RelativeLayout lockedArea;
     private ImageView blurryImage;
     private LinearLayout answerArea;
-
     private ArrayList<Question> questions;
     private int type;
     private int currentPosition;
@@ -81,21 +88,41 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private boolean isRated;
     private boolean isProVersion;
     private AlphaAnimation alphaAnimation;
-
-    private static final float BITMAP_SCALE = 0.4f;
-    private static final float BLUR_RADIUS = 7f;
-    private static final long ALPHA_ANIM_DURATION = 600;
-
-    public final static String LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment";
-    public final static String
-            PREF_CURRENT_POSITION_SIM_A = "Current Position Sim A",
-            PREF_CURRENT_POSITION_SIM_A_UMUM = "Current Position Sim A Umum",
-            PREF_CURRENT_POSITION_SIM_B1 = "Current Position Sim B1",
-            PREF_CURRENT_POSITION_SIM_B1_UMUM = "Current Position Sim B1 Umum",
-            PREF_CURRENT_POSITION_SIM_B2 = "Current Position Sim B2",
-            PREF_CURRENT_POSITION_SIM_B2_UMUM = "Current Position Sim B2 Umum",
-            PREF_CURRENT_POSITION_SIM_C = "Current Position Sim C",
-            PREF_CURRENT_POSITION_SIM_D = "Current Position Sim D";
+    private View.OnTouchListener mIndicatorTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    float realX = event.getRawX() - getResources().getDimension(R.dimen.common_size_20);
+                    float ratio = realX / readingProgress.getWidth();
+                    int tmp = (int) (ratio * questions.size());
+                    if (tmp > 0 && tmp < questions.size()) {
+                        currentPosition = tmp;
+                        setCardData(questions.get(currentPosition));
+                        if (currentPosition == 0) {
+                            disableButton(buttonPrevious, R.drawable.ic_previous);
+                            if (!buttonNext.isEnabled()) {
+                                enableButton(buttonNext, R.drawable.ic_next);
+                            }
+                        } else if (currentPosition == questions.size() - 1) {
+                            disableButton(buttonNext, R.drawable.ic_next);
+                            if (!buttonPrevious.isEnabled()) {
+                                enableButton(buttonPrevious, R.drawable.ic_previous);
+                            }
+                        } else if (currentPosition > 0 && currentPosition < questions.size()) {
+                            if (!buttonNext.isEnabled()) {
+                                enableButton(buttonNext, R.drawable.ic_next);
+                            }
+                            if (!buttonPrevious.isEnabled()) {
+                                enableButton(buttonPrevious, R.drawable.ic_previous);
+                            }
+                        }
+                    }
+                    break;
+            }
+            return false;
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +133,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         isFirst = true;
-
         alphaAnimation = new AlphaAnimation(0f, 1f);
         alphaAnimation.setDuration(ALPHA_ANIM_DURATION);
     }
@@ -114,26 +140,31 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
-
-        buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
-
+        buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.learn_all_button_zoom_in_normal_color)
+                , PorterDuff.Mode.SRC_ATOP);
         Question question = questions.get(currentPosition);
         setCardData(question);
-
         readingProgress.setMax(questions.size());
         readingProgress.setProgress(currentPosition + 1);
-
         if (currentPosition == 0) {
             disableButton(buttonPrevious, R.drawable.ic_previous);
-            buttonNext.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
+            buttonNext.setColorFilter(ContextCompat.getColor(getActivity()
+                    , R.color.learn_all_button_normal_color)
+                    , PorterDuff.Mode.SRC_ATOP);
         } else if (currentPosition == questions.size() - 1) {
             disableButton(buttonNext, R.drawable.ic_next);
-            buttonPrevious.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
+            buttonPrevious.setColorFilter(ContextCompat.getColor(getActivity()
+                    , R.color.learn_all_button_normal_color)
+                    , PorterDuff.Mode.SRC_ATOP);
         } else {
-            buttonPrevious.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
-            buttonNext.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
+            buttonPrevious.setColorFilter(ContextCompat.getColor(getActivity()
+                    , R.color.learn_all_button_normal_color)
+                    , PorterDuff.Mode.SRC_ATOP);
+            buttonNext.setColorFilter(ContextCompat.getColor(getActivity()
+                    , R.color.learn_all_button_normal_color)
+                    , PorterDuff.Mode.SRC_ATOP);
         }
-
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -141,9 +172,9 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                     isFirst = false;
                     indicatorPositionOffset = (float) readingProgress.getWidth() / questions.size();
                 }
-                indicatorPosition = progressBarContainer.getX() - indicator.getWidth() / 2 + indicatorPositionOffset * (currentPosition + 1);
+                indicatorPosition = progressBarContainer.getX() - indicator.getWidth() / 2
+                        + indicatorPositionOffset * (currentPosition + 1);
                 indicator.setX(indicatorPosition);
-
                 if (getActivity() != null) {
                     if (!isProVersion && !isRated) {
                         if (currentPosition >= 10) {
@@ -167,17 +198,14 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 }
             }
         });
-
         progressBarContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     float rate = event.getX() / readingProgress.getWidth();
-
                     float tmp = questions.size() * rate;
                     currentPosition = (int) tmp;
                     setCardData(questions.get(currentPosition));
-
                     if (currentPosition == 0) {
                         disableButton(buttonPrevious, R.drawable.ic_previous);
                         if (!buttonNext.isEnabled()) {
@@ -256,13 +284,12 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         cardQuestionImage.setOnClickListener(this);
         buttonZoomIn.setOnTouchListener(this);
         lockedArea.setOnClickListener(this);
-
-        indicator.setOnTouchListener(indicatorTouchListener);
+        indicator.setOnTouchListener(mIndicatorTouchListener);
     }
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
     }
 
     @Override
@@ -286,7 +313,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     protected void onMenuItemClick(int id) {
         TutorialFragment tutorialFragment = new TutorialFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("Type", type);
+        bundle.putInt(Constants.BUNDLE_TYPE, type);
         tutorialFragment.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.fragment_silde_bot_enter, 0, 0, R.animator.fragment_silde_bot_exit);
@@ -297,7 +324,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (type) {
             case DataSource.TYPE_SIM_A:
@@ -329,7 +356,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void loadState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         switch (type) {
             case DataSource.TYPE_SIM_A:
                 currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A, 0);
@@ -358,8 +385,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             default:
                 currentPosition = 0;
         }
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
-        isRated = sharedPreferences.getBoolean(HomeActivity.PRE_IS_RATE_APP, false);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+        isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
     }
 
     private void setCardData(Question question) {
@@ -370,7 +397,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             cardQuestionImage.setImageBitmap(question.image);
         }
         cardTextViewQuestion.setText(question.question);
-
         if (question.answer1 != null) {
             textViewAnswerA.setVisibility(View.VISIBLE);
             textViewAnswerA.setText("A. " + question.answer1);
@@ -395,9 +421,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         } else {
             textViewAnswerD.setVisibility(View.GONE);
         }
-
         resetAllAnswers();
-
         switch (question.correctAnswer) {
             case DataSource.ANSWER_A:
                 textViewAnswerA.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
@@ -412,9 +436,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 textViewAnswerD.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
                 break;
         }
-
         textViewProgress.setText("" + (currentPosition + 1));
-
         readingProgress.setProgress(currentPosition + 1);
     }
 
@@ -481,8 +503,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                         case OK:
                             Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                            // To count with Play market backstack, After pressing back button,
-                            // to taken back to our application, we need to add following flags to intent.
                             goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                                     Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
                                     Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -490,16 +510,17 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                                 startActivity(goToMarket);
                             } catch (ActivityNotFoundException e) {
                                 startActivity(new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
+                                        Uri.parse("http://play.google.com/store/apps/details?id="
+                                                + getActivity().getPackageName())));
                             }
                             isRated = true;
-                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = getActivity()
+                                    .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean(HomeActivity.PRE_IS_RATE_APP, isRated);
+                            editor.putBoolean(Constants.PREF_IS_RATE_APP, isRated);
                             editor.commit();
                             break;
                         case CANCEL:
-                            // do nothing
                             break;
                     }
                 }
@@ -510,33 +531,33 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private void enableButton(ImageView button, int image) {
         button.setEnabled(true);
         button.setImageResource(image);
-        button.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_normal_color), PorterDuff.Mode.SRC_ATOP);
+        button.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.learn_all_button_normal_color)
+                , PorterDuff.Mode.SRC_ATOP);
     }
 
     private void disableButton(ImageView button, int image) {
         button.setEnabled(false);
         button.setImageResource(image);
-        button.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_disabled_color), PorterDuff.Mode.SRC_ATOP);
+        button.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.learn_all_button_disabled_color)
+                , PorterDuff.Mode.SRC_ATOP);
     }
 
     private Bitmap getRoundedCornerBitmap(Bitmap src) {
         Bitmap output = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
-
         final int color = 0xff424242;
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, src.getWidth(), src.getHeight());
         final RectF rectF = new RectF(rect);
         final float roundPx = getResources().getDimension(tatteam.com.app_common.R.dimen.common_size_10);
-
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
         canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(src, rect, rect, paint);
-
         return output;
     }
 
@@ -550,10 +571,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private Bitmap getBlurredBackground(Bitmap image) throws Exception {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);
-
         Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
         Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
-
         RenderScript rs = RenderScript.create(getActivity());
         ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
         Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
@@ -562,9 +581,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         theIntrinsic.setInput(tmpIn);
         theIntrinsic.forEach(tmpOut);
         tmpOut.copyTo(outputBitmap);
-
         rs.destroy();
-
         return getRoundedCornerBitmap(Bitmap.createScaledBitmap(outputBitmap, image.getWidth(), image.getHeight(), false));
     }
 
@@ -573,10 +590,14 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         if (v == buttonZoomIn) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
-                buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_zoom_in_highlight_color), PorterDuff.Mode.SRC_ATOP);
+                buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity()
+                        , R.color.learn_all_button_zoom_in_highlight_color)
+                        , PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
-                buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity(), R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
+                buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity()
+                        , R.color.learn_all_button_zoom_in_normal_color)
+                        , PorterDuff.Mode.SRC_ATOP);
                 Question question = questions.get(currentPosition);
                 ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.image);
                 dialog.show();
@@ -622,43 +643,4 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
         return false;
     }
-
-    private View.OnTouchListener indicatorTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_MOVE:
-                    float realX = event.getRawX() - getResources().getDimension(R.dimen.common_size_20);
-                    float ratio = realX / readingProgress.getWidth();
-                    int tmp = (int) (ratio * questions.size());
-                    if (tmp > 0 && tmp < questions.size()) {
-                        currentPosition = tmp;
-                        setCardData(questions.get(currentPosition));
-
-                        if (currentPosition == 0) {
-                            disableButton(buttonPrevious, R.drawable.ic_previous);
-                            if (!buttonNext.isEnabled()) {
-                                enableButton(buttonNext, R.drawable.ic_next);
-                            }
-                        } else if (currentPosition == questions.size() - 1) {
-                            disableButton(buttonNext, R.drawable.ic_next);
-                            if (!buttonPrevious.isEnabled()) {
-                                enableButton(buttonPrevious, R.drawable.ic_previous);
-                            }
-                        } else if (currentPosition > 0 && currentPosition < questions.size()) {
-                            if (!buttonNext.isEnabled()) {
-                                enableButton(buttonNext, R.drawable.ic_next);
-                            }
-                            if (!buttonPrevious.isEnabled()) {
-                                enableButton(buttonPrevious, R.drawable.ic_previous);
-                            }
-                        }
-                    }
-                    break;
-            }
-
-            return false;
-        }
-    };
 }

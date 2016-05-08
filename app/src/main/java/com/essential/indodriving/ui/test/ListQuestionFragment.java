@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.base.BaseConfirmDialog;
+import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.QuestionPackage;
@@ -37,16 +38,6 @@ import java.util.ArrayList;
  */
 public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerViewItemClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
-    private RecyclerView listQuestion;
-
-    private int type;
-    private ListQuestionAdapter adapter;
-    private ArrayList<QuestionPackage> questionPackages;
-    private SpaceItemDecoration spaceItemDecoration;
-    private boolean isShowedRuleAgain;
-    private boolean isRated;
-    private boolean isProVersion;
-
     public final static String LIST_QUESTION_FRAGMENT_TAG = "List Question Fragment";
     public final static String
             PREF_SHOW_RULE_AGAIN_SIM_A = "Show Rule Again A",
@@ -57,6 +48,14 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
             PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM = "Show Rule Again B2 Umum",
             PREF_SHOW_RULE_AGAIN_SIM_C = "Show Rule Again C",
             PREF_SHOW_RULE_AGAIN_SIM_D = "Show Rule Again D";
+    private RecyclerView listQuestion;
+    private int type;
+    private ListQuestionAdapter adapter;
+    private ArrayList<QuestionPackage> questionPackages;
+    private SpaceItemDecoration spaceItemDecoration;
+    private boolean isShowedRuleAgain;
+    private boolean isRated;
+    private boolean isProVersion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,7 +102,8 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     }
 
     private void loadState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity()
+                .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         switch (type) {
             case DataSource.TYPE_SIM_A:
                 isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_A, true);
@@ -130,13 +130,13 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_D, true);
                 break;
         }
-        isRated = sharedPreferences.getBoolean(HomeActivity.PRE_IS_RATE_APP, false);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PRE_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+        isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
     }
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
     }
 
     private void setupRecyclerView() {
@@ -156,17 +156,17 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     public void onQuestionListItemClick(QuestionPackage questionPackage, boolean isHeader) {
         if (isHeader) {
             if (isShowedRuleAgain) {
-                ShowRuleFragment fragment = new ShowRuleFragment();
+                WrittenTestFragment fragment = new WrittenTestFragment();
                 Bundle bundle = new Bundle();
-                bundle.putInt("Type", type);
-                bundle.putBoolean("Random", true);
+                bundle.putInt(Constants.BUNDLE_TYPE, type);
+                bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, true);
                 fragment.setArguments(bundle);
                 replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
             } else {
-                DoTestFragment fragment = new DoTestFragment();
+                WrittenTestFragment fragment = new WrittenTestFragment();
                 Bundle bundle = new Bundle();
-                bundle.putInt("Type", type);
-                bundle.putBoolean("Random", true);
+                bundle.putInt(Constants.BUNDLE_TYPE, type);
+                bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, true);
                 fragment.setArguments(bundle);
                 replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
             }
@@ -187,7 +187,8 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                                 moveToDoTestFragment(questionPackage.index);
                             }
                         } else {
-                            Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout(), getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout()
+                                    , getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
                         }
                     } else {
                         if (questionPackage.index < 7) {
@@ -195,7 +196,8 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                             ratingDialog.show();
                             ratingDialog.addListener(this);
                         } else {
-                            Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout(), getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout()
+                                    , getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 } else {
@@ -212,17 +214,17 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private void moveToShowRuleFragment(int index) {
         ShowRuleFragment fragment = new ShowRuleFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("Type", type);
-        bundle.putInt("Exam Id", index);
+        bundle.putInt(Constants.BUNDLE_TYPE, type);
+        bundle.putInt(Constants.BUNDLE_EXAM_ID, index);
         fragment.setArguments(bundle);
         replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
     }
 
     private void moveToDoTestFragment(int index) {
-        DoTestFragment fragment = new DoTestFragment();
+        WrittenTestFragment fragment = new WrittenTestFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("Type", type);
-        bundle.putInt("Exam Id", index);
+        bundle.putInt(Constants.BUNDLE_TYPE, type);
+        bundle.putInt(Constants.BUNDLE_EXAM_ID, index);
         fragment.setArguments(bundle);
         replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
     }
@@ -246,13 +248,12 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
                 }
                 isRated = true;
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(HomeActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(HomeActivity.PRE_IS_RATE_APP, isRated);
+                editor.putBoolean(Constants.PREF_IS_RATE_APP, isRated);
                 editor.commit();
                 break;
             case CANCEL:
-                // nothing to do here :v
                 break;
         }
     }
@@ -288,10 +289,10 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
 
     private class ListQuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+        private final static int TYPE_HEADER = 0, TYPE_ITEM = 1;
         private ArrayList<QuestionPackage> packages;
         private Context context;
         private OnRecyclerViewItemClickListener listener;
-        private final static int TYPE_HEADER = 0, TYPE_ITEM = 1;
         private Typeface font;
 
         public ListQuestionAdapter(Context context, ArrayList<QuestionPackage> packages, Typeface font) {
@@ -321,7 +322,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 final QuestionPackage questionPackage = packages.get(position - 1);
                 ((ViewHolderItem) holder).textViewPackage.setText(MessageFormat.format(context.getString(R.string.title_package), "" + questionPackage.index));
                 ((ViewHolderItem) holder).textViewPackage.setTypeface(font);
-
                 if (questionPackage.lastScore == 0) {
                     ((ViewHolderItem) holder).textViewLastScore.setVisibility(View.GONE);
                 } else {
@@ -342,7 +342,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                         }
                     }
                 });
-
                 if (!ListQuestionFragment.this.isProVersion) {
                     if (position - 1 == 0) {
                         ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);

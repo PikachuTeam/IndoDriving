@@ -63,7 +63,7 @@ public abstract class MyBaseFragment extends BaseFragment {
 //        super.onCreateOptionsMenu(menu, inflater);
 //    }
 
-    public void sharingEvent(){
+    public void sharingEvent() {
         String androidLink = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
         String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
         CommonUtil.sharePlainText(getActivity(), sharedText);

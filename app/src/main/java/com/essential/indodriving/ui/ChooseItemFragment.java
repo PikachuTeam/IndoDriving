@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.learn.LearnAllFragment;
@@ -16,9 +17,8 @@ import com.essential.indodriving.ui.test.ListQuestionFragment;
  */
 public class ChooseItemFragment extends MyBaseFragment {
 
+    public final static String TAG_CHOOSE_ITEM_FRAGMENT = "Choose Item Fragment";
     private int type;
-
-    public final static String CHOOSE_ITEM_FRAGMENT_TAG = "Choose Item Fragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,50 +66,46 @@ public class ChooseItemFragment extends MyBaseFragment {
                 moveToLearnFragment();
             }
         });
-
         rootView.findViewById(R.id.buttonTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToTestFragment();
             }
         });
-
         rootView.findViewById(R.id.buttonLearnContainer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToLearnFragment();
             }
         });
-
         rootView.findViewById(R.id.buttonTestContainer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToTestFragment();
             }
         });
-
         setFont(rootView, HomeActivity.defaultFont);
     }
 
     private void moveToLearnFragment() {
         Bundle bundle = new Bundle();
-        bundle.putInt("Type", type);
+        bundle.putInt(Constants.BUNDLE_TYPE, type);
         LearnAllFragment learnAllFragment = new LearnAllFragment();
         learnAllFragment.setArguments(bundle);
-        replaceFragment(learnAllFragment, CHOOSE_ITEM_FRAGMENT_TAG);
+        replaceFragment(learnAllFragment, TAG_CHOOSE_ITEM_FRAGMENT);
     }
 
     private void moveToTestFragment() {
         Bundle bundle = new Bundle();
-        bundle.putInt("Type", type);
+        bundle.putInt(Constants.BUNDLE_TYPE, type);
         ListQuestionFragment fragment = new ListQuestionFragment();
         fragment.setArguments(bundle);
-        replaceFragment(fragment, CHOOSE_ITEM_FRAGMENT_TAG);
+        replaceFragment(fragment, TAG_CHOOSE_ITEM_FRAGMENT);
     }
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
     }
 
     private void setFont(View rootView, Typeface font) {

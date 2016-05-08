@@ -1,40 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/choice_height"
     app:cardCornerRadius="@dimen/common_size_3"
     app:cardPreventCornerOverlap="false">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/choiceLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/raised_button"
         android:clickable="true"
-        android:minHeight="@dimen/choice_height">
+        android:minHeight="@dimen/choice_height"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            app:buttonTint="@color/item_choice_check_box_color" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:buttonTint="@color/item_choice_check_box_color" />
+
+            <TextView
+                android:id="@+id/textViewAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/checkBox"
+                android:gravity="center_vertical|left"
+                android:paddingBottom="@dimen/common_size_5"
+                android:paddingLeft="@dimen/common_size_10"
+                android:paddingTop="@dimen/common_size_5"
+                android:text="Aloha"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/common_text_size_18" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/textViewAnswer"
+            android:id="@+id/text_notify"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/checkBox"
-            android:gravity="center_vertical|left"
-            android:paddingBottom="@dimen/common_size_5"
-            android:paddingLeft="@dimen/common_size_10"
-            android:paddingTop="@dimen/common_size_5"
-            android:text="Aloha"
-            android:textColor="@color/text_color_3"
-            android:textSize="@dimen/common_text_size_18" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:background="@color/correct_answer_color"
+            android:padding="@dimen/common_size_5"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_16"
+            android:textStyle="bold"
+            android:visibility="visible" />
+    </LinearLayout>
 </android.support.v7.widget.CardView>

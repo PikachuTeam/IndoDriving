@@ -3,7 +3,6 @@ package com.essential.indodriving.ui.widget;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;

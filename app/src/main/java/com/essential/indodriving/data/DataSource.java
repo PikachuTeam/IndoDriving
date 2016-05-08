@@ -5,11 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import tatteam.com.app_common.sqlite.BaseDataSource;
-import tatteam.com.app_common.sqlite.DatabaseLoader;
 
 /**
  * Created by dongc_000 on 2/19/2016.

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
@@ -27,13 +28,12 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import tatteam.com.app_common.util.CommonUtil;
-
 /**
  * Created by dongc_000 on 2/28/2016.
  */
 public class OverallResultFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
 
+    public final static String TAG_OVERALL_RESULT_FRAGMENT = "Overall Result Fragment";
     private TextView textViewState;
     private TextView tvCorrectAnswer;
     private TextView tvWrongAnswer;
@@ -45,7 +45,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private ImageView buttonNext1;
     private ImageView buttonNext2;
     private ImageView buttonNext3;
-
     private PieChart pieChart;
     private int totalCorrectAnswer;
     private int totalWrongAnswer;
@@ -55,8 +54,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private float[] yData;
     private ArrayList<Question> questions;
     private boolean isSaved;
-
-    public final static String OVERALL_RESULT_FRAGMENT_TAG = "Overall Result Fragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,22 +79,32 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
         setText();
-
         setupChart();
         chartContainer.addView(pieChart);
-        pieChart.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-
+        pieChart.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                , ViewGroup.LayoutParams.MATCH_PARENT));
         setDefaultColor(rootView);
     }
 
     private void setDefaultColor(View rootView) {
-        ((ImageView) rootView.findViewById(R.id.imgCorrectAnswer)).setColorFilter(ContextCompat.getColor(getActivity(), R.color.correct_answer_color), PorterDuff.Mode.SRC_ATOP);
-        ((ImageView) rootView.findViewById(R.id.imgWrongAnswer)).setColorFilter(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color), PorterDuff.Mode.SRC_ATOP);
-        ((ImageView) rootView.findViewById(R.id.imgNotAnswered)).setColorFilter(ContextCompat.getColor(getActivity(), R.color.not_answered_color), PorterDuff.Mode.SRC_ATOP);
-        buttonNext1.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
-        buttonNext2.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
-        buttonNext3.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgCorrectAnswer)).setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.correct_answer_color)
+                , PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgWrongAnswer)).setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.wrong_answer_color)
+                , PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgNotAnswered)).setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.not_answered_color)
+                , PorterDuff.Mode.SRC_ATOP);
+        buttonNext1.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.overall_result_button_next_normal_color)
+                , PorterDuff.Mode.SRC_ATOP);
+        buttonNext2.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.overall_result_button_next_normal_color)
+                , PorterDuff.Mode.SRC_ATOP);
+        buttonNext3.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.overall_result_button_next_normal_color)
+                , PorterDuff.Mode.SRC_ATOP);
     }
 
     private void getData() {
@@ -107,8 +114,8 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             questions = new ArrayList<>();
         }
         Bundle bundle = getArguments();
-        type = bundle.getInt("Type", DataSource.TYPE_SIM_A);
-        examId = bundle.getInt("Exam Id", 1);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
     }
 
     @Override
@@ -295,18 +302,18 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         Bundle bundle = new Bundle();
         if (v == buttonCorrectAnswer) {
             putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
-            bundle.putInt("Type", 0);
+            bundle.putInt(Constants.BUNDLE_TYPE, 0);
         } else if (v == buttonWrongAnswer) {
             putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getWrongAnswers());
-            bundle.putInt("Type", 1);
+            bundle.putInt(Constants.BUNDLE_TYPE, 1);
         } else if (v == buttonNotAnswered) {
             putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
-            bundle.putInt("Type", 2);
+            bundle.putInt(Constants.BUNDLE_TYPE, 2);
         }
         saveData();
         DetailResultFragment fragment = new DetailResultFragment();
         fragment.setArguments(bundle);
-        replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+        replaceFragment(fragment, TAG_OVERALL_RESULT_FRAGMENT);
     }
 
     @Override
@@ -321,7 +328,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 bundle.putInt("Type", 0);
                 DetailResultFragment fragment = new DetailResultFragment();
                 fragment.setArguments(bundle);
-                replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+                replaceFragment(fragment, TAG_OVERALL_RESULT_FRAGMENT);
             }
         } else if (v == buttonNext2) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -330,10 +337,10 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 buttonNext2.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
                 putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getWrongAnswers());
                 Bundle bundle = new Bundle();
-                bundle.putInt("Type", 1);
+                bundle.putInt(Constants.BUNDLE_TYPE, 1);
                 DetailResultFragment fragment = new DetailResultFragment();
                 fragment.setArguments(bundle);
-                replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+                replaceFragment(fragment, TAG_OVERALL_RESULT_FRAGMENT);
             }
         } else if (v == buttonNext3) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -342,10 +349,10 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 buttonNext3.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
                 putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
                 Bundle bundle = new Bundle();
-                bundle.putInt("Type", 2);
+                bundle.putInt(Constants.BUNDLE_TYPE, 2);
                 DetailResultFragment fragment = new DetailResultFragment();
                 fragment.setArguments(bundle);
-                replaceFragment(fragment, OVERALL_RESULT_FRAGMENT_TAG);
+                replaceFragment(fragment, TAG_OVERALL_RESULT_FRAGMENT);
             }
         }
         saveData();
