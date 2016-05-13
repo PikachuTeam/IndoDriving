@@ -19,15 +19,14 @@ public class WarningDialog extends BaseConfirmDialog {
     private TextView buttonOk;
     private TextView buttonCancel;
     private Typeface font;
-
-    private Type type;
+    private int mType;
     private OnConfirmDialogButtonClickListener listener;
 
-    public WarningDialog(Context context, Type type, Typeface font) {
+    public WarningDialog(Context context, @DialogTypeDef int type, Typeface font) {
         super(context);
         this.context = context;
         this.font = font;
-        this.type = type;
+        this.mType = type;
     }
 
     @Override
@@ -38,15 +37,13 @@ public class WarningDialog extends BaseConfirmDialog {
     @Override
     protected void onCreateContentView() {
         setCanceledOnTouchOutside(false);
-
         findViews();
         setFont(font);
-
-        switch (type) {
-            case WARNING1:
+        switch (mType) {
+            case TYPE_WARNING_1:
                 textViewWarning.setText(context.getString(R.string.dialog_warning_text_exit));
                 break;
-            case WARNING2:
+            case TYPE_WARNING_2:
                 textViewWarning.setText(context.getString(R.string.dialog_warning_text));
                 break;
         }
@@ -57,25 +54,23 @@ public class WarningDialog extends BaseConfirmDialog {
     }
 
     private void findViews() {
-        textViewWarning = (TextView) findViewById(R.id.tvWarning);
-        buttonOk = (TextView) findViewById(R.id.buttonOk);
-        buttonCancel = (TextView) findViewById(R.id.buttonCancel);
-        textViewDialogTitle = (TextView) findViewById(R.id.textViewDialogTitle);
-
+        textViewWarning = (TextView) findViewById(R.id.dialog_content);
+        buttonOk = (TextView) findViewById(R.id.button_ok);
+        buttonCancel = (TextView) findViewById(R.id.button_cancel);
+        textViewDialogTitle = (TextView) findViewById(R.id.dialog_title);
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onConfirmDialogButtonClick(ConfirmButton.OK, type, WarningDialog.this);
+                    listener.onConfirmDialogButtonClick(ConfirmButton.OK, mType, WarningDialog.this);
                 }
             }
         });
-
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onConfirmDialogButtonClick(ConfirmButton.CANCEL, type, WarningDialog.this);
+                    listener.onConfirmDialogButtonClick(ConfirmButton.CANCEL, mType, WarningDialog.this);
                 }
             }
         });

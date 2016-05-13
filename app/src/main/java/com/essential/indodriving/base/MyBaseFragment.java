@@ -14,7 +14,7 @@ import tatteam.com.app_common.util.CommonUtil;
  */
 public abstract class MyBaseFragment extends BaseFragment {
 
-    public final static int BUTTON_RESULT = 1, BUTTON_TUTORIAL = 2, BUTTON_SHARE = 3;
+    public final static int BUTTON_RESULT = 1, BUTTON_TUTORIAL = 2, BUTTON_WRITTEN_TEST = 3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public abstract class MyBaseFragment extends BaseFragment {
         getMyBaseActivity().enableButtonResult(enableButtonResult());
         getMyBaseActivity().enableButtonTutorial(enableButtonTutorial());
         getMyBaseActivity().enableButtonShare(enableButtonShare());
+        getMyBaseActivity().enableButtonWrittenTest(enableButtonWrittenTest());
         getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(enableIndicator());
         if (enableButtonBack()) {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
@@ -49,24 +50,18 @@ public abstract class MyBaseFragment extends BaseFragment {
                     getFragmentManager().popBackStack();
                 }
                 break;
-//            case R.id.buttonResult:
-//                onMenuItemClick(BUTTON_RESULT);
-//                break;
         }
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.main_menu, menu);
-//        menu.findItem(R.id.buttonResult).setVisible(enableButtonResult());
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
 
     public void sharingEvent() {
         String androidLink = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
         String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
         CommonUtil.sharePlainText(getActivity(), sharedText);
+    }
+
+    public MyBaseActivity getMyBaseActivity() {
+        return (MyBaseActivity) getBaseActivity();
     }
 
     protected void onMenuItemClick(int id) {
@@ -97,9 +92,9 @@ public abstract class MyBaseFragment extends BaseFragment {
         return false;
     }
 
-    protected abstract String getTitle();
-
-    public MyBaseActivity getMyBaseActivity() {
-        return (MyBaseActivity) getBaseActivity();
+    protected boolean enableButtonWrittenTest() {
+        return false;
     }
+
+    protected abstract String getTitle();
 }

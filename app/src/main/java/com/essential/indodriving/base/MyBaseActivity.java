@@ -32,6 +32,7 @@ public abstract class MyBaseActivity extends BaseActivity {
     private TextView textViewTitle;
     private TextView buttonTutorial;
     private TextView buttonResult;
+    private TextView mButtonWrittenTest;
     private LinearLayout buttonShare;
     private CoordinatorLayout mainCoordinatorLayout;
     private FrameLayout adsContainer;
@@ -39,14 +40,8 @@ public abstract class MyBaseActivity extends BaseActivity {
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private AdsBigBannerHandler adsBigBannerHandler;
 
-    public static void startActivityAnimation(Activity activity, Intent intent) {
-        activity.startActivity(intent);
-        activity.overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
-    }
-
-    public static void finishActivityAnimation(Activity activity) {
-        activity.finish();
-        activity.overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
+    public CoordinatorLayout getMainCoordinatorLayout() {
+        return mainCoordinatorLayout;
     }
 
     @Override
@@ -77,39 +72,22 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
+    public static void startActivityAnimation(Activity activity, Intent intent) {
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
+    }
+
+    public static void finishActivityAnimation(Activity activity) {
+        activity.finish();
+        activity.overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
+    }
+
     public Toolbar getToolbar() {
         return toolbar;
     }
 
     public void setToolbarTitle(String title) {
         textViewTitle.setText(title);
-    }
-
-    private void setupAds() {
-        if (isProVersion) {
-            if (ADS_ENABLE) {
-                adsContainer.setVisibility(View.GONE);
-                if (adsSmallBannerHandler != null) {
-                    adsSmallBannerHandler.destroy();
-                }
-                if (adsBigBannerHandler != null) {
-                    adsBigBannerHandler.destroy();
-                }
-            } else {
-                adsContainer.setVisibility(View.GONE);
-            }
-        } else {
-            count = 0;
-            if (ADS_ENABLE) {
-                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST);
-                adsSmallBannerHandler.setup();
-
-                adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
-                adsBigBannerHandler.setup();
-            } else {
-                adsContainer.setVisibility(View.GONE);
-            }
-        }
     }
 
     public void enableButtonTutorial(boolean isVisible) {
@@ -136,6 +114,14 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
+    public void enableButtonWrittenTest(boolean isVisible) {
+        if (isVisible) {
+            mButtonWrittenTest.setVisibility(View.VISIBLE);
+        } else {
+            mButtonWrittenTest.setVisibility(View.GONE);
+        }
+    }
+
     public void showBigAdsIfNeeded() {
         if (!isProVersion) {
             if (ADS_ENABLE) {
@@ -147,33 +133,64 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
+    private void setupAds() {
+        if (isProVersion) {
+            if (ADS_ENABLE) {
+                adsContainer.setVisibility(View.GONE);
+                if (adsSmallBannerHandler != null) {
+                    adsSmallBannerHandler.destroy();
+                }
+                if (adsBigBannerHandler != null) {
+                    adsBigBannerHandler.destroy();
+                }
+            } else {
+                adsContainer.setVisibility(View.GONE);
+            }
+        } else {
+            count = 0;
+            if (ADS_ENABLE) {
+                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
+                        , AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST);
+                adsSmallBannerHandler.setup();
+                adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
+                adsBigBannerHandler.setup();
+            } else {
+                adsContainer.setVisibility(View.GONE);
+            }
+        }
+    }
+
     private void findViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         buttonTutorial = (TextView) findViewById(R.id.buttonTutorial);
         buttonResult = (TextView) findViewById(R.id.buttonResult);
         buttonShare = (LinearLayout) findViewById(R.id.buttonShare);
+        mButtonWrittenTest = (TextView) findViewById(R.id.buttonWrittenTest);
         mainCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
         adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
-
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_TUTORIAL);
             }
         });
-
         buttonResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_RESULT);
             }
         });
-
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getMyCurrentFragment().sharingEvent();
+            }
+        });
+        mButtonWrittenTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_WRITTEN_TEST);
             }
         });
     }
@@ -182,10 +199,6 @@ public abstract class MyBaseActivity extends BaseActivity {
         textViewTitle.setTypeface(font);
         buttonResult.setTypeface(font);
         buttonTutorial.setTypeface(font);
-    }
-
-    public CoordinatorLayout getMainCoordinatorLayout() {
-        return mainCoordinatorLayout;
     }
 
     private MyBaseFragment getMyCurrentFragment() {

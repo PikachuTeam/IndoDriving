@@ -82,7 +82,6 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
         loadState();
-
         questionPackages = DataSource.getQuestionPackagesByType(type);
         spaceItemDecoration = new SpaceItemDecoration(getResources().getInteger(R.integer.grid_layout_item_space), questionPackages.size());
         adapter = new ListQuestionAdapter(getActivity(), questionPackages, HomeActivity.defaultFont);
@@ -156,14 +155,14 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     public void onQuestionListItemClick(QuestionPackage questionPackage, boolean isHeader) {
         if (isHeader) {
             if (isShowedRuleAgain) {
-                WrittenTestFragment fragment = new WrittenTestFragment();
+                DoTestFragment fragment = new DoTestFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constants.BUNDLE_TYPE, type);
                 bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, true);
                 fragment.setArguments(bundle);
                 replaceFragment(fragment, LIST_QUESTION_FRAGMENT_TAG);
             } else {
-                WrittenTestFragment fragment = new WrittenTestFragment();
+                DoTestFragment fragment = new DoTestFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constants.BUNDLE_TYPE, type);
                 bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, true);
@@ -221,7 +220,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     }
 
     private void moveToDoTestFragment(int index) {
-        WrittenTestFragment fragment = new WrittenTestFragment();
+        DoTestFragment fragment = new DoTestFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.BUNDLE_TYPE, type);
         bundle.putInt(Constants.BUNDLE_EXAM_ID, index);
@@ -230,14 +229,12 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     }
 
     @Override
-    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, BaseConfirmDialog.Type type, BaseConfirmDialog dialog) {
+    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, int type, BaseConfirmDialog dialog) {
         dialog.dismiss();
         switch (button) {
             case OK:
                 Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
                 goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                         Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
                         Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -248,7 +245,8 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
                 }
                 isRated = true;
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity()
+                        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(Constants.PREF_IS_RATE_APP, isRated);
                 editor.commit();

@@ -69,4 +69,5 @@
     <color name="blur_default">#b703719b</color>
     <color name="fab_label">#df343468</color>
     <color name="overlay_view_color">#41000000</color>
+    <color name="dialog_rating_star_color">#0095cd</color>
 </resources>

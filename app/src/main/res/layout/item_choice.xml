@@ -52,6 +52,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/common_text_size_16"
             android:textStyle="bold"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

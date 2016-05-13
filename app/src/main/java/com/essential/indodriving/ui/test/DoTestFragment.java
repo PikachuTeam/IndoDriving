@@ -35,10 +35,11 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/24/2016.
  */
-public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener, OnQuestionPagerItemClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
+public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener
+        , OnQuestionPagerItemClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener
+        , BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
-    public final static String KEY_HOLDER_QUESTIONS = "Questions";
-    public final static String DO_TEST_FRAGMENT_TAG = "Do Test Fragment";
+    public final static String TAG_DO_TEST_FRAGMENT = "Do Test Fragment";
     public final static String BUNDLE_IS_RANDOM = "is random";
     public final static int INTERVAL = 1000, TOTAL_TIME = 1801000;
     private ViewPager questionPager;
@@ -56,15 +57,15 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     private int currentPosition;
     private int minute1, minute2, second1, second2;
     private CountDownTimer timer;
-    private boolean isRandom;
-    private int timeLeft;
+    private boolean mIsRandom;
+    private int mTimeLeft;
     private Typeface font;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, isRandom);
+        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, mIsRandom);
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
@@ -82,7 +83,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         minute2 = 0;
         second1 = 0;
         second2 = 0;
-        timeLeft = 0;
+        mTimeLeft = 0;
         currentPosition = 0;
     }
 
@@ -106,7 +107,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     @Override
     public void onResume() {
         super.onResume();
-        timer = new CountDownTimer(TOTAL_TIME - INTERVAL * timeLeft, INTERVAL) {
+        timer = new CountDownTimer(TOTAL_TIME - INTERVAL * mTimeLeft, INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
                 makeTime();
@@ -122,7 +123,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     protected String getTitle() {
-        if (isRandom) {
+        if (mIsRandom) {
             return getString(R.string.title_test);
         } else {
             return MessageFormat.format(getString(R.string.title_package), "" + examId);
@@ -142,7 +143,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     @Override
     public void onBackPressed() {
         timer.cancel();
-        WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING1, HomeActivity.defaultFont);
+        WarningDialog warningDialog = new WarningDialog(getActivity()
+                , BaseConfirmDialog.TYPE_WARNING_1, HomeActivity.defaultFont);
         warningDialog.addListener(this);
         warningDialog.show();
     }
@@ -151,7 +153,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT) {
             timer.cancel();
-            WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING2, HomeActivity.defaultFont);
+            WarningDialog warningDialog = new WarningDialog(getActivity()
+                    , BaseConfirmDialog.TYPE_WARNING_2, HomeActivity.defaultFont);
             warningDialog.addListener(this);
             warningDialog.show();
         }
@@ -232,7 +235,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         Bundle bundle = getArguments();
         type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
         examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
-        isRandom = bundle.getBoolean(BUNDLE_IS_RANDOM, false);
+        mIsRandom = bundle.getBoolean(BUNDLE_IS_RANDOM, false);
     }
 
     private void resetAllWrapper() {
@@ -259,7 +262,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         textViewMinute2.setText("" + minute2);
         textViewSecond1.setText("" + second1);
         textViewSecond2.setText("" + second2);
-        timeLeft++;
+        mTimeLeft++;
     }
 
     @Override
@@ -288,28 +291,31 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.BUNDLE_TYPE, this.type);
         bundle.putInt(Constants.BUNDLE_EXAM_ID, examId);
-        putHolder(KEY_HOLDER_QUESTIONS, questions);
+        bundle.putString(Constants.BUNDLE_FRAGMENT_TYPE, TAG_DO_TEST_FRAGMENT);
+        bundle.putBoolean(Constants.BUNDLE_NEED_SAVING, true);
+        putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
-        replaceFragment(fragment, DO_TEST_FRAGMENT_TAG);
+        replaceFragment(fragment, TAG_DO_TEST_FRAGMENT);
     }
 
     @Override
-    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, BaseConfirmDialog.Type type, BaseConfirmDialog dialog) {
+    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, int type, BaseConfirmDialog dialog) {
         switch (button) {
             case OK:
                 dialog.dismiss();
                 switch (type) {
-                    case WARNING1: // happen when user presses back
-                        getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    case BaseConfirmDialog.TYPE_WARNING_1: // happen when user presses back
+                        getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG
+                                , FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         break;
-                    case WARNING2: // happen when user presses Result
+                    case BaseConfirmDialog.TYPE_WARNING_2: // happen when user presses Result
                         moveToNextFragment();
                         break;
                 }
                 break;
             case CANCEL:
                 dialog.dismiss();
-                timer = new CountDownTimer(TOTAL_TIME - INTERVAL * timeLeft, INTERVAL) {
+                timer = new CountDownTimer(TOTAL_TIME - INTERVAL * mTimeLeft, INTERVAL) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         makeTime();
@@ -325,7 +331,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         }
     }
 
-    private class ViewPagerAdapter extends PagerAdapter implements AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {
+    private class ViewPagerAdapter extends PagerAdapter implements
+            AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {
 
         private ArrayList<Question> questions;
         private Context context;
@@ -371,7 +378,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
             ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
             for (int i = 0; i < answerChoicesItems.size(); i++) {
                 choicesContainer.addView(answerChoicesItems.get(i).getView());
-                LinearLayout.MarginLayoutParams marginParams = (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getView().getLayoutParams();
+                LinearLayout.MarginLayoutParams marginParams =
+                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getView().getLayoutParams();
                 marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
                 answerChoicesItems.get(i).getView().requestLayout();
                 answerChoicesItems.get(i).setOnChooseAnswerListener(this);

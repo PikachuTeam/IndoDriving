@@ -4,7 +4,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -64,8 +66,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             } else if (v == mFabRateUs) {
                 Uri uri = Uri.parse("market://details?id=" + PACKAGE_NAME_FREE_VER);
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
                 goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                         Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
                         Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -81,8 +81,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             } else if (v == mFabRemoveAds) {
                 Uri uri = Uri.parse("market://details?id=" + PACKAGE_NAME_PRO_VER);
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
                 goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                         Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
                         Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -218,6 +216,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         Snackbar.make(coordinatorLayout, getString(R.string.hacked), Snackbar.LENGTH_SHORT).show();
                         saveState();
                     }
+                }
+            }
+        });
+        mOverlayView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFloatingActionsMenu.isExpanded()) {
+                    mOverlayView.setVisibility(View.GONE);
+                    mFloatingActionsMenu.collapse();
                 }
             }
         });

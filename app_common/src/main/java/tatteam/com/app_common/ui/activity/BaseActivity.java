@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 import tatteam.com.app_common.R;
 import tatteam.com.app_common.ui.fragment.BaseFragment;
@@ -68,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public Object getHolder(String key) {
-       return objectHolder.get(key);
+        return objectHolder.get(key);
     }
 
     public void putHolder(String key, Object value) {

@@ -12,27 +12,32 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/image_star_1"
             android:layout_width="@dimen/common_size_30"
             android:layout_height="@dimen/common_size_30"
             android:layout_marginLeft="@dimen/common_size_5"
             android:src="@drawable/ic_star" />
 
         <ImageView
+            android:id="@+id/image_star_2"
             android:layout_width="@dimen/common_size_30"
             android:layout_height="@dimen/common_size_30"
             android:src="@drawable/ic_star" />
 
         <ImageView
+            android:id="@+id/image_star_3"
             android:layout_width="@dimen/common_size_30"
             android:layout_height="@dimen/common_size_30"
             android:src="@drawable/ic_star" />
 
         <ImageView
+            android:id="@+id/image_star_4"
             android:layout_width="@dimen/common_size_30"
             android:layout_height="@dimen/common_size_30"
             android:src="@drawable/ic_star" />
 
         <ImageView
+            android:id="@+id/image_star_5"
             android:layout_width="@dimen/common_size_30"
             android:layout_height="@dimen/common_size_30"
             android:src="@drawable/ic_star" />
@@ -53,11 +58,11 @@
         android:layout_height="@dimen/warning_dialog_button_area_height">
 
         <TextView
-            android:id="@+id/buttonCancel"
+            android:id="@+id/button_cancel"
             android:layout_width="@dimen/dialog_warning_button_cancel_width"
             android:layout_height="@dimen/dialog_warning_button_height"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/buttonOk"
+            android:layout_toLeftOf="@+id/button_ok"
             android:background="@drawable/dialog_button"
             android:gravity="center"
             android:text="@string/cancel"
@@ -66,7 +71,7 @@
             android:textSize="@dimen/common_text_size_18" />
 
         <TextView
-            android:id="@+id/buttonOk"
+            android:id="@+id/button_ok"
             android:layout_width="@dimen/dialog_warning_button_ok_width"
             android:layout_height="@dimen/dialog_warning_button_height"
             android:layout_alignParentRight="true"

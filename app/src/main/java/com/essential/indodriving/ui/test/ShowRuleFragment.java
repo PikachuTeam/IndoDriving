@@ -163,7 +163,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     public void onClick(View v) {
         if (v == buttonStart) {
             saveState();
-            WrittenTestFragment fragment = new WrittenTestFragment();
+            DoTestFragment fragment = new DoTestFragment();
             Bundle bundle = new Bundle();
             bundle.putInt(Constants.BUNDLE_TYPE, type);
             bundle.putInt(Constants.BUNDLE_EXAM_ID, examId);

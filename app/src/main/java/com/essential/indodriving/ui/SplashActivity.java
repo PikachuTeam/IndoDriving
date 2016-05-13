@@ -12,7 +12,7 @@ import tatteam.com.app_common.util.AppConstant;
  */
 public class SplashActivity extends EssentialSplashActivity {
 
-    private final static String DATABASE_NAME="indo_driving.db";
+    private final static String DATABASE_NAME = "indo_driving.db";
 
     @Override
     protected void onCreateContentView() {

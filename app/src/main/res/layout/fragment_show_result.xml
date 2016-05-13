@@ -152,7 +152,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/common_size_43"
-                        android:text="@string/total_wrong_answers"
                         android:textColor="@color/wrong_answer_color"
                         android:textSize="@dimen/common_text_size_22" />
 
@@ -213,7 +212,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/common_size_43"
-                        android:text="@string/total_not_answered"
                         android:textColor="@color/not_answered_color"
                         android:textSize="@dimen/common_text_size_22" />
 

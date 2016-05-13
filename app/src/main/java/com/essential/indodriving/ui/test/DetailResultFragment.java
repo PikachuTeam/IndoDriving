@@ -103,8 +103,8 @@ public class DetailResultFragment extends MyBaseFragment {
     }
 
     private void getData() {
-        if (containHolder(DoTestFragment.KEY_HOLDER_QUESTIONS)) {
-            questions = (ArrayList<Question>) getHolder(DoTestFragment.KEY_HOLDER_QUESTIONS);
+        if (containHolder(Constants.KEY_HOLDER_QUESTIONS)) {
+            questions = (ArrayList<Question>) getHolder(Constants.KEY_HOLDER_QUESTIONS);
         } else {
             questions = new ArrayList<>();
         }

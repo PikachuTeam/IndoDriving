@@ -1,5 +1,6 @@
 package com.essential.indodriving.ui;
 
+import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.essential.indodriving.base.Constants;
 import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.learn.LearnAllFragment;
+import com.essential.indodriving.ui.learn.TutorialFragment;
 import com.essential.indodriving.ui.test.ListQuestionFragment;
 
 /**
@@ -24,11 +26,6 @@ public class ChooseItemFragment extends MyBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-    }
-
-    @Override
-    protected boolean enableButtonShare() {
-        return true;
     }
 
     @Override
@@ -85,6 +82,30 @@ public class ChooseItemFragment extends MyBaseFragment {
             }
         });
         setFont(rootView, HomeActivity.defaultFont);
+    }
+
+    @Override
+    protected boolean enableButtonTutorial() {
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+            case DataSource.TYPE_SIM_C:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    protected void onMenuItemClick(int id) {
+        TutorialFragment tutorialFragment = new TutorialFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.BUNDLE_TYPE, type);
+        tutorialFragment.setArguments(bundle);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.fragment_silde_bot_enter, 0, 0, R.animator.fragment_silde_bot_exit);
+        transaction.replace(R.id.fragmentContainer, tutorialFragment, TAG_CHOOSE_ITEM_FRAGMENT);
+        transaction.addToBackStack(TAG_CHOOSE_ITEM_FRAGMENT);
+        transaction.commit();
     }
 
     private void moveToLearnFragment() {

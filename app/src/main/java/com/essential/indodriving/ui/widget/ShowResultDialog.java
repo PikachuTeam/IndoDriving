@@ -22,7 +22,6 @@ import com.essential.indodriving.data.Question;
 public class ShowResultDialog extends Dialog implements View.OnClickListener, View.OnTouchListener {
 
     private Context context;
-
     private ImageView imgQuestion;
     private TextView tvQuestion;
     private TextView tvChoiceA;
@@ -32,7 +31,6 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
     private TextView tvAnswer;
     private ImageView buttonZoomIn;
     private RelativeLayout imageArea;
-
     private Question question;
 
     public ShowResultDialog(Context context, Question question) {
@@ -45,21 +43,18 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         this.setCanceledOnTouchOutside(true);
         setContentView(R.layout.dialog_show_result);
         findViews();
-
         if (question.image != null) {
             imageArea.setVisibility(View.VISIBLE);
             imgQuestion.setImageBitmap(question.image);
-            buttonZoomIn.setColorFilter(ContextCompat.getColor(context, R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
+            buttonZoomIn.setColorFilter(ContextCompat.getColor(context
+                    , R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
         } else {
             imageArea.setVisibility(View.GONE);
         }
-
         tvQuestion.setText(question.question);
-
         tvChoiceA.setText("A. " + question.answer1);
         tvChoiceB.setText("B. " + question.answer2);
         tvChoiceC.setText("C. " + question.answer3);
@@ -68,7 +63,6 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
         } else {
             tvChoiceD.setVisibility(View.GONE);
         }
-
         switch (question.correctAnswer) {
             case 0:
                 tvChoiceA.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
@@ -83,7 +77,6 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
                 tvChoiceD.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
                 break;
         }
-
         if (question.answer == DataSource.ANSWER_NOT_CHOSEN) {
             tvAnswer.setText(getContext().getResources().getText(R.string.not_answered));
             tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.not_answered_color));
@@ -127,14 +120,12 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
                 dismiss();
             }
         });
-
         findViewById(R.id.scrollArea).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-
         findViewById(R.id.questionArea).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +144,6 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
         tvAnswer = (TextView) findViewById(R.id.tvAnswer);
         buttonZoomIn = (ImageView) findViewById(R.id.buttonZoomIn);
         imageArea = (RelativeLayout) findViewById(R.id.imageArea);
-
         imgQuestion.setOnClickListener(this);
         buttonZoomIn.setOnTouchListener(this);
     }
@@ -168,10 +158,12 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
-            buttonZoomIn.setColorFilter(ContextCompat.getColor(context, R.color.learn_all_button_zoom_in_highlight_color), PorterDuff.Mode.SRC_ATOP);
+            buttonZoomIn.setColorFilter(ContextCompat.getColor(context
+                    , R.color.learn_all_button_zoom_in_highlight_color), PorterDuff.Mode.SRC_ATOP);
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
-            buttonZoomIn.setColorFilter(ContextCompat.getColor(context, R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
+            buttonZoomIn.setColorFilter(ContextCompat.getColor(context
+                    , R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
             ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
             dialog.show();
         }

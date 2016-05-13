@@ -1,6 +1,5 @@
 package com.essential.indodriving.ui.learn;
 
-import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +37,8 @@ import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.HomeActivity;
+import com.essential.indodriving.ui.test.WrittenTestFragment;
+import com.essential.indodriving.ui.widget.NotificationDialog;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
@@ -50,7 +51,7 @@ import java.util.ArrayList;
 public class LearnAllFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
 
     public final static String
-            LEARN_ALL_FRAGMENT_TAG = "Learn All Fragment",
+            TAG_LEARN_ALL_FRAGMENT = "Learn All Fragment",
             PREF_CURRENT_POSITION_SIM_A = "Current Position Sim A",
             PREF_CURRENT_POSITION_SIM_A_UMUM = "Current Position Sim A Umum",
             PREF_CURRENT_POSITION_SIM_B1 = "Current Position Sim B1",
@@ -82,6 +83,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private ArrayList<Question> questions;
     private int type;
     private int currentPosition;
+    private int mTrialTimesLeft;
     private float indicatorPosition;
     private float indicatorPositionOffset;
     private boolean isFirst;
@@ -123,6 +125,39 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             return false;
         }
     };
+    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener =
+            new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
+                @Override
+                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button
+                        , @BaseConfirmDialog.DialogTypeDef int dialogType, BaseConfirmDialog dialog) {
+                    switch (button) {
+                        case OK:
+                            switch (dialogType) {
+                                case BaseConfirmDialog.TYPE_TRIAL:
+                                    mTrialTimesLeft--;
+                                    moveToNextFragment();
+                                    break;
+                                case BaseConfirmDialog.TYPE_OUT_OF_TIMES:
+                                    Uri uri = Uri.parse("market://details?id=" + HomeActivity.PACKAGE_NAME_PRO_VER);
+                                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                                    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                            Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                    try {
+                                        startActivity(goToMarket);
+                                    } catch (ActivityNotFoundException e) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://play.google.com/store/apps/details?id=" + HomeActivity.PACKAGE_NAME_PRO_VER)));
+                                    }
+                                    saveState();
+                                    break;
+                            }
+                        case CANCEL:
+                            dialog.cancel();
+                            break;
+                    }
+                }
+            };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -257,41 +292,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         return R.layout.fragment_learn_all;
     }
 
-    private void findViews(View rootView) {
-        cardQuestionImage = (ImageView) rootView.findViewById(R.id.cardQuestionImage);
-        cardTextViewQuestion = (TextView) rootView.findViewById(R.id.cardTextViewQuestion);
-        textViewProgress = (TextView) rootView.findViewById(R.id.textViewProgress);
-        readingProgress = (ProgressBar) rootView.findViewById(R.id.readingProgress);
-        textViewAnswerA = (TextView) rootView.findViewById(R.id.textViewAnswerA);
-        textViewAnswerB = (TextView) rootView.findViewById(R.id.textViewAnswerB);
-        textViewAnswerC = (TextView) rootView.findViewById(R.id.textViewAnswerC);
-        textViewAnswerD = (TextView) rootView.findViewById(R.id.textViewAnswerD);
-        buttonPrevious = (ImageView) rootView.findViewById(R.id.buttonPrevious);
-        buttonNext = (ImageView) rootView.findViewById(R.id.buttonNext);
-        buttonZoomIn = (ImageView) rootView.findViewById(R.id.buttonZoomIn);
-        imageArea = (RelativeLayout) rootView.findViewById(R.id.imageArea);
-        indicator = (RelativeLayout) rootView.findViewById(R.id.position);
-        progressBarContainer = (RelativeLayout) rootView.findViewById(R.id.progressBarContainer);
-        lockedArea = (RelativeLayout) rootView.findViewById(R.id.lockedArea);
-        answerArea = (LinearLayout) rootView.findViewById(R.id.answerArea);
-        blurryImage = (ImageView) rootView.findViewById(R.id.blurryImage);
-        ((TextView) rootView.findViewById(R.id.textViewPressToUnlock)).setTypeface(HomeActivity.defaultFont);
-
-        buttonNext.setOnClickListener(this);
-        buttonPrevious.setOnClickListener(this);
-        buttonNext.setOnTouchListener(this);
-        buttonPrevious.setOnTouchListener(this);
-        cardQuestionImage.setOnClickListener(this);
-        buttonZoomIn.setOnTouchListener(this);
-        lockedArea.setOnClickListener(this);
-        indicator.setOnTouchListener(mIndicatorTouchListener);
-    }
-
-    private void getData() {
-        Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -299,28 +299,24 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     @Override
-    protected boolean enableButtonTutorial() {
-        switch (type) {
-            case DataSource.TYPE_SIM_A:
-            case DataSource.TYPE_SIM_C:
-                return true;
-            default:
-                return false;
-        }
+    protected boolean enableButtonWrittenTest() {
+        return true;
     }
 
     @Override
     protected void onMenuItemClick(int id) {
-        TutorialFragment tutorialFragment = new TutorialFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.BUNDLE_TYPE, type);
-        tutorialFragment.setArguments(bundle);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.fragment_silde_bot_enter, 0, 0, R.animator.fragment_silde_bot_exit);
-        transaction.replace(R.id.fragmentContainer, tutorialFragment, LEARN_ALL_FRAGMENT_TAG);
-        transaction.addToBackStack(LEARN_ALL_FRAGMENT_TAG);
-        transaction.commit();
-        saveState();
+        if (isProVersion) {
+            moveToNextFragment();
+        } else {
+            NotificationDialog dialog;
+            if (mTrialTimesLeft == 0) {
+                dialog = new NotificationDialog(getActivity(), BaseConfirmDialog.TYPE_OUT_OF_TIMES, mTrialTimesLeft);
+            } else {
+                dialog = new NotificationDialog(getActivity(), BaseConfirmDialog.TYPE_TRIAL, mTrialTimesLeft);
+            }
+            dialog.setOnConfirmDialogButtonClickListener(mOnConfirmDialogButtonClickListener);
+            dialog.show();
+        }
     }
 
     private void saveState() {
@@ -352,6 +348,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 editor.putInt(PREF_CURRENT_POSITION_SIM_D, currentPosition);
                 break;
         }
+        editor.putInt(Constants.PREF_TRIAL_TIME_LEFT, mTrialTimesLeft);
         editor.commit();
     }
 
@@ -387,6 +384,14 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
         isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
+        mTrialTimesLeft = sharedPreferences.getInt(Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
+    }
+
+    private void moveToNextFragment() {
+        WrittenTestFragment fragment = new WrittenTestFragment();
+        putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
+        replaceFragment(fragment, TAG_LEARN_ALL_FRAGMENT);
+        saveState();
     }
 
     private void setCardData(Question question) {
@@ -497,7 +502,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             ratingDialog.show();
             ratingDialog.addListener(new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
                 @Override
-                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, BaseConfirmDialog.Type type, BaseConfirmDialog dialog) {
+                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button
+                        , int type, BaseConfirmDialog dialog) {
                     dialog.dismiss();
                     switch (button) {
                         case OK:
@@ -526,63 +532,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 }
             });
         }
-    }
-
-    private void enableButton(ImageView button, int image) {
-        button.setEnabled(true);
-        button.setImageResource(image);
-        button.setColorFilter(ContextCompat.getColor(getActivity()
-                , R.color.learn_all_button_normal_color)
-                , PorterDuff.Mode.SRC_ATOP);
-    }
-
-    private void disableButton(ImageView button, int image) {
-        button.setEnabled(false);
-        button.setImageResource(image);
-        button.setColorFilter(ContextCompat.getColor(getActivity()
-                , R.color.learn_all_button_disabled_color)
-                , PorterDuff.Mode.SRC_ATOP);
-    }
-
-    private Bitmap getRoundedCornerBitmap(Bitmap src) {
-        Bitmap output = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, src.getWidth(), src.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = getResources().getDimension(tatteam.com.app_common.R.dimen.common_size_10);
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(src, rect, rect, paint);
-        return output;
-    }
-
-    private Bitmap getScreenshot(View v) {
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        v.draw(c);
-        return b;
-    }
-
-    private Bitmap getBlurredBackground(Bitmap image) throws Exception {
-        int width = Math.round(image.getWidth() * BITMAP_SCALE);
-        int height = Math.round(image.getHeight() * BITMAP_SCALE);
-        Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
-        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
-        RenderScript rs = RenderScript.create(getActivity());
-        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-        Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
-        Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
-        theIntrinsic.setRadius(BLUR_RADIUS);
-        theIntrinsic.setInput(tmpIn);
-        theIntrinsic.forEach(tmpOut);
-        tmpOut.copyTo(outputBitmap);
-        rs.destroy();
-        return getRoundedCornerBitmap(Bitmap.createScaledBitmap(outputBitmap, image.getWidth(), image.getHeight(), false));
     }
 
     @Override
@@ -642,5 +591,96 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             }
         }
         return false;
+    }
+
+    private void findViews(View rootView) {
+        cardQuestionImage = (ImageView) rootView.findViewById(R.id.cardQuestionImage);
+        cardTextViewQuestion = (TextView) rootView.findViewById(R.id.cardTextViewQuestion);
+        textViewProgress = (TextView) rootView.findViewById(R.id.textViewProgress);
+        readingProgress = (ProgressBar) rootView.findViewById(R.id.readingProgress);
+        textViewAnswerA = (TextView) rootView.findViewById(R.id.textViewAnswerA);
+        textViewAnswerB = (TextView) rootView.findViewById(R.id.textViewAnswerB);
+        textViewAnswerC = (TextView) rootView.findViewById(R.id.textViewAnswerC);
+        textViewAnswerD = (TextView) rootView.findViewById(R.id.textViewAnswerD);
+        buttonPrevious = (ImageView) rootView.findViewById(R.id.buttonPrevious);
+        buttonNext = (ImageView) rootView.findViewById(R.id.buttonNext);
+        buttonZoomIn = (ImageView) rootView.findViewById(R.id.buttonZoomIn);
+        imageArea = (RelativeLayout) rootView.findViewById(R.id.imageArea);
+        indicator = (RelativeLayout) rootView.findViewById(R.id.position);
+        progressBarContainer = (RelativeLayout) rootView.findViewById(R.id.progressBarContainer);
+        lockedArea = (RelativeLayout) rootView.findViewById(R.id.lockedArea);
+        answerArea = (LinearLayout) rootView.findViewById(R.id.answerArea);
+        blurryImage = (ImageView) rootView.findViewById(R.id.blurryImage);
+        ((TextView) rootView.findViewById(R.id.textViewPressToUnlock)).setTypeface(HomeActivity.defaultFont);
+        buttonNext.setOnClickListener(this);
+        buttonPrevious.setOnClickListener(this);
+        buttonNext.setOnTouchListener(this);
+        buttonPrevious.setOnTouchListener(this);
+        cardQuestionImage.setOnClickListener(this);
+        buttonZoomIn.setOnTouchListener(this);
+        lockedArea.setOnClickListener(this);
+        indicator.setOnTouchListener(mIndicatorTouchListener);
+    }
+
+    private void getData() {
+        Bundle bundle = getArguments();
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+    }
+
+    private void enableButton(ImageView button, int image) {
+        button.setEnabled(true);
+        button.setImageResource(image);
+        button.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.learn_all_button_normal_color)
+                , PorterDuff.Mode.SRC_ATOP);
+    }
+
+    private void disableButton(ImageView button, int image) {
+        button.setEnabled(false);
+        button.setImageResource(image);
+        button.setColorFilter(ContextCompat.getColor(getActivity()
+                , R.color.learn_all_button_disabled_color)
+                , PorterDuff.Mode.SRC_ATOP);
+    }
+
+    private Bitmap getRoundedCornerBitmap(Bitmap src) {
+        Bitmap output = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, src.getWidth(), src.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = getResources().getDimension(tatteam.com.app_common.R.dimen.common_size_10);
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(src, rect, rect, paint);
+        return output;
+    }
+
+    private Bitmap getScreenshot(View v) {
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
+    }
+
+    private Bitmap getBlurredBackground(Bitmap image) throws Exception {
+        int width = Math.round(image.getWidth() * BITMAP_SCALE);
+        int height = Math.round(image.getHeight() * BITMAP_SCALE);
+        Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
+        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
+        RenderScript rs = RenderScript.create(getActivity());
+        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+        Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
+        Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
+        theIntrinsic.setRadius(BLUR_RADIUS);
+        theIntrinsic.setInput(tmpIn);
+        theIntrinsic.forEach(tmpOut);
+        tmpOut.copyTo(outputBitmap);
+        rs.destroy();
+        return getRoundedCornerBitmap(Bitmap.createScaledBitmap(outputBitmap, image.getWidth(), image.getHeight(), false));
     }
 }

@@ -15,30 +15,22 @@ import com.essential.indodriving.R;
  */
 public class ZoomInImageDialog extends Dialog {
 
-    private Context context;
-
     private ImageView zoomedInImage;
-
     private Bitmap image;
 
     public ZoomInImageDialog(Context context, Bitmap image) {
         super(context);
-        this.context = context;
         this.image = image;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setCanceledOnTouchOutside(true);
         setContentView(R.layout.dialog_zoom_in_picture);
-
         zoomedInImage = (ImageView) findViewById(R.id.zoomedInImage);
-
         zoomedInImage.setImageBitmap(image);
-
         zoomedInImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

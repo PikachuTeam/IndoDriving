@@ -11,6 +11,7 @@
     <string name="sim_d">Sim D</string>
     <string name="learn_theory">Learn Theory</string>
     <string name="tips">Tips</string>
+    <string name="action_written_test">Test</string>
     <string name="score">{0}/30</string>
     <string name="simulation_test">Simulation Test</string>
     <string name="test_not_show_again">Do not show again</string>
@@ -26,9 +27,8 @@
     <string name="cancel">Cancel</string>
     <string name="pass">You passed!</string>
     <string name="fail">You failed!</string>
-    <string name="total_correct_answers">{0}/30</string>
-    <string name="total_wrong_answers">{0}/30</string>
-    <string name="total_not_answered">{0}/30</string>
+    <string name="total_correct_answers">{0}/{1}</string>
+    <string name="number_of_answers">{0}/{1}</string>
     <string name="choice_a">A. {0}</string>
     <string name="choice_b">B. {0}</string>
     <string name="choice_c">C. {0}</string>
@@ -77,4 +77,7 @@
     <string name="more_apps">More Apps</string>
     <string name="remove_ads">Remove Ads</string>
     <string name="share">Share</string>
+    <string name="dialog_title_trial">Remind</string>
+    <string name="dialog_content_out_of_times">\t\t\t\t\t\tYour trial has expired\n\tPlease consider to upgrade to pro\n\t\t\t\tversion to unlock all features</string>
+    <string name="dialog_content_trial">You only have {0} times to try this feature. Want to continue?</string>
 </resources>

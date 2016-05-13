@@ -19,6 +19,7 @@ import com.essential.indodriving.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.HomeActivity;
+import com.essential.indodriving.ui.learn.LearnAllFragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -46,11 +47,13 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private ImageView buttonNext2;
     private ImageView buttonNext3;
     private PieChart pieChart;
+    private String mFragmentType;
     private int totalCorrectAnswer;
     private int totalWrongAnswer;
     private int totalNotAnswered;
-    private int type;
+    private int mSimType;
     private int examId;
+    private boolean mNeedSaving;
     private float[] yData;
     private ArrayList<Question> questions;
     private boolean isSaved;
@@ -108,14 +111,18 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     }
 
     private void getData() {
-        if (containHolder(DoTestFragment.KEY_HOLDER_QUESTIONS)) {
-            questions = (ArrayList<Question>) getHolder(DoTestFragment.KEY_HOLDER_QUESTIONS);
+        if (containHolder(Constants.KEY_HOLDER_QUESTIONS)) {
+            questions = (ArrayList<Question>) getHolder(Constants.KEY_HOLDER_QUESTIONS);
         } else {
             questions = new ArrayList<>();
         }
         Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
-        examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
+        if (bundle != null) {
+            mNeedSaving = bundle.getBoolean(Constants.BUNDLE_NEED_SAVING);
+            mSimType = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+            mFragmentType = bundle.getString(Constants.BUNDLE_FRAGMENT_TYPE, DoTestFragment.TAG_DO_TEST_FRAGMENT);
+            examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
+        }
     }
 
     @Override
@@ -125,8 +132,17 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
 
     @Override
     public void onBackPressed() {
-        getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        saveData();
+        switch (mFragmentType) {
+            case DoTestFragment.TAG_DO_TEST_FRAGMENT:
+                getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG
+                        , FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                saveData();
+                break;
+            case WrittenTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
+                getFragmentManager().popBackStack(LearnAllFragment.TAG_LEARN_ALL_FRAGMENT
+                        , FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                break;
+        }
     }
 
     private int calculateCorrectAnswer() {
@@ -157,9 +173,10 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
             textViewState.setText(getString(R.string.fail));
             textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
         }
-        tvCorrectAnswer.setText(MessageFormat.format(getString(R.string.total_correct_answers), totalCorrectAnswer));
-        tvWrongAnswer.setText(MessageFormat.format(getString(R.string.total_wrong_answers), totalWrongAnswer));
-        tvNotAnswered.setText(MessageFormat.format(getString(R.string.total_not_answered), totalNotAnswered));
+        int numberOfQuestions = questions.size();
+        tvCorrectAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers), totalCorrectAnswer, numberOfQuestions));
+        tvWrongAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers), totalWrongAnswer, numberOfQuestions));
+        tvNotAnswered.setText(MessageFormat.format(getString(R.string.number_of_answers), totalNotAnswered, numberOfQuestions));
     }
 
     private void findViews(View rootView) {
@@ -285,9 +302,9 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     }
 
     private void saveData() {
-        if (!isSaved) {
+        if (!isSaved && mNeedSaving) {
             isSaved = true;
-            DataSource.saveScore(examId, "" + type, totalCorrectAnswer);
+            DataSource.saveScore(examId, "" + mSimType, totalCorrectAnswer);
         }
     }
 
@@ -301,13 +318,13 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         if (v == buttonCorrectAnswer) {
-            putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
+            putHolder(Constants.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
             bundle.putInt(Constants.BUNDLE_TYPE, 0);
         } else if (v == buttonWrongAnswer) {
-            putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getWrongAnswers());
+            putHolder(Constants.KEY_HOLDER_QUESTIONS, getWrongAnswers());
             bundle.putInt(Constants.BUNDLE_TYPE, 1);
         } else if (v == buttonNotAnswered) {
-            putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
+            putHolder(Constants.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
             bundle.putInt(Constants.BUNDLE_TYPE, 2);
         }
         saveData();
@@ -323,7 +340,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 buttonNext1.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_highlight_color), PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 buttonNext1.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
-                putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
+                putHolder(Constants.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
                 Bundle bundle = new Bundle();
                 bundle.putInt("Type", 0);
                 DetailResultFragment fragment = new DetailResultFragment();
@@ -335,7 +352,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 buttonNext2.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_highlight_color), PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 buttonNext2.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
-                putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getWrongAnswers());
+                putHolder(Constants.KEY_HOLDER_QUESTIONS, getWrongAnswers());
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constants.BUNDLE_TYPE, 1);
                 DetailResultFragment fragment = new DetailResultFragment();
@@ -347,7 +364,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 buttonNext3.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_highlight_color), PorterDuff.Mode.SRC_ATOP);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 buttonNext3.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
-                putHolder(DoTestFragment.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
+                putHolder(Constants.KEY_HOLDER_QUESTIONS, getNotAnsweredAnswers());
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constants.BUNDLE_TYPE, 2);
                 DetailResultFragment fragment = new DetailResultFragment();

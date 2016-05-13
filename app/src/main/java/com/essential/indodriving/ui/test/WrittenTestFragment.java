@@ -1,12 +1,12 @@
 package com.essential.indodriving.ui.test;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +29,13 @@ import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by yue on 07/05/2016.
  */
 public class WrittenTestFragment extends MyBaseFragment {
 
-    public final static String KEY_HOLDER_QUESTIONS = "Questions";
     public final static String TAG_WRITTEN_TEST_FRAGMENT = "Written Test Fragment";
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
@@ -43,10 +43,8 @@ public class WrittenTestFragment extends MyBaseFragment {
     private ViewPagerAdapter adapter;
     private ArrayList<Question> questions;
     private ArrayList<QuestionNoItemWrapper> wrappers;
-    private int type;
-    private int examId;
     private int currentPosition;
-    private Typeface font;
+    private Typeface mFont;
     private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener = new QuestionNoItemWrapper.OnQuestionNoClickListener() {
         @Override
         public void onQuestionNoClick(QuestionNoItemWrapper item) {
@@ -93,15 +91,15 @@ public class WrittenTestFragment extends MyBaseFragment {
     };
     private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener = new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
         @Override
-        public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, BaseConfirmDialog.Type type, BaseConfirmDialog dialog) {
+        public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, int type, BaseConfirmDialog dialog) {
             switch (button) {
                 case OK:
                     dialog.dismiss();
                     switch (type) {
-                        case WARNING1: // happen when user presses back
-                            getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        case BaseConfirmDialog.TYPE_WARNING_1: // happen when user presses back
+                            getFragmentManager().popBackStack();
                             break;
-                        case WARNING2: // happen when user presses Result
+                        case BaseConfirmDialog.TYPE_WARNING_2: // happen when user presses Result
                             moveToNextFragment();
                             break;
                     }
@@ -117,8 +115,7 @@ public class WrittenTestFragment extends MyBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, true);
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
+        mFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             QuestionNoItemWrapper wrapper = new QuestionNoItemWrapper(getActivity());
@@ -147,6 +144,11 @@ public class WrittenTestFragment extends MyBaseFragment {
     }
 
     @Override
+    protected boolean enableButtonResult() {
+        return true;
+    }
+
+    @Override
     protected String getTitle() {
         return getString(R.string.title_written_test);
     }
@@ -158,7 +160,8 @@ public class WrittenTestFragment extends MyBaseFragment {
 
     @Override
     public void onBackPressed() {
-        WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING1, HomeActivity.defaultFont);
+        WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.TYPE_WARNING_1
+                , HomeActivity.defaultFont);
         warningDialog.addListener(mOnConfirmDialogButtonClickListener);
         warningDialog.show();
     }
@@ -166,7 +169,8 @@ public class WrittenTestFragment extends MyBaseFragment {
     @Override
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT) {
-            WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.Type.WARNING2, HomeActivity.defaultFont);
+            WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.TYPE_WARNING_2
+                    , HomeActivity.defaultFont);
             warningDialog.addListener(mOnConfirmDialogButtonClickListener);
             warningDialog.show();
         }
@@ -182,14 +186,23 @@ public class WrittenTestFragment extends MyBaseFragment {
 
     private void setFont(View rootView) {
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(HomeActivity.defaultFont);
-        ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(mFont);
         ((TextView) rootView.findViewById(R.id.headerQuestion)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     private void getData() {
-        Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
-        examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
+        questions = (ArrayList<Question>) getHolder(Constants.KEY_HOLDER_QUESTIONS);
+        // mess questions up
+        int arraySize = questions.size();
+        Random rnd = new Random();
+        for (int i = 0; i < arraySize; i++) {
+            int tmp = rnd.nextInt(arraySize);
+            Question question = questions.get(i);
+            questions.set(i, questions.get(tmp));
+            questions.get(i).index = i + 1;
+            questions.set(tmp, question);
+            questions.get(tmp).index = tmp + 1;
+        }
     }
 
     private void resetAllWrapper() {
@@ -211,9 +224,10 @@ public class WrittenTestFragment extends MyBaseFragment {
         getMyBaseActivity().showBigAdsIfNeeded();
         OverallResultFragment fragment = new OverallResultFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constants.BUNDLE_TYPE, this.type);
-        bundle.putInt(Constants.BUNDLE_EXAM_ID, examId);
-        putHolder(KEY_HOLDER_QUESTIONS, questions);
+        bundle.putBoolean(Constants.BUNDLE_NEED_SAVING, false);
+        bundle.putString(Constants.BUNDLE_FRAGMENT_TYPE, TAG_WRITTEN_TEST_FRAGMENT);
+        Log.e("Questions size 2", "" + questions.size());
+        putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
     }
@@ -247,7 +261,7 @@ public class WrittenTestFragment extends MyBaseFragment {
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
             RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
             ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
-            ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(font);
+            ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(mFont);
             ((TextView) view.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             if (question.image == null) {
                 imageArea.setVisibility(View.GONE);
@@ -264,7 +278,8 @@ public class WrittenTestFragment extends MyBaseFragment {
             ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
             for (int i = 0; i < answerChoicesItems.size(); i++) {
                 choicesContainer.addView(answerChoicesItems.get(i).getView());
-                LinearLayout.MarginLayoutParams marginParams = (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getView().getLayoutParams();
+                LinearLayout.MarginLayoutParams marginParams =
+                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getView().getLayoutParams();
                 marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
                 answerChoicesItems.get(i).getView().requestLayout();
                 answerChoicesItems.get(i).setOnChooseAnswerListener(this);

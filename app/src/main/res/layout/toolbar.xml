@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
+    android:elevation="@dimen/common_size_5"
     android:theme="@style/MyMaterialTheme"
     app:layout_collapseMode="pin"
     app:popupTheme="@style/MyMaterialTheme.PopupOverlay">
@@ -19,7 +20,6 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/common_size_5"
-            android:text="Title"
             android:textAllCaps="true"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/common_text_size_28" />
@@ -56,13 +56,27 @@
             android:textColor="@color/do_test_highlight_color"
             android:textSize="@dimen/common_text_size_28" />
 
+        <TextView
+            android:id="@+id/buttonWrittenTest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toolbar_flat_button"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/common_size_5"
+            android:text="@string/action_written_test"
+            android:textAllCaps="true"
+            android:textColor="@color/do_test_highlight_color"
+            android:textSize="@dimen/common_text_size_20" />
+
         <LinearLayout
             android:id="@+id/buttonShare"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
-            android:clickable="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/toolbar_flat_button"
+            android:clickable="true"
             android:gravity="center">
 
             <ImageView
