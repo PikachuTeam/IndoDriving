@@ -22,7 +22,9 @@
     <string name="wrong_answer">Wrong</string>
     <string name="not_answered">Not answered</string>
     <string name="title_activity_home">Indonesian Driving License</string>
-    <string name="dialog_warning_text">\tFinish answering all the questions?\nYou will be shown with the final result.\n\t\t\t\tProceed to end this test?</string>
+    <string name="dialog_warning_text">\tFinish answering all the questions?\nYou will be shown with
+        the final result.\n\t\t\t\tProceed to end this test?
+    </string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="pass">You passed!</string>
@@ -35,14 +37,46 @@
     <string name="choice_d">D. {0}</string>
     <string name="dialog_warning_text_exit">Do you really want to quit the test?</string>
     <string name="start">Start</string>
-    <string name="test_rule_sim_a">- This Test Simulation is for class A driving license.\n- To be able to get this license, you have to be over 17 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test_rule_sim_a_umum">- This Test Simulation is for class A public driving license.\n- To be able to get this license, you have to be over 20 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test_rule_sim_b1">- This Test Simulation is for class B1 driving license.\n- To be able to get this license, you have to be over 20 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test_rule_sim_b1_umum">- This Test Simulation is for class B1 public driving license.\n- To be able to get this license, you have to be over 22 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test_rule_sim_b2">- This Test Simulation is for class B2 driving license.\n- To be able to get this license, you have to be over 21 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test_rule_sim_b2_umum">- This Test Simulation is for class B2 public driving license.\n- To be able to get this license, you have to be over 23 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test_rule_sim_c">- This Test Simulation is for class C driving license.\n- To be able to get this license, you have to be over 17 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
-    <string name="test_rule_sim_d">- This Test Simulation is for class D driving license.\n- To be able to get this license, you have to be over 17 years old.\n- This test consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get at least 21 correct answers of the total.</string>
+    <string name="test_rule_sim_a">- This Test Simulation is for class A driving license.\n- To be
+        able to get this license, you have to be over 17 years old.\n- This test consists of 30
+        multiple- choice driving theory questions.\n- To pass the test, you must get at least 21
+        correct answers of the total.
+    </string>
+    <string name="test_rule_sim_a_umum">- This Test Simulation is for class A public driving
+        license.\n- To be able to get this license, you have to be over 20 years old.\n- This test
+        consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get
+        at least 21 correct answers of the total.
+    </string>
+    <string name="test_rule_sim_b1">- This Test Simulation is for class B1 driving license.\n- To be
+        able to get this license, you have to be over 20 years old.\n- This test consists of 30
+        multiple- choice driving theory questions.\n- To pass the test, you must get at least 21
+        correct answers of the total.
+    </string>
+    <string name="test_rule_sim_b1_umum">- This Test Simulation is for class B1 public driving
+        license.\n- To be able to get this license, you have to be over 22 years old.\n- This test
+        consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get
+        at least 21 correct answers of the total.
+    </string>
+    <string name="test_rule_sim_b2">- This Test Simulation is for class B2 driving license.\n- To be
+        able to get this license, you have to be over 21 years old.\n- This test consists of 30
+        multiple- choice driving theory questions.\n- To pass the test, you must get at least 21
+        correct answers of the total.
+    </string>
+    <string name="test_rule_sim_b2_umum">- This Test Simulation is for class B2 public driving
+        license.\n- To be able to get this license, you have to be over 23 years old.\n- This test
+        consists of 30 multiple- choice driving theory questions.\n- To pass the test, you must get
+        at least 21 correct answers of the total.
+    </string>
+    <string name="test_rule_sim_c">- This Test Simulation is for class C driving license.\n- To be
+        able to get this license, you have to be over 17 years old.\n- This test consists of 30
+        multiple- choice driving theory questions.\n- To pass the test, you must get at least 21
+        correct answers of the total.
+    </string>
+    <string name="test_rule_sim_d">- This Test Simulation is for class D driving license.\n- To be
+        able to get this license, you have to be over 17 years old.\n- This test consists of 30
+        multiple- choice driving theory questions.\n- To pass the test, you must get at least 21
+        correct answers of the total.
+    </string>
     <string name="learn_sim_a">Learn Sim A ({0})</string>
     <string name="learn_sim_a_umum">Learn Sim A Umum ({0})</string>
     <string name="learn_sim_b1">Learn Sim B1 ({0})</string>
@@ -78,6 +112,10 @@
     <string name="remove_ads">Remove Ads</string>
     <string name="share">Share</string>
     <string name="dialog_title_trial">Remind</string>
-    <string name="dialog_content_out_of_times">\t\t\t\t\t\tYour trial has expired\n\tPlease consider to upgrade to pro\n\t\t\t\tversion to unlock all features</string>
-    <string name="dialog_content_trial">You only have {0} times to try this feature. Want to continue?</string>
+    <string name="dialog_content_out_of_times">\t\t\t\t\t\tYour trial has expired\n\tPlease consider
+        to upgrade to pro\n\t\t\t\tversion to unlock all features
+    </string>
+    <string name="dialog_content_trial">You only have {0} times to try this feature. Want to
+        continue?
+    </string>
 </resources>

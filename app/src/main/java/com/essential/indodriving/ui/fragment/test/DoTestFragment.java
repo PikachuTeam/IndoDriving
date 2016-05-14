@@ -2,6 +2,8 @@ package com.essential.indodriving.ui.fragment.test;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;

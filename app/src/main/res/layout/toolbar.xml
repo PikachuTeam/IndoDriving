@@ -68,7 +68,8 @@
             android:text="@string/action_written_test"
             android:textAllCaps="true"
             android:textColor="@color/do_test_highlight_color"
-            android:textSize="@dimen/common_text_size_20" />
+            android:textSize="@dimen/common_text_size_28"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/buttonShare"

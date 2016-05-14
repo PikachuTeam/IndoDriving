@@ -35,7 +35,9 @@ public class DataSource extends BaseDataSource {
             question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
             byte[] imgData = cursor.getBlob(9);
-            question.image = imgData != null ? BitmapFactory.decodeByteArray(imgData, 0, imgData.length) : null;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
+            question.image = imgData != null ? BitmapFactory.decodeByteArray(imgData, 0, imgData.length, options) : null;
             question.type = cursor.getInt(1);
             questions.add(question);
             cursor.moveToNext();

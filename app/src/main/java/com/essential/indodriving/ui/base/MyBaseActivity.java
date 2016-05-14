@@ -199,6 +199,7 @@ public abstract class MyBaseActivity extends BaseActivity {
         textViewTitle.setTypeface(font);
         buttonResult.setTypeface(font);
         buttonTutorial.setTypeface(font);
+        mButtonWrittenTest.setTypeface(font);
     }
 
     private MyBaseFragment getMyCurrentFragment() {
