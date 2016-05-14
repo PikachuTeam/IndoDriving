@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.base.BaseConfirmDialog;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
 
 /**
  * Created by dongc_000 on 3/11/2016.

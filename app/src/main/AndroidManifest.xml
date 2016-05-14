@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,18 +21,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.HomeActivity"
+            android:name=".ui.activity.HomeActivity"
             android:label="@string/title_activity_home"
-            android:parentActivityName=".ui.SplashActivity"
+            android:parentActivityName=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.essential.indodriving.ui.SplashActivity" />
+                android:value=".ui.activity.SplashActivity" />
         </activity>
     </application>
-
 </manifest>
