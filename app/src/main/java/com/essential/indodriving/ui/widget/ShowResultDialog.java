@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
@@ -46,9 +47,10 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
         this.setCanceledOnTouchOutside(true);
         setContentView(R.layout.dialog_show_result);
         findViews();
-        if (question.image != null) {
+        if (question.imageData != null) {
             imageArea.setVisibility(View.VISIBLE);
-            imgQuestion.setImageBitmap(question.image);
+//            imgQuestion.setImageBitmap(question.image);
+            Glide.with(getContext()).load(question.imageData).dontAnimate().dontTransform().dontAnimate().dontTransform().into(imgQuestion);
             buttonZoomIn.setColorFilter(ContextCompat.getColor(context
                     , R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
         } else {
@@ -150,7 +152,7 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
 
     @Override
     public void onClick(View v) {
-        ZoomInImageDialog dialog = new ZoomInImageDialog(getContext(), question.image);
+        ZoomInImageDialog dialog = new ZoomInImageDialog(getContext(), question.imageData);
         dialog.show();
     }
 
@@ -164,7 +166,7 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
             buttonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
             buttonZoomIn.setColorFilter(ContextCompat.getColor(context
                     , R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
-            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.imageData);
             dialog.show();
         }
         return false;

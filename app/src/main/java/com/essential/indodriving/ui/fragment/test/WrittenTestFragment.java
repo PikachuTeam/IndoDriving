@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
@@ -264,11 +265,12 @@ public class WrittenTestFragment extends MyBaseFragment {
             ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
             ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(mFont);
             ((TextView) view.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-            if (question.image == null) {
+            if (question.imageData == null) {
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-                questionImage.setImageBitmap(question.image);
+//                questionImage.setImageBitmap(question.image);
+                Glide.with(getContext()).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
                 questionImage.setTag(question);
                 questionImage.setOnClickListener(this);
                 buttonZoomIn.setTag(question);
@@ -353,7 +355,7 @@ public class WrittenTestFragment extends MyBaseFragment {
         public void onClick(View v) {
             ImageView image = (ImageView) v;
             Question question = (Question) image.getTag();
-            ZoomInImageDialog dialog = new ZoomInImageDialog(mContext, question.image);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(mContext, question.imageData);
             dialog.show();
         }
 
@@ -363,7 +365,7 @@ public class WrittenTestFragment extends MyBaseFragment {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 image.setImageResource(R.drawable.ic_zoom_in_normal);
                 Question question = (Question) image.getTag();
-                ZoomInImageDialog dialog = new ZoomInImageDialog(mContext, question.image);
+                ZoomInImageDialog dialog = new ZoomInImageDialog(mContext, question.imageData);
                 dialog.show();
             } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 image.setImageResource(R.drawable.ic_zoom_in_highlight);

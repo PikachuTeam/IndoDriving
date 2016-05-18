@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
 
 /**
@@ -16,11 +17,11 @@ import com.essential.indodriving.R;
 public class ZoomInImageDialog extends Dialog {
 
     private ImageView zoomedInImage;
-    private Bitmap image;
+    private byte[] imageData;
 
-    public ZoomInImageDialog(Context context, Bitmap image) {
+    public ZoomInImageDialog(Context context, byte[] imageData) {
         super(context);
-        this.image = image;
+        this.imageData = imageData;
     }
 
     @Override
@@ -30,7 +31,8 @@ public class ZoomInImageDialog extends Dialog {
         this.setCanceledOnTouchOutside(true);
         setContentView(R.layout.dialog_zoom_in_picture);
         zoomedInImage = (ImageView) findViewById(R.id.zoomedInImage);
-        zoomedInImage.setImageBitmap(image);
+//        zoomedInImage.setImageBitmap(image);
+        Glide.with(getContext()).load(this.imageData).dontAnimate().dontTransform().into(zoomedInImage);
         zoomedInImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

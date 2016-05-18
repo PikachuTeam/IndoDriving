@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.base.Constants;
@@ -131,9 +132,10 @@ public class DetailResultFragment extends MyBaseFragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             final Question question = questions.get(position);
-            if (question.image != null) {
+            if (question.imageData != null) {
                 holder.questionImage.setVisibility(View.VISIBLE);
-                holder.questionImage.setImageBitmap(question.image);
+//                holder.questionImage.setImageBitmap(question.image);
+                Glide.with(DetailResultFragment.this).load(question.imageData).dontAnimate().dontTransform().into(holder.questionImage);
             } else {
                 holder.questionImage.setVisibility(View.GONE);
             }

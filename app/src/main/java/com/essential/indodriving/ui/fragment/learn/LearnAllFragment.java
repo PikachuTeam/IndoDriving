@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
@@ -395,11 +396,12 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void setCardData(Question question) {
-        if (question.image == null) {
+        if (question.imageData == null) {
             imageArea.setVisibility(View.GONE);
         } else {
             imageArea.setVisibility(View.VISIBLE);
-            cardQuestionImage.setImageBitmap(question.image);
+//            cardQuestionImage.setImageBitmap(question.image);
+            Glide.with(LearnAllFragment.this).load(question.imageData).dontAnimate().dontTransform().into(cardQuestionImage);
         }
         cardTextViewQuestion.setText(question.question);
         if (question.answer1 != null) {
@@ -495,7 +497,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 getMyBaseActivity().showBigAdsIfNeeded();
             }
         } else if (v == cardQuestionImage) {
-            ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), questions.get(currentPosition).image);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), questions.get(currentPosition).imageData);
             dialog.show();
         } else if (v == lockedArea) {
             RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
@@ -548,7 +550,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                         , R.color.learn_all_button_zoom_in_normal_color)
                         , PorterDuff.Mode.SRC_ATOP);
                 Question question = questions.get(currentPosition);
-                ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.image);
+                ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.imageData);
                 dialog.show();
             }
         } else if (v == buttonNext) {

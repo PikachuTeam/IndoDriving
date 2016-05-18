@@ -11,9 +11,10 @@ public class Question {
     public String question;
     public String answer1, answer2, answer3, answer4;
     public int correctAnswer;
-    public Bitmap image;
+//    public Bitmap image;
     public int type;
     public int answer;
+    public byte[] imageData;
 
     public Question() {
         answer = -1;
