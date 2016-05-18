@@ -195,11 +195,15 @@
 
                     <TextView
                         android:id="@+id/textViewNotAnswered"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/not_answered_text_width"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/common_size_13"
                         android:layout_toRightOf="@+id/imgNotAnswered"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
                         android:text="@string/not_answered"
                         android:textColor="@color/not_answered_color"
                         android:textSize="@dimen/common_text_size_22" />

@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.base.BaseConfirmDialog;
-import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
+import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
@@ -228,7 +227,6 @@ public class WrittenTestFragment extends MyBaseFragment {
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.BUNDLE_NEED_SAVING, false);
         bundle.putString(Constants.BUNDLE_FRAGMENT_TYPE, TAG_WRITTEN_TEST_FRAGMENT);
-        Log.e("Questions size 2", "" + questions.size());
         putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
@@ -269,8 +267,7 @@ public class WrittenTestFragment extends MyBaseFragment {
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-//                questionImage.setImageBitmap(question.image);
-                Glide.with(getContext()).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
+                Glide.with(WrittenTestFragment.this).load(question.imageData).into(questionImage);
                 questionImage.setTag(question);
                 questionImage.setOnClickListener(this);
                 buttonZoomIn.setTag(question);

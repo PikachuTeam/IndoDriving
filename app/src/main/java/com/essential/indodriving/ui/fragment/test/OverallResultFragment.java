@@ -14,11 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.fragment.learn.LearnAllFragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -166,12 +166,20 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     }
 
     private void setText() {
-        if (totalCorrectAnswer >= 21) {
-            textViewState.setText(getString(R.string.pass));
-            textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
-        } else {
-            textViewState.setText(getString(R.string.fail));
-            textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
+        switch (mFragmentType) {
+            case DoTestFragment.TAG_DO_TEST_FRAGMENT:
+                textViewState.setVisibility(View.VISIBLE);
+                if (totalCorrectAnswer >= 21) {
+                    textViewState.setText(getString(R.string.pass));
+                    textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
+                } else {
+                    textViewState.setText(getString(R.string.fail));
+                    textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
+                }
+                break;
+            case WrittenTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
+                textViewState.setVisibility(View.GONE);
+                break;
         }
         int numberOfQuestions = questions.size();
         tvCorrectAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers), totalCorrectAnswer, numberOfQuestions));
@@ -191,6 +199,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         buttonNext1 = (ImageView) rootView.findViewById(R.id.buttonNext1);
         buttonNext2 = (ImageView) rootView.findViewById(R.id.buttonNext2);
         buttonNext3 = (ImageView) rootView.findViewById(R.id.buttonNext3);
+        rootView.findViewById(R.id.textViewNotAnswered).setSelected(true);
 
         setFont(HomeActivity.defaultFont, rootView);
 
@@ -215,7 +224,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private void setupChart() {
         float tmp = 100 / 30f;
         yData = new float[]{totalCorrectAnswer * tmp, totalWrongAnswer * tmp, totalNotAnswered * tmp};
-
         pieChart = new PieChart(getActivity());
         pieChart.setUsePercentValues(true);
         pieChart.setDrawHoleEnabled(true);
@@ -224,9 +232,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setRotationEnabled(false);
         pieChart.setTouchEnabled(false);
-
         addData();
-
         pieChart.getLegend().setEnabled(false);
         pieChart.getData().setDrawValues(false);
         pieChart.setDescription("");
@@ -235,7 +241,6 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private void addData() {
         ArrayList<Entry> yVals = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
-
         if (yData[0] > 0) {
             yVals.add(new Entry(yData[0], 0));
             colors.add(new Integer(ContextCompat.getColor(getActivity(), R.color.correct_answer_color)));
@@ -253,17 +258,14 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         for (int i = 0; i < yVals.size(); i++) {
             xVals.add("");
         }
-
         PieDataSet dataSet = new PieDataSet(yVals, "");
         dataSet.setSliceSpace(4);
         dataSet.setSelectionShift(5);
         dataSet.setColors(colors);
-
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(9f);
         data.setValueTextColor(ContextCompat.getColor(getActivity(), R.color.black));
-
         pieChart.setData(data);
         pieChart.invalidate();
     }
@@ -342,7 +344,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 buttonNext1.setColorFilter(ContextCompat.getColor(getActivity(), R.color.overall_result_button_next_normal_color), PorterDuff.Mode.SRC_ATOP);
                 putHolder(Constants.KEY_HOLDER_QUESTIONS, getCorrectAnswers());
                 Bundle bundle = new Bundle();
-                bundle.putInt("Type", 0);
+                bundle.putInt(Constants.BUNDLE_TYPE, 0);
                 DetailResultFragment fragment = new DetailResultFragment();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment, TAG_OVERALL_RESULT_FRAGMENT);

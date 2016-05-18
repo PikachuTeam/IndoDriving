@@ -31,7 +31,6 @@ public class ZoomInImageDialog extends Dialog {
         this.setCanceledOnTouchOutside(true);
         setContentView(R.layout.dialog_zoom_in_picture);
         zoomedInImage = (ImageView) findViewById(R.id.zoomedInImage);
-//        zoomedInImage.setImageBitmap(image);
         Glide.with(getContext()).load(this.imageData).dontAnimate().dontTransform().into(zoomedInImage);
         zoomedInImage.setOnClickListener(new View.OnClickListener() {
             @Override

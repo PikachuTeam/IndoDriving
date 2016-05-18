@@ -49,7 +49,6 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
         findViews();
         if (question.imageData != null) {
             imageArea.setVisibility(View.VISIBLE);
-//            imgQuestion.setImageBitmap(question.image);
             Glide.with(getContext()).load(question.imageData).dontAnimate().dontTransform().dontAnimate().dontTransform().into(imgQuestion);
             buttonZoomIn.setColorFilter(ContextCompat.getColor(context
                     , R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
