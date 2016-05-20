@@ -56,6 +56,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private boolean isShowedRuleAgain;
     private boolean isRated;
     private boolean isProVersion;
+    private boolean isEnableRateToUnlock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +131,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         }
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
         isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+        isEnableRateToUnlock= sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
     }
 
     private void getData() {
@@ -315,7 +317,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                         ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
                         ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
                     } else {
-                        if (ListQuestionFragment.this.isRated) {
+                        if (ListQuestionFragment.this.isRated || !ListQuestionFragment.this.isEnableRateToUnlock) {
                             if (position - 1 < 6) {
                                 ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
                                 ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);

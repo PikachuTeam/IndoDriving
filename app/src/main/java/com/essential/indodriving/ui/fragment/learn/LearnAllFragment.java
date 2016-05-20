@@ -90,6 +90,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     private boolean isFirst;
     private boolean isRated;
     private boolean isProVersion;
+    private boolean isEnableRateToUnlock;
     private AlphaAnimation alphaAnimation;
     private View.OnTouchListener mIndicatorTouchListener = new View.OnTouchListener() {
         @Override
@@ -212,7 +213,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                         + indicatorPositionOffset * (currentPosition + 1);
                 indicator.setX(indicatorPosition);
                 if (getActivity() != null) {
-                    if (!isProVersion && !isRated) {
+                    if (isEnableRateToUnlock && !isProVersion && !isRated) {
                         if (currentPosition >= 10) {
                             if (lockedArea.getVisibility() == View.GONE) {
                                 lockedArea.setVisibility(View.VISIBLE);
@@ -385,6 +386,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
         isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
+        isEnableRateToUnlock= sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
         mTrialTimesLeft = sharedPreferences.getInt(Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
     }
 
@@ -457,7 +459,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        if (isRated || isProVersion) {
+        if (!isEnableRateToUnlock || isRated || isProVersion) {
             lockedArea.setVisibility(View.GONE);
         }
     }
