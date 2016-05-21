@@ -178,7 +178,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 }
             } else {
                 if (!isProVersion) {
-                    if (isRated) {
+                    if (isRated || !isEnableRateToUnlock) {
                         if (isShowedRuleAgain) {
                             moveToShowRuleFragment(questionPackage.index);
                         } else {
