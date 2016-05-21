@@ -42,7 +42,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/button_learn"
                         android:clickable="true"
-                        android:src="@drawable/ic_learn" />
+                        android:src="@drawable/ic_learning_cards" />
                 </android.support.v7.widget.CardView>
 
                 <TextView
@@ -81,7 +81,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/button_learn"
                         android:clickable="true"
-                        android:src="@drawable/ic_test" />
+                        android:src="@drawable/ic_learn" />
                 </android.support.v7.widget.CardView>
 
                 <TextView
@@ -90,7 +90,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="@dimen/common_size_15"
-                    android:text="@string/unlimited_test"
+                    android:text="@string/title_written_test"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/common_text_size_35" />
             </LinearLayout>

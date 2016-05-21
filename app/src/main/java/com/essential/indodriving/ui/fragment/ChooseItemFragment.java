@@ -157,5 +157,6 @@ public class ChooseItemFragment extends MyBaseFragment {
     private void setFont(View rootView, Typeface font) {
         ((TextView) rootView.findViewById(R.id.text_learn_theory)).setTypeface(font);
         ((TextView) rootView.findViewById(R.id.text_simulation_test)).setTypeface(font);
+        ((TextView) rootView.findViewById(R.id.text_unlimited_test)).setTypeface(font);
     }
 }

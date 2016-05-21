@@ -72,4 +72,18 @@
     <string name="title_overall_result">Hasil</string>
     <string name="title_detail_result">Hasil</string>
     <string name="your_answer">Pilihanmu:\u0020</string>
+    <string name="number_of_answers">{0}/{1}</string>
+
+    <string name="title_written_test">Written Test</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="more_apps">More Apps</string>
+    <string name="remove_ads">Remove Ads</string>
+    <string name="share">Share</string>
+    <string name="dialog_title_trial">Remind</string>
+    <string name="dialog_content_out_of_times">\t\t\t\t\t\tYour trial has expired\n\tPlease consider
+        to upgrade to pro\n\t\t\t\tversion to unlock all features
+    </string>
+    <string name="dialog_content_trial">You only have {0} times to try this feature. Want to
+        continue?
+    </string>
 </resources>
