@@ -26,7 +26,7 @@
     <dimen name="show_result_button_next_size">45dp</dimen>
     <dimen name="button_zoom_in_size">45dp</dimen>
     <dimen name="home_screen_stroke_line_size">3dp</dimen>
-    <dimen name="choose_item_button_size">180dp</dimen>
+    <dimen name="choose_item_button_size">170dp</dimen>
     <dimen name="item_list_question_height">90dp</dimen>
 
     <dimen name="learn_all_indicator_area_height">135dp</dimen>
