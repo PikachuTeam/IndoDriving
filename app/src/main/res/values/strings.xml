@@ -74,11 +74,11 @@
     <string name="your_answer">Pilihanmu:\u0020</string>
     <string name="number_of_answers">{0}/{1}</string>
 
-    <string name="title_written_test">Written Test</string>
-    <string name="rate_us">Rate Us</string>
-    <string name="more_apps">More Apps</string>
+    <string name="title_written_test">Tes Tertulis</string>
+    <string name="rate_us">Penilaian</string>
+    <string name="more_apps">Aplikasi</string>
     <string name="remove_ads">Remove Ads</string>
-    <string name="share">Share</string>
+    <string name="share">Berbagi</string>
     <string name="dialog_title_trial">Remind</string>
     <string name="dialog_content_out_of_times">\t\t\t\t\t\tYour trial has expired\n\tPlease consider
         to upgrade to pro\n\t\t\t\tversion to unlock all features
