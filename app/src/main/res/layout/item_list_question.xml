@@ -47,9 +47,9 @@
                 android:id="@+id/lockArea"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/common_size_25"
-                android:layout_marginRight="@dimen/common_size_5"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/common_size_5"
                 android:gravity="center">
 
                 <ImageView

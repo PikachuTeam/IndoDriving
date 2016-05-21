@@ -26,7 +26,7 @@
     <dimen name="show_result_button_next_size">56.4dp</dimen>
     <dimen name="button_zoom_in_size">56.4dp</dimen>
     <dimen name="home_screen_stroke_line_size">3.76dp</dimen>
-    <dimen name="choose_item_button_size">282dp</dimen>
+    <dimen name="choose_item_button_size">225.6dp</dimen>
     <dimen name="item_list_question_height">112.8dp</dimen>
 
     <dimen name="learn_all_indicator_area_height">169.2dp</dimen>

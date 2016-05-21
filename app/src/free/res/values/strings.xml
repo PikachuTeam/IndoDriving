@@ -118,4 +118,5 @@
     <string name="dialog_content_trial">You only have {0} times to try this feature. Want to
         continue?
     </string>
+    <string name="unlimited_test">Unlimited Test</string>
 </resources>

@@ -4,309 +4,309 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
     android:background="@drawable/home_screen_image"
+    android:scrollbars="none"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activity.HomeActivity"
     tools:showIn="@layout/activity_home">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="@dimen/home_screen_stroke_line_size"
+            android:layout_alignParentBottom="true"
+            android:background="@color/home_screen_stroke_line_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
+
+            <LinearLayout
+                android:id="@+id/buttonLearnSimA"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/common_size_40"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_car" />
+
+                <TextView
+                    android:id="@+id/textViewSimA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_a"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_screen_stroke_line_size"
                 android:layout_alignParentBottom="true"
                 android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
+
+            <LinearLayout
+                android:id="@+id/buttonLearnSimAUmum"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimA"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/common_size_40"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_car" />
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/common_size_40"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_car" />
+                <TextView
+                    android:id="@+id/textViewSimAUmum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_a_umum"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textViewSimA"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_a"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimAUmum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/common_size_40"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_car" />
-
-                    <TextView
-                        android:id="@+id/textViewSimAUmum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_a_umum"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/buttonLearnSimB1"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimB1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/choose_sim_button_image_size"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_small_truck" />
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/choose_sim_button_image_size"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_small_truck" />
+                <TextView
+                    android:id="@+id/textViewSimB1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_b1"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textViewSimB1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_b1"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimB1Umum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/choose_sim_button_image_size"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_small_truck" />
-
-                    <TextView
-                        android:id="@+id/textViewSimB1Umum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_b1_umum"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/buttonLearnSimB1Umum"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimB2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/choose_sim_button_image_size"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_small_truck" />
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/choose_sim_button_image_size"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_big_truck" />
+                <TextView
+                    android:id="@+id/textViewSimB1Umum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_b1_umum"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textViewSimB2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_b2"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimB2Umum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/choose_sim_button_image_size"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_big_truck" />
-
-                    <TextView
-                        android:id="@+id/textViewSimB2Umum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_b2_umum"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/buttonLearnSimB2"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimC"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/choose_sim_button_image_size"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_big_truck" />
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/choose_sim_button_image_size"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_motorbike" />
+                <TextView
+                    android:id="@+id/textViewSimB2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_b2"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textViewSimC"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_c"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/choose_sim_button_height">
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/buttonLearnSimD"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sim"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
 
-                    <ImageView
-                        android:layout_width="@dimen/choose_sim_button_image_size"
-                        android:layout_height="@dimen/choose_sim_button_image_size"
-                        android:layout_marginLeft="@dimen/common_size_80"
-                        android:src="@drawable/ic_disabled_motorbike" />
+            <LinearLayout
+                android:id="@+id/buttonLearnSimB2Umum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textViewSimD"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/common_size_12"
-                        android:text="@string/sim_d"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/choose_sim_button_text_size" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/choose_sim_button_image_size"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_big_truck" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_screen_stroke_line_size"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/home_screen_stroke_line_color" />
-            </RelativeLayout>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewSimB2Umum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_b2_umum"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
+
+            <LinearLayout
+                android:id="@+id/buttonLearnSimC"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/choose_sim_button_image_size"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_motorbike" />
+
+                <TextView
+                    android:id="@+id/textViewSimC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_c"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sim_button_height">
+
+            <LinearLayout
+                android:id="@+id/buttonLearnSimD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sim"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/choose_sim_button_image_size"
+                    android:layout_height="@dimen/choose_sim_button_image_size"
+                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:src="@drawable/ic_disabled_motorbike" />
+
+                <TextView
+                    android:id="@+id/textViewSimD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/sim_d"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
+    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -30,7 +30,6 @@ public abstract class MyBaseFragment extends BaseFragment {
         getMyBaseActivity().enableButtonResult(enableButtonResult());
         getMyBaseActivity().enableButtonTutorial(enableButtonTutorial());
         getMyBaseActivity().enableButtonShare(enableButtonShare());
-        getMyBaseActivity().enableButtonWrittenTest(enableButtonWrittenTest());
         getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(enableIndicator());
         if (enableButtonBack()) {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
@@ -89,10 +88,6 @@ public abstract class MyBaseFragment extends BaseFragment {
     }
 
     protected boolean enableButtonTutorial() {
-        return false;
-    }
-
-    protected boolean enableButtonWrittenTest() {
         return false;
     }
 

@@ -47,8 +47,8 @@
                         android:layout_width="@dimen/button_zoom_in_size"
                         android:layout_height="@dimen/button_zoom_in_size"
                         android:layout_toRightOf="@+id/questionImage"
-                        android:src="@drawable/ic_zoom_in_normal"
-                        android:clickable="true" />
+                        android:clickable="true"
+                        android:src="@drawable/ic_zoom_in_normal" />
                 </RelativeLayout>
 
                 <TextView

@@ -32,13 +32,22 @@ public abstract class MyBaseActivity extends BaseActivity {
     private TextView textViewTitle;
     private TextView buttonTutorial;
     private TextView buttonResult;
-    private TextView mButtonWrittenTest;
     private LinearLayout buttonShare;
     private CoordinatorLayout mainCoordinatorLayout;
     private FrameLayout adsContainer;
     private boolean isProVersion;
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private AdsBigBannerHandler adsBigBannerHandler;
+
+    public static void startActivityAnimation(Activity activity, Intent intent) {
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
+    }
+
+    public static void finishActivityAnimation(Activity activity) {
+        activity.finish();
+        activity.overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
+    }
 
     public CoordinatorLayout getMainCoordinatorLayout() {
         return mainCoordinatorLayout;
@@ -72,16 +81,6 @@ public abstract class MyBaseActivity extends BaseActivity {
         }
     }
 
-    public static void startActivityAnimation(Activity activity, Intent intent) {
-        activity.startActivity(intent);
-        activity.overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
-    }
-
-    public static void finishActivityAnimation(Activity activity) {
-        activity.finish();
-        activity.overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
-    }
-
     public Toolbar getToolbar() {
         return toolbar;
     }
@@ -111,14 +110,6 @@ public abstract class MyBaseActivity extends BaseActivity {
             buttonShare.setVisibility(View.VISIBLE);
         } else {
             buttonShare.setVisibility(View.GONE);
-        }
-    }
-
-    public void enableButtonWrittenTest(boolean isVisible) {
-        if (isVisible) {
-            mButtonWrittenTest.setVisibility(View.VISIBLE);
-        } else {
-            mButtonWrittenTest.setVisibility(View.GONE);
         }
     }
 
@@ -166,7 +157,6 @@ public abstract class MyBaseActivity extends BaseActivity {
         buttonTutorial = (TextView) findViewById(R.id.buttonTutorial);
         buttonResult = (TextView) findViewById(R.id.buttonResult);
         buttonShare = (LinearLayout) findViewById(R.id.buttonShare);
-        mButtonWrittenTest = (TextView) findViewById(R.id.buttonWrittenTest);
         mainCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
         adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
@@ -187,19 +177,12 @@ public abstract class MyBaseActivity extends BaseActivity {
                 getMyCurrentFragment().sharingEvent();
             }
         });
-        mButtonWrittenTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_WRITTEN_TEST);
-            }
-        });
     }
 
     private void setFont(Typeface font) {
         textViewTitle.setTypeface(font);
         buttonResult.setTypeface(font);
         buttonTutorial.setTypeface(font);
-        mButtonWrittenTest.setTypeface(font);
     }
 
     private MyBaseFragment getMyCurrentFragment() {

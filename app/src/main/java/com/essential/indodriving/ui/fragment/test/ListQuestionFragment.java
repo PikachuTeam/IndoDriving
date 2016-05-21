@@ -8,7 +8,6 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,12 +20,12 @@ import android.widget.TextView;
 
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.base.BaseConfirmDialog;
-import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.QuestionPackage;
 import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
+import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.util.GridItemDecoration;
 import com.essential.indodriving.util.OnRecyclerViewItemClickListener;
@@ -131,7 +130,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         }
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
         isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
-        isEnableRateToUnlock= sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
+        isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
     }
 
     private void getData() {
@@ -180,25 +179,15 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
             } else {
                 if (!isProVersion) {
                     if (isRated) {
-                        if (questionPackage.index < 7) {
-                            if (isShowedRuleAgain) {
-                                moveToShowRuleFragment(questionPackage.index);
-                            } else {
-                                moveToDoTestFragment(questionPackage.index);
-                            }
+                        if (isShowedRuleAgain) {
+                            moveToShowRuleFragment(questionPackage.index);
                         } else {
-                            Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout()
-                                    , getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
+                            moveToDoTestFragment(questionPackage.index);
                         }
                     } else {
-                        if (questionPackage.index < 7) {
-                            RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
-                            ratingDialog.show();
-                            ratingDialog.addListener(this);
-                        } else {
-                            Snackbar.make(getMyBaseActivity().getMainCoordinatorLayout()
-                                    , getString(R.string.will_be_updated), Snackbar.LENGTH_SHORT).show();
-                        }
+                        RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
+                        ratingDialog.show();
+                        ratingDialog.addListener(this);
                     }
                 } else {
                     if (isShowedRuleAgain) {
@@ -318,27 +307,17 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                         ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
                     } else {
                         if (ListQuestionFragment.this.isRated || !ListQuestionFragment.this.isEnableRateToUnlock) {
-                            if (position - 1 < 6) {
-                                ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
-                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
-                            } else {
-                                ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
-                                ((ViewHolderItem) holder).star.setVisibility(View.GONE);
-                                ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
-                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(R.drawable.list_question_locked_item);
-                            }
+                            ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
+                            ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
+                                    tatteam.com.app_common.R.drawable.raised_button);
                         } else {
                             ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
-                            if (position - 1 < 6) {
-                                ((ViewHolderItem) holder).star.setVisibility(View.VISIBLE);
-                                ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
-                                ((ViewHolderItem) holder).star.setColorFilter(ContextCompat.getColor(context, R.color.yellow_star), PorterDuff.Mode.SRC_ATOP);
-                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
-                            } else {
-                                ((ViewHolderItem) holder).star.setVisibility(View.GONE);
-                                ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
-                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(R.drawable.list_question_locked_item);
-                            }
+                            ((ViewHolderItem) holder).star.setVisibility(View.VISIBLE);
+                            ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
+                            ((ViewHolderItem) holder).star.setColorFilter(ContextCompat.
+                                    getColor(context, R.color.yellow_star), PorterDuff.Mode.SRC_ATOP);
+                            ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
+                                    tatteam.com.app_common.R.drawable.raised_button);
                         }
                     }
                 } else {

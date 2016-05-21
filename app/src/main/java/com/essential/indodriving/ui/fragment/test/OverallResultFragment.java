@@ -19,7 +19,7 @@ import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.ui.fragment.learn.LearnAllFragment;
+import com.essential.indodriving.ui.fragment.ChooseItemFragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -134,13 +134,13 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     public void onBackPressed() {
         switch (mFragmentType) {
             case DoTestFragment.TAG_DO_TEST_FRAGMENT:
-                getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG
-                        , FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG,
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 saveData();
                 break;
-            case WrittenTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
-                getFragmentManager().popBackStack(LearnAllFragment.TAG_LEARN_ALL_FRAGMENT
-                        , FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            case UnlimitedTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
+                getFragmentManager().popBackStack(ChooseItemFragment.TAG_CHOOSE_ITEM_FRAGMENT,
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 break;
         }
     }
@@ -177,7 +177,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                     textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
                 }
                 break;
-            case WrittenTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
+            case UnlimitedTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
                 textViewState.setVisibility(View.GONE);
                 break;
         }

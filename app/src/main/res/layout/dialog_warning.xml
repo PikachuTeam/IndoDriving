@@ -21,9 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingTop="@dimen/common_size_5"
         android:paddingLeft="@dimen/common_size_12"
         android:paddingRight="@dimen/common_size_12"
+        android:paddingTop="@dimen/common_size_5"
         android:text="@string/dialog_warning_text"
         android:textColor="@color/text_color_3"
         android:textSize="@dimen/common_text_size_16" />

@@ -28,25 +28,24 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     private TextView buttonStart;
     private TextView textViewRule;
     private LinearLayout checkBoxContainer;
-    private int type;
-    private boolean checked;
-    private int examId;
-    private boolean isRandom;
+    private int mType;
+    private boolean mChecked;
+    private int mExamId;
+    private boolean mIsRandom;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-
-        checked = false;
+        mChecked = false;
     }
 
     @Override
     protected String getTitle() {
-        if (isRandom) {
+        if (mIsRandom) {
             return getString(R.string.title_test);
         } else {
-            return MessageFormat.format(getString(R.string.title_package), "" + examId);
+            return MessageFormat.format(getString(R.string.title_package), "" + mExamId);
         }
     }
 
@@ -59,7 +58,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
 
-        switch (type) {
+        switch (mType) {
             case DataSource.TYPE_SIM_A:
                 textViewRule.setText(getString(R.string.test_rule_sim_a));
                 break;
@@ -92,9 +91,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         buttonStart = (TextView) rootView.findViewById(R.id.buttonStart);
         textViewRule = (TextView) rootView.findViewById(R.id.textViewRule);
         checkBoxContainer = (LinearLayout) rootView.findViewById(R.id.checkBoxContainer);
-
         setFont(HomeActivity.defaultFont, rootView);
-
         buttonStart.setOnClickListener(this);
         checkBoxShowRule.setOnClickListener(this);
         checkBoxContainer.setOnClickListener(this);
@@ -103,30 +100,30 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     private void saveState() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        switch (type) {
+        switch (mType) {
             case DataSource.TYPE_SIM_A:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A, !mChecked);
                 break;
             case DataSource.TYPE_SIM_A_UMUM:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A_UMUM, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A_UMUM, !mChecked);
                 break;
             case DataSource.TYPE_SIM_B1:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1, !mChecked);
                 break;
             case DataSource.TYPE_SIM_B1_UMUM:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM, !mChecked);
                 break;
             case DataSource.TYPE_SIM_B2:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2, !mChecked);
                 break;
             case DataSource.TYPE_SIM_B2_UMUM:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM, !mChecked);
                 break;
             case DataSource.TYPE_SIM_C:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_C, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_C, !mChecked);
                 break;
             case DataSource.TYPE_SIM_D:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_D, !checked);
+                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_D, !mChecked);
                 break;
         }
         editor.commit();
@@ -146,9 +143,9 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
-        examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
-        isRandom = bundle.getBoolean(DoTestFragment.BUNDLE_IS_RANDOM, false);
+        mType = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        mExamId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
+        mIsRandom = bundle.getBoolean(DoTestFragment.BUNDLE_IS_RANDOM, false);
     }
 
     private void setFont(Typeface font, View rootView) {
@@ -165,26 +162,26 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
             saveState();
             DoTestFragment fragment = new DoTestFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt(Constants.BUNDLE_TYPE, type);
-            bundle.putInt(Constants.BUNDLE_EXAM_ID, examId);
-            bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, isRandom);
+            bundle.putInt(Constants.BUNDLE_TYPE, mType);
+            bundle.putInt(Constants.BUNDLE_EXAM_ID, mExamId);
+            bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, mIsRandom);
             fragment.setArguments(bundle);
             replaceFragment(fragment, TAG_SHOW_RULE_FRAGMENT);
         } else if (v == checkBoxShowRule) {
-            if (checked) {
-                checked = false;
-                checkBoxShowRule.setChecked(checked);
+            if (mChecked) {
+                mChecked = false;
+                checkBoxShowRule.setChecked(mChecked);
             } else {
-                checked = true;
-                checkBoxShowRule.setChecked(checked);
+                mChecked = true;
+                checkBoxShowRule.setChecked(mChecked);
             }
         } else if (v == checkBoxContainer) {
-            if (checked) {
-                checked = false;
-                checkBoxShowRule.setChecked(checked);
+            if (mChecked) {
+                mChecked = false;
+                checkBoxShowRule.setChecked(mChecked);
             } else {
-                checked = true;
-                checkBoxShowRule.setChecked(checked);
+                mChecked = true;
+                checkBoxShowRule.setChecked(mChecked);
             }
         }
     }

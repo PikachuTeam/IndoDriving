@@ -45,7 +45,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout buttonLearnSimD;
     private FloatingActionsMenu mFloatingActionsMenu;
     private FloatingActionButton mFabRateUs;
-    private FloatingActionButton mFabRemoveAds;
     private FloatingActionButton mFabMoreApps;
     private FloatingActionButton mFabShare;
     private View mOverlayView;
@@ -72,27 +71,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://play.google.com/store/apps/details?id=" + PACKAGE_NAME_FREE_VER)));
                 }
-                SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences(
+                        Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
                 editor.putBoolean(Constants.PREF_IS_RATE_APP, true);
                 editor.commit();
-            } else if (v == mFabRemoveAds) {
-                Uri uri = Uri.parse("market://details?id=" + PACKAGE_NAME_PRO_VER);
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + PACKAGE_NAME_PRO_VER)));
-                }
             } else if (v == mFabShare) {
                 sharingEvent();
             }
         }
     };
-    private FloatingActionsMenu.OnFloatingActionsMenuUpdateListener mOnFloatingActionsMenuUpdateListener = new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+    private FloatingActionsMenu.OnFloatingActionsMenuUpdateListener mOnFloatingActionsMenuUpdateListener =
+            new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
         @Override
         public void onMenuExpanded() {
             mOverlayView.setVisibility(View.VISIBLE);
@@ -117,11 +106,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
         loadState();
-        if (isProVersion) {
-            mFabRemoveAds.setVisibility(View.GONE);
-        } else {
-            mFabRemoveAds.setOnClickListener(mFloatingMenuItemClickListener);
-        }
     }
 
     @Override
@@ -169,7 +153,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onTryToCloseApp() {
-        Snackbar.make(coordinatorLayout, getResources().getText(R.string.press_again_to_exit), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(coordinatorLayout, getResources().
+                getText(R.string.press_again_to_exit), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -192,7 +177,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mFloatingActionsMenu = (FloatingActionsMenu) findViewById(R.id.floating_actions_menu);
         mFabMoreApps = (FloatingActionButton) findViewById(R.id.fab_more_apps);
         mFabRateUs = (FloatingActionButton) findViewById(R.id.fab_rate_us);
-        mFabRemoveAds = (FloatingActionButton) findViewById(R.id.fab_remove_ads);
         mFabShare = (FloatingActionButton) findViewById(R.id.fab_share);
         mOverlayView = findViewById(R.id.view_overlay);
         buttonLearnSimA.setOnClickListener(this);
@@ -232,14 +216,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(PREF_IS_PRO_VERSION, isProVersion);
         editor.commit();
     }
 
     private void loadState() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         isProVersion = sharedPreferences.getBoolean(PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
     }
 

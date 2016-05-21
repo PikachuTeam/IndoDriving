@@ -3,7 +3,6 @@ package com.essential.indodriving.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 
@@ -34,11 +33,7 @@ public class DataSource extends BaseDataSource {
             question.answer3 = fixAnswer(cursor.getString(5));
             question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
-            byte[] imgData = cursor.getBlob(9);
-            question.imageData = imgData;
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inSampleSize = 2;
-//            question.image = imgData != null ? BitmapFactory.decodeByteArray(imgData, 0, imgData.length, options) : null;
+            question.imageData = cursor.getBlob(9);
             question.type = cursor.getInt(1);
             questions.add(question);
             cursor.moveToNext();
@@ -52,7 +47,8 @@ public class DataSource extends BaseDataSource {
     public static ArrayList<QuestionPackage> getQuestionPackagesByType(int type) {
         SQLiteDatabase sqLiteDatabase = openConnection();
         ArrayList<QuestionPackage> questionPackages = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery("select distinct ExamId, LastScore from Exams where Type=? order by ExamId asc", new String[]{"" + type});
+        Cursor cursor = sqLiteDatabase.rawQuery("select distinct ExamId, LastScore from Exams where Type=? " +
+                "order by ExamId asc", new String[]{"" + type});
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             QuestionPackage questionPackage = new QuestionPackage();
@@ -66,16 +62,21 @@ public class DataSource extends BaseDataSource {
         return questionPackages;
     }
 
-    public static ArrayList<Question> getQuestionsByTypeAndExamId(int type, int examId, boolean isRandom) {
+    public static ArrayList<Question> getQuestionsByTypeAndExamId(int type, int examId,
+                                                                  boolean isRandom, int numberOfQuestions) {
         ArrayList<Question> questions = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
-        String query = "";
-        Cursor cursor = null;
+        String query;
+        Cursor cursor;
         if (!isRandom) {
-            query = "select tmp.* from Exams, (SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id) as tmp where Exams.ExamId=? and Exams.Type=? and Exams.QuestionId=tmp.Id";
+            query = "select tmp.* from Exams, (SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN " +
+                    "Images ON Questions.ImageId = Images.Id) as tmp where " +
+                    "Exams.ExamId=? and Exams.Type=? and Exams.QuestionId=tmp.Id";
             cursor = sqLiteDatabase.rawQuery(query, new String[]{"" + examId, "" + type});
         } else {
-            query = "SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN  Images ON Questions.ImageId = Images.Id WHERE Questions.Type = ? order by Random() limit 30";
+            query = "SELECT Questions. *, Images.ImageData FROM Questions LEFT JOIN " +
+                    "Images ON Questions.ImageId = Images.Id WHERE Questions.Type = ? " +
+                    "order by Random() limit " + numberOfQuestions;
             cursor = sqLiteDatabase.rawQuery(query, new String[]{"" + type});
         }
         cursor.moveToFirst();
@@ -89,9 +90,7 @@ public class DataSource extends BaseDataSource {
             question.answer3 = fixAnswer(cursor.getString(5));
             question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
-            byte[] imgData = cursor.getBlob(9);
-            question.imageData = imgData;
-//            question.image = imgData != null ? BitmapFactory.decodeByteArray(imgData, 0, imgData.length) : null;
+            question.imageData = cursor.getBlob(9);
             question.type = cursor.getInt(1);
             questions.add(question);
             cursor.moveToNext();
@@ -137,23 +136,6 @@ public class DataSource extends BaseDataSource {
         question = question.replace(';', ' ');
         return question.replace(" :", ":").trim();
     }
-
-//    private static String fixQuestion(String question) {
-//        String temp = question.trim();
-//        temp = temp.replace('?', ':');
-//        temp = temp.replace('&', ':');
-//        temp = temp.replace(';', ':');
-//        int i1 = temp.lastIndexOf('#');
-//        if (i1 != -1) {
-//            int i2 = temp.indexOf(" ", i1);
-//            if (i2 == -1) {
-//                temp = temp.substring(0, i1);
-//            } else {
-//                temp = temp.substring(0, i1).trim() + temp.substring(i2, temp.length());
-//            }
-//        }
-//        return temp.replace(" :", ":").trim();
-//    }
 
     private static String fixAnswer(String answer) {
         if (answer != null) {

@@ -2,8 +2,6 @@ package com.essential.indodriving.ui.fragment.test;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,12 +19,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.base.BaseConfirmDialog;
-import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
+import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
@@ -39,13 +37,14 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/24/2016.
  */
-public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener
-        , OnQuestionPagerItemClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener
-        , BaseConfirmDialog.OnConfirmDialogButtonClickListener {
+public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageChangeListener,
+        OnQuestionPagerItemClickListener, QuestionNoItemWrapper.OnQuestionNoClickListener,
+        BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
     public final static String TAG_DO_TEST_FRAGMENT = "Do Test Fragment";
     public final static String BUNDLE_IS_RANDOM = "is random";
     public final static int INTERVAL = 1000, TOTAL_TIME = 1801000;
+    private final int NUMBER_OF_QUESTIONS = 30;
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
     private HorizontalScrollView testHorizontalScrollContainer;
@@ -69,7 +68,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, mIsRandom);
+        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, mIsRandom, NUMBER_OF_QUESTIONS);
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {

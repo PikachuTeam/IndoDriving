@@ -32,14 +32,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.base.BaseConfirmDialog;
-import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
-import com.essential.indodriving.ui.fragment.test.WrittenTestFragment;
-import com.essential.indodriving.ui.widget.NotificationDialog;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
+import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.fragment.test.UnlimitedTestFragment;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
@@ -301,24 +300,13 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     @Override
-    protected boolean enableButtonWrittenTest() {
+    protected boolean enableButtonShare() {
         return true;
     }
 
     @Override
     protected void onMenuItemClick(int id) {
-        if (isProVersion) {
-            moveToNextFragment();
-        } else {
-            NotificationDialog dialog;
-            if (mTrialTimesLeft == 0) {
-                dialog = new NotificationDialog(getActivity(), BaseConfirmDialog.TYPE_OUT_OF_TIMES, mTrialTimesLeft);
-            } else {
-                dialog = new NotificationDialog(getActivity(), BaseConfirmDialog.TYPE_TRIAL, mTrialTimesLeft);
-            }
-            dialog.setOnConfirmDialogButtonClickListener(mOnConfirmDialogButtonClickListener);
-            dialog.show();
-        }
+        sharingEvent();
     }
 
     private void saveState() {
@@ -386,12 +374,12 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         }
         isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
-        isEnableRateToUnlock= sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
+        isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
         mTrialTimesLeft = sharedPreferences.getInt(Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
     }
 
     private void moveToNextFragment() {
-        WrittenTestFragment fragment = new WrittenTestFragment();
+        UnlimitedTestFragment fragment = new UnlimitedTestFragment();
         putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
         replaceFragment(fragment, TAG_LEARN_ALL_FRAGMENT);
         saveState();

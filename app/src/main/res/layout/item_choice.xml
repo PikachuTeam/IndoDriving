@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/raised_button"
         android:clickable="true"
-        android:minHeight="@dimen/choice_height"
         android:gravity="center_vertical"
+        android:minHeight="@dimen/choice_height"
         android:orientation="vertical">
 
         <RelativeLayout

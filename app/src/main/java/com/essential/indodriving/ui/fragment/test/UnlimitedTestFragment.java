@@ -30,44 +30,46 @@ import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 import com.essential.indodriving.util.OnQuestionPagerItemClickListener;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by yue on 07/05/2016.
  */
-public class WrittenTestFragment extends MyBaseFragment {
+public class UnlimitedTestFragment extends MyBaseFragment {
 
     public final static String TAG_WRITTEN_TEST_FRAGMENT = "Written Test Fragment";
-    private ViewPager questionPager;
-    private LinearLayout testHorizontalScrollView;
-    private HorizontalScrollView testHorizontalScrollContainer;
-    private ViewPagerAdapter adapter;
-    private ArrayList<Question> questions;
-    private ArrayList<QuestionNoItemWrapper> wrappers;
-    private int currentPosition;
+    private final int NUMBER_OF_QUESTIONS = 20;
+    private ViewPager mQuestionPager;
+    private LinearLayout mTestHorizontalScrollView;
+    private HorizontalScrollView mTestHorizontalScrollContainer;
+    private ViewPagerAdapter mAdapter;
+    private ArrayList<Question> mQuestions;
+    private ArrayList<QuestionNoItemWrapper> mWrappers;
+    private int mCurrentPosition;
+    private int mType;
     private Typeface mFont;
     private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener = new QuestionNoItemWrapper.OnQuestionNoClickListener() {
         @Override
         public void onQuestionNoClick(QuestionNoItemWrapper item) {
             resetAllWrapper();
             item.setActive(true);
-            testHorizontalScrollView.invalidate();
-            int index = wrappers.indexOf(item);
-            questionPager.setCurrentItem(index, true);
-            currentPosition = index;
+            mTestHorizontalScrollView.invalidate();
+            int index = mWrappers.indexOf(item);
+            mQuestionPager.setCurrentItem(index, true);
+            mCurrentPosition = index;
             scrollToCenter(item);
+            getMyBaseActivity().showBigAdsIfNeeded();
         }
     };
     private OnQuestionPagerItemClickListener mOnQuestionPagerItemClickListener = new OnQuestionPagerItemClickListener() {
         @Override
         public void onQuestionPagerItemClick(AnswerChoicesItem item) {
-            questions.get(currentPosition).answer = item.getIndex();
-            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
+            mQuestions.get(mCurrentPosition).answer = item.getIndex();
+            QuestionNoItemWrapper wrapper = mWrappers.get(mCurrentPosition);
             if (!wrapper.isHighlight) {
                 wrapper.setHighlight();
-                testHorizontalScrollView.invalidate();
+                mTestHorizontalScrollView.invalidate();
             }
-            adapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
         }
     };
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -78,11 +80,12 @@ public class WrittenTestFragment extends MyBaseFragment {
 
         @Override
         public void onPageSelected(int position) {
-            currentPosition = position;
+            mCurrentPosition = position;
             resetAllWrapper();
-            wrappers.get(currentPosition).setActive(true);
-            testHorizontalScrollView.invalidate();
-            scrollToCenter(wrappers.get(currentPosition));
+            mWrappers.get(mCurrentPosition).setActive(true);
+            mTestHorizontalScrollView.invalidate();
+            scrollToCenter(mWrappers.get(mCurrentPosition));
+            getMyBaseActivity().showBigAdsIfNeeded();
         }
 
         @Override
@@ -90,57 +93,59 @@ public class WrittenTestFragment extends MyBaseFragment {
 
         }
     };
-    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener = new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
-        @Override
-        public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, int type, BaseConfirmDialog dialog) {
-            switch (button) {
-                case OK:
-                    dialog.dismiss();
-                    switch (type) {
-                        case BaseConfirmDialog.TYPE_WARNING_1: // happen when user presses back
-                            getFragmentManager().popBackStack();
+    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener =
+            new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
+                @Override
+                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, int type, BaseConfirmDialog dialog) {
+                    switch (button) {
+                        case OK:
+                            dialog.dismiss();
+                            switch (type) {
+                                case BaseConfirmDialog.TYPE_WARNING_1: // happen when user presses back
+                                    getFragmentManager().popBackStack();
+                                    break;
+                                case BaseConfirmDialog.TYPE_WARNING_2: // happen when user presses Result
+                                    moveToNextFragment();
+                                    break;
+                            }
                             break;
-                        case BaseConfirmDialog.TYPE_WARNING_2: // happen when user presses Result
-                            moveToNextFragment();
+                        case CANCEL:
+                            dialog.dismiss();
                             break;
                     }
-                    break;
-                case CANCEL:
-                    dialog.dismiss();
-                    break;
-            }
-        }
-    };
+                }
+            };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
+        mQuestions = DataSource.getQuestionsByTypeAndExamId(mType, 1, true, NUMBER_OF_QUESTIONS);
         mFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
-        wrappers = new ArrayList<>();
-        for (int i = 0; i < questions.size(); i++) {
+        mWrappers = new ArrayList<>();
+        for (int i = 0; i < mQuestions.size(); i++) {
             QuestionNoItemWrapper wrapper = new QuestionNoItemWrapper(getActivity());
-            wrapper.setText("" + questions.get(i).index, HomeActivity.defaultFont);
+            wrapper.setText("" + mQuestions.get(i).index, HomeActivity.defaultFont);
             if (i == 0) {
                 wrapper.setActive(true);
             } else {
                 wrapper.setActive(false);
             }
             wrapper.setOnQuestionNoClickListener(mOnQuestionNoClickListener);
-            wrappers.add(wrapper);
+            mWrappers.add(wrapper);
         }
-        currentPosition = 0;
+        mCurrentPosition = 0;
     }
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
-        adapter = new ViewPagerAdapter(getActivity(), questions);
-        adapter.setOnQuestionPagerItemClickListener(mOnQuestionPagerItemClickListener);
-        questionPager.setAdapter(adapter);
-        questionPager.addOnPageChangeListener(mOnPageChangeListener);
-        for (int i = 0; i < wrappers.size(); i++) {
-            testHorizontalScrollView.addView(wrappers.get(i).getView());
+        mAdapter = new ViewPagerAdapter(getActivity(), mQuestions);
+        mAdapter.setOnQuestionPagerItemClickListener(mOnQuestionPagerItemClickListener);
+        mQuestionPager.setAdapter(mAdapter);
+        mQuestionPager.addOnPageChangeListener(mOnPageChangeListener);
+        for (int i = 0; i < mWrappers.size(); i++) {
+            mTestHorizontalScrollView.addView(mWrappers.get(i).getView());
         }
     }
 
@@ -179,9 +184,9 @@ public class WrittenTestFragment extends MyBaseFragment {
 
     private void findViews(View rootView) {
         rootView.findViewById(R.id.linear_clock).setVisibility(View.GONE);
-        questionPager = (ViewPager) rootView.findViewById(R.id.questionPager);
-        testHorizontalScrollContainer = (HorizontalScrollView) rootView.findViewById(R.id.testHorizontalScrollContainer);
-        testHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
+        mQuestionPager = (ViewPager) rootView.findViewById(R.id.questionPager);
+        mTestHorizontalScrollContainer = (HorizontalScrollView) rootView.findViewById(R.id.testHorizontalScrollContainer);
+        mTestHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
         setFont(rootView);
     }
 
@@ -192,33 +197,23 @@ public class WrittenTestFragment extends MyBaseFragment {
     }
 
     private void getData() {
-        questions = (ArrayList<Question>) getHolder(Constants.KEY_HOLDER_QUESTIONS);
-        // mess questions up
-        int arraySize = questions.size();
-        Random rnd = new Random();
-        for (int i = 0; i < arraySize; i++) {
-            int tmp = rnd.nextInt(arraySize);
-            Question question = questions.get(i);
-            questions.set(i, questions.get(tmp));
-            questions.get(i).index = i + 1;
-            questions.set(tmp, question);
-            questions.get(tmp).index = tmp + 1;
-        }
+        Bundle bundle = getArguments();
+        if (bundle != null) mType = bundle.getInt(Constants.BUNDLE_TYPE);
     }
 
     private void resetAllWrapper() {
-        for (int i = 0; i < wrappers.size(); i++) {
-            wrappers.get(i).setActive(false);
+        for (int i = 0; i < mWrappers.size(); i++) {
+            mWrappers.get(i).setActive(false);
         }
     }
 
     private void scrollToCenter(QuestionNoItemWrapper questionNoItemWrapper) {
-        int centerX = testHorizontalScrollContainer.getWidth() / 2;
+        int centerX = mTestHorizontalScrollContainer.getWidth() / 2;
         int[] itemPos = new int[]{0, 0};
         questionNoItemWrapper.getView().getLocationOnScreen(itemPos);
         int x = itemPos[0];
         int offset = x - centerX + questionNoItemWrapper.getView().getWidth() / 2;
-        testHorizontalScrollContainer.smoothScrollTo(testHorizontalScrollContainer.getScrollX() + offset, 0);
+        mTestHorizontalScrollContainer.smoothScrollTo(mTestHorizontalScrollContainer.getScrollX() + offset, 0);
     }
 
     private void moveToNextFragment() {
@@ -227,7 +222,7 @@ public class WrittenTestFragment extends MyBaseFragment {
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.BUNDLE_NEED_SAVING, false);
         bundle.putString(Constants.BUNDLE_FRAGMENT_TYPE, TAG_WRITTEN_TEST_FRAGMENT);
-        putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
+        putHolder(Constants.KEY_HOLDER_QUESTIONS, mQuestions);
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
     }
@@ -267,7 +262,7 @@ public class WrittenTestFragment extends MyBaseFragment {
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-                Glide.with(WrittenTestFragment.this).load(question.imageData).into(questionImage);
+                Glide.with(UnlimitedTestFragment.this).load(question.imageData).into(questionImage);
                 questionImage.setTag(question);
                 questionImage.setOnClickListener(this);
                 buttonZoomIn.setTag(question);

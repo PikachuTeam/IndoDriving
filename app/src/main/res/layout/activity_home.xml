@@ -84,13 +84,5 @@
             app:fab_icon="@drawable/ic_share"
             app:fab_size="mini"
             app:fab_title="@string/share" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_remove_ads"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/remove_ads"
-            app:fab_size="mini"
-            app:fab_title="@string/remove_ads" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </android.support.design.widget.CoordinatorLayout>

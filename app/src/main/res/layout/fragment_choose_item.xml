@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/buttonLearnContainer"
+                android:id="@+id/linear_learn_theory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/choose_item_flat_button"
@@ -37,7 +37,7 @@
                     card_view:cardPreventCornerOverlap="false">
 
                     <ImageView
-                        android:id="@+id/buttonLearn"
+                        android:id="@+id/button_learn_theory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/button_learn"
@@ -46,7 +46,7 @@
                 </android.support.v7.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textViewLearn"
+                    android:id="@+id/text_learn_theory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -57,10 +57,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/buttonTestContainer"
+                android:id="@+id/linear_unlimited_test"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/common_size_45"
+                android:layout_marginTop="@dimen/common_size_20"
                 android:background="@drawable/choose_item_flat_button"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -76,7 +76,7 @@
                     card_view:cardPreventCornerOverlap="false">
 
                     <ImageView
-                        android:id="@+id/buttonTest"
+                        android:id="@+id/button_unlimited_test"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/button_learn"
@@ -85,7 +85,46 @@
                 </android.support.v7.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textViewTest"
+                    android:id="@+id/text_unlimited_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/common_size_15"
+                    android:text="@string/unlimited_test"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/common_text_size_35" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_simulation_test"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/common_size_20"
+                android:background="@drawable/choose_item_flat_button"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/choose_item_button_size"
+                    android:layout_height="@dimen/choose_item_button_size"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginLeft="@dimen/common_size_30"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:elevation="@dimen/common_size_5"
+                    card_view:cardCornerRadius="@dimen/common_size_9"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <ImageView
+                        android:id="@+id/button_simulation_test"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_learn"
+                        android:clickable="true"
+                        android:src="@drawable/ic_test" />
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/text_simulation_test"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
