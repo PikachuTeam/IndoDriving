@@ -262,7 +262,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-                Glide.with(UnlimitedTestFragment.this).load(question.imageData).into(questionImage);
+                Glide.with(UnlimitedTestFragment.this).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
                 questionImage.setTag(question);
                 questionImage.setOnClickListener(this);
                 buttonZoomIn.setTag(question);
