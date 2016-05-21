@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.ui.base.Constants;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -30,8 +31,13 @@ public class SplashActivity extends EssentialSplashActivity {
     protected void onInitAppCommon() {
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
-        AppCommon.getInstance().syncAdsIfNeeded(AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST
-                , AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
+        if (BuildConfig.DEBUG) {
+            AppCommon.getInstance().syncAdsIfNeeded(AppConstant.AdsType.SMALL_BANNER_TEST
+                    , AppConstant.AdsType.BIG_BANNER_TEST);
+        } else {
+            AppCommon.getInstance().syncAdsIfNeeded(AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST
+                    , AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
+        }
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), DATABASE_NAME);
 
         loadConfig();

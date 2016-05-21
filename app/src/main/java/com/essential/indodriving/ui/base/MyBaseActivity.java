@@ -140,10 +140,20 @@ public abstract class MyBaseActivity extends BaseActivity {
         } else {
             count = 0;
             if (ADS_ENABLE) {
-                adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
-                        , AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST);
+                if(BuildConfig.DEBUG){
+                    adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
+                            , AppConstant.AdsType.SMALL_BANNER_TEST);
+                }else {
+                    adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
+                            , AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST);
+                }
                 adsSmallBannerHandler.setup();
-                adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
+                if(BuildConfig.DEBUG){
+                    adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_TEST);
+                }
+                else{
+                    adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
+                }
                 adsBigBannerHandler.setup();
             } else {
                 adsContainer.setVisibility(View.GONE);
