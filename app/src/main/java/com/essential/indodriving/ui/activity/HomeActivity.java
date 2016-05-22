@@ -32,8 +32,8 @@ import tatteam.com.app_common.util.CommonUtil;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, CloseAppHandler.OnCloseAppListener {
 
     public final static String PREF_IS_PRO_VERSION = "is_pro_version";
-    public final static String PACKAGE_NAME_FREE_VER = "com.essential.usdriving.free";
-    public final static String PACKAGE_NAME_PRO_VER = "com.essential.usdriving.pro";
+    public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";
+    public final static String PACKAGE_NAME_PRO_VER = "com.essential.indodriving.pro";
     public static Typeface defaultFont;
     private LinearLayout buttonLearnSimA;
     private LinearLayout buttonLearnSimAUmum;
