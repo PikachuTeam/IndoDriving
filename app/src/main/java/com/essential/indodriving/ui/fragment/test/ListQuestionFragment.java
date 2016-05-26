@@ -155,7 +155,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     public void onQuestionListItemClick(QuestionPackage questionPackage, boolean isHeader) {
         if (isHeader) {
             if (isShowedRuleAgain) {
-                DoTestFragment fragment = new DoTestFragment();
+                ShowRuleFragment fragment = new ShowRuleFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constants.BUNDLE_TYPE, type);
                 bundle.putBoolean(DoTestFragment.BUNDLE_IS_RANDOM, true);

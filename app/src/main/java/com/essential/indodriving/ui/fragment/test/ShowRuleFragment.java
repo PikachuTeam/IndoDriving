@@ -98,7 +98,8 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().
+                getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (mType) {
             case DataSource.TYPE_SIM_A:

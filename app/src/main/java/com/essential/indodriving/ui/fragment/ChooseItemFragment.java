@@ -77,7 +77,6 @@ public class ChooseItemFragment extends MyBaseFragment {
                 moveToChooseTestFragment();
             }
         });
-
         rootView.findViewById(R.id.button_simulation_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
