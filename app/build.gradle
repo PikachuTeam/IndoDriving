@@ -27,8 +27,8 @@ android {
         free {
             applicationId = "com.essential.indodriving.free"
             buildConfigField 'boolean', 'IS_PRO_VERSION', 'false'
-            versionCode 3
-            versionName "1.2"
+            versionCode 4
+            versionName "1.3"
         }
     }
 }

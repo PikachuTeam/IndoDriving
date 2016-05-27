@@ -21,7 +21,7 @@ public class DataSource extends BaseDataSource {
     public static ArrayList<Question> getAllQuestionByType(int type) {
         ArrayList<Question> questions = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
-        String query = "SELECT Questions. *, Images.ImageData FROM Questions +" +
+        String query = "SELECT Questions. *, Images.ImageData FROM Questions " +
                 "LEFT JOIN  Images ON Questions.ImageId = Images.Id WHERE Questions.Type = ?";
         Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{"" + type});
         cursor.moveToFirst();
