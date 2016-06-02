@@ -66,7 +66,7 @@ public abstract class MyBaseActivity extends BaseActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(font);
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
         setupAds();
     }
 

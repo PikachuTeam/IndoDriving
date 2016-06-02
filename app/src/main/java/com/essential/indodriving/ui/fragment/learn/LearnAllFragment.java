@@ -126,39 +126,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             return false;
         }
     };
-    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener =
-            new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
-                @Override
-                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button
-                        , @BaseConfirmDialog.DialogTypeDef int dialogType, BaseConfirmDialog dialog) {
-                    switch (button) {
-                        case OK:
-                            switch (dialogType) {
-                                case BaseConfirmDialog.TYPE_TRIAL:
-                                    mTrialTimesLeft--;
-                                    moveToNextFragment();
-                                    break;
-                                case BaseConfirmDialog.TYPE_OUT_OF_TIMES:
-                                    Uri uri = Uri.parse("market://details?id=" + HomeActivity.PACKAGE_NAME_PRO_VER);
-                                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                                    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                            Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                                    try {
-                                        startActivity(goToMarket);
-                                    } catch (ActivityNotFoundException e) {
-                                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                                Uri.parse("http://play.google.com/store/apps/details?id=" + HomeActivity.PACKAGE_NAME_PRO_VER)));
-                                    }
-                                    saveState();
-                                    break;
-                            }
-                        case CANCEL:
-                            dialog.cancel();
-                            break;
-                    }
-                }
-            };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -372,7 +339,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             default:
                 currentPosition = 0;
         }
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
         isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
         mTrialTimesLeft = sharedPreferences.getInt(Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);

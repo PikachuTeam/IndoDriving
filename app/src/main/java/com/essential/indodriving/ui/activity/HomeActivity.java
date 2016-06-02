@@ -1,11 +1,9 @@
 package com.essential.indodriving.ui.activity;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
@@ -33,7 +30,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public final static String PREF_IS_PRO_VERSION = "is_pro_version";
     public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";
-    public final static String PACKAGE_NAME_PRO_VER = "com.essential.indodriving.pro";
     public static Typeface defaultFont;
     private LinearLayout buttonLearnSimA;
     private LinearLayout buttonLearnSimAUmum;
@@ -106,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setFont(defaultFont);
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
-        loadState();
+        loadProState();
     }
 
     @Override
@@ -196,7 +192,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     if (number == Constants.PRESSING_TIMES) {
                         isProVersion = true;
                         Snackbar.make(coordinatorLayout, getString(R.string.hacked), Snackbar.LENGTH_SHORT).show();
-                        saveState();
+                        saveProState();
                     }
                 }
             }
@@ -216,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mFabRateUs.setOnClickListener(mFloatingMenuItemClickListener);
     }
 
-    private void saveState() {
+    private void saveProState() {
         SharedPreferences sharedPreferences = getSharedPreferences(
                 Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -224,10 +220,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         editor.commit();
     }
 
-    private void loadState() {
+    private void loadProState() {
         SharedPreferences sharedPreferences = getSharedPreferences(
                 Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+        isProVersion = sharedPreferences.getBoolean(PREF_IS_PRO_VERSION, false);
     }
 
     private void setFont(Typeface font) {

@@ -18,15 +18,8 @@ android {
         }
     }
     productFlavors {
-        pro {
-            applicationId = "com.essential.indodriving.pro"
-            buildConfigField 'boolean', 'IS_PRO_VERSION', 'true'
-            versionCode 1
-            versionName "1.0"
-        }
         free {
             applicationId = "com.essential.indodriving.free"
-            buildConfigField 'boolean', 'IS_PRO_VERSION', 'false'
             versionCode 4
             versionName "1.3"
         }

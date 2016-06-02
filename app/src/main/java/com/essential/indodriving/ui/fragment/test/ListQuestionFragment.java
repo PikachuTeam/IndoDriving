@@ -129,7 +129,7 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 break;
         }
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, BuildConfig.IS_PRO_VERSION);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
         isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
     }
 
