@@ -39,7 +39,6 @@ public class SplashActivity extends EssentialSplashActivity {
                     , AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
         }
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), DATABASE_NAME);
-
         loadConfig();
     }
 

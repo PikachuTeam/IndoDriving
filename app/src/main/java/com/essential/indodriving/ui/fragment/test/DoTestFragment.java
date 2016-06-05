@@ -197,6 +197,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 wrapper.setHighlight();
                 testHorizontalScrollView.invalidate();
             }
+            adapter.refreshChoicesArea(currentPosition);
             if (currentPosition < 29) {
                 currentPosition++;
                 questionPager.setCurrentItem(currentPosition, true);
@@ -209,8 +210,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 wrapper.setHighlight();
                 testHorizontalScrollView.invalidate();
             }
+            adapter.refreshChoicesArea(currentPosition);
         }
-        adapter.notifyDataSetChanged();
     }
 
     private void findViews(View rootView) {
@@ -370,7 +371,6 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-//                questionImage.setImageBitmap(question.image);
                 Glide.with(DoTestFragment.this).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
                 questionImage.setTag(question);
                 questionImage.setOnClickListener(this);
@@ -381,14 +381,15 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
             ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
             for (int i = 0; i < answerChoicesItems.size(); i++) {
-                choicesContainer.addView(answerChoicesItems.get(i).getView());
+                choicesContainer.addView(answerChoicesItems.get(i));
                 LinearLayout.MarginLayoutParams marginParams =
-                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getView().getLayoutParams();
+                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getLayoutParams();
                 marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
-                answerChoicesItems.get(i).getView().requestLayout();
+                answerChoicesItems.get(i).requestLayout();
                 answerChoicesItems.get(i).setOnChooseAnswerListener(this);
             }
             choicesContainer.invalidate();
+            choicesContainer.setTag(position);
             container.addView(view);
             return view;
         }
@@ -396,11 +397,6 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
         }
 
         @Override
@@ -435,6 +431,19 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 answerChoicesItems.get(question.answer).setActive(true);
             }
             return answerChoicesItems;
+        }
+
+        public void refreshChoicesArea(int position) {
+            Question question = questions.get(position);
+            LinearLayout choicesContainer = (LinearLayout) getView().findViewWithTag(position);
+            int numberOfChoices = choicesContainer.getChildCount();
+            for (int i = 0; i < numberOfChoices; i++) {
+                AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(i);
+                answerChoicesItem.setActive(false);
+            }
+            AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(question.answer);
+            answerChoicesItem.setActive(true);
+            choicesContainer.invalidate();
         }
 
         private void resetAllChoices(ArrayList<AnswerChoicesItem> answerChoicesItems) {

@@ -1,8 +1,10 @@
 package com.essential.indodriving.ui.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,51 +13,47 @@ import com.essential.indodriving.R;
 /**
  * Created by dongc_000 on 2/24/2016.
  */
-public class AnswerChoicesItem implements View.OnClickListener {
+public class AnswerChoicesItem extends CardView implements View.OnClickListener {
 
-    private View mView;
-    private Context mContext;
-    private AppCompatCheckBox checkBox;
-    private TextView textViewAnswer;
+    private AppCompatCheckBox mCheckBox;
+    private TextView mTextAnswer;
     private TextView mTextNotify;
-    private OnChooseAnswerListener listener;
-    private int index;
+    private OnChooseAnswerListener mListener;
+    private int mIndex;
 
     public AnswerChoicesItem(Context context, int index) {
-        this.mContext = context;
-        this.index = index;
-        mView = View.inflate(this.mContext, R.layout.item_choice, null);
-        findViews(mView);
+        super(context);
+        View.inflate(context, R.layout.item_choice, this);
+        mIndex = index;
+        setRadius(getResources().getDimensionPixelSize(R.dimen.common_size_3));
+        setPreventCornerOverlap(false);
+        findViews();
     }
 
-    private void findViews(View rootView) {
-        checkBox = (AppCompatCheckBox) rootView.findViewById(R.id.checkBox);
-        textViewAnswer = (TextView) rootView.findViewById(R.id.textViewAnswer);
-        mTextNotify = (TextView) rootView.findViewById(R.id.text_notify);
-        checkBox.setOnClickListener(this);
-        rootView.findViewById(R.id.choiceLayout).setOnClickListener(this);
-    }
-
-    public View getView() {
-        return this.mView;
+    private void findViews() {
+        mCheckBox = (AppCompatCheckBox) findViewById(R.id.checkBox);
+        mTextAnswer = (TextView) findViewById(R.id.textViewAnswer);
+        mTextNotify = (TextView) findViewById(R.id.text_notify);
+        mCheckBox.setOnClickListener(this);
+        findViewById(R.id.choiceLayout).setOnClickListener(this);
     }
 
     public int getIndex() {
-        return index;
+        return mIndex;
     }
 
     public void setActive(boolean isActive) {
-        checkBox.setChecked(isActive);
+        mCheckBox.setChecked(isActive);
     }
 
     public void showTextNotify(boolean isCorrect) {
         mTextNotify.setVisibility(View.VISIBLE);
         if (isCorrect) {
-            mTextNotify.setText(mContext.getResources().getString(R.string.correct_answer));
-            mTextNotify.setBackgroundColor(ContextCompat.getColor(mContext, R.color.correct_answer_color));
+            mTextNotify.setText(getContext().getResources().getString(R.string.correct_answer));
+            mTextNotify.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.correct_answer_color));
         } else {
-            mTextNotify.setText(mContext.getResources().getString(R.string.wrong_answer));
-            mTextNotify.setBackgroundColor(ContextCompat.getColor(mContext, R.color.wrong_answer_color));
+            mTextNotify.setText(getContext().getResources().getString(R.string.wrong_answer));
+            mTextNotify.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.wrong_answer_color));
         }
     }
 
@@ -64,17 +62,45 @@ public class AnswerChoicesItem implements View.OnClickListener {
     }
 
     public void setOnChooseAnswerListener(OnChooseAnswerListener listener) {
-        this.listener = listener;
+        this.mListener = listener;
     }
 
     public void setChoice(String choice) {
-        textViewAnswer.setText(choice);
+        mTextAnswer.setText(choice);
+    }
+
+    public void changeCheckboxColor(boolean isTrue) {
+        ColorStateList colorStateList;
+        if (isTrue) {
+            colorStateList = new ColorStateList(
+                    new int[][]{
+                            new int[]{-android.R.attr.state_checked},
+                            new int[]{android.R.attr.state_checked},
+                    },
+                    new int[]{
+                            ContextCompat.getColor(getContext(), R.color.not_answered_color),
+                            ContextCompat.getColor(getContext(), R.color.correct_answer_color)
+                    }
+            );
+        } else {
+            colorStateList = new ColorStateList(
+                    new int[][]{
+                            new int[]{-android.R.attr.state_checked},
+                            new int[]{android.R.attr.state_checked},
+                    },
+                    new int[]{
+                            ContextCompat.getColor(getContext(), R.color.not_answered_color),
+                            ContextCompat.getColor(getContext(), R.color.wrong_answer_color)
+                    }
+            );
+        }
+        mCheckBox.setSupportButtonTintList(colorStateList);
     }
 
     @Override
     public void onClick(View v) {
-        if (listener != null) {
-            listener.onChooseAnswer(this);
+        if (mListener != null) {
+            mListener.onChooseAnswer(this);
         }
     }
 
