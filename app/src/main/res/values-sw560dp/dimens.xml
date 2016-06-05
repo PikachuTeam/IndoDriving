@@ -48,4 +48,6 @@
     <dimen name="progress_bar_container_height">30dp</dimen>
 
     <dimen name="question_number_wrapper_width">64.2dp</dimen>
+    <dimen name="not_answered_text_width">165dp</dimen>
+    <dimen name="image_100_pro_size">120dp</dimen>
 </resources>

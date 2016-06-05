@@ -49,4 +49,5 @@
 
     <dimen name="question_number_wrapper_width">42.8dp</dimen>
     <dimen name="not_answered_text_width">110dp</dimen>
+    <dimen name="image_100_pro_size">80dp</dimen>
 </resources>

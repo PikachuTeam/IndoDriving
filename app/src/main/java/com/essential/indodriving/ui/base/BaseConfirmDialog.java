@@ -19,6 +19,7 @@ public abstract class BaseConfirmDialog extends Dialog {
     public final static int TYPE_RATING = 3;
     public final static int TYPE_TRIAL = 4;
     public final static int TYPE_OUT_OF_TIMES = 5;
+    public final static int TYPE_UPGRADE = 6;
 
     public BaseConfirmDialog(Context context) {
         super(context);
@@ -47,7 +48,7 @@ public abstract class BaseConfirmDialog extends Dialog {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
-            TYPE_TRIAL, TYPE_OUT_OF_TIMES, TYPE_WARNING_1, TYPE_WARNING_2, TYPE_RATING
+            TYPE_TRIAL, TYPE_OUT_OF_TIMES, TYPE_WARNING_1, TYPE_WARNING_2, TYPE_RATING, TYPE_UPGRADE
     })
     public @interface DialogTypeDef {
     }

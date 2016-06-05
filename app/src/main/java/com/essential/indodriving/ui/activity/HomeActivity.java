@@ -16,9 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
-import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.ui.widget.UpgradeToProVerDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -30,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public final static String PREF_IS_PRO_VERSION = "is_pro_version";
     public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";
+    public final static String PACKAGE_NAME_PRO_VER = "com.essential.indodriving.pro";
     public static Typeface defaultFont;
     private LinearLayout buttonLearnSimA;
     private LinearLayout buttonLearnSimAUmum;
@@ -64,16 +67,31 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     };
     private FloatingActionsMenu.OnFloatingActionsMenuUpdateListener mOnFloatingActionsMenuUpdateListener =
             new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
-        @Override
-        public void onMenuExpanded() {
-            mOverlayView.setVisibility(View.VISIBLE);
-        }
+                @Override
+                public void onMenuExpanded() {
+                    mOverlayView.setVisibility(View.VISIBLE);
+                }
 
-        @Override
-        public void onMenuCollapsed() {
-            mOverlayView.setVisibility(View.GONE);
-        }
-    };
+                @Override
+                public void onMenuCollapsed() {
+                    mOverlayView.setVisibility(View.GONE);
+                }
+            };
+    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener =
+            new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
+                @Override
+                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, @BaseConfirmDialog.DialogTypeDef int dialogType, BaseConfirmDialog dialog) {
+                    switch (button) {
+                        case OK:
+                            CommonUtil.openApplicationOnGooglePlay(HomeActivity.this, PACKAGE_NAME_PRO_VER);
+                            dialog.dismiss();
+                            break;
+                        case CANCEL:
+                            dialog.dismiss();
+                            break;
+                    }
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +106,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
         loadProState();
+        if (isProVersion) {
+            findViewById(R.id.button_pro_ver).setVisibility(View.GONE);
+            findViewById(R.id.image_100_pro).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.button_pro_ver).setVisibility(View.VISIBLE);
+            findViewById(R.id.image_100_pro).setVisibility(View.GONE);
+            findViewById(R.id.button_pro_ver).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UpgradeToProVerDialog dialog = new UpgradeToProVerDialog(HomeActivity.this);
+                    dialog.setOnConfirmDialogButtonClickListener(mOnConfirmDialogButtonClickListener);
+                    dialog.show();
+                }
+            });
+        }
     }
 
     @Override
