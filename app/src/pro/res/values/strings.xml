@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Soal &amp; Simulasi Ujian SIM</string>
     <string name="no_internet_connection">Internet Connection Error!</string>
     <string name="sim_a">Sim A</string>
     <string name="sim_a_umum">Sim A Umum</string>
@@ -85,7 +86,4 @@
     <string name="dialog_content_trial">You only have {0} times to try this feature. Want to
         continue?
     </string>
-    <string name="upgrade_to_pro_ver">Upgrade To Pro Version?</string>
-    <string name="key">Membuka semua fitur</string>
-    <string name="no_more_ads">Hllangkan Iklan</string>
 </resources>

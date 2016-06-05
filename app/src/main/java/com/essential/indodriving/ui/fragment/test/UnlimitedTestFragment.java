@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,31 +48,33 @@ public class UnlimitedTestFragment extends MyBaseFragment {
     private int mCurrentPosition;
     private int mType;
     private Typeface mFont;
-    private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener = new QuestionNoItemWrapper.OnQuestionNoClickListener() {
-        @Override
-        public void onQuestionNoClick(QuestionNoItemWrapper item) {
-            resetAllWrapper();
-            item.setActive(true);
-            mTestHorizontalScrollView.invalidate();
-            int index = mWrappers.indexOf(item);
-            mQuestionPager.setCurrentItem(index, true);
-            mCurrentPosition = index;
-            scrollToCenter(item);
-            getMyBaseActivity().showBigAdsIfNeeded();
-        }
-    };
-    private OnQuestionPagerItemClickListener mOnQuestionPagerItemClickListener = new OnQuestionPagerItemClickListener() {
-        @Override
-        public void onQuestionPagerItemClick(AnswerChoicesItem item) {
-            mQuestions.get(mCurrentPosition).answer = item.getIndex();
-            QuestionNoItemWrapper wrapper = mWrappers.get(mCurrentPosition);
-            if (!wrapper.isHighlight) {
-                wrapper.setHighlight();
-                mTestHorizontalScrollView.invalidate();
-            }
-            mAdapter.notifyDataSetChanged();
-        }
-    };
+    private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener =
+            new QuestionNoItemWrapper.OnQuestionNoClickListener() {
+                @Override
+                public void onQuestionNoClick(QuestionNoItemWrapper item) {
+                    resetAllWrapper();
+                    item.setActive(true);
+                    mTestHorizontalScrollView.invalidate();
+                    int index = mWrappers.indexOf(item);
+                    mQuestionPager.setCurrentItem(index, true);
+                    mCurrentPosition = index;
+                    scrollToCenter(item);
+                    getMyBaseActivity().showBigAdsIfNeeded();
+                }
+            };
+    private OnQuestionPagerItemClickListener mOnQuestionPagerItemClickListener =
+            new OnQuestionPagerItemClickListener() {
+                @Override
+                public void onQuestionPagerItemClick(AnswerChoicesItem item) {
+                    mQuestions.get(mCurrentPosition).answer = item.getIndex();
+                    QuestionNoItemWrapper wrapper = mWrappers.get(mCurrentPosition);
+                    if (!wrapper.isHighlight) {
+                        wrapper.setHighlight();
+                        mTestHorizontalScrollView.invalidate();
+                    }
+                    mAdapter.refreshChoicesArea(mCurrentPosition);
+                }
+            };
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -231,7 +234,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
 
         private ArrayList<Question> mQuestions;
         private Context mContext;
-        private OnQuestionPagerItemClickListener listener;
+        private OnQuestionPagerItemClickListener mListener;
 
         public ViewPagerAdapter(Context context, ArrayList<Question> questions) {
             this.mContext = context;
@@ -239,7 +242,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         }
 
         public void setOnQuestionPagerItemClickListener(OnQuestionPagerItemClickListener listener) {
-            this.listener = listener;
+            this.mListener = listener;
         }
 
         @Override
@@ -269,17 +272,17 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 buttonZoomIn.setOnTouchListener(this);
             }
             textViewQuestion.setText(question.question);
-
             ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
             for (int i = 0; i < answerChoicesItems.size(); i++) {
-                choicesContainer.addView(answerChoicesItems.get(i).getView());
+                choicesContainer.addView(answerChoicesItems.get(i));
                 LinearLayout.MarginLayoutParams marginParams =
-                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getView().getLayoutParams();
+                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getLayoutParams();
                 marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
-                answerChoicesItems.get(i).getView().requestLayout();
+                answerChoicesItems.get(i).requestLayout();
                 answerChoicesItems.get(i).setOnChooseAnswerListener(this);
             }
             choicesContainer.invalidate();
+            choicesContainer.setTag(position);
             container.addView(view);
             return view;
         }
@@ -290,13 +293,23 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         }
 
         @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-
-        @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
+        }
+
+        public void refreshChoicesArea(int position) {
+            Question question = mQuestions.get(position);
+            LinearLayout choicesContainer = (LinearLayout) getView().findViewWithTag(position);
+            int numberOfChoices = choicesContainer.getChildCount();
+            for (int i = 0; i < numberOfChoices; i++) {
+                AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(i);
+                answerChoicesItem.setActive(false);
+                answerChoicesItem.hideTextNotify();
+            }
+            AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(question.answer);
+            answerChoicesItem.setActive(true);
+            answerChoicesItem.showTextNotify(question.answer == question.correctAnswer);
+            choicesContainer.invalidate();
         }
 
         private ArrayList<AnswerChoicesItem> makeChoices(Question question) {
@@ -304,21 +317,25 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             if (question.answer1 != null) {
                 AnswerChoicesItem answer1 = new AnswerChoicesItem(mContext, DataSource.ANSWER_A);
                 answer1.setChoice(question.answer1);
+                answer1.changeCheckboxColor(question.correctAnswer == 0);
                 answerChoicesItems.add(answer1);
             }
             if (question.answer2 != null) {
                 AnswerChoicesItem answer2 = new AnswerChoicesItem(mContext, DataSource.ANSWER_B);
                 answer2.setChoice(question.answer2);
+                answer2.changeCheckboxColor(question.correctAnswer == 1);
                 answerChoicesItems.add(answer2);
             }
             if (question.answer3 != null) {
                 AnswerChoicesItem answer3 = new AnswerChoicesItem(mContext, DataSource.ANSWER_C);
                 answer3.setChoice(question.answer3);
+                answer3.changeCheckboxColor(question.correctAnswer == 2);
                 answerChoicesItems.add(answer3);
             }
             if (question.answer4 != null) {
                 AnswerChoicesItem answer4 = new AnswerChoicesItem(mContext, DataSource.ANSWER_D);
                 answer4.setChoice(question.answer4);
+                answer4.changeCheckboxColor(question.correctAnswer == 3);
                 answerChoicesItems.add(answer4);
             }
             resetAllChoices(answerChoicesItems);
@@ -338,8 +355,8 @@ public class UnlimitedTestFragment extends MyBaseFragment {
 
         @Override
         public void onChooseAnswer(AnswerChoicesItem item) {
-            if (listener != null) {
-                listener.onQuestionPagerItemClick(item);
+            if (mListener != null) {
+                mListener.onQuestionPagerItemClick(item);
             }
         }
 

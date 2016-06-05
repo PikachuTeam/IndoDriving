@@ -42,6 +42,23 @@
 
     <include layout="@layout/content_home" />
 
+    <ImageView
+        android:id="@+id/button_pro_ver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="@dimen/common_size_15"
+        android:layout_marginLeft="@dimen/common_size_15"
+        android:elevation="@dimen/common_size_5"
+        android:src="@drawable/ic_up_to_pro" />
+
+    <ImageView
+        android:id="@+id/image_100_pro"
+        android:layout_width="@dimen/image_100_pro_size"
+        android:layout_height="@dimen/image_100_pro_size"
+        android:layout_gravity="bottom|left"
+        android:src="@drawable/ic_pro_100" />
+
     <View
         android:id="@+id/view_overlay"
         android:layout_width="match_parent"

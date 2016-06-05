@@ -14,8 +14,6 @@ public class Constants {
     public final static String BUNDLE_NEED_SAVING = "need saving";
     public final static String BUNDLE_FRAGMENT_TYPE = "fragment type";
     public final static String KEY_HOLDER_QUESTIONS = "questions";
-
-
     public final static String URL_APP_CONFIG ="https://www.dropbox.com/s/4xf63dm2k3r1a67/config.txt?dl=1";
     public final static String PREF_RATE_TO_UNLOCK = "rate_to_unlock";
 
