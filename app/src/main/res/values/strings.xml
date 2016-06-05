@@ -85,7 +85,7 @@
     <string name="dialog_content_trial">You only have {0} times to try this feature. Want to
         continue?
     </string>
-    <string name="upgrade_to_pro_ver">Upgrade To Pro Version?</string>
+    <string name="upgrade_to_pro_ver">Upgrade Ke Versi Pro</string>
     <string name="key">Membuka semua fitur</string>
     <string name="no_more_ads">Hllangkan Iklan</string>
 </resources>
