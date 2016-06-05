@@ -3,7 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
+    signingConfigs {
+        debug {
+            keyAlias 'TATAndroidKey'
+            keyPassword 'Tat230115'
+            storeFile file('/Volumes/Data/Google Drive/TAT Team/tat_keystore.jks')
+            storePassword 'Tat230115'
+        }
+    }
     defaultConfig {
         applicationId "com.essential.indodriving"
         minSdkVersion 14
@@ -20,8 +27,8 @@ android {
     productFlavors {
         free {
             applicationId = "com.essential.indodriving.free"
-            versionCode 4
-            versionName "1.3"
+            versionCode 5
+            versionName "1.4"
         }
     }
 }
@@ -35,4 +42,5 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.10.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.anjlab.android.iab.v3:library:1.0.+'
 }

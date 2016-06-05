@@ -18,4 +18,7 @@ public class Constants {
 
     public final static String URL_APP_CONFIG ="https://www.dropbox.com/s/4xf63dm2k3r1a67/config.txt?dl=1";
     public final static String PREF_RATE_TO_UNLOCK = "rate_to_unlock";
+
+    public final static String DEV_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgID2X2a2CP+n/fEarL23GVfuQ/WV4wRiBGaJNjxdIiVIi7U7tk3lXN3stYgtdQSg+dxU0OoiQB/c723MduJ2Ee/Me164J3MuwqGCfFmDTMUSmJXYUKehSJTuLAiVTNG4tdB0csjHoEUklco1HX9nUVwHJTalQHCTLQOvzYzlaedySSSXTZCHsPtouCMi5l32U3rOQjtxUYQ9RIVQLqUmemMePIqeRpXEKytITTNi+rO8UoFBYG6p2IL5b5N0Wqs789HLIWPfocaHHnuVVgkWm49K3aU297C3hriSEmowpMFsErcBnbiDkk90lYlalk3IpP58GekAKgfUpIu2jkWeRwIDAQAB";
+    public final static String PURCHASE_PRO_VERSION_ID = "pro_version";
 }
