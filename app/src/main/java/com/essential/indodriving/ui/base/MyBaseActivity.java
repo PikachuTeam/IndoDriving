@@ -140,18 +140,17 @@ public abstract class MyBaseActivity extends BaseActivity {
         } else {
             count = 0;
             if (ADS_ENABLE) {
-                if(BuildConfig.DEBUG){
+                if (BuildConfig.DEBUG) {
                     adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
                             , AppConstant.AdsType.SMALL_BANNER_TEST);
-                }else {
+                } else {
                     adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
                             , AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST);
                 }
                 adsSmallBannerHandler.setup();
-                if(BuildConfig.DEBUG){
+                if (BuildConfig.DEBUG) {
                     adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_TEST);
-                }
-                else{
+                } else {
                     adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
                 }
                 adsBigBannerHandler.setup();
@@ -195,7 +194,7 @@ public abstract class MyBaseActivity extends BaseActivity {
         buttonTutorial.setTypeface(font);
     }
 
-    private MyBaseFragment getMyCurrentFragment() {
+    public MyBaseFragment getMyCurrentFragment() {
         MyBaseFragment fragment = (MyBaseFragment) getFragmentManager().findFragmentById(R.id.fragmentContainer);
         return fragment;
     }

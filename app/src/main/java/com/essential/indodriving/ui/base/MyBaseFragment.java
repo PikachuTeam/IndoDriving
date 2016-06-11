@@ -92,4 +92,7 @@ public abstract class MyBaseFragment extends BaseFragment {
     }
 
     protected abstract String getTitle();
+
+    public void refreshUI() {
+    }
 }

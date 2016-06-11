@@ -30,7 +30,8 @@ import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.util.CloseAppHandler;
 import tatteam.com.app_common.util.CommonUtil;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, CloseAppHandler.OnCloseAppListener, BillingProcessor.IBillingHandler {
+public class HomeActivity extends AppCompatActivity implements
+        View.OnClickListener, CloseAppHandler.OnCloseAppListener, BillingProcessor.IBillingHandler {
 
     public final static String PREF_IS_PRO_VERSION = "is_pro_version";
     public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";

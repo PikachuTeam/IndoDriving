@@ -18,15 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.QuestionPackage;
 import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.ui.activity.MainActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.RatingDialog;
+import com.essential.indodriving.ui.widget.UpgradeToProVerDialog;
 import com.essential.indodriving.util.GridItemDecoration;
 import com.essential.indodriving.util.OnRecyclerViewItemClickListener;
 
@@ -36,7 +37,8 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/24/2016.
  */
-public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerViewItemClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
+public class ListQuestionFragment extends MyBaseFragment implements
+        OnRecyclerViewItemClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
     public final static String LIST_QUESTION_FRAGMENT_TAG = "List Question Fragment";
     public final static String
@@ -56,6 +58,21 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     private boolean isRated;
     private boolean isProVersion;
     private boolean isEnableRateToUnlock;
+    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener =
+            new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
+                @Override
+                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, @BaseConfirmDialog.DialogTypeDef int dialogType, BaseConfirmDialog dialog) {
+                    switch (button) {
+                        case OK:
+                            dialog.dismiss();
+                            ((MainActivity) getActivity()).handlePurchasing();
+                            break;
+                        case CANCEL:
+                            dialog.dismiss();
+                            break;
+                    }
+                }
+            };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,6 +110,16 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
     public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void refreshUI() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
+        if (isProVersion) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void findViews(View rootView) {
@@ -179,15 +206,27 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
             } else {
                 if (!isProVersion) {
                     if (isRated || !isEnableRateToUnlock) {
-                        if (isShowedRuleAgain) {
-                            moveToShowRuleFragment(questionPackage.index);
+                        if (questionPackage.index <= 6) {
+                            if (isShowedRuleAgain) {
+                                moveToShowRuleFragment(questionPackage.index);
+                            } else {
+                                moveToDoTestFragment(questionPackage.index);
+                            }
                         } else {
-                            moveToDoTestFragment(questionPackage.index);
+                            UpgradeToProVerDialog dialog = new UpgradeToProVerDialog(getActivity());
+                            dialog.setOnConfirmDialogButtonClickListener(mOnConfirmDialogButtonClickListener);
+                            dialog.show();
                         }
                     } else {
-                        RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
-                        ratingDialog.show();
-                        ratingDialog.addListener(this);
+                        if (questionPackage.index <= 6) {
+                            RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
+                            ratingDialog.show();
+                            ratingDialog.addListener(this);
+                        } else {
+                            UpgradeToProVerDialog dialog = new UpgradeToProVerDialog(getActivity());
+                            dialog.setOnConfirmDialogButtonClickListener(mOnConfirmDialogButtonClickListener);
+                            dialog.show();
+                        }
                     }
                 } else {
                     if (isShowedRuleAgain) {
@@ -279,18 +318,22 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof ViewHolderItem) {
                 final QuestionPackage questionPackage = packages.get(position - 1);
-                ((ViewHolderItem) holder).textViewPackage.setText(MessageFormat.format(context.getString(R.string.title_package), "" + questionPackage.index));
+                ((ViewHolderItem) holder).textViewPackage.setText(MessageFormat.
+                        format(context.getString(R.string.title_package), "" + questionPackage.index));
                 ((ViewHolderItem) holder).textViewPackage.setTypeface(font);
                 if (questionPackage.lastScore == 0) {
                     ((ViewHolderItem) holder).textViewLastScore.setVisibility(View.GONE);
                 } else {
                     ((ViewHolderItem) holder).textViewLastScore.setVisibility(View.VISIBLE);
                     if (questionPackage.lastScore >= 21) {
-                        ((ViewHolderItem) holder).textViewLastScore.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
+                        ((ViewHolderItem) holder).textViewLastScore.
+                                setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
                     } else {
-                        ((ViewHolderItem) holder).textViewLastScore.setTextColor(ContextCompat.getColor(context, R.color.wrong_answer_color));
+                        ((ViewHolderItem) holder).textViewLastScore.
+                                setTextColor(ContextCompat.getColor(context, R.color.wrong_answer_color));
                     }
-                    ((ViewHolderItem) holder).textViewLastScore.setText(MessageFormat.format(context.getString(R.string.score), "" + questionPackage.lastScore));
+                    ((ViewHolderItem) holder).textViewLastScore.setText(
+                            MessageFormat.format(context.getString(R.string.score), "" + questionPackage.lastScore));
                     ((ViewHolderItem) holder).textViewLastScore.setTypeface(font);
                 }
                 ((ViewHolderItem) holder).buttonPackage.setOnClickListener(new View.OnClickListener() {
@@ -304,20 +347,35 @@ public class ListQuestionFragment extends MyBaseFragment implements OnRecyclerVi
                 if (!ListQuestionFragment.this.isProVersion) {
                     if (position - 1 == 0) {
                         ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
-                        ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
+                        ((ViewHolderItem) holder).buttonPackage.
+                                setBackgroundResource(tatteam.com.app_common.R.drawable.raised_button);
                     } else {
                         if (ListQuestionFragment.this.isRated || !ListQuestionFragment.this.isEnableRateToUnlock) {
-                            ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
-                            ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
-                                    tatteam.com.app_common.R.drawable.raised_button);
+                            if (position - 1 <= 5) {
+                                ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
+                                        tatteam.com.app_common.R.drawable.raised_button);
+                            } else {
+                                ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).star.setVisibility(View.GONE);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
+                                        R.drawable.list_question_locked_item);
+                            }
                         } else {
-                            ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
-                            ((ViewHolderItem) holder).star.setVisibility(View.VISIBLE);
-                            ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
-                            ((ViewHolderItem) holder).star.setColorFilter(ContextCompat.
-                                    getColor(context, R.color.yellow_star), PorterDuff.Mode.SRC_ATOP);
-                            ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
-                                    tatteam.com.app_common.R.drawable.raised_button);
+                            if (position - 1 <= 5) {
+                                ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).star.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).lock.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).star.setColorFilter(ContextCompat.
+                                        getColor(context, R.color.yellow_star), PorterDuff.Mode.SRC_ATOP);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
+                                        tatteam.com.app_common.R.drawable.raised_button);
+                            } else {
+                                ((ViewHolderItem) holder).lockArea.setVisibility(View.VISIBLE);
+                                ((ViewHolderItem) holder).star.setVisibility(View.GONE);
+                                ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
+                                        R.drawable.list_question_locked_item);
+                            }
                         }
                     }
                 } else {
