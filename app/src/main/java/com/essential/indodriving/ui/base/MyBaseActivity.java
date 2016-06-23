@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -11,8 +12,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.essential.indodriving.BuildConfig;
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.MySetting;
 import com.essential.indodriving.ui.activity.HomeActivity;
 
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
@@ -23,9 +26,11 @@ import tatteam.com.app_common.util.AppConstant;
 /**
  * Created by dongc_000 on 2/17/2016.
  */
-public abstract class MyBaseActivity extends BaseActivity {
+public abstract class MyBaseActivity extends BaseActivity implements BillingProcessor.IBillingHandler {
 
-    public final static boolean ADS_ENABLE = true;
+    public static AppConstant.AdsType ADS_SMALL;
+    public static AppConstant.AdsType ADS_BIG;
+
     public final static int BIG_ADS_SHOWING_INTERVAL = 20;
     public static int count;
     private Toolbar toolbar;
@@ -35,9 +40,9 @@ public abstract class MyBaseActivity extends BaseActivity {
     private LinearLayout buttonShare;
     private CoordinatorLayout mainCoordinatorLayout;
     private FrameLayout adsContainer;
-    private boolean isProVersion;
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private AdsBigBannerHandler adsBigBannerHandler;
+    private BillingProcessor mBillingProcessor;
 
     public static void startActivityAnimation(Activity activity, Intent intent) {
         activity.startActivity(intent);
@@ -65,8 +70,9 @@ public abstract class MyBaseActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         setFont(font);
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
+        if (!MySetting.getInstance().isProVersion() && BillingProcessor.isIabServiceAvailable(this)) {
+            mBillingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
+        }
         setupAds();
     }
 
@@ -114,49 +120,35 @@ public abstract class MyBaseActivity extends BaseActivity {
     }
 
     public void showBigAdsIfNeeded() {
-        if (!isProVersion) {
-            if (ADS_ENABLE) {
-                count++;
-                if (count % BIG_ADS_SHOWING_INTERVAL == 0) {
-                    adsBigBannerHandler.show();
-                }
+        if (!MySetting.getInstance().isProVersion()) {
+            count++;
+            if (count % BIG_ADS_SHOWING_INTERVAL == 0) {
+                adsBigBannerHandler.show();
             }
         }
     }
 
     private void setupAds() {
-        if (isProVersion) {
-            if (ADS_ENABLE) {
-                adsContainer.setVisibility(View.GONE);
-                if (adsSmallBannerHandler != null) {
-                    adsSmallBannerHandler.destroy();
-                }
-                if (adsBigBannerHandler != null) {
-                    adsBigBannerHandler.destroy();
-                }
-            } else {
-                adsContainer.setVisibility(View.GONE);
-            }
+        if (MySetting.getInstance().isProVersion()) {
+            adsContainer.setVisibility(View.GONE);
         } else {
             count = 0;
-            if (ADS_ENABLE) {
-                if (BuildConfig.DEBUG) {
-                    adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
-                            , AppConstant.AdsType.SMALL_BANNER_TEST);
-                } else {
-                    adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer
-                            , AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST);
-                }
-                adsSmallBannerHandler.setup();
-                if (BuildConfig.DEBUG) {
-                    adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_TEST);
-                } else {
-                    adsBigBannerHandler = new AdsBigBannerHandler(this, AppConstant.AdsType.BIG_BANNER_DRIVING_TEST);
-                }
-                adsBigBannerHandler.setup();
-            } else {
-                adsContainer.setVisibility(View.GONE);
-            }
+            adsSmallBannerHandler = new AdsSmallBannerHandler(this, adsContainer, ADS_SMALL);
+            adsSmallBannerHandler.setup();
+            adsBigBannerHandler = new AdsBigBannerHandler(this, ADS_BIG);
+            adsBigBannerHandler.setup();
+        }
+    }
+
+    private void stopAdvertising() {
+        if (adsContainer != null) {
+            adsContainer.setVisibility(View.GONE);
+        }
+        if (adsBigBannerHandler != null) {
+            adsBigBannerHandler.destroy();
+        }
+        if (adsBigBannerHandler != null) {
+            adsBigBannerHandler.destroy();
         }
     }
 
@@ -197,5 +189,44 @@ public abstract class MyBaseActivity extends BaseActivity {
     public MyBaseFragment getMyCurrentFragment() {
         MyBaseFragment fragment = (MyBaseFragment) getFragmentManager().findFragmentById(R.id.fragmentContainer);
         return fragment;
+    }
+
+
+    public void handlePurchasing() {
+        if (mBillingProcessor != null && mBillingProcessor.isInitialized()) {
+            if (!mBillingProcessor.isPurchased(Constants.PURCHASE_PRO_VERSION_ID)) {
+                mBillingProcessor.purchase(this, Constants.PURCHASE_PRO_VERSION_ID);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (mBillingProcessor != null && !mBillingProcessor.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onProductPurchased(String productId, TransactionDetails details) {
+        if (Constants.PURCHASE_PRO_VERSION_ID.equals(productId)) {
+            MySetting.getInstance().setProVersion(true);
+            getMyCurrentFragment().refreshUI();
+            stopAdvertising();
+        }
+    }
+
+    @Override
+    public void onPurchaseHistoryRestored() {
+
+    }
+
+    @Override
+    public void onBillingError(int errorCode, Throwable error) {
+
+    }
+
+    @Override
+    public void onBillingInitialized() {
     }
 }

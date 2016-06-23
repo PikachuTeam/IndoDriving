@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.MySetting;
 import com.essential.indodriving.data.QuestionPackage;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.MainActivity;
@@ -114,9 +115,7 @@ public class ListQuestionFragment extends MyBaseFragment implements
 
     @Override
     public void refreshUI() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
+        isProVersion = MySetting.getInstance().isProVersion();
         if (isProVersion) {
             adapter.notifyDataSetChanged();
         }
@@ -156,7 +155,7 @@ public class ListQuestionFragment extends MyBaseFragment implements
                 break;
         }
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
+        isProVersion  = MySetting.getInstance().isProVersion();
         isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
     }
 
@@ -380,6 +379,8 @@ public class ListQuestionFragment extends MyBaseFragment implements
                     }
                 } else {
                     ((ViewHolderItem) holder).lockArea.setVisibility(View.GONE);
+                    ((ViewHolderItem) holder).buttonPackage.setBackgroundResource(
+                            tatteam.com.app_common.R.drawable.raised_button);
                 }
             } else if (holder instanceof ViewHolderHeader) {
                 ((ViewHolderHeader) holder).buttonRandomQuestion.setTypeface(font);

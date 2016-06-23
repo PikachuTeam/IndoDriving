@@ -3,6 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+//    signingConfigs {
+//        debug {
+//            keyAlias 'TATAndroidKey'
+//            keyPassword 'Tat230115'
+//            storeFile file('/Volumes/Data/Google Drive/TAT Team/tat_keystore.jks')
+//            storePassword 'Tat230115'
+//        }
+//    }
     defaultConfig {
         applicationId "com.essential.indodriving"
         minSdkVersion 14

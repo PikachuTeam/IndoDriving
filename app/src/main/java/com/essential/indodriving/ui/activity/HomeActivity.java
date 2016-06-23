@@ -1,8 +1,6 @@
 package com.essential.indodriving.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,8 +15,10 @@ import android.widget.TextView;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.MySetting;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
@@ -33,7 +33,6 @@ import tatteam.com.app_common.util.CommonUtil;
 public class HomeActivity extends AppCompatActivity implements
         View.OnClickListener, CloseAppHandler.OnCloseAppListener, BillingProcessor.IBillingHandler {
 
-    public final static String PREF_IS_PRO_VERSION = "is_pro_version";
     public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";
     public final static String PACKAGE_NAME_PRO_VER = "com.essential.indodriving.pro";
     public static Typeface defaultFont;
@@ -50,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements
     private FloatingActionButton mFabMoreApps;
     private FloatingActionButton mFabShare;
     private View button_pro_ver;
+    private View btn_consume;
     private View image_100_pro;
     private View mOverlayView;
     private CoordinatorLayout coordinatorLayout;
@@ -57,7 +57,6 @@ public class HomeActivity extends AppCompatActivity implements
     private CollapsingToolbarLayout toolbar_layout;
     private CloseAppHandler closeAppHandler;
     private int number;
-    private boolean isProVersion;
     private BillingProcessor billingProcessor;
 
     private View.OnClickListener mFloatingMenuItemClickListener = new View.OnClickListener() {
@@ -116,11 +115,13 @@ public class HomeActivity extends AppCompatActivity implements
         setFont(defaultFont);
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
-        loadProState();
-        refreshUI();
 
-        if (!isProVersion && BillingProcessor.isIabServiceAvailable(this)) {
+        if (BuildConfig.DEBUG) {
             billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
+        } else {
+            if (!MySetting.getInstance().isProVersion() && BillingProcessor.isIabServiceAvailable(this)) {
+                billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
+            }
         }
     }
 
@@ -128,6 +129,7 @@ public class HomeActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         number = 0;
+        refreshUI();
     }
 
     @Override
@@ -196,6 +198,7 @@ public class HomeActivity extends AppCompatActivity implements
         mFabShare = (FloatingActionButton) findViewById(R.id.fab_share);
         button_pro_ver = findViewById(R.id.button_pro_ver);
         image_100_pro = findViewById(R.id.image_100_pro);
+        btn_consume = findViewById(R.id.btn_consume);
 
         mOverlayView = findViewById(R.id.view_overlay);
         buttonLearnSimA.setOnClickListener(this);
@@ -209,12 +212,11 @@ public class HomeActivity extends AppCompatActivity implements
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isProVersion) {
+                if (!MySetting.getInstance().isProVersion()) {
                     number++;
                     if (number == Constants.PRESSING_TIMES) {
-                        isProVersion = true;
                         Snackbar.make(coordinatorLayout, getString(R.string.hacked), Snackbar.LENGTH_SHORT).show();
-                        saveProState();
+                        MySetting.getInstance().setProVersion(true);
                         refreshUI();
                     }
                 }
@@ -242,29 +244,35 @@ public class HomeActivity extends AppCompatActivity implements
                 dialog.show();
             }
         });
-    }
 
-    private void saveProState() {
-        SharedPreferences sharedPreferences = getSharedPreferences(
-                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(PREF_IS_PRO_VERSION, isProVersion);
-        editor.commit();
-    }
-
-    private void loadProState() {
-        SharedPreferences sharedPreferences = getSharedPreferences(
-                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        isProVersion = sharedPreferences.getBoolean(PREF_IS_PRO_VERSION, false);
+        btn_consume.setVisibility(BuildConfig.DEBUG ? View.VISIBLE : View.GONE);
+        btn_consume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (billingProcessor != null && billingProcessor.isInitialized()) {
+                    if (billingProcessor.isPurchased(Constants.PURCHASE_PRO_VERSION_ID)) {
+                        boolean consumeResult = billingProcessor.consumePurchase(Constants.PURCHASE_PRO_VERSION_ID);
+                        if (consumeResult) {
+                            MySetting.getInstance().setProVersion(false);
+                            refreshUI();
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void refreshUI() {
+        boolean isProVersion = MySetting.getInstance().isProVersion();
         if (isProVersion) {
             findViewById(R.id.button_pro_ver).setVisibility(View.GONE);
             findViewById(R.id.image_100_pro).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.button_pro_ver).setVisibility(View.VISIBLE);
             findViewById(R.id.image_100_pro).setVisibility(View.GONE);
+        }
+        if (BuildConfig.DEBUG) {
+            btn_consume.setVisibility(isProVersion ? View.VISIBLE : View.GONE);
         }
 
     }
@@ -289,8 +297,7 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {
         if (Constants.PURCHASE_PRO_VERSION_ID.equals(productId)) {
-            isProVersion = true;
-            saveProState();
+            MySetting.getInstance().setProVersion(true);
             refreshUI();
         }
     }
@@ -307,8 +314,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     @Override
     public void onBillingInitialized() {
-        isProVersion = billingProcessor.isPurchased(Constants.PURCHASE_PRO_VERSION_ID);
-        saveProState();
+        boolean isProVersion = billingProcessor.isPurchased(Constants.PURCHASE_PRO_VERSION_ID);
+        MySetting.getInstance().setProVersion(isProVersion);
         refreshUI();
     }
 
@@ -326,4 +333,5 @@ public class HomeActivity extends AppCompatActivity implements
         }
         super.onDestroy();
     }
+
 }

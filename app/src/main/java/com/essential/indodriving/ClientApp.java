@@ -2,6 +2,8 @@ package com.essential.indodriving;
 
 import android.app.Application;
 
+import com.essential.indodriving.data.MySetting;
+
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.sqlite.DatabaseLoader;
 
@@ -15,6 +17,7 @@ public class ClientApp extends Application {
         super.onCreate();
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         DatabaseLoader.getInstance().restoreState(getApplicationContext());
+        MySetting.getInstance().initIfNeeded(getApplicationContext());
     }
 
     @Override

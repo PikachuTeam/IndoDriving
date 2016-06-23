@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.MySetting;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
@@ -339,7 +340,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             default:
                 currentPosition = 0;
         }
-        isProVersion = sharedPreferences.getBoolean(HomeActivity.PREF_IS_PRO_VERSION, false);
+        isProVersion = MySetting.getInstance().isProVersion();
         isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
         isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
         mTrialTimesLeft = sharedPreferences.getInt(Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
