@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.MySetting;
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.data.QuestionPackage;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.MainActivity;

@@ -18,7 +18,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.MySetting;
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;

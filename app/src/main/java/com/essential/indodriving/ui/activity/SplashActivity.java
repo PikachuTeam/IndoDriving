@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.essential.indodriving.BuildConfig;
+import com.essential.indodriving.data.PoolDatabaseLoader;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
 import com.google.gson.JsonObject;
@@ -40,7 +41,7 @@ public class SplashActivity extends EssentialSplashActivity {
             MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_DRIVING_TEST;
         }
         AppCommon.getInstance().syncAdsIfNeeded(MyBaseActivity.ADS_SMALL, MyBaseActivity.ADS_BIG);
-        DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), DATABASE_NAME);
+        PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
         loadConfig();
     }
 

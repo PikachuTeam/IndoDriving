@@ -2,8 +2,6 @@ package com.essential.indodriving;
 
 import android.app.Application;
 
-import com.essential.indodriving.data.MySetting;
-
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.sqlite.DatabaseLoader;
 

@@ -30,10 +30,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.MySetting;
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;

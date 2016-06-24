@@ -1,9 +1,7 @@
 package com.essential.indodriving.ui.base;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
@@ -15,8 +13,7 @@ import android.widget.TextView;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.MySetting;
-import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.MySetting;
 
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
