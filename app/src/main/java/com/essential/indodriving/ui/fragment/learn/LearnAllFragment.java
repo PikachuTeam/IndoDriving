@@ -357,7 +357,6 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
             imageArea.setVisibility(View.GONE);
         } else {
             imageArea.setVisibility(View.VISIBLE);
-//            cardQuestionImage.setImageBitmap(question.image);
             Glide.with(LearnAllFragment.this).load(question.imageData).dontAnimate().dontTransform().into(cardQuestionImage);
         }
         cardTextViewQuestion.setText(question.question);

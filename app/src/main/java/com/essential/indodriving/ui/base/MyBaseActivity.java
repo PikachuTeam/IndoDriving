@@ -75,13 +75,16 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (adsSmallBannerHandler != null) {
             adsSmallBannerHandler.destroy();
         }
         if (adsBigBannerHandler != null) {
             adsBigBannerHandler.destroy();
         }
+        if (mBillingProcessor != null) {
+            mBillingProcessor.release();
+        }
+        super.onDestroy();
     }
 
     public Toolbar getToolbar() {

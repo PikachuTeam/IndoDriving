@@ -13,6 +13,8 @@ public class Question {
     public int type;
     public int answer;
     public byte[] imageData;
+    public int fixedAnswer;
+    public int isSentFixedAnswer;
 
     public Question() {
         answer = -1;

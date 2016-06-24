@@ -44,7 +44,9 @@ public class DataSource {
             question.answer3 = fixAnswer(cursor.getString(5));
             question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
-            question.imageData = cursor.getBlob(9);
+            question.fixedAnswer = cursor.getInt(9);
+//            question.isSentFixedAnswer = cursor.getInt(10);
+            question.imageData = cursor.getBlob(11);
             question.type = cursor.getInt(1);
             questions.add(question);
             cursor.moveToNext();
@@ -101,7 +103,9 @@ public class DataSource {
             question.answer3 = fixAnswer(cursor.getString(5));
             question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
-            question.imageData = cursor.getBlob(9);
+            question.fixedAnswer = cursor.getInt(9);
+//            question.isSentFixedAnswer = cursor.getInt(10);
+            question.imageData = cursor.getBlob(11);
             question.type = cursor.getInt(1);
             questions.add(question);
             cursor.moveToNext();
