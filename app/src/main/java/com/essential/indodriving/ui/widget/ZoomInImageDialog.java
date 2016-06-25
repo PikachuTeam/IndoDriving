@@ -2,7 +2,6 @@ package com.essential.indodriving.ui.widget;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;

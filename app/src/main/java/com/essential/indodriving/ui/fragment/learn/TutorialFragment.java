@@ -10,9 +10,9 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.data.DataSource;
 
 /**
  * Created by dongc_000 on 2/20/2016.
@@ -53,7 +53,6 @@ public class TutorialFragment extends MyBaseFragment {
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
-
         if (isNetworkAvailable()) {
             tutorialContainer.setVisibility(View.VISIBLE);
             textViewInternetError.setVisibility(View.GONE);

@@ -16,9 +16,9 @@ import android.widget.TextView;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.BuildConfig;
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.MySetting;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
@@ -50,7 +50,6 @@ public class HomeActivity extends AppCompatActivity implements
     private FloatingActionButton mFabShare;
     private View button_pro_ver;
     private View btn_consume;
-    private View image_100_pro;
     private View mOverlayView;
     private CoordinatorLayout coordinatorLayout;
     private ImageView banner;
@@ -115,11 +114,11 @@ public class HomeActivity extends AppCompatActivity implements
         setFont(defaultFont);
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
-
         if (BuildConfig.DEBUG) {
             billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
         } else {
-            if (!MySetting.getInstance().isProVersion() && BillingProcessor.isIabServiceAvailable(this)) {
+            if (!MySetting.getInstance().isProVersion() &&
+                    BillingProcessor.isIabServiceAvailable(this)) {
                 billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
             }
         }
@@ -134,11 +133,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if (mFloatingActionsMenu.isExpanded()) {
-            mFloatingActionsMenu.collapse();
-        } else {
-            closeAppHandler.setKeyBackPress(this);
-        }
+        if (mFloatingActionsMenu.isExpanded()) mFloatingActionsMenu.collapse();
+        else closeAppHandler.setKeyBackPress(this);
     }
 
     @Override
@@ -197,7 +193,6 @@ public class HomeActivity extends AppCompatActivity implements
         mFabRateUs = (FloatingActionButton) findViewById(R.id.fab_rate_us);
         mFabShare = (FloatingActionButton) findViewById(R.id.fab_share);
         button_pro_ver = findViewById(R.id.button_pro_ver);
-        image_100_pro = findViewById(R.id.image_100_pro);
         btn_consume = findViewById(R.id.btn_consume);
 
         mOverlayView = findViewById(R.id.view_overlay);
@@ -333,5 +328,4 @@ public class HomeActivity extends AppCompatActivity implements
         }
         super.onDestroy();
     }
-
 }

@@ -30,9 +30,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.MySetting;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
@@ -51,7 +51,6 @@ import java.util.ArrayList;
 public class LearnAllFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
 
     public final static String
-            TAG_LEARN_ALL_FRAGMENT = "Learn All Fragment",
             PREF_CURRENT_POSITION_SIM_A = "Current Position Sim A",
             PREF_CURRENT_POSITION_SIM_A_UMUM = "Current Position Sim A Umum",
             PREF_CURRENT_POSITION_SIM_B1 = "Current Position Sim B1",
@@ -340,16 +339,9 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 currentPosition = 0;
         }
         isProVersion = MySetting.getInstance().isProVersion();
-        isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
-        isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
+        isRated = MySetting.getInstance().isRated();
+        isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
         mTrialTimesLeft = sharedPreferences.getInt(Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
-    }
-
-    private void moveToNextFragment() {
-        UnlimitedTestFragment fragment = new UnlimitedTestFragment();
-        putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
-        replaceFragment(fragment, TAG_LEARN_ALL_FRAGMENT);
-        saveState();
     }
 
     private void setCardData(Question question) {

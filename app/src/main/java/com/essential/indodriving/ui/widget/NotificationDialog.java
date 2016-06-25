@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
 
 import java.text.MessageFormat;
 

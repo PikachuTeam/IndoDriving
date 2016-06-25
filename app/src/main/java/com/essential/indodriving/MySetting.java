@@ -10,12 +10,13 @@ import com.essential.indodriving.ui.base.Constants;
  */
 public class MySetting {
     private final static String PREF_IS_PRO_VERSION = "is_pro_version";
-
+    private final static String PREF_IS_RATE_APP = "is_rate_app";
+    private final static String PREF_IS_ENABLE_RATE_TO_UNLOCK = "is_enable_rate_to_unlock";
 
     private static MySetting instance;
+    private SharedPreferences.Editor editor;
     private Context context;
     private SharedPreferences pref;
-    SharedPreferences.Editor editor;
 
     private MySetting() {
     }
@@ -41,6 +42,24 @@ public class MySetting {
 
     public void setProVersion(boolean isProVersion) {
         editor.putBoolean(PREF_IS_PRO_VERSION, isProVersion);
+        editor.commit();
+    }
+
+    public boolean isRated() {
+        return pref.getBoolean(PREF_IS_RATE_APP, false);
+    }
+
+    public void setRated() {
+        editor.putBoolean(PREF_IS_RATE_APP, true);
+        editor.commit();
+    }
+
+    public boolean isEnableRateToUnlock() {
+        return pref.getBoolean(PREF_IS_ENABLE_RATE_TO_UNLOCK, false);
+    }
+
+    public void setRateToUnlock(boolean isEnabled) {
+        editor.putBoolean(PREF_IS_ENABLE_RATE_TO_UNLOCK, isEnabled);
         editor.commit();
     }
 }

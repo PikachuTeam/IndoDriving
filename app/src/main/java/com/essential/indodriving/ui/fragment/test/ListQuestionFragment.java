@@ -18,9 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.MySetting;
 import com.essential.indodriving.data.QuestionPackage;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.MainActivity;
@@ -154,9 +154,9 @@ public class ListQuestionFragment extends MyBaseFragment implements
                 isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_D, true);
                 break;
         }
-        isRated = sharedPreferences.getBoolean(Constants.PREF_IS_RATE_APP, false);
-        isProVersion  = MySetting.getInstance().isProVersion();
-        isEnableRateToUnlock = sharedPreferences.getBoolean(Constants.PREF_RATE_TO_UNLOCK, false);
+        isRated = MySetting.getInstance().isRated();
+        isProVersion = MySetting.getInstance().isProVersion();
+        isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
     }
 
     private void getData() {

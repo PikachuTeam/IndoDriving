@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
-import com.essential.indodriving.R;
 import com.essential.indodriving.MySetting;
+import com.essential.indodriving.R;
 
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
@@ -25,10 +25,9 @@ import tatteam.com.app_common.util.AppConstant;
  */
 public abstract class MyBaseActivity extends BaseActivity implements BillingProcessor.IBillingHandler {
 
+    public final static int BIG_ADS_SHOWING_INTERVAL = 20;
     public static AppConstant.AdsType ADS_SMALL;
     public static AppConstant.AdsType ADS_BIG;
-
-    public final static int BIG_ADS_SHOWING_INTERVAL = 20;
     public static int count;
     private Toolbar toolbar;
     private TextView textViewTitle;

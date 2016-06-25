@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import tatteam.com.app_common.sqlite.BaseDataSource;
-
 /**
  * Created by dongc_000 on 2/19/2016.
  */

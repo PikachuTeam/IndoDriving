@@ -1,12 +1,8 @@
 package com.essential.indodriving.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.base.Constants;
@@ -18,7 +14,7 @@ import tatteam.com.app_common.ui.fragment.BaseFragment;
 /**
  * Created by dongc_000 on 2/17/2016.
  */
-public class MainActivity extends MyBaseActivity  {
+public class MainActivity extends MyBaseActivity {
 
     private int mType;
 
@@ -40,7 +36,6 @@ public class MainActivity extends MyBaseActivity  {
     protected void onCreateContentView() {
         super.onCreateContentView();
         mType = getIntent().getIntExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
     }
 
     @Override
@@ -53,8 +48,4 @@ public class MainActivity extends MyBaseActivity  {
         super.finish();
         overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
     }
-
-
-
-
 }
