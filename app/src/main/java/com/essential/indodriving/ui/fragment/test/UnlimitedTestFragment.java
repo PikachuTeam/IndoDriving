@@ -340,7 +340,13 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             resetAllChoices(answerChoicesItems);
             if (question.answer != DataSource.ANSWER_NOT_CHOSEN) {
                 answerChoicesItems.get(question.answer).setActive(true);
-                answerChoicesItems.get(question.answer).showTextNotify(question.correctAnswer == question.answer);
+                if (question.fixedAnswer == -1) {
+                    answerChoicesItems.get(question.answer).
+                            showTextNotify(question.correctAnswer == question.answer);
+                } else {
+                    answerChoicesItems.get(question.answer).
+                            showTextNotify(question.fixedAnswer == question.answer);
+                }
             }
             return answerChoicesItems;
         }

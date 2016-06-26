@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -49,7 +50,8 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
         findViews();
         if (question.imageData != null) {
             imageArea.setVisibility(View.VISIBLE);
-            Glide.with(getContext()).load(question.imageData).dontAnimate().dontTransform().dontAnimate().dontTransform().into(imgQuestion);
+            Glide.with(getContext()).load(question.imageData).dontAnimate().
+                    dontTransform().dontAnimate().dontTransform().into(imgQuestion);
             buttonZoomIn.setColorFilter(ContextCompat.getColor(context
                     , R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
         } else {
@@ -59,62 +61,10 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
         tvChoiceA.setText("A. " + question.answer1);
         tvChoiceB.setText("B. " + question.answer2);
         tvChoiceC.setText("C. " + question.answer3);
-        if (question.answer4 != null) {
-            tvChoiceD.setText("D. " + question.answer4);
-        } else {
-            tvChoiceD.setVisibility(View.GONE);
-        }
-        switch (question.correctAnswer) {
-            case 0:
-                tvChoiceA.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
-                break;
-            case 1:
-                tvChoiceB.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
-                break;
-            case 2:
-                tvChoiceC.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
-                break;
-            case 3:
-                tvChoiceD.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
-                break;
-        }
-        if (question.answer == DataSource.ANSWER_NOT_CHOSEN) {
-            tvAnswer.setText(getContext().getResources().getText(R.string.not_answered));
-            tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.not_answered_color));
-        } else if (question.answer == question.correctAnswer) {
-            switch (question.answer) {
-                case DataSource.ANSWER_A:
-                    tvAnswer.setText("A");
-                    break;
-                case DataSource.ANSWER_B:
-                    tvAnswer.setText("B");
-                    break;
-                case DataSource.ANSWER_C:
-                    tvAnswer.setText("C");
-                    break;
-                case DataSource.ANSWER_D:
-                    tvAnswer.setText("D");
-                    break;
-            }
-            tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
-        } else {
-            switch (question.answer) {
-                case DataSource.ANSWER_A:
-                    tvAnswer.setText("A");
-                    break;
-                case DataSource.ANSWER_B:
-                    tvAnswer.setText("B");
-                    break;
-                case DataSource.ANSWER_C:
-                    tvAnswer.setText("C");
-                    break;
-                case DataSource.ANSWER_D:
-                    tvAnswer.setText("D");
-                    break;
-            }
-            tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.wrong_answer_color));
-        }
-
+        if (!TextUtils.isEmpty(question.answer4)) tvChoiceD.setText("D. " + question.answer4);
+        else tvChoiceD.setVisibility(View.GONE);
+        makeCorrectAnswer(question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
+        makeAnswerColor(question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
         findViewById(R.id.dialogShowRuleContainer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,5 +119,65 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
             dialog.show();
         }
         return false;
+    }
+
+    private void makeAnswerColor(int correctAnswer) {
+        if (question.answer == DataSource.ANSWER_NOT_CHOSEN) {
+            tvAnswer.setText(getContext().getResources().getText(R.string.not_answered));
+            tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.not_answered_color));
+        } else if (question.answer == correctAnswer) {
+            switch (question.answer) {
+                case DataSource.ANSWER_A:
+                    tvAnswer.setText("A");
+                    break;
+                case DataSource.ANSWER_B:
+                    tvAnswer.setText("B");
+                    break;
+                case DataSource.ANSWER_C:
+                    tvAnswer.setText("C");
+                    break;
+                case DataSource.ANSWER_D:
+                    tvAnswer.setText("D");
+                    break;
+            }
+            tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
+        } else {
+            switch (question.answer) {
+                case DataSource.ANSWER_A:
+                    tvAnswer.setText("A");
+                    break;
+                case DataSource.ANSWER_B:
+                    tvAnswer.setText("B");
+                    break;
+                case DataSource.ANSWER_C:
+                    tvAnswer.setText("C");
+                    break;
+                case DataSource.ANSWER_D:
+                    tvAnswer.setText("D");
+                    break;
+            }
+            tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.wrong_answer_color));
+        }
+    }
+
+    private void makeCorrectAnswer(int correctAnswer) {
+        switch (correctAnswer) {
+            case 0:
+                tvChoiceA.setTextColor(
+                        ContextCompat.getColor(context, R.color.correct_answer_color));
+                break;
+            case 1:
+                tvChoiceB.setTextColor(
+                        ContextCompat.getColor(context, R.color.correct_answer_color));
+                break;
+            case 2:
+                tvChoiceC.setTextColor(
+                        ContextCompat.getColor(context, R.color.correct_answer_color));
+                break;
+            case 3:
+                tvChoiceD.setTextColor(
+                        ContextCompat.getColor(context, R.color.correct_answer_color));
+                break;
+        }
     }
 }

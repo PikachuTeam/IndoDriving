@@ -13,8 +13,16 @@ public class DataSource {
 
     public final static int TYPE_SIM_A = 1, TYPE_SIM_A_UMUM = 2, TYPE_SIM_B1 = 3,
             TYPE_SIM_B1_UMUM = 4, TYPE_SIM_B2 = 5, TYPE_SIM_B2_UMUM = 6, TYPE_SIM_C = 7, TYPE_SIM_D = 8;
-    public final static int ANSWER_A = 0, ANSWER_B = 1, ANSWER_C = 2, ANSWER_D = 3, ANSWER_NOT_CHOSEN = -1;
-    public final static String TABLE_EXAMS = "Exams", KEY_SCORE = "LastScore";
+    public final static int ANSWER_A = 0,
+            ANSWER_B = 1,
+            ANSWER_C = 2,
+            ANSWER_D = 3,
+            ANSWER_NOT_CHOSEN = -1;
+    public final static String TABLE_EXAMS = "Exams",
+            TABLE_QUESTIONS = "questions",
+            COLUMN_SCORE = "LastScore",
+            COLUMN_FIXED_ANSWER = "FixedAnswer",
+            COLUMN_IS_SENT_FIXED_ANSWER = "IsSentFixedAnswer";
 
     private static SQLiteDatabase openConnection() {
         return PoolDatabaseLoader.getInstance().getIndoDatabaseLoader().openConnection();
@@ -23,7 +31,6 @@ public class DataSource {
     private static void closeConnection() {
         PoolDatabaseLoader.getInstance().getIndoDatabaseLoader().closeConnection();
     }
-
 
     public static ArrayList<Question> getAllQuestionByType(int type) {
         ArrayList<Question> questions = new ArrayList<>();
@@ -36,6 +43,7 @@ public class DataSource {
         while (!cursor.isAfterLast()) {
             Question question = new Question();
             question.index = tmp;
+            question.id = cursor.getInt(0);
             question.question = fixQuestion(byteArrayToString(cursor.getBlob(2)));
             question.answer1 = fixAnswer(cursor.getString(3));
             question.answer2 = fixAnswer(cursor.getString(4));
@@ -43,7 +51,7 @@ public class DataSource {
             question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
             question.fixedAnswer = cursor.getInt(9);
-//            question.isSentFixedAnswer = cursor.getInt(10);
+            question.isSentFixedAnswer = cursor.getInt(10);
             question.imageData = cursor.getBlob(11);
             question.type = cursor.getInt(1);
             questions.add(question);
@@ -73,8 +81,8 @@ public class DataSource {
         return questionPackages;
     }
 
-    public static ArrayList<Question> getQuestionsByTypeAndExamId(int type, int examId,
-                                                                  boolean isRandom, int numberOfQuestions) {
+    public static ArrayList<Question> getQuestionsByTypeAndExamId(
+            int type, int examId, boolean isRandom, int numberOfQuestions) {
         ArrayList<Question> questions = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
         String query;
@@ -95,6 +103,7 @@ public class DataSource {
         while (!cursor.isAfterLast()) {
             Question question = new Question();
             question.index = tmp;
+            question.id = cursor.getInt(0);
             question.question = fixQuestion(byteArrayToString(cursor.getBlob(2)));
             question.answer1 = fixAnswer(cursor.getString(3));
             question.answer2 = fixAnswer(cursor.getString(4));
@@ -102,7 +111,7 @@ public class DataSource {
             question.answer4 = fixAnswer(cursor.getString(6));
             question.correctAnswer = cursor.getInt(7);
             question.fixedAnswer = cursor.getInt(9);
-//            question.isSentFixedAnswer = cursor.getInt(10);
+            question.isSentFixedAnswer = cursor.getInt(10);
             question.imageData = cursor.getBlob(11);
             question.type = cursor.getInt(1);
             questions.add(question);
@@ -117,10 +126,20 @@ public class DataSource {
     public static boolean saveScore(int examId, String type, int score) {
         SQLiteDatabase sqLiteDatabase = openConnection();
         ContentValues values = new ContentValues();
-        values.put(KEY_SCORE, score);
-        sqLiteDatabase.update(TABLE_EXAMS, values, "ExamId = ? and Type = ?", new String[]{"" + examId, type});
+        values.put(COLUMN_SCORE, score);
+        sqLiteDatabase.update(TABLE_EXAMS, values,
+                "ExamId = ? and Type = ?", new String[]{"" + examId, type});
         closeConnection();
         return true;
+    }
+
+    public static void modifyAnswer(int questionId, int fixedAnswer) {
+        SQLiteDatabase sqLiteDatabase = openConnection();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FIXED_ANSWER, fixedAnswer);
+        values.put(COLUMN_IS_SENT_FIXED_ANSWER, 0);
+        sqLiteDatabase.update(TABLE_QUESTIONS, values, "Id=?", new String[]{"" + questionId});
+        closeConnection();
     }
 
     private static String byteArrayToString(byte[] data) {

@@ -33,6 +33,7 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
     private TextView textViewTitle;
     private TextView buttonTutorial;
     private TextView buttonResult;
+    private TextView mButtonModifyAnswer;
     private LinearLayout buttonShare;
     private CoordinatorLayout mainCoordinatorLayout;
     private FrameLayout adsContainer;
@@ -95,27 +96,19 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
     }
 
     public void enableButtonTutorial(boolean isVisible) {
-        if (isVisible) {
-            buttonTutorial.setVisibility(View.VISIBLE);
-        } else {
-            buttonTutorial.setVisibility(View.GONE);
-        }
+        buttonTutorial.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 
     public void enableButtonResult(boolean isVisible) {
-        if (isVisible) {
-            buttonResult.setVisibility(View.VISIBLE);
-        } else {
-            buttonResult.setVisibility(View.GONE);
-        }
+        buttonResult.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 
     public void enableButtonShare(boolean isVisible) {
-        if (isVisible) {
-            buttonShare.setVisibility(View.VISIBLE);
-        } else {
-            buttonShare.setVisibility(View.GONE);
-        }
+        buttonShare.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    public void enableButtonModifyAnswer(boolean isVisible) {
+        mButtonModifyAnswer.setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 
     public void showBigAdsIfNeeded() {
@@ -157,6 +150,7 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
         buttonTutorial = (TextView) findViewById(R.id.buttonTutorial);
         buttonResult = (TextView) findViewById(R.id.buttonResult);
         buttonShare = (LinearLayout) findViewById(R.id.buttonShare);
+        mButtonModifyAnswer = (TextView) findViewById(R.id.button_modify_answer);
         mainCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
         adsContainer = (FrameLayout) findViewById(R.id.adsContainer2);
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
@@ -177,17 +171,23 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
                 getMyCurrentFragment().sharingEvent();
             }
         });
+        mButtonModifyAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_MODIFY_ANSWER);
+            }
+        });
     }
 
     private void setFont(Typeface font) {
         textViewTitle.setTypeface(font);
         buttonResult.setTypeface(font);
         buttonTutorial.setTypeface(font);
+        mButtonModifyAnswer.setTypeface(font);
     }
 
     public MyBaseFragment getMyCurrentFragment() {
-        MyBaseFragment fragment = (MyBaseFragment) getFragmentManager().findFragmentById(R.id.fragmentContainer);
-        return fragment;
+        return (MyBaseFragment) getFragmentManager().findFragmentById(R.id.fragmentContainer);
     }
 
 
@@ -201,7 +201,8 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (mBillingProcessor != null && !mBillingProcessor.handleActivityResult(requestCode, resultCode, data)) {
+        if (mBillingProcessor != null && !mBillingProcessor.
+                handleActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

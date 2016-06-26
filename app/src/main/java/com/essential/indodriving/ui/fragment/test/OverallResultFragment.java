@@ -90,15 +90,15 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     }
 
     private void setDefaultColor(View rootView) {
-        ((ImageView) rootView.findViewById(R.id.imgCorrectAnswer)).setColorFilter(ContextCompat.getColor(getActivity()
-                , R.color.correct_answer_color)
-                , PorterDuff.Mode.SRC_ATOP);
-        ((ImageView) rootView.findViewById(R.id.imgWrongAnswer)).setColorFilter(ContextCompat.getColor(getActivity()
-                , R.color.wrong_answer_color)
-                , PorterDuff.Mode.SRC_ATOP);
-        ((ImageView) rootView.findViewById(R.id.imgNotAnswered)).setColorFilter(ContextCompat.getColor(getActivity()
-                , R.color.not_answered_color)
-                , PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgCorrectAnswer)).
+                setColorFilter(ContextCompat.getColor(getActivity(),
+                        R.color.correct_answer_color), PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgWrongAnswer)).
+                setColorFilter(ContextCompat.getColor(getActivity(),
+                        R.color.wrong_answer_color), PorterDuff.Mode.SRC_ATOP);
+        ((ImageView) rootView.findViewById(R.id.imgNotAnswered)).
+                setColorFilter(ContextCompat.getColor(getActivity(),
+                        R.color.not_answered_color), PorterDuff.Mode.SRC_ATOP);
         buttonNext1.setColorFilter(ContextCompat.getColor(getActivity()
                 , R.color.overall_result_button_next_normal_color)
                 , PorterDuff.Mode.SRC_ATOP);
@@ -148,8 +148,15 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private int calculateCorrectAnswer() {
         int tmp = 0;
         for (int i = 0; i < questions.size(); i++) {
-            if (questions.get(i).answer != -1 && questions.get(i).answer == questions.get(i).correctAnswer) {
-                tmp++;
+            Question question = questions.get(i);
+            if (question.fixedAnswer != -1) {
+                if (question.answer != -1 && question.answer == question.fixedAnswer) {
+                    tmp++;
+                }
+            } else {
+                if (question.answer != -1 && question.answer == question.correctAnswer) {
+                    tmp++;
+                }
             }
         }
         return tmp;
@@ -158,8 +165,15 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private int calculateWrongAnswer() {
         int tmp = 0;
         for (int i = 0; i < questions.size(); i++) {
-            if (questions.get(i).answer != -1 && questions.get(i).answer != questions.get(i).correctAnswer) {
-                tmp++;
+            Question question = questions.get(i);
+            if (question.fixedAnswer != -1) {
+                if (question.answer != -1 && question.answer != question.fixedAnswer) {
+                    tmp++;
+                }
+            } else {
+                if (question.answer != -1 && question.answer != question.correctAnswer) {
+                    tmp++;
+                }
             }
         }
         return tmp;

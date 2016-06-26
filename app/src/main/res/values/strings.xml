@@ -88,4 +88,6 @@
     <string name="upgrade_to_pro_ver">Upgrade Ke Versi Pro</string>
     <string name="key">Membuka semua fitur</string>
     <string name="no_more_ads">Hllangkan Iklan</string>
+    <string name="choose_your_answer">Choose the answer you think is correct</string>
+    <string name="action_modify_answer">Modify answer</string>
 </resources>

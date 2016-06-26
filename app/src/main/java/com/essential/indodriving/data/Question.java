@@ -6,6 +6,7 @@ package com.essential.indodriving.data;
 public class Question {
 
     public int index;
+    public int id;
     public String question;
     public String answer1, answer2, answer3, answer4;
     public int correctAnswer;

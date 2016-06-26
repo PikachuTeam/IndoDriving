@@ -14,7 +14,7 @@ import tatteam.com.app_common.util.CommonUtil;
  */
 public abstract class MyBaseFragment extends BaseFragment {
 
-    public final static int BUTTON_RESULT = 1, BUTTON_TUTORIAL = 2, BUTTON_WRITTEN_TEST = 3;
+    public final static int BUTTON_RESULT = 1, BUTTON_TUTORIAL = 2, BUTTON_MODIFY_ANSWER = 3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public abstract class MyBaseFragment extends BaseFragment {
         getMyBaseActivity().enableButtonResult(enableButtonResult());
         getMyBaseActivity().enableButtonTutorial(enableButtonTutorial());
         getMyBaseActivity().enableButtonShare(enableButtonShare());
+        getMyBaseActivity().enableButtonModifyAnswer(enableButtonModifyAnswer());
         getMyBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(enableIndicator());
         if (enableButtonBack()) {
             getMyBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
@@ -43,18 +44,16 @@ public abstract class MyBaseFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (enableButtonBack()) {
-                    onBackPressed();
-                } else if (enableButtonClear()) {
-                    getFragmentManager().popBackStack();
-                }
+                if (enableButtonBack()) onBackPressed();
+                else if (enableButtonClear()) getFragmentManager().popBackStack();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void sharingEvent() {
-        String androidLink = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
+        String androidLink = "https://play.google.com/store/apps/details?id=" +
+                getActivity().getPackageName();
         String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
         CommonUtil.sharePlainText(getActivity(), sharedText);
     }
@@ -88,6 +87,10 @@ public abstract class MyBaseFragment extends BaseFragment {
     }
 
     protected boolean enableButtonTutorial() {
+        return false;
+    }
+
+    protected boolean enableButtonModifyAnswer() {
         return false;
     }
 

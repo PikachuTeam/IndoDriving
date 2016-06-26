@@ -38,7 +38,7 @@ import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.ui.fragment.test.UnlimitedTestFragment;
+import com.essential.indodriving.ui.widget.ModifyAnswerDialog;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
@@ -48,7 +48,8 @@ import java.util.ArrayList;
 /**
  * Created by dongc_000 on 2/27/2016.
  */
-public class LearnAllFragment extends MyBaseFragment implements View.OnClickListener, View.OnTouchListener {
+public class LearnAllFragment extends MyBaseFragment implements
+        View.OnClickListener, View.OnTouchListener, ModifyAnswerDialog.OnAnswerModifiedListener {
 
     public final static String
             PREF_CURRENT_POSITION_SIM_A = "Current Position Sim A",
@@ -266,140 +267,16 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     @Override
-    protected boolean enableButtonShare() {
+    protected boolean enableButtonModifyAnswer() {
         return true;
     }
 
     @Override
     protected void onMenuItemClick(int id) {
-        sharingEvent();
-    }
-
-    private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        switch (type) {
-            case DataSource.TYPE_SIM_A:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_A, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_A_UMUM:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_A_UMUM, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B1:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B1, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B1_UMUM:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B2:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B2, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B2_UMUM:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_C:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_C, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_D:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_D, currentPosition);
-                break;
-        }
-        editor.putInt(Constants.PREF_TRIAL_TIME_LEFT, mTrialTimesLeft);
-        editor.commit();
-    }
-
-    private void loadState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        switch (type) {
-            case DataSource.TYPE_SIM_A:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A, 0);
-                break;
-            case DataSource.TYPE_SIM_A_UMUM:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A_UMUM, 0);
-                break;
-            case DataSource.TYPE_SIM_B1:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1, 0);
-                break;
-            case DataSource.TYPE_SIM_B1_UMUM:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, 0);
-                break;
-            case DataSource.TYPE_SIM_B2:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B2, 0);
-                break;
-            case DataSource.TYPE_SIM_B2_UMUM:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, 0);
-                break;
-            case DataSource.TYPE_SIM_C:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_C, 0);
-                break;
-            case DataSource.TYPE_SIM_D:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_D, 0);
-                break;
-            default:
-                currentPosition = 0;
-        }
-        isProVersion = MySetting.getInstance().isProVersion();
-        isRated = MySetting.getInstance().isRated();
-        isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
-        mTrialTimesLeft = sharedPreferences.getInt(Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
-    }
-
-    private void setCardData(Question question) {
-        if (question.imageData == null) {
-            imageArea.setVisibility(View.GONE);
-        } else {
-            imageArea.setVisibility(View.VISIBLE);
-            Glide.with(LearnAllFragment.this).load(question.imageData).dontAnimate().dontTransform().into(cardQuestionImage);
-        }
-        cardTextViewQuestion.setText(question.question);
-        if (question.answer1 != null) {
-            textViewAnswerA.setVisibility(View.VISIBLE);
-            textViewAnswerA.setText("A. " + question.answer1);
-        } else {
-            textViewAnswerA.setVisibility(View.GONE);
-        }
-        if (question.answer2 != null) {
-            textViewAnswerB.setVisibility(View.VISIBLE);
-            textViewAnswerB.setText("B. " + question.answer2);
-        } else {
-            textViewAnswerB.setVisibility(View.GONE);
-        }
-        if (question.answer3 != null) {
-            textViewAnswerC.setVisibility(View.VISIBLE);
-            textViewAnswerC.setText("C. " + question.answer3);
-        } else {
-            textViewAnswerC.setVisibility(View.GONE);
-        }
-        if (question.answer4 != null) {
-            textViewAnswerD.setVisibility(View.VISIBLE);
-            textViewAnswerD.setText("D. " + question.answer4);
-        } else {
-            textViewAnswerD.setVisibility(View.GONE);
-        }
-        resetAllAnswers();
-        switch (question.correctAnswer) {
-            case DataSource.ANSWER_A:
-                textViewAnswerA.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
-                break;
-            case DataSource.ANSWER_B:
-                textViewAnswerC.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
-                break;
-            case DataSource.ANSWER_C:
-                textViewAnswerB.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
-                break;
-            case DataSource.ANSWER_D:
-                textViewAnswerD.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
-                break;
-        }
-        textViewProgress.setText("" + (currentPosition + 1));
-        readingProgress.setProgress(currentPosition + 1);
-    }
-
-    private void resetAllAnswers() {
-        textViewAnswerA.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
-        textViewAnswerB.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
-        textViewAnswerC.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
-        textViewAnswerD.setTextColor(ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+        ModifyAnswerDialog dialog = new ModifyAnswerDialog(getActivity(),
+                questions.get(currentPosition));
+        dialog.setOnAnswerModifiedListener(this);
+        dialog.show();
     }
 
     @Override
@@ -445,7 +322,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                 getMyBaseActivity().showBigAdsIfNeeded();
             }
         } else if (v == cardQuestionImage) {
-            ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), questions.get(currentPosition).imageData);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(
+                    getActivity(), questions.get(currentPosition).imageData);
             dialog.show();
         } else if (v == lockedArea) {
             RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
@@ -470,11 +348,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
                                                 + getActivity().getPackageName())));
                             }
                             isRated = true;
-                            SharedPreferences sharedPreferences = getActivity()
-                                    .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean(Constants.PREF_IS_RATE_APP, isRated);
-                            editor.commit();
+                            MySetting.getInstance().setRated();
                             break;
                         case CANCEL:
                             break;
@@ -543,6 +417,13 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         return false;
     }
 
+    @Override
+    public void onAnswerModified(int correctAnswer) {
+        resetAllAnswers();
+        makeCorrectAnswer(correctAnswer);
+        questions.get(currentPosition).fixedAnswer = correctAnswer;
+    }
+
     private void findViews(View rootView) {
         cardQuestionImage = (ImageView) rootView.findViewById(R.id.cardQuestionImage);
         cardTextViewQuestion = (TextView) rootView.findViewById(R.id.cardTextViewQuestion);
@@ -561,7 +442,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         lockedArea = (RelativeLayout) rootView.findViewById(R.id.lockedArea);
         answerArea = (LinearLayout) rootView.findViewById(R.id.answerArea);
         blurryImage = (ImageView) rootView.findViewById(R.id.blurryImage);
-        ((TextView) rootView.findViewById(R.id.textViewPressToUnlock)).setTypeface(HomeActivity.defaultFont);
+        ((TextView) rootView.findViewById(R.id.textViewPressToUnlock)).
+                setTypeface(HomeActivity.defaultFont);
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
         buttonNext.setOnTouchListener(this);
@@ -570,6 +452,150 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         buttonZoomIn.setOnTouchListener(this);
         lockedArea.setOnClickListener(this);
         indicator.setOnTouchListener(mIndicatorTouchListener);
+    }
+
+    private void saveState() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_A, currentPosition);
+                break;
+            case DataSource.TYPE_SIM_A_UMUM:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_A_UMUM, currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B1:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_B1, currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B1_UMUM:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B2:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_B2, currentPosition);
+                break;
+            case DataSource.TYPE_SIM_B2_UMUM:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, currentPosition);
+                break;
+            case DataSource.TYPE_SIM_C:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_C, currentPosition);
+                break;
+            case DataSource.TYPE_SIM_D:
+                editor.putInt(PREF_CURRENT_POSITION_SIM_D, currentPosition);
+                break;
+        }
+        editor.putInt(Constants.PREF_TRIAL_TIME_LEFT, mTrialTimesLeft);
+        editor.commit();
+    }
+
+    private void loadState() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        switch (type) {
+            case DataSource.TYPE_SIM_A:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A, 0);
+                break;
+            case DataSource.TYPE_SIM_A_UMUM:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A_UMUM, 0);
+                break;
+            case DataSource.TYPE_SIM_B1:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1, 0);
+                break;
+            case DataSource.TYPE_SIM_B1_UMUM:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, 0);
+                break;
+            case DataSource.TYPE_SIM_B2:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B2, 0);
+                break;
+            case DataSource.TYPE_SIM_B2_UMUM:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, 0);
+                break;
+            case DataSource.TYPE_SIM_C:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_C, 0);
+                break;
+            case DataSource.TYPE_SIM_D:
+                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_D, 0);
+                break;
+            default:
+                currentPosition = 0;
+        }
+        isProVersion = MySetting.getInstance().isProVersion();
+        isRated = MySetting.getInstance().isRated();
+        isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
+        mTrialTimesLeft = sharedPreferences.getInt(
+                Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
+    }
+
+    private void setCardData(Question question) {
+        if (question.imageData == null) {
+            imageArea.setVisibility(View.GONE);
+        } else {
+            imageArea.setVisibility(View.VISIBLE);
+            Glide.with(LearnAllFragment.this).load(question.imageData).
+                    dontAnimate().dontTransform().into(cardQuestionImage);
+        }
+        cardTextViewQuestion.setText(question.question);
+        if (question.answer1 != null) {
+            textViewAnswerA.setVisibility(View.VISIBLE);
+            textViewAnswerA.setText("A. " + question.answer1);
+        } else {
+            textViewAnswerA.setVisibility(View.GONE);
+        }
+        if (question.answer2 != null) {
+            textViewAnswerB.setVisibility(View.VISIBLE);
+            textViewAnswerB.setText("B. " + question.answer2);
+        } else {
+            textViewAnswerB.setVisibility(View.GONE);
+        }
+        if (question.answer3 != null) {
+            textViewAnswerC.setVisibility(View.VISIBLE);
+            textViewAnswerC.setText("C. " + question.answer3);
+        } else {
+            textViewAnswerC.setVisibility(View.GONE);
+        }
+        if (question.answer4 != null) {
+            textViewAnswerD.setVisibility(View.VISIBLE);
+            textViewAnswerD.setText("D. " + question.answer4);
+        } else {
+            textViewAnswerD.setVisibility(View.GONE);
+        }
+        resetAllAnswers();
+        makeCorrectAnswer(
+                question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
+        textViewProgress.setText("" + (currentPosition + 1));
+        readingProgress.setProgress(currentPosition + 1);
+    }
+
+    private void resetAllAnswers() {
+        textViewAnswerA.setTextColor(
+                ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+        textViewAnswerB.setTextColor(
+                ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+        textViewAnswerC.setTextColor(
+                ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+        textViewAnswerD.setTextColor(
+                ContextCompat.getColor(getActivity(), R.color.learn_all_text_color));
+    }
+
+    private void makeCorrectAnswer(int correctAnswer) {
+        switch (correctAnswer) {
+            case DataSource.ANSWER_A:
+                textViewAnswerA.setTextColor(
+                        ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
+                break;
+            case DataSource.ANSWER_B:
+                textViewAnswerB.setTextColor(
+                        ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
+                break;
+            case DataSource.ANSWER_C:
+                textViewAnswerC.setTextColor(
+                        ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
+                break;
+            case DataSource.ANSWER_D:
+                textViewAnswerD.setTextColor(
+                        ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
+                break;
+        }
     }
 
     private void getData() {
@@ -594,7 +620,8 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private Bitmap getRoundedCornerBitmap(Bitmap src) {
-        Bitmap output = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(
+                src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         final int color = 0xff424242;
         final Paint paint = new Paint();
@@ -631,6 +658,7 @@ public class LearnAllFragment extends MyBaseFragment implements View.OnClickList
         theIntrinsic.forEach(tmpOut);
         tmpOut.copyTo(outputBitmap);
         rs.destroy();
-        return getRoundedCornerBitmap(Bitmap.createScaledBitmap(outputBitmap, image.getWidth(), image.getHeight(), false));
+        return getRoundedCornerBitmap(Bitmap.createScaledBitmap(
+                outputBitmap, image.getWidth(), image.getHeight(), false));
     }
 }

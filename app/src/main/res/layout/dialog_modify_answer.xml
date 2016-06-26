@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dialog_show_result_width"
+    android:layout_height="@dimen/modify_dialog_height"
+    android:background="@android:color/transparent"
+    android:clickable="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/confirm_button_container"
+        android:layout_alignParentTop="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="@dimen/dialog_show_result_width"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/question_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:layout_marginRight="@dimen/common_size_15"
+                android:layout_marginTop="@dimen/common_size_15"
+                android:background="@drawable/bg_dialog"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/image_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/question_image"
+                        android:layout_width="@dimen/dialog_show_result_question_image_size"
+                        android:layout_height="@dimen/dialog_show_result_question_image_size"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:clickable="true" />
+
+                    <ImageView
+                        android:id="@+id/button_zoom_in"
+                        android:layout_width="@dimen/button_zoom_in_size"
+                        android:layout_height="@dimen/button_zoom_in_size"
+                        android:layout_toRightOf="@+id/questionImage"
+                        android:clickable="true"
+                        android:src="@drawable/ic_zoom_in_normal" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/text_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|left"
+                    android:maxLines="4"
+                    android:padding="@dimen/common_size_5"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/common_text_size_18" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_size_5"
+                android:text="@string/choose_your_answer"
+                android:textColor="@color/black"
+                android:textSize="@dimen/common_text_size_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/answer_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/common_size_5" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/confirm_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/warning_dialog_button_area_height"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/button_cancel"
+            android:layout_width="@dimen/dialog_warning_button_cancel_width"
+            android:layout_height="@dimen/dialog_warning_button_height"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/button_ok"
+            android:background="@drawable/dialog_button"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/common_text_size_18" />
+
+        <TextView
+            android:id="@+id/button_ok"
+            android:layout_width="@dimen/dialog_warning_button_ok_width"
+            android:layout_height="@dimen/dialog_warning_button_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_size_5"
+            android:layout_marginRight="@dimen/common_size_5"
+            android:background="@drawable/dialog_button"
+            android:gravity="center"
+            android:text="@string/ok"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_18" />
+    </RelativeLayout>
+</RelativeLayout>

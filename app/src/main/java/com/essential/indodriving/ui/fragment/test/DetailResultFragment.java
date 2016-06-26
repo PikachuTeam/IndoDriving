@@ -125,7 +125,8 @@ public class DetailResultFragment extends MyBaseFragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_detail_result, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.item_list_detail_result, parent, false);
             return new ViewHolder(view);
         }
 
@@ -134,8 +135,8 @@ public class DetailResultFragment extends MyBaseFragment {
             final Question question = questions.get(position);
             if (question.imageData != null) {
                 holder.questionImage.setVisibility(View.VISIBLE);
-//                holder.questionImage.setImageBitmap(question.image);
-                Glide.with(DetailResultFragment.this).load(question.imageData).dontAnimate().dontTransform().into(holder.questionImage);
+                Glide.with(DetailResultFragment.this).load(question.imageData).
+                        dontAnimate().dontTransform().into(holder.questionImage);
             } else {
                 holder.questionImage.setVisibility(View.GONE);
             }

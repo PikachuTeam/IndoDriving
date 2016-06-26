@@ -273,11 +273,7 @@ public class ListQuestionFragment extends MyBaseFragment implements
                             Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
                 }
                 isRated = true;
-                SharedPreferences sharedPreferences = getActivity()
-                        .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(Constants.PREF_IS_RATE_APP, isRated);
-                editor.commit();
+                MySetting.getInstance().setRated();
                 break;
             case CANCEL:
                 break;
