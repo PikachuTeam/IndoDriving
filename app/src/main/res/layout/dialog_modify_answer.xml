@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dialog_show_result_width"
-    android:layout_height="@dimen/modify_dialog_height"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent"
     android:clickable="true">
 
@@ -13,7 +13,7 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="@dimen/dialog_show_result_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:orientation="vertical">
@@ -22,6 +22,7 @@
                 android:id="@+id/question_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/common_size_15"
                 android:layout_marginRight="@dimen/common_size_15"
                 android:layout_marginTop="@dimen/common_size_15"
@@ -32,21 +33,21 @@
                 <RelativeLayout
                     android:id="@+id/image_area"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_size_5">
 
                     <ImageView
                         android:id="@+id/question_image"
                         android:layout_width="@dimen/dialog_show_result_question_image_size"
                         android:layout_height="@dimen/dialog_show_result_question_image_size"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/common_size_5"
                         android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/button_zoom_in"
                         android:layout_width="@dimen/button_zoom_in_size"
                         android:layout_height="@dimen/button_zoom_in_size"
-                        android:layout_toRightOf="@+id/questionImage"
+                        android:layout_toRightOf="@+id/question_image"
                         android:clickable="true"
                         android:src="@drawable/ic_zoom_in_normal" />
                 </RelativeLayout>
@@ -63,8 +64,11 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:layout_marginRight="@dimen/common_size_15"
                 android:padding="@dimen/common_size_5"
                 android:text="@string/choose_your_answer"
                 android:textColor="@color/black"

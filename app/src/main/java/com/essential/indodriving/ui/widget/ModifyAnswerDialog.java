@@ -68,7 +68,7 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button_zoom_in:
+            case R.id.question_area:
                 ZoomInImageDialog dialog = new ZoomInImageDialog(getContext(), mQuestion.imageData);
                 dialog.show();
                 break;
@@ -97,6 +97,7 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
         mButtonZoomIn.setOnClickListener(this);
         findViewById(R.id.button_ok).setOnClickListener(this);
         findViewById(R.id.button_cancel).setOnClickListener(this);
+        findViewById(R.id.question_area).setOnClickListener(this);
     }
 
     private void makeAnswerGroup(int correctAnswer) {
