@@ -1,14 +1,14 @@
 package com.essential.indodriving.ui.widget;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,25 +17,36 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
+import com.essential.indodriving.ui.base.Constants;
+
+import java.util.ArrayList;
 
 /**
  * Created by yue on 26/06/2016.
  */
-public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClickListener {
+public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClickListener,
+        View.OnTouchListener, AnswerChoicesItem.OnChooseAnswerListener {
 
     private final int TYPE_TEXT = 1, TYPE_RADIO = 2;
-    private final int SUB_STRING_START_INDEX = 3;
-    private RadioGroup mAnswerGroup;
+    private LinearLayout mAnswerGroup;
     private ImageView mImageQuestion;
     private TextView mTextQuestion;
     private ImageView mButtonZoomIn;
     private RelativeLayout mImageArea;
     private Question mQuestion;
+    private ArrayList<AnswerChoicesItem> items = new ArrayList<>();
+    private int mCurrentAnswer;
+    private boolean mIsNotShowedAgain;
     private OnAnswerModifiedListener mOnAnswerModifiedListener;
 
     public ModifyAnswerDialog(Context context, Question question) {
         super(context);
         mQuestion = question;
+        mCurrentAnswer = mQuestion.fixedAnswer != -1 ?
+                mQuestion.fixedAnswer : mQuestion.correctAnswer;
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        mIsNotShowedAgain = sharedPreferences.getBoolean(Constants.PREF_NOT_SHOW_THANKS_AGAIN, false);
     }
 
     public void setOnAnswerModifiedListener(OnAnswerModifiedListener onAnswerModifiedListener) {
@@ -68,17 +79,15 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.question_area:
+            case R.id.question_image:
                 ZoomInImageDialog dialog = new ZoomInImageDialog(getContext(), mQuestion.imageData);
                 dialog.show();
                 break;
             case R.id.button_ok:
-                RadioButton tmp = (RadioButton) findViewById(mAnswerGroup.getCheckedRadioButtonId());
-                int fixedAnswer = getModifiedAnswer(
-                        tmp.getText().toString().substring(SUB_STRING_START_INDEX));
-                DataSource.modifyAnswer(mQuestion.id, fixedAnswer);
-                if (mOnAnswerModifiedListener != null) {
-                    mOnAnswerModifiedListener.onAnswerModified(fixedAnswer);
+                if (mQuestion.fixedAnswer != -1 && mCurrentAnswer != mQuestion.fixedAnswer) {
+                    saveAnswer();
+                } else if (mQuestion.fixedAnswer == -1 && mCurrentAnswer != mQuestion.correctAnswer) {
+                    saveAnswer();
                 }
                 dismiss();
                 break;
@@ -88,74 +97,108 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
         }
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            mButtonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+            mButtonZoomIn.setColorFilter(ContextCompat.getColor(getContext()
+                    , R.color.learn_all_button_zoom_in_highlight_color), PorterDuff.Mode.SRC_ATOP);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            mButtonZoomIn.setImageResource(R.drawable.ic_zoom_in_normal);
+            mButtonZoomIn.setColorFilter(ContextCompat.getColor(getContext()
+                    , R.color.learn_all_button_zoom_in_normal_color), PorterDuff.Mode.SRC_ATOP);
+            ZoomInImageDialog dialog = new ZoomInImageDialog(getContext(), mQuestion.imageData);
+            dialog.show();
+        }
+        return false;
+    }
+
+    @Override
+    public void onChooseAnswer(AnswerChoicesItem item) {
+        int size = items.size();
+        for (int i = 0; i < size; i++) {
+            items.get(i).setActive(false);
+        }
+        item.setActive(true);
+        mCurrentAnswer = item.getIndex();
+    }
+
     private void findViews() {
-        mAnswerGroup = (RadioGroup) findViewById(R.id.answer_group);
+        mAnswerGroup = (LinearLayout) findViewById(R.id.answer_group);
         mImageArea = (RelativeLayout) findViewById(R.id.image_area);
         mImageQuestion = (ImageView) findViewById(R.id.question_image);
         mTextQuestion = (TextView) findViewById(R.id.text_question);
         mButtonZoomIn = (ImageView) findViewById(R.id.button_zoom_in);
-        mButtonZoomIn.setOnClickListener(this);
+        mButtonZoomIn.setOnTouchListener(this);
+        mImageQuestion.setOnClickListener(this);
         findViewById(R.id.button_ok).setOnClickListener(this);
         findViewById(R.id.button_cancel).setOnClickListener(this);
-        findViewById(R.id.question_area).setOnClickListener(this);
     }
 
     private void makeAnswerGroup(int correctAnswer) {
         if (correctAnswer == DataSource.ANSWER_A) {
-            makeChoice("A. " + mQuestion.answer1, TYPE_TEXT);
-            makeChoice("B. " + mQuestion.answer2, TYPE_RADIO);
-            makeChoice("C. " + mQuestion.answer3, TYPE_RADIO);
+            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_TEXT);
+            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_RADIO);
+            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_RADIO);
             if (!TextUtils.isEmpty(mQuestion.answer4)) {
-                makeChoice("D. " + mQuestion.answer4, TYPE_RADIO);
+                makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_RADIO);
             }
         } else if (correctAnswer == DataSource.ANSWER_B) {
-            makeChoice("A. " + mQuestion.answer1, TYPE_RADIO);
-            makeChoice("B. " + mQuestion.answer2, TYPE_TEXT);
-            makeChoice("C. " + mQuestion.answer3, TYPE_RADIO);
+            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_RADIO);
+            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_TEXT);
+            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_RADIO);
             if (!TextUtils.isEmpty(mQuestion.answer4)) {
-                makeChoice("D. " + mQuestion.answer4, TYPE_RADIO);
+                makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_RADIO);
             }
         } else if (correctAnswer == DataSource.ANSWER_C) {
-            makeChoice("A. " + mQuestion.answer1, TYPE_RADIO);
-            makeChoice("B. " + mQuestion.answer2, TYPE_RADIO);
-            makeChoice("C. " + mQuestion.answer3, TYPE_TEXT);
+            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_RADIO);
+            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_RADIO);
+            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_TEXT);
             if (!TextUtils.isEmpty(mQuestion.answer4)) {
-                makeChoice("D. " + mQuestion.answer4, TYPE_RADIO);
+                makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_RADIO);
             }
         } else {
-            makeChoice("A. " + mQuestion.answer1, TYPE_RADIO);
-            makeChoice("B. " + mQuestion.answer2, TYPE_RADIO);
-            makeChoice("C. " + mQuestion.answer3, TYPE_RADIO);
-            makeChoice("D. " + mQuestion.answer4, TYPE_TEXT);
+            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_RADIO);
+            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_RADIO);
+            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_RADIO);
+            makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_TEXT);
         }
     }
 
-    private int getModifiedAnswer(String answer) {
-        if (answer.equals(mQuestion.answer1)) return DataSource.ANSWER_A;
-        else if (answer.equals(mQuestion.answer2)) return DataSource.ANSWER_B;
-        else if (answer.equals(mQuestion.answer3)) return DataSource.ANSWER_C;
-        else if (answer.equals(mQuestion.answer4)) return DataSource.ANSWER_D;
-        return -1;
-    }
-
-    private void makeChoice(String answer, int type) {
+    private void makeChoice(String answer, int index, int type) {
         switch (type) {
             case TYPE_TEXT:
-                TextView textView = new TextView(getContext());
-                textView.setText(answer);
-                textView.setTextSize(getContext().getResources().
-                        getDimensionPixelSize(R.dimen.common_text_size_10));
-                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                mAnswerGroup.addView(textView);
+                AnswerChoicesItem item = new AnswerChoicesItem(getContext(), index, false);
+                item.setChoice(answer);
+                mAnswerGroup.addView(item);
+                LinearLayout.MarginLayoutParams marginParams =
+                        (LinearLayout.MarginLayoutParams) item.getLayoutParams();
+                marginParams.setMargins(0, 0, 0,
+                        getContext().getResources().getDimensionPixelSize(R.dimen.common_size_5));
+                items.add(item);
                 break;
             case TYPE_RADIO:
-                AppCompatRadioButton radioButton = new AppCompatRadioButton(getContext());
-                radioButton.setText(answer);
-                radioButton.setTextSize(getContext().getResources().
-                        getDimensionPixelSize(R.dimen.common_text_size_10));
-                radioButton.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                mAnswerGroup.addView(radioButton);
+                item = new AnswerChoicesItem(getContext(), index);
+                item.setOnChooseAnswerListener(this);
+                item.setChoice(answer);
+                mAnswerGroup.addView(item);
+                marginParams =
+                        (LinearLayout.MarginLayoutParams) item.getLayoutParams();
+                marginParams.setMargins(0, 0, 0,
+                        getContext().getResources().getDimensionPixelSize(R.dimen.common_size_5));
+                items.add(item);
                 break;
+        }
+    }
+
+    private void saveAnswer() {
+        DataSource.modifyAnswer(mQuestion.id, mCurrentAnswer);
+        if (mOnAnswerModifiedListener != null) {
+            mOnAnswerModifiedListener.onAnswerModified(mCurrentAnswer);
+        }
+        if (!mIsNotShowedAgain) {
+            ThanksDialog thanksDialog = new ThanksDialog(getContext());
+            thanksDialog.show();
         }
     }
 
@@ -163,3 +206,4 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
         void onAnswerModified(int correctAnswer);
     }
 }
+

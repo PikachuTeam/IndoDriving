@@ -90,4 +90,5 @@
     <string name="no_more_ads">Hllangkan Iklan</string>
     <string name="choose_your_answer">Choose the answer you think is correct</string>
     <string name="action_modify_answer">Modify answer</string>
+    <string name="thanks_for_contribution">Thanks for you contribution! \nWe will consider your answer</string>
 </resources>

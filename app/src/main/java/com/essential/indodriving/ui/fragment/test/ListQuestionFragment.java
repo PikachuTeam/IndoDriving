@@ -154,8 +154,8 @@ public class ListQuestionFragment extends MyBaseFragment implements
                 isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_D, true);
                 break;
         }
-        isRated = MySetting.getInstance().isRated();
         isProVersion = MySetting.getInstance().isProVersion();
+        isRated = isProVersion ? true : MySetting.getInstance().isRated();
         isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
     }
 

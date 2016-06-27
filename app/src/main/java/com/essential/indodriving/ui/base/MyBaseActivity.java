@@ -91,6 +91,10 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
         return toolbar;
     }
 
+    public TextView getButtonModifyAnswer() {
+        return mButtonModifyAnswer;
+    }
+
     public void setToolbarTitle(String title) {
         textViewTitle.setText(title);
     }

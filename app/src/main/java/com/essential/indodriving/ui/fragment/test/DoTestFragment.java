@@ -447,7 +447,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         }
 
         private void resetAllChoices(ArrayList<AnswerChoicesItem> answerChoicesItems) {
-            for (int i = 0; i < answerChoicesItems.size(); i++) {
+            int size = answerChoicesItems.size();
+            for (int i = 0; i < size; i++) {
                 answerChoicesItems.get(i).setActive(false);
             }
         }

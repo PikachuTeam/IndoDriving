@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dialog_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/common_size_15"
+        android:text="@string/thanks_for_contribution"
+        android:textColor="@color/black"
+        android:textSize="@dimen/common_text_size_18" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/check_box_not_show_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_size_10"
+            android:text="Do not show this again"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/button_ok"
+            android:layout_width="@dimen/dialog_warning_button_ok_width"
+            android:layout_height="@dimen/dialog_warning_button_height"
+            android:layout_gravity="end"
+            android:layout_marginLeft="@dimen/common_size_5"
+            android:layout_marginRight="@dimen/common_size_5"
+            android:background="@drawable/dialog_button"
+            android:gravity="center"
+            android:text="@string/ok"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_18" />
+    </FrameLayout>
+</LinearLayout>

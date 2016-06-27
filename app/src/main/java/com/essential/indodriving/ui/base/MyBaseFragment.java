@@ -3,6 +3,7 @@ package com.essential.indodriving.ui.base;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.essential.indodriving.R;
 
@@ -60,6 +61,10 @@ public abstract class MyBaseFragment extends BaseFragment {
 
     public MyBaseActivity getMyBaseActivity() {
         return (MyBaseActivity) getBaseActivity();
+    }
+
+    public TextView getButtonModifyAnswer() {
+        return getMyBaseActivity().getButtonModifyAnswer();
     }
 
     protected void onMenuItemClick(int id) {

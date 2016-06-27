@@ -75,17 +75,13 @@
                 android:textSize="@dimen/common_text_size_16" />
 
             <LinearLayout
+                android:id="@+id/answer_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:orientation="vertical">
-
-                <RadioGroup
-                    android:id="@+id/answer_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/common_size_5" />
-            </LinearLayout>
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/common_size_5"
+                android:paddingRight="@dimen/common_size_5"
+                android:paddingTop="@dimen/common_size_5" />
         </LinearLayout>
     </ScrollView>
 

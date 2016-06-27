@@ -22,12 +22,17 @@ public class AnswerChoicesItem extends CardView implements View.OnClickListener 
     private int mIndex;
 
     public AnswerChoicesItem(Context context, int index) {
+        this(context, index, true);
+    }
+
+    public AnswerChoicesItem(Context context, int index, boolean showCheckbox) {
         super(context);
         View.inflate(context, R.layout.item_choice, this);
         mIndex = index;
         setRadius(getResources().getDimensionPixelSize(R.dimen.common_size_3));
         setPreventCornerOverlap(false);
         findViews();
+        mCheckBox.setVisibility(showCheckbox ? VISIBLE : GONE);
     }
 
     private void findViews() {
@@ -50,10 +55,12 @@ public class AnswerChoicesItem extends CardView implements View.OnClickListener 
         mTextNotify.setVisibility(View.VISIBLE);
         if (isCorrect) {
             mTextNotify.setText(getContext().getResources().getString(R.string.correct_answer));
-            mTextNotify.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.correct_answer_color));
+            mTextNotify.setBackgroundColor(
+                    ContextCompat.getColor(getContext(), R.color.correct_answer_color));
         } else {
             mTextNotify.setText(getContext().getResources().getString(R.string.wrong_answer));
-            mTextNotify.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.wrong_answer_color));
+            mTextNotify.setBackgroundColor(
+                    ContextCompat.getColor(getContext(), R.color.wrong_answer_color));
         }
     }
 

@@ -120,6 +120,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                                 enableButton(buttonPrevious, R.drawable.ic_previous);
                             }
                         }
+                        modifyToolbar();
                     }
                     break;
             }
@@ -227,6 +228,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                             enableButton(buttonPrevious, R.drawable.ic_previous);
                         }
                     }
+                    modifyToolbar();
                 }
                 return false;
             }
@@ -268,7 +270,7 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     @Override
     protected boolean enableButtonModifyAnswer() {
-        return true;
+        return currentPosition >= 10 ? isRated : true;
     }
 
     @Override
@@ -284,6 +286,7 @@ public class LearnAllFragment extends MyBaseFragment implements
         super.onResume();
         if (!isEnableRateToUnlock || isRated || isProVersion) {
             lockedArea.setVisibility(View.GONE);
+            getButtonModifyAnswer().setVisibility(View.VISIBLE);
         }
     }
 
@@ -300,6 +303,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                         enableButton(buttonPrevious, R.drawable.ic_previous);
                     }
                 }
+                modifyToolbar();
                 setCardData(questions.get(currentPosition));
                 indicatorPosition += indicatorPositionOffset;
                 indicator.setX(indicatorPosition);
@@ -316,6 +320,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                         enableButton(buttonNext, R.drawable.ic_next);
                     }
                 }
+                modifyToolbar();
                 setCardData(questions.get(currentPosition));
                 indicatorPosition -= indicatorPositionOffset;
                 indicator.setX(indicatorPosition);
@@ -374,44 +379,6 @@ public class LearnAllFragment extends MyBaseFragment implements
                 Question question = questions.get(currentPosition);
                 ZoomInImageDialog dialog = new ZoomInImageDialog(getActivity(), question.imageData);
                 dialog.show();
-            }
-        } else if (v == buttonNext) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if (event.getEventTime() == 200) {
-                    if (currentPosition < questions.size() - 1) {
-                        currentPosition++;
-                        if (currentPosition == questions.size() - 1) {
-                            disableButton(buttonNext, R.drawable.ic_next);
-                        }
-                        if (currentPosition != 0) {
-                            if (!buttonPrevious.isEnabled()) {
-                                enableButton(buttonPrevious, R.drawable.ic_previous);
-                            }
-                        }
-                        setCardData(questions.get(currentPosition));
-                        indicatorPosition += indicatorPositionOffset;
-                        indicator.setX(indicatorPosition);
-                    }
-                }
-            }
-        } else if (v == buttonPrevious) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if (event.getEventTime() == 200) {
-                    if (currentPosition > 0) {
-                        currentPosition--;
-                        if (currentPosition == 0) {
-                            disableButton(buttonPrevious, R.drawable.ic_previous);
-                        }
-                        if (currentPosition != questions.size()) {
-                            if (!buttonNext.isEnabled()) {
-                                enableButton(buttonNext, R.drawable.ic_next);
-                            }
-                        }
-                        setCardData(questions.get(currentPosition));
-                        indicatorPosition -= indicatorPositionOffset;
-                        indicator.setX(indicatorPosition);
-                    }
-                }
             }
         }
         return false;
@@ -520,7 +487,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                 currentPosition = 0;
         }
         isProVersion = MySetting.getInstance().isProVersion();
-        isRated = MySetting.getInstance().isRated();
+        isRated = isProVersion ? true : MySetting.getInstance().isRated();
         isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
         mTrialTimesLeft = sharedPreferences.getInt(
                 Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
@@ -660,5 +627,19 @@ public class LearnAllFragment extends MyBaseFragment implements
         rs.destroy();
         return getRoundedCornerBitmap(Bitmap.createScaledBitmap(
                 outputBitmap, image.getWidth(), image.getHeight(), false));
+    }
+
+    private void modifyToolbar() {
+        if (!isRated && !isProVersion) {
+            if (currentPosition >= 10 &&
+                    getButtonModifyAnswer().getVisibility() == View.VISIBLE) {
+                getButtonModifyAnswer().setVisibility(View.GONE);
+            } else if (currentPosition < 10 &&
+                    getButtonModifyAnswer().getVisibility() == View.GONE) {
+                getButtonModifyAnswer().setVisibility(View.VISIBLE);
+            }
+        } else {
+            getButtonModifyAnswer().setVisibility(View.VISIBLE);
+        }
     }
 }
