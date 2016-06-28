@@ -169,6 +169,7 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
         switch (type) {
             case TYPE_TEXT:
                 AnswerChoicesItem item = new AnswerChoicesItem(getContext(), index, false);
+                item.changeTextColor();
                 item.setChoice(answer);
                 mAnswerGroup.addView(item);
                 LinearLayout.MarginLayoutParams marginParams =

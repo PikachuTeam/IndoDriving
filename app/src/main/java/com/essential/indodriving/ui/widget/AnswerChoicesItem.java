@@ -32,7 +32,12 @@ public class AnswerChoicesItem extends CardView implements View.OnClickListener 
         setRadius(getResources().getDimensionPixelSize(R.dimen.common_size_3));
         setPreventCornerOverlap(false);
         findViews();
-        mCheckBox.setVisibility(showCheckbox ? VISIBLE : GONE);
+        mCheckBox.setVisibility(showCheckbox ? VISIBLE : INVISIBLE);
+    }
+
+    public void changeTextColor() {
+        mTextAnswer.setTextColor(
+                ContextCompat.getColor(getContext(), R.color.dialog_not_chosen_text_color));
     }
 
     private void findViews() {

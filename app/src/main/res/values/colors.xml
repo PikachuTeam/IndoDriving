@@ -70,4 +70,6 @@
     <color name="fab_label">#df343468</color>
     <color name="overlay_view_color">#41000000</color>
     <color name="dialog_rating_star_color">#0095cd</color>
+    <color name="dialog_background_color">#828282</color>
+    <color name="dialog_not_chosen_text_color">#595757</color>
 </resources>
