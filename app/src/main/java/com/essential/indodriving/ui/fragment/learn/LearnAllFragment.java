@@ -260,6 +260,7 @@ public class LearnAllFragment extends MyBaseFragment implements
             }
         });
 
+        setupADSIfNeeded();
         refreshAdsHandler.sendEmptyMessage(0);
     }
 
