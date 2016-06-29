@@ -34,6 +34,17 @@
                     card_view:cardPreventCornerOverlap="false">
 
                     <LinearLayout
+                        android:id="@+id/adsContainer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/learn_all_card_height"
+                        android:background="@drawable/normal_background_with_corner"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:gravity="center"/>
+
+                    <LinearLayout
+                        android:id="@+id/layout_question_root"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/normal_background_with_corner"
@@ -134,7 +145,18 @@
                     card_view:cardCornerRadius="@dimen/common_size_10"
                     card_view:cardPreventCornerOverlap="false">
 
+                    <LinearLayout
+                        android:id="@+id/adsContainer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/learn_all_card_height"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@drawable/normal_background_with_corner"
+                        android:visibility="gone" />
+
                     <RelativeLayout
+                        android:id="@+id/layout_answer_root"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="@dimen/learn_all_card_height">

@@ -32,11 +32,13 @@ public class SplashActivity extends EssentialSplashActivity {
         if (BuildConfig.DEBUG) {
             MyBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_TEST;
             MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_TEST;
+            MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
         } else {
             MyBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST;
             MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_DRIVING_TEST;
+            MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_DRIVING_TEST;
         }
-        AppCommon.getInstance().syncAdsIfNeeded(MyBaseActivity.ADS_SMALL, MyBaseActivity.ADS_BIG);
+        AppCommon.getInstance().syncAdsIfNeeded(MyBaseActivity.ADS_SMALL, MyBaseActivity.ADS_BIG, MyBaseActivity.ADS_NATIVE_EXPRESS);
         PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
         loadConfig();
     }

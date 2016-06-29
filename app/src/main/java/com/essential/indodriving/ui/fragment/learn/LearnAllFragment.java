@@ -13,6 +13,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Element;
@@ -21,6 +23,7 @@ import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
@@ -37,6 +40,7 @@ import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.MyBaseActivity;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.ModifyAnswerDialog;
 import com.essential.indodriving.ui.widget.RatingDialog;
@@ -44,6 +48,8 @@ import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+
+import tatteam.com.app_common.ads.AdsNativeExpressHandler;
 
 /**
  * Created by dongc_000 on 2/27/2016.
@@ -80,6 +86,8 @@ public class LearnAllFragment extends MyBaseFragment implements
     private RelativeLayout lockedArea;
     private ImageView blurryImage;
     private LinearLayout answerArea;
+    private View layoutAnswerRoot, layoutQuestionRoot;
+    private ViewGroup adsContainer1, adsContainer2;
     private ArrayList<Question> questions;
     private int type;
     private int currentPosition;
@@ -91,6 +99,9 @@ public class LearnAllFragment extends MyBaseFragment implements
     private boolean isProVersion;
     private boolean isEnableRateToUnlock;
     private AlphaAnimation alphaAnimation;
+
+    private AdsNativeExpressHandler adsHandler1, adsHandler2;
+
     private View.OnTouchListener mIndicatorTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -128,11 +139,26 @@ public class LearnAllFragment extends MyBaseFragment implements
         }
     };
 
+    private Handler refreshAdsHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            if (adsHandler1 != null) {
+                adsHandler1.refresh();
+            }
+            if (adsHandler2 != null) {
+                adsHandler2.refresh();
+            }
+            refreshAdsHandler.sendEmptyMessageDelayed(0, 30000);
+            return false;
+        }
+    });
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
         questions = DataSource.getAllQuestionByType(type);
+        addADS(questions);
         loadState();
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -233,27 +259,35 @@ public class LearnAllFragment extends MyBaseFragment implements
                 return false;
             }
         });
+
+        refreshAdsHandler.sendEmptyMessage(0);
+    }
+
+    @Override
+    public void onDestroyView() {
+        refreshAdsHandler.removeCallbacksAndMessages(null);
+        super.onDestroyView();
     }
 
     @Override
     protected String getTitle() {
         switch (type) {
             case DataSource.TYPE_SIM_A:
-                return MessageFormat.format(getString(R.string.learn_sim_a), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_a), "");
             case DataSource.TYPE_SIM_A_UMUM:
-                return MessageFormat.format(getString(R.string.learn_sim_a_umum), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_a_umum), "");
             case DataSource.TYPE_SIM_B1:
-                return MessageFormat.format(getString(R.string.learn_sim_b1), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_b1), "");
             case DataSource.TYPE_SIM_B1_UMUM:
-                return MessageFormat.format(getString(R.string.learn_sim_b1_umum), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_b1_umum), "");
             case DataSource.TYPE_SIM_B2:
-                return MessageFormat.format(getString(R.string.learn_sim_b2), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_b2), "");
             case DataSource.TYPE_SIM_B2_UMUM:
-                return MessageFormat.format(getString(R.string.learn_sim_b2_umum), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_b2_umum), "");
             case DataSource.TYPE_SIM_C:
-                return MessageFormat.format(getString(R.string.learn_sim_c), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_c), "");
             default:
-                return MessageFormat.format(getString(R.string.learn_sim_d), "" + questions.size());
+                return MessageFormat.format(getString(R.string.learn_sim_d), "");
         }
     }
 
@@ -411,6 +445,12 @@ public class LearnAllFragment extends MyBaseFragment implements
         blurryImage = (ImageView) rootView.findViewById(R.id.blurryImage);
         ((TextView) rootView.findViewById(R.id.textViewPressToUnlock)).
                 setTypeface(HomeActivity.defaultFont);
+
+        layoutAnswerRoot = rootView.findViewById(R.id.layout_answer_root);
+        layoutQuestionRoot = rootView.findViewById(R.id.layout_question_root);
+        adsContainer1 = (ViewGroup) rootView.findViewById(R.id.adsContainer1);
+        adsContainer2 = (ViewGroup) rootView.findViewById(R.id.adsContainer2);
+
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
         buttonNext.setOnTouchListener(this);
@@ -494,43 +534,52 @@ public class LearnAllFragment extends MyBaseFragment implements
     }
 
     private void setCardData(Question question) {
-        if (question.imageData == null) {
-            imageArea.setVisibility(View.GONE);
+        layoutAnswerRoot.setVisibility(!question.isAds ? View.VISIBLE : View.GONE);
+        layoutQuestionRoot.setVisibility(!question.isAds ? View.VISIBLE : View.GONE);
+        adsContainer1.setVisibility(question.isAds ? View.VISIBLE : View.GONE);
+        adsContainer2.setVisibility(question.isAds ? View.VISIBLE : View.GONE);
+
+        if (question.isAds) {
+            setupADSIfNeeded();
         } else {
-            imageArea.setVisibility(View.VISIBLE);
-            Glide.with(LearnAllFragment.this).load(question.imageData).
-                    dontAnimate().dontTransform().into(cardQuestionImage);
+            if (question.imageData == null) {
+                imageArea.setVisibility(View.GONE);
+            } else {
+                imageArea.setVisibility(View.VISIBLE);
+                Glide.with(LearnAllFragment.this).load(question.imageData).
+                        dontAnimate().dontTransform().into(cardQuestionImage);
+            }
+            cardTextViewQuestion.setText(question.question);
+            if (question.answer1 != null) {
+                textViewAnswerA.setVisibility(View.VISIBLE);
+                textViewAnswerA.setText("A. " + question.answer1);
+            } else {
+                textViewAnswerA.setVisibility(View.GONE);
+            }
+            if (question.answer2 != null) {
+                textViewAnswerB.setVisibility(View.VISIBLE);
+                textViewAnswerB.setText("B. " + question.answer2);
+            } else {
+                textViewAnswerB.setVisibility(View.GONE);
+            }
+            if (question.answer3 != null) {
+                textViewAnswerC.setVisibility(View.VISIBLE);
+                textViewAnswerC.setText("C. " + question.answer3);
+            } else {
+                textViewAnswerC.setVisibility(View.GONE);
+            }
+            if (question.answer4 != null) {
+                textViewAnswerD.setVisibility(View.VISIBLE);
+                textViewAnswerD.setText("D. " + question.answer4);
+            } else {
+                textViewAnswerD.setVisibility(View.GONE);
+            }
+            resetAllAnswers();
+            makeCorrectAnswer(
+                    question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
+            textViewProgress.setText("" + (currentPosition + 1));
+            readingProgress.setProgress(currentPosition + 1);
         }
-        cardTextViewQuestion.setText(question.question);
-        if (question.answer1 != null) {
-            textViewAnswerA.setVisibility(View.VISIBLE);
-            textViewAnswerA.setText("A. " + question.answer1);
-        } else {
-            textViewAnswerA.setVisibility(View.GONE);
-        }
-        if (question.answer2 != null) {
-            textViewAnswerB.setVisibility(View.VISIBLE);
-            textViewAnswerB.setText("B. " + question.answer2);
-        } else {
-            textViewAnswerB.setVisibility(View.GONE);
-        }
-        if (question.answer3 != null) {
-            textViewAnswerC.setVisibility(View.VISIBLE);
-            textViewAnswerC.setText("C. " + question.answer3);
-        } else {
-            textViewAnswerC.setVisibility(View.GONE);
-        }
-        if (question.answer4 != null) {
-            textViewAnswerD.setVisibility(View.VISIBLE);
-            textViewAnswerD.setText("D. " + question.answer4);
-        } else {
-            textViewAnswerD.setVisibility(View.GONE);
-        }
-        resetAllAnswers();
-        makeCorrectAnswer(
-                question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
-        textViewProgress.setText("" + (currentPosition + 1));
-        readingProgress.setProgress(currentPosition + 1);
     }
 
     private void resetAllAnswers() {
@@ -640,6 +689,35 @@ public class LearnAllFragment extends MyBaseFragment implements
             }
         } else {
             getButtonModifyAnswer().setVisibility(View.VISIBLE);
+        }
+
+        if (questions.get(currentPosition).isAds) {
+            getButtonModifyAnswer().setVisibility(View.GONE);
+        }
+    }
+
+    private void addADS(ArrayList<Question> questions) {
+        int count = 0;
+        for (int i = 0; i < questions.size(); i++) {
+            count++;
+            if (count % 8 == 0) {
+                Question question = new Question();
+                question.isAds = true;
+                questions.add(i, question);
+                i++;
+            }
+        }
+    }
+
+    private void setupADSIfNeeded() {
+        if (adsHandler1 == null) {
+            adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS);
+            adsHandler1.setup();
+        }
+
+        if (adsHandler2 == null) {
+            adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS);
+            adsHandler2.setup();
         }
     }
 }

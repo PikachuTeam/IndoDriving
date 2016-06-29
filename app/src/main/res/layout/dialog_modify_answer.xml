@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:clickable="true">
+    android:background="@color/dialog_modify_answer_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,6 +17,17 @@
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/common_size_15"
+                android:gravity="center"
+                android:text="@string/choose_your_answer"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="@dimen/common_text_size_18" />
+
             <LinearLayout
                 android:id="@+id/question_area"
                 android:layout_width="match_parent"
@@ -25,7 +35,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/common_size_15"
                 android:layout_marginRight="@dimen/common_size_15"
-                android:layout_marginTop="@dimen/common_size_15"
                 android:background="@drawable/bg_dialog"
                 android:clickable="true"
                 android:orientation="vertical">
@@ -33,8 +42,7 @@
                 <RelativeLayout
                     android:id="@+id/image_area"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/common_size_5">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/question_image"
@@ -56,23 +64,12 @@
                     android:id="@+id/text_question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical|left"
-                    android:maxLines="4"
+                    android:gravity="center"
                     android:padding="@dimen/common_size_5"
                     android:textColor="@color/black"
                     android:textSize="@dimen/common_text_size_18" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/common_size_15"
-                android:layout_marginRight="@dimen/common_size_15"
-                android:padding="@dimen/common_size_5"
-                android:text="@string/choose_your_answer"
-                android:textColor="@color/black"
-                android:textSize="@dimen/common_text_size_16" />
 
             <LinearLayout
                 android:id="@+id/answer_group"

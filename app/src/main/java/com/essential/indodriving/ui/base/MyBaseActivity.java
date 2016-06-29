@@ -28,6 +28,8 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
     public final static int BIG_ADS_SHOWING_INTERVAL = 20;
     public static AppConstant.AdsType ADS_SMALL;
     public static AppConstant.AdsType ADS_BIG;
+    public static AppConstant.AdsType ADS_NATIVE_EXPRESS;
+
     public static int count;
     private Toolbar toolbar;
     private TextView textViewTitle;

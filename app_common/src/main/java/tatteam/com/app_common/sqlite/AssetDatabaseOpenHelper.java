@@ -25,7 +25,7 @@ public class AssetDatabaseOpenHelper {
         try {
             String path = "data/data/" + context.getPackageName() + "/databases/";
             File dbPath = new File(path);
-            File dbFile = new File(dbPath + databaseName);
+            File dbFile = new File(dbPath + "/" + databaseName);
             if (!dbPath.exists()) {
                 dbPath.mkdir();
                 dbFile.createNewFile();

@@ -16,6 +16,7 @@ public class Question {
     public byte[] imageData;
     public int fixedAnswer;
     public int isSentFixedAnswer;
+    public boolean isAds;
 
     public Question() {
         answer = -1;
