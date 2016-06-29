@@ -158,8 +158,10 @@ public class LearnAllFragment extends MyBaseFragment implements
         super.onCreate(savedInstanceState);
         getData();
         questions = DataSource.getAllQuestionByType(type);
-        addADS(questions);
         loadState();
+        if(!isProVersion) {
+            addADS(questions);
+        }
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         isFirst = true;
@@ -173,6 +175,9 @@ public class LearnAllFragment extends MyBaseFragment implements
         buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity()
                 , R.color.learn_all_button_zoom_in_normal_color)
                 , PorterDuff.Mode.SRC_ATOP);
+        if (currentPosition >= questions.size()) {
+            currentPosition = 0;
+        }
         Question question = questions.get(currentPosition);
         setCardData(question);
         readingProgress.setMax(questions.size());
@@ -259,9 +264,10 @@ public class LearnAllFragment extends MyBaseFragment implements
                 return false;
             }
         });
-
-        setupADSIfNeeded();
-        refreshAdsHandler.sendEmptyMessage(0);
+        if(!isProVersion) {
+            setupADSIfNeeded();
+            refreshAdsHandler.sendEmptyMessage(0);
+        }
     }
 
     @Override
