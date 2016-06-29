@@ -15,8 +15,8 @@ import tatteam.com.app_common.util.AppLocalSharedPreferences;
  * Created by ThanhNH-Mac on 6/26/16.
  */
 public class AdsNativeExpressHandler extends BaseAdsBannerHandler {
-    private static final int DEFAULT_WIDTH = 320;
-    private static final int DEFAULT_HEIGHT = 150;
+    public static final int DEFAULT_WIDTH = 320;
+    public static final int DEFAULT_HEIGHT = 150;
 
     private NativeExpressAdView adView;
     private AdSize adSize;
