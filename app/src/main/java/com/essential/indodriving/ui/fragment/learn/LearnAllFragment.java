@@ -42,7 +42,6 @@ import com.essential.indodriving.ui.widget.ModifyAnswerDialog;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -239,21 +238,21 @@ public class LearnAllFragment extends MyBaseFragment implements
     protected String getTitle() {
         switch (type) {
             case DataSource.TYPE_SIM_A:
-                return MessageFormat.format(getString(R.string.learn_sim_a), "" + questions.size());
+                return getString(R.string.learn_sim_a);
             case DataSource.TYPE_SIM_A_UMUM:
-                return MessageFormat.format(getString(R.string.learn_sim_a_umum), "" + questions.size());
+                return getString(R.string.learn_sim_a_umum);
             case DataSource.TYPE_SIM_B1:
-                return MessageFormat.format(getString(R.string.learn_sim_b1), "" + questions.size());
+                return getString(R.string.learn_sim_b1);
             case DataSource.TYPE_SIM_B1_UMUM:
-                return MessageFormat.format(getString(R.string.learn_sim_b1_umum), "" + questions.size());
+                return getString(R.string.learn_sim_b1_umum);
             case DataSource.TYPE_SIM_B2:
-                return MessageFormat.format(getString(R.string.learn_sim_b2), "" + questions.size());
+                return getString(R.string.learn_sim_b2);
             case DataSource.TYPE_SIM_B2_UMUM:
-                return MessageFormat.format(getString(R.string.learn_sim_b2_umum), "" + questions.size());
+                return getString(R.string.learn_sim_b2_umum);
             case DataSource.TYPE_SIM_C:
-                return MessageFormat.format(getString(R.string.learn_sim_c), "" + questions.size());
+                return getString(R.string.learn_sim_c);
             default:
-                return MessageFormat.format(getString(R.string.learn_sim_d), "" + questions.size());
+                return getString(R.string.learn_sim_d);
         }
     }
 
