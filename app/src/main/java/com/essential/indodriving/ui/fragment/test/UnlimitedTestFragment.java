@@ -31,6 +31,8 @@ import com.essential.indodriving.util.OnQuestionPagerItemClickListener;
 
 import java.util.ArrayList;
 
+import tatteam.com.app_common.ads.AdsNativeExpressHandler;
+
 /**
  * Created by yue on 07/05/2016.
  */
@@ -47,6 +49,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
     private int mCurrentPosition;
     private int mType;
     private Typeface mFont;
+    private AdsNativeExpressHandler adsHandler1, adsHandler2;
     private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener =
             new QuestionNoItemWrapper.OnQuestionNoClickListener() {
                 @Override
