@@ -180,6 +180,7 @@ public class LearnAllFragment extends MyBaseFragment implements
         }
         Question question = questions.get(currentPosition);
         setCardData(question);
+        modifyToolbar();
         readingProgress.setMax(questions.size());
         readingProgress.setProgress(currentPosition + 1);
         if (currentPosition == 0) {
@@ -329,6 +330,8 @@ public class LearnAllFragment extends MyBaseFragment implements
             lockedArea.setVisibility(View.GONE);
             getButtonModifyAnswer().setVisibility(View.VISIBLE);
         }
+
+        modifyToolbar();
     }
 
     @Override
