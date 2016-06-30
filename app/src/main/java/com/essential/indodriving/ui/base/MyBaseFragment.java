@@ -103,4 +103,8 @@ public abstract class MyBaseFragment extends BaseFragment {
 
     public void refreshUI() {
     }
+
+    public void sendItemChosenLog(String itemCategory, String itemName) {
+        getMyBaseActivity().sendItemChosenLog(itemCategory, itemName);
+    }
 }

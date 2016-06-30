@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "276784031291",
+    "firebase_url": "https://app-common-a29dc.firebaseio.com",
+    "project_id": "app-common-a29dc",
+    "storage_bucket": "app-common-a29dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276784031291:android:0ef264ecc9ca3879",
+        "android_client_info": {
+          "package_name": "tatteam.com.app_common"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276784031291-76llecigdjr3489q61cgs7kf1t9csnqe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOAx_-zKXCroLi4Ry6l0VbF4CJlZJmnEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276784031291:android:6dbd761807ac82db",
+        "android_client_info": {
+          "package_name": "com.essential.indodriving.free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276784031291-76llecigdjr3489q61cgs7kf1t9csnqe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOAx_-zKXCroLi4Ry6l0VbF4CJlZJmnEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

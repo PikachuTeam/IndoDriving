@@ -7,6 +7,8 @@ import com.essential.indodriving.MySetting;
 import com.essential.indodriving.data.PoolDatabaseLoader;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -27,6 +29,8 @@ public class SplashActivity extends EssentialSplashActivity {
 
     @Override
     protected void onInitAppCommon() {
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3786715234447481~5340872855");
+
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
         if (BuildConfig.DEBUG) {

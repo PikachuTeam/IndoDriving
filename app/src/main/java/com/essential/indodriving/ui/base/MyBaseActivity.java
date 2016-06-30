@@ -3,6 +3,7 @@ package com.essential.indodriving.ui.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
@@ -42,6 +44,8 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
     private AdsSmallBannerHandler adsSmallBannerHandler;
     private AdsBigBannerHandler adsBigBannerHandler;
     private BillingProcessor mBillingProcessor;
+    private FirebaseAnalytics firebaseAnalytics;
+
 
     public static void startActivityAnimation(Activity activity, Intent intent) {
         activity.startActivity(intent);
@@ -64,6 +68,8 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
 
     @Override
     protected void onCreateContentView() {
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
+
         findViews();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -234,5 +240,14 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
 
     @Override
     public void onBillingInitialized() {
+    }
+
+    public void sendItemChosenLog(String itemCategory, String itemName) {
+        if (firebaseAnalytics != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, itemCategory);
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, itemName);
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        }
     }
 }

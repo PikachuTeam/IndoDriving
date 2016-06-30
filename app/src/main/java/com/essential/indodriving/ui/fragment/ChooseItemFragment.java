@@ -130,6 +130,8 @@ public class ChooseItemFragment extends MyBaseFragment {
         LearnAllFragment learnAllFragment = new LearnAllFragment();
         learnAllFragment.setArguments(bundle);
         replaceFragment(learnAllFragment, TAG_CHOOSE_ITEM_FRAGMENT);
+
+        sendItemChosenLog(getTitle(),"LEARNING CARD");
     }
 
     private void moveToChooseTestFragment() {
@@ -138,6 +140,8 @@ public class ChooseItemFragment extends MyBaseFragment {
         ListQuestionFragment fragment = new ListQuestionFragment();
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_CHOOSE_ITEM_FRAGMENT);
+
+        sendItemChosenLog(getTitle(),"WRITTEN TEST");
     }
 
     private void moveToUnlimitedTestFragment() {
@@ -146,6 +150,8 @@ public class ChooseItemFragment extends MyBaseFragment {
         UnlimitedTestFragment fragment = new UnlimitedTestFragment();
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_CHOOSE_ITEM_FRAGMENT);
+
+        sendItemChosenLog(getTitle(),"SIMULATION");
     }
 
     private void getData() {
