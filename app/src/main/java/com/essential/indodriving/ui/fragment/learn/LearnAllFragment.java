@@ -98,7 +98,8 @@ public class LearnAllFragment extends MyBaseFragment implements
                 case MotionEvent.ACTION_MOVE:
                     float realX = event.getRawX() - getResources().getDimension(R.dimen.common_size_20);
                     float ratio = realX / readingProgress.getWidth();
-                    int tmp = (int) (ratio * questions.size());
+                    int numberOfQuestions = questions.size();
+                    int tmp = (int) (ratio * numberOfQuestions);
                     if (tmp > 0 && tmp < questions.size()) {
                         currentPosition = tmp;
                         setCardData(questions.get(currentPosition));
@@ -107,12 +108,12 @@ public class LearnAllFragment extends MyBaseFragment implements
                             if (!buttonNext.isEnabled()) {
                                 enableButton(buttonNext, R.drawable.ic_next);
                             }
-                        } else if (currentPosition == questions.size() - 1) {
+                        } else if (currentPosition == numberOfQuestions - 1) {
                             disableButton(buttonNext, R.drawable.ic_next);
                             if (!buttonPrevious.isEnabled()) {
                                 enableButton(buttonPrevious, R.drawable.ic_previous);
                             }
-                        } else if (currentPosition > 0 && currentPosition < questions.size()) {
+                        } else if (currentPosition > 0 && currentPosition < numberOfQuestions) {
                             if (!buttonNext.isEnabled()) {
                                 enableButton(buttonNext, R.drawable.ic_next);
                             }
@@ -481,6 +482,8 @@ public class LearnAllFragment extends MyBaseFragment implements
 
         if (question.isAds) {
             setupADSIfNeeded();
+            textViewProgress.setText("Ads");
+            readingProgress.setProgress(currentPosition + 1);
         } else {
             if (question.imageData == null) {
                 imageArea.setVisibility(View.GONE);
@@ -517,8 +520,9 @@ public class LearnAllFragment extends MyBaseFragment implements
             resetAllAnswers();
             makeCorrectAnswer(
                     question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
-            textViewProgress.setText("" + (currentPosition + 1));
-            readingProgress.setProgress(currentPosition + 1);
+            int tmp = currentPosition + 1;
+            textViewProgress.setText("" + (tmp - tmp / Constants.ADS_BREAK));
+            readingProgress.setProgress(tmp);
         }
     }
 
@@ -638,12 +642,15 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void addADS(ArrayList<Question> questions) {
         int count = 0;
-        for (int i = 0; i < questions.size(); i++) {
+        int size = questions.size();
+        for (int i = 0; i < size; i++) {
             count++;
-            if (count % 8 == 0) {
+            if (count % Constants.ADS_BREAK == 0) {
                 Question question = new Question();
                 question.isAds = true;
                 questions.add(i, question);
+                count++;
+                size++;
                 i++;
             }
         }

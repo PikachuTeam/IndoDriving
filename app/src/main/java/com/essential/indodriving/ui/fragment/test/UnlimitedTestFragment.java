@@ -16,12 +16,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.data.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.MyBaseActivity;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
@@ -48,8 +50,8 @@ public class UnlimitedTestFragment extends MyBaseFragment {
     private ArrayList<QuestionNoItemWrapper> mWrappers;
     private int mCurrentPosition;
     private int mType;
+    private boolean mIsProVersion;
     private Typeface mFont;
-    private AdsNativeExpressHandler adsHandler1, adsHandler2;
     private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener =
             new QuestionNoItemWrapper.OnQuestionNoClickListener() {
                 @Override
@@ -125,12 +127,22 @@ public class UnlimitedTestFragment extends MyBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
+        mIsProVersion = MySetting.getInstance().isProVersion();
         mQuestions = DataSource.getQuestionsByTypeAndExamId(mType, 1, true, NUMBER_OF_QUESTIONS);
+        if (!mIsProVersion) {
+            addAds(mQuestions);
+        }
         mFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         mWrappers = new ArrayList<>();
-        for (int i = 0; i < mQuestions.size(); i++) {
+        int numberOfQuestions = mQuestions.size();
+        for (int i = 0; i < numberOfQuestions; i++) {
             QuestionNoItemWrapper wrapper = new QuestionNoItemWrapper(getActivity());
-            wrapper.setText("" + mQuestions.get(i).index, HomeActivity.defaultFont);
+            Question question = mQuestions.get(i);
+            if (question.isAds) {
+                wrapper.setText("", HomeActivity.defaultFont);
+            } else {
+                wrapper.setText("" + question.index, HomeActivity.defaultFont);
+            }
             if (i == 0) {
                 wrapper.setActive(true);
             } else {
@@ -149,7 +161,8 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         mAdapter.setOnQuestionPagerItemClickListener(mOnQuestionPagerItemClickListener);
         mQuestionPager.setAdapter(mAdapter);
         mQuestionPager.addOnPageChangeListener(mOnPageChangeListener);
-        for (int i = 0; i < mWrappers.size(); i++) {
+        int size = mWrappers.size();
+        for (int i = 0; i < size; i++) {
             mTestHorizontalScrollView.addView(mWrappers.get(i).getView());
         }
     }
@@ -207,7 +220,8 @@ public class UnlimitedTestFragment extends MyBaseFragment {
     }
 
     private void resetAllWrapper() {
-        for (int i = 0; i < mWrappers.size(); i++) {
+        int size = mWrappers.size();
+        for (int i = 0; i < size; i++) {
             mWrappers.get(i).setActive(false);
         }
     }
@@ -232,7 +246,24 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
     }
 
-    private class ViewPagerAdapter extends PagerAdapter implements AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {
+    private void addAds(ArrayList<Question> questions) {
+        int count = 0;
+        int size = questions.size();
+        for (int i = 0; i < size; i++) {
+            count++;
+            if (count % Constants.ADS_BREAK == 0) {
+                Question question = new Question();
+                question.isAds = true;
+                questions.add(i, question);
+                count++;
+                size++;
+                i++;
+            }
+        }
+    }
+
+    private class ViewPagerAdapter extends PagerAdapter implements
+            AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {
 
         private ArrayList<Question> mQuestions;
         private Context mContext;
@@ -256,35 +287,50 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         public Object instantiateItem(ViewGroup container, int position) {
             Question question = mQuestions.get(position);
             View view = View.inflate(mContext, R.layout.item_pager_question, null);
-            ImageView questionImage = (ImageView) view.findViewById(R.id.questionImage);
-            TextView textViewQuestion = (TextView) view.findViewById(R.id.textViewQuestion);
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
-            RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
-            ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
-            ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(mFont);
-            ((TextView) view.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-            if (question.imageData == null) {
-                imageArea.setVisibility(View.GONE);
+            ViewGroup adsContainer1 = (ViewGroup) view.findViewById(R.id.adsContainer1);
+            ViewGroup adsContainer2 = (ViewGroup) view.findViewById(R.id.adsContainer2);
+            ViewGroup layoutQuestionRoot = (ViewGroup) view.findViewById(R.id.layout_question_root);
+            if (!mIsProVersion) {
+            }
+            if (question.isAds) {
+                adsContainer1.setVisibility(View.VISIBLE);
+                adsContainer2.setVisibility(View.VISIBLE);
+                layoutQuestionRoot.setVisibility(View.GONE);
+                choicesContainer.setVisibility(View.GONE);
+                AdsNativeExpressHandler adsHandler1 = null;
+                AdsNativeExpressHandler adsHandler2 = null;
+                setupAdsIfNeeded(adsHandler1, adsContainer1, adsHandler2, adsContainer2);
             } else {
-                imageArea.setVisibility(View.VISIBLE);
-                Glide.with(UnlimitedTestFragment.this).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
-                questionImage.setTag(question);
-                questionImage.setOnClickListener(this);
-                buttonZoomIn.setTag(question);
-                buttonZoomIn.setOnTouchListener(this);
+                ImageView questionImage = (ImageView) view.findViewById(R.id.questionImage);
+                TextView textViewQuestion = (TextView) view.findViewById(R.id.textViewQuestion);
+                RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
+                ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
+                ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(mFont);
+                ((TextView) view.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                if (question.imageData == null) {
+                    imageArea.setVisibility(View.GONE);
+                } else {
+                    imageArea.setVisibility(View.VISIBLE);
+                    Glide.with(UnlimitedTestFragment.this).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
+                    questionImage.setTag(question);
+                    questionImage.setOnClickListener(this);
+                    buttonZoomIn.setTag(question);
+                    buttonZoomIn.setOnTouchListener(this);
+                }
+                textViewQuestion.setText(question.question);
+                ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
+                for (int i = 0; i < answerChoicesItems.size(); i++) {
+                    choicesContainer.addView(answerChoicesItems.get(i));
+                    LinearLayout.MarginLayoutParams marginParams =
+                            (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getLayoutParams();
+                    marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
+                    answerChoicesItems.get(i).requestLayout();
+                    answerChoicesItems.get(i).setOnChooseAnswerListener(this);
+                }
+                choicesContainer.invalidate();
+                choicesContainer.setTag(position);
             }
-            textViewQuestion.setText(question.question);
-            ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
-            for (int i = 0; i < answerChoicesItems.size(); i++) {
-                choicesContainer.addView(answerChoicesItems.get(i));
-                LinearLayout.MarginLayoutParams marginParams =
-                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getLayoutParams();
-                marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
-                answerChoicesItems.get(i).requestLayout();
-                answerChoicesItems.get(i).setOnChooseAnswerListener(this);
-            }
-            choicesContainer.invalidate();
-            choicesContainer.setTag(position);
             container.addView(view);
             return view;
         }
@@ -388,6 +434,18 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 image.setImageResource(R.drawable.ic_zoom_in_highlight);
             }
             return false;
+        }
+
+        private void setupAdsIfNeeded(AdsNativeExpressHandler adsHandler1, ViewGroup adsContainer1,
+                                      AdsNativeExpressHandler adsHandler2, ViewGroup adsContainer2) {
+            if (adsHandler1 == null) {
+                adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS);
+                adsHandler1.setup();
+            }
+            if (adsHandler2 == null) {
+                adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS);
+                adsHandler2.setup();
+            }
         }
     }
 }

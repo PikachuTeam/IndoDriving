@@ -64,7 +64,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         getData();
         totalCorrectAnswer = calculateCorrectAnswer();
         totalWrongAnswer = calculateWrongAnswer();
-        totalNotAnswered = questions.size() - totalCorrectAnswer - totalWrongAnswer;
+        totalNotAnswered = Constants.TOTAL_QUESTIONS - totalCorrectAnswer - totalWrongAnswer;
         isSaved = false;
     }
 
@@ -147,15 +147,18 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
 
     private int calculateCorrectAnswer() {
         int tmp = 0;
-        for (int i = 0; i < questions.size(); i++) {
+        int size = questions.size();
+        for (int i = 0; i < size; i++) {
             Question question = questions.get(i);
-            if (question.fixedAnswer != -1) {
-                if (question.answer != -1 && question.answer == question.fixedAnswer) {
-                    tmp++;
-                }
-            } else {
-                if (question.answer != -1 && question.answer == question.correctAnswer) {
-                    tmp++;
+            if (!question.isAds) {
+                if (question.fixedAnswer != -1) {
+                    if (question.answer != -1 && question.answer == question.fixedAnswer) {
+                        tmp++;
+                    }
+                } else {
+                    if (question.answer != -1 && question.answer == question.correctAnswer) {
+                        tmp++;
+                    }
                 }
             }
         }
@@ -164,15 +167,18 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
 
     private int calculateWrongAnswer() {
         int tmp = 0;
-        for (int i = 0; i < questions.size(); i++) {
+        int size = questions.size();
+        for (int i = 0; i < size; i++) {
             Question question = questions.get(i);
-            if (question.fixedAnswer != -1) {
-                if (question.answer != -1 && question.answer != question.fixedAnswer) {
-                    tmp++;
-                }
-            } else {
-                if (question.answer != -1 && question.answer != question.correctAnswer) {
-                    tmp++;
+            if (!question.isAds) {
+                if (question.fixedAnswer != -1) {
+                    if (question.answer != -1 && question.answer != question.fixedAnswer) {
+                        tmp++;
+                    }
+                } else {
+                    if (question.answer != -1 && question.answer != question.correctAnswer) {
+                        tmp++;
+                    }
                 }
             }
         }
@@ -185,20 +191,24 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 textViewState.setVisibility(View.VISIBLE);
                 if (totalCorrectAnswer >= 21) {
                     textViewState.setText(getString(R.string.pass));
-                    textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
+                    textViewState.setTextColor(
+                            ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
                 } else {
                     textViewState.setText(getString(R.string.fail));
-                    textViewState.setTextColor(ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
+                    textViewState.setTextColor(
+                            ContextCompat.getColor(getActivity(), R.color.wrong_answer_color));
                 }
                 break;
             case UnlimitedTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
                 textViewState.setVisibility(View.GONE);
                 break;
         }
-        int numberOfQuestions = questions.size();
-        tvCorrectAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers), totalCorrectAnswer, numberOfQuestions));
-        tvWrongAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers), totalWrongAnswer, numberOfQuestions));
-        tvNotAnswered.setText(MessageFormat.format(getString(R.string.number_of_answers), totalNotAnswered, numberOfQuestions));
+        tvCorrectAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers),
+                totalCorrectAnswer, Constants.TOTAL_QUESTIONS));
+        tvWrongAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers),
+                totalWrongAnswer, Constants.TOTAL_QUESTIONS));
+        tvNotAnswered.setText(MessageFormat.format(getString(R.string.number_of_answers),
+                totalNotAnswered, Constants.TOTAL_QUESTIONS));
     }
 
     private void findViews(View rootView) {
@@ -299,7 +309,8 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         ArrayList<Question> data = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
-            if (question.answer != question.correctAnswer && question.answer != DataSource.ANSWER_NOT_CHOSEN) {
+            if (question.answer != question.correctAnswer &&
+                    question.answer != DataSource.ANSWER_NOT_CHOSEN && !question.isAds) {
                 data.add(question);
             }
         }
@@ -310,7 +321,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         ArrayList<Question> data = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
-            if (question.answer == DataSource.ANSWER_NOT_CHOSEN) {
+            if (question.answer == DataSource.ANSWER_NOT_CHOSEN && !question.isAds) {
                 data.add(question);
             }
         }
