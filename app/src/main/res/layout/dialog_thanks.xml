@@ -7,7 +7,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:padding="@dimen/common_size_15"
         android:text="@string/thanks_for_contribution"
         android:textColor="@color/black"
@@ -22,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/common_size_10"
-            android:text="Do not show this again"
+            android:text="@string/test_not_show_again"
             android:textColor="@color/black" />
 
         <TextView

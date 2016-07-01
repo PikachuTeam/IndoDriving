@@ -88,7 +88,7 @@
     <string name="upgrade_to_pro_ver">Upgrade Ke Versi Pro</string>
     <string name="key">Membuka semua fitur</string>
     <string name="no_more_ads">Hllangkan Iklan</string>
-    <string name="choose_your_answer">Choose the answer you think is correct</string>
-    <string name="action_modify_answer">Modify answer</string>
-    <string name="thanks_for_contribution">Thanks for you contribution! \nWe will consider your answer</string>
+    <string name="choose_your_answer">Pilih jawaban yang anda anggap benar</string>
+    <string name="action_modify_answer">Jawabanmu</string>
+    <string name="thanks_for_contribution">Terima kasih atas kontribusi Anda.\nKami akan mempertimbangkan jawaban anda</string>
 </resources>
