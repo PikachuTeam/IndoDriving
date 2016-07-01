@@ -9,46 +9,63 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:minHeight="@dimen/question_area_height"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/imageArea"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/question_image_size"
-                android:layout_marginTop="@dimen/common_size_5">
-
-                <ImageView
-                    android:id="@+id/questionImage"
-                    android:layout_width="@dimen/question_image_size"
-                    android:layout_height="@dimen/question_image_size"
-                    android:layout_centerHorizontal="true"
-                    android:clickable="true" />
-
-                <ImageView
-                    android:id="@+id/buttonZoomIn"
-                    android:layout_width="@dimen/button_zoom_in_size"
-                    android:layout_height="@dimen/button_zoom_in_size"
-                    android:layout_toRightOf="@id/questionImage"
-                    android:clickable="true"
-                    android:src="@drawable/ic_zoom_in_normal" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/textViewQuestion"
+            <LinearLayout
+                android:id="@+id/adsContainer1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingLeft="@dimen/common_size_7"
-                android:paddingRight="@dimen/common_size_7"
-                android:text="Question"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/common_text_size_18" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/layout_question_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="@dimen/question_area_height"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/imageArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/question_image_size"
+                    android:layout_marginTop="@dimen/common_size_5">
+
+                    <ImageView
+                        android:id="@+id/questionImage"
+                        android:layout_width="@dimen/question_image_size"
+                        android:layout_height="@dimen/question_image_size"
+                        android:layout_centerHorizontal="true"
+                        android:clickable="true" />
+
+                    <ImageView
+                        android:id="@+id/buttonZoomIn"
+                        android:layout_width="@dimen/button_zoom_in_size"
+                        android:layout_height="@dimen/button_zoom_in_size"
+                        android:layout_toRightOf="@id/questionImage"
+                        android:clickable="true"
+                        android:src="@drawable/ic_zoom_in_normal" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/common_size_7"
+                    android:paddingRight="@dimen/common_size_7"
+                    android:text="Question"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/common_text_size_18" />
+            </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,12 +84,26 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/choicesContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/common_size_5"
-            android:paddingRight="@dimen/common_size_5"
-            android:paddingTop="@dimen/common_size_5" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/adsContainer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/choicesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/common_size_5"
+                android:paddingRight="@dimen/common_size_5"
+                android:paddingTop="@dimen/common_size_5" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

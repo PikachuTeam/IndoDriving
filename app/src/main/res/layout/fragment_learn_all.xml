@@ -37,13 +37,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <FrameLayout
+                        <LinearLayout
                             android:id="@+id/adsContainer1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/normal_background_with_corner"
-                            android:minHeight="@dimen/learn_all_card_height"
+                            android:gravity="center"
+                            android:orientation="horizontal"
                             android:visibility="gone" />
 
                         <LinearLayout
