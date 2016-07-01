@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:minHeight="@dimen/question_area_height"
                 android:orientation="horizontal"
                 android:visibility="gone" />
 
@@ -84,26 +85,21 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/adsContainer2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/common_size_20"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone" />
 
-            <LinearLayout
-                android:id="@+id/adsContainer2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/choicesContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/common_size_5"
-                android:paddingRight="@dimen/common_size_5"
-                android:paddingTop="@dimen/common_size_5" />
-        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/choicesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/common_size_5"
+            android:paddingRight="@dimen/common_size_5"
+            android:paddingTop="@dimen/common_size_5" />
     </LinearLayout>
 </ScrollView>

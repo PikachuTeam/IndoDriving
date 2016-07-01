@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -59,8 +60,10 @@ public class LearnAllFragment extends MyBaseFragment implements
     private static final float BLUR_RADIUS = 7f;
     private static final long ALPHA_ANIM_DURATION = 600;
     private ImageView cardQuestionImage;
+    private ImageView imageIndicator;
     private TextView cardTextViewQuestion;
     private TextView textViewProgress;
+    private ScrollView cardArea;
     private ProgressBar readingProgress;
     private TextView textViewAnswerA;
     private TextView textViewAnswerB;
@@ -427,6 +430,8 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void findViews(View rootView) {
         cardQuestionImage = (ImageView) rootView.findViewById(R.id.cardQuestionImage);
+        imageIndicator = (ImageView) rootView.findViewById(R.id.image_indicator);
+        cardArea = (ScrollView) rootView.findViewById(R.id.cardArea);
         cardTextViewQuestion = (TextView) rootView.findViewById(R.id.cardTextViewQuestion);
         textViewProgress = (TextView) rootView.findViewById(R.id.textViewProgress);
         readingProgress = (ProgressBar) rootView.findViewById(R.id.readingProgress);
@@ -479,11 +484,13 @@ public class LearnAllFragment extends MyBaseFragment implements
         layoutQuestionRoot.setVisibility(!question.isAds ? View.VISIBLE : View.GONE);
         adsContainer1.setVisibility(question.isAds ? View.VISIBLE : View.GONE);
         adsContainer2.setVisibility(question.isAds ? View.VISIBLE : View.GONE);
-
+        cardArea.scrollTo(0, 0);
         if (question.isAds) {
             setupADSIfNeeded();
             textViewProgress.setText(null);
             readingProgress.setProgress(currentPosition + 1);
+            imageIndicator.setColorFilter(
+                    ContextCompat.getColor(getActivity(), R.color.indicator_dark_color));
         } else {
             if (question.imageData == null) {
                 imageArea.setVisibility(View.GONE);
@@ -521,7 +528,9 @@ public class LearnAllFragment extends MyBaseFragment implements
             makeCorrectAnswer(
                     question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
             int tmp = currentPosition + 1;
-            textViewProgress.setText("" + (tmp - tmp / Constants.ADS_BREAK));
+            imageIndicator.setColorFilter(
+                    ContextCompat.getColor(getActivity(), R.color.indicator_normal_color));
+            textViewProgress.setText("" + (tmp - tmp / Constants.LEARN_ALL_ADS_BREAK));
             readingProgress.setProgress(tmp);
         }
     }
@@ -645,7 +654,7 @@ public class LearnAllFragment extends MyBaseFragment implements
         int size = questions.size();
         for (int i = 0; i < size; i++) {
             count++;
-            if (count % Constants.ADS_BREAK == 0) {
+            if (count % Constants.LEARN_ALL_ADS_BREAK == 0) {
                 Question question = new Question();
                 question.isAds = true;
                 questions.add(i, question);
