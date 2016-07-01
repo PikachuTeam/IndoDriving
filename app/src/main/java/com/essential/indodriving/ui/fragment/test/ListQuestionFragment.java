@@ -3,7 +3,6 @@ package com.essential.indodriving.ui.fragment.test;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -42,15 +41,6 @@ public class ListQuestionFragment extends MyBaseFragment implements
         OnRecyclerViewItemClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
     public final static String LIST_QUESTION_FRAGMENT_TAG = "List Question Fragment";
-    public final static String
-            PREF_SHOW_RULE_AGAIN_SIM_A = "Show Rule Again A",
-            PREF_SHOW_RULE_AGAIN_SIM_A_UMUM = "Show Rule Again A Umum",
-            PREF_SHOW_RULE_AGAIN_SIM_B1 = "Show Rule Again B1",
-            PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM = "Show Rule Again B1 Umum",
-            PREF_SHOW_RULE_AGAIN_SIM_B2 = "Show Rule Again B2",
-            PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM = "Show Rule Again B2 Umum",
-            PREF_SHOW_RULE_AGAIN_SIM_C = "Show Rule Again C",
-            PREF_SHOW_RULE_AGAIN_SIM_D = "Show Rule Again D";
     private RecyclerView listQuestion;
     private int type;
     private ListQuestionAdapter adapter;
@@ -126,34 +116,7 @@ public class ListQuestionFragment extends MyBaseFragment implements
     }
 
     private void loadState() {
-        SharedPreferences sharedPreferences = getActivity()
-                .getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        switch (type) {
-            case DataSource.TYPE_SIM_A:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_A, true);
-                break;
-            case DataSource.TYPE_SIM_A_UMUM:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_A_UMUM, true);
-                break;
-            case DataSource.TYPE_SIM_B1:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B1, true);
-                break;
-            case DataSource.TYPE_SIM_B1_UMUM:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM, true);
-                break;
-            case DataSource.TYPE_SIM_B2:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B2, true);
-                break;
-            case DataSource.TYPE_SIM_B2_UMUM:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM, true);
-                break;
-            case DataSource.TYPE_SIM_C:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_C, true);
-                break;
-            case DataSource.TYPE_SIM_D:
-                isShowedRuleAgain = sharedPreferences.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_D, true);
-                break;
-        }
+        isShowedRuleAgain = MySetting.getInstance().isRuleShowedAgain(type);
         isProVersion = MySetting.getInstance().isProVersion();
         isRated = isProVersion ? true : MySetting.getInstance().isRated();
         isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();

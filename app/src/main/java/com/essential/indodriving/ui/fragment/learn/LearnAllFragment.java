@@ -1,9 +1,7 @@
 package com.essential.indodriving.ui.fragment.learn;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -57,15 +55,6 @@ import tatteam.com.app_common.ads.AdsNativeExpressHandler;
 public class LearnAllFragment extends MyBaseFragment implements
         View.OnClickListener, View.OnTouchListener, ModifyAnswerDialog.OnAnswerModifiedListener {
 
-    public final static String
-            PREF_CURRENT_POSITION_SIM_A = "Current Position Sim A",
-            PREF_CURRENT_POSITION_SIM_A_UMUM = "Current Position Sim A Umum",
-            PREF_CURRENT_POSITION_SIM_B1 = "Current Position Sim B1",
-            PREF_CURRENT_POSITION_SIM_B1_UMUM = "Current Position Sim B1 Umum",
-            PREF_CURRENT_POSITION_SIM_B2 = "Current Position Sim B2",
-            PREF_CURRENT_POSITION_SIM_B2_UMUM = "Current Position Sim B2 Umum",
-            PREF_CURRENT_POSITION_SIM_C = "Current Position Sim C",
-            PREF_CURRENT_POSITION_SIM_D = "Current Position Sim D";
     private static final float BITMAP_SCALE = 0.4f;
     private static final float BLUR_RADIUS = 7f;
     private static final long ALPHA_ANIM_DURATION = 600;
@@ -159,7 +148,7 @@ public class LearnAllFragment extends MyBaseFragment implements
         getData();
         questions = DataSource.getAllQuestionByType(type);
         loadState();
-        if(!isProVersion) {
+        if (!isProVersion) {
             addADS(questions);
         }
         DisplayMetrics metrics = new DisplayMetrics();
@@ -265,7 +254,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                 return false;
             }
         });
-        if(!isProVersion) {
+        if (!isProVersion) {
             setupADSIfNeeded();
             refreshAdsHandler.sendEmptyMessage(0);
         }
@@ -472,75 +461,16 @@ public class LearnAllFragment extends MyBaseFragment implements
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        switch (type) {
-            case DataSource.TYPE_SIM_A:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_A, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_A_UMUM:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_A_UMUM, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B1:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B1, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B1_UMUM:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B2:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B2, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_B2_UMUM:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_C:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_C, currentPosition);
-                break;
-            case DataSource.TYPE_SIM_D:
-                editor.putInt(PREF_CURRENT_POSITION_SIM_D, currentPosition);
-                break;
-        }
-        editor.putInt(Constants.PREF_TRIAL_TIME_LEFT, mTrialTimesLeft);
-        editor.commit();
+        MySetting.getInstance().savePosition(type, currentPosition);
+        MySetting.getInstance().saveTrialTimes(mTrialTimesLeft);
     }
 
     private void loadState() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        switch (type) {
-            case DataSource.TYPE_SIM_A:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A, 0);
-                break;
-            case DataSource.TYPE_SIM_A_UMUM:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_A_UMUM, 0);
-                break;
-            case DataSource.TYPE_SIM_B1:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1, 0);
-                break;
-            case DataSource.TYPE_SIM_B1_UMUM:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, 0);
-                break;
-            case DataSource.TYPE_SIM_B2:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B2, 0);
-                break;
-            case DataSource.TYPE_SIM_B2_UMUM:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, 0);
-                break;
-            case DataSource.TYPE_SIM_C:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_C, 0);
-                break;
-            case DataSource.TYPE_SIM_D:
-                currentPosition = sharedPreferences.getInt(PREF_CURRENT_POSITION_SIM_D, 0);
-                break;
-            default:
-                currentPosition = 0;
-        }
+        currentPosition = MySetting.getInstance().loadPosition(type);
         isProVersion = MySetting.getInstance().isProVersion();
         isRated = isProVersion ? true : MySetting.getInstance().isRated();
         isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
-        mTrialTimesLeft = sharedPreferences.getInt(
-                Constants.PREF_TRIAL_TIME_LEFT, Constants.NUMBER_OF_TRIALS);
+        mTrialTimesLeft = MySetting.getInstance().loadTrialTimesLeft();
     }
 
     private void setCardData(Question question) {

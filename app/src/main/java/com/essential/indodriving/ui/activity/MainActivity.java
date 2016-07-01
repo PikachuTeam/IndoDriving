@@ -1,6 +1,5 @@
 package com.essential.indodriving.ui.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.essential.indodriving.R;

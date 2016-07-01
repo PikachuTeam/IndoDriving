@@ -1,7 +1,5 @@
 package com.essential.indodriving.ui.fragment.test;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.DataSource;
 import com.essential.indodriving.ui.activity.HomeActivity;
@@ -98,36 +97,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
     }
 
     private void saveState() {
-        SharedPreferences sharedPreferences = getActivity().
-                getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        switch (mType) {
-            case DataSource.TYPE_SIM_A:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A, !mChecked);
-                break;
-            case DataSource.TYPE_SIM_A_UMUM:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_A_UMUM, !mChecked);
-                break;
-            case DataSource.TYPE_SIM_B1:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1, !mChecked);
-                break;
-            case DataSource.TYPE_SIM_B1_UMUM:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM, !mChecked);
-                break;
-            case DataSource.TYPE_SIM_B2:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2, !mChecked);
-                break;
-            case DataSource.TYPE_SIM_B2_UMUM:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM, !mChecked);
-                break;
-            case DataSource.TYPE_SIM_C:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_C, !mChecked);
-                break;
-            case DataSource.TYPE_SIM_D:
-                editor.putBoolean(ListQuestionFragment.PREF_SHOW_RULE_AGAIN_SIM_D, !mChecked);
-                break;
-        }
-        editor.commit();
+        MySetting.getInstance().saveStateShowRuleAgain(mType, mChecked);
     }
 
     @Override
