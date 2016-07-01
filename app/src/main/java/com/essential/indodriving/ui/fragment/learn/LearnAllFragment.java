@@ -482,7 +482,7 @@ public class LearnAllFragment extends MyBaseFragment implements
 
         if (question.isAds) {
             setupADSIfNeeded();
-            textViewProgress.setText("Ads");
+            textViewProgress.setText(null);
             readingProgress.setProgress(currentPosition + 1);
         } else {
             if (question.imageData == null) {
