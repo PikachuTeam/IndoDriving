@@ -9,6 +9,7 @@ import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -55,18 +56,20 @@ public class SplashActivity extends EssentialSplashActivity {
     }
 
     private void loadConfig() {
-        if (!MySetting.getInstance().isEnableRateToUnlock()) {
-            Ion.with(getApplicationContext())
-                    .load(Constants.URL_APP_CONFIG)
-                    .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
-                @Override
-                public void onCompleted(Exception e, JsonObject result) {
-                    if (result != null) {
-                        boolean rate_to_unlock = result.get("rate_to_unlock").getAsBoolean();
-                        if (rate_to_unlock) MySetting.getInstance().setRateToUnlock(rate_to_unlock);
-                    }
-                }
-            });
-        }
+//        if (!MySetting.getInstance().isEnableRateToUnlock()) {
+//            Ion.with(getApplicationContext())
+//                    .load(Constants.URL_APP_CONFIG)
+//                    .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+//                @Override
+//                public void onCompleted(Exception e, JsonObject result) {
+//                    if (result != null) {
+//                        boolean rate_to_unlock = result.get("rate_to_unlock").getAsBoolean();
+//                        if (rate_to_unlock) MySetting.getInstance().setRateToUnlock(rate_to_unlock);
+//                    }
+//                }
+//            });
+//        }
+
+        MySetting.getInstance().setRateToUnlock(FirebaseRemoteConfig.getInstance().getBoolean("rate_to_unlock_enable"));
     }
 }
