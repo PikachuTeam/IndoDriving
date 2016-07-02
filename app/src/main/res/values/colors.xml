@@ -74,4 +74,6 @@
     <color name="dialog_not_chosen_text_color">#595757</color>
 
     <color name="dialog_modify_answer_background">#e5e9ef</color>
+    <color name="indicator_dark_color">#C7C632</color>
+    <color name="indicator_normal_color">#FFFD00</color>
 </resources>

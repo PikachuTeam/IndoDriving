@@ -251,7 +251,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         int size = questions.size();
         for (int i = 0; i < size; i++) {
             count++;
-            if (count % Constants.ADS_BREAK == 0) {
+            if (count % Constants.WRITTEN_TEST_ADS_BREAK == 0) {
                 Question question = new Question();
                 question.isAds = true;
                 questions.add(i, question);

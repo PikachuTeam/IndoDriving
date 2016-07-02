@@ -33,59 +33,57 @@
                     card_view:cardCornerRadius="@dimen/common_size_10"
                     card_view:cardPreventCornerOverlap="false">
 
-                    <FrameLayout
+                    <LinearLayout
+                        android:id="@+id/adsContainer1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/normal_background_with_corner"
+                        android:gravity="center"
+                        android:minHeight="@dimen/learn_all_card_height"
+                        android:orientation="horizontal"
+                        android:visibility="gone" />
 
-                        <LinearLayout
-                            android:id="@+id/adsContainer1"
+                    <LinearLayout
+                        android:id="@+id/layout_question_root"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/normal_background_with_corner"
+                        android:gravity="center"
+                        android:minHeight="@dimen/learn_all_card_height"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/imageArea"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:visibility="gone" />
+                            android:layout_height="@dimen/learn_all_image_size"
+                            android:layout_marginTop="@dimen/common_size_5">
 
-                        <LinearLayout
-                            android:id="@+id/layout_question_root"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/normal_background_with_corner"
-                            android:gravity="center"
-                            android:minHeight="@dimen/learn_all_card_height"
-                            android:orientation="vertical">
-
-                            <RelativeLayout
-                                android:id="@+id/imageArea"
-                                android:layout_width="match_parent"
+                            <ImageView
+                                android:id="@+id/cardQuestionImage"
+                                android:layout_width="@dimen/learn_all_image_size"
                                 android:layout_height="@dimen/learn_all_image_size"
-                                android:layout_marginTop="@dimen/common_size_5">
+                                android:layout_centerHorizontal="true"
+                                android:clickable="true" />
 
-                                <ImageView
-                                    android:id="@+id/cardQuestionImage"
-                                    android:layout_width="@dimen/learn_all_image_size"
-                                    android:layout_height="@dimen/learn_all_image_size"
-                                    android:layout_centerHorizontal="true"
-                                    android:clickable="true" />
+                            <ImageView
+                                android:id="@+id/buttonZoomIn"
+                                android:layout_width="@dimen/button_zoom_in_size"
+                                android:layout_height="@dimen/button_zoom_in_size"
+                                android:layout_toRightOf="@id/cardQuestionImage"
+                                android:clickable="true"
+                                android:src="@drawable/ic_zoom_in_normal" />
+                        </RelativeLayout>
 
-                                <ImageView
-                                    android:id="@+id/buttonZoomIn"
-                                    android:layout_width="@dimen/button_zoom_in_size"
-                                    android:layout_height="@dimen/button_zoom_in_size"
-                                    android:layout_toRightOf="@id/cardQuestionImage"
-                                    android:clickable="true"
-                                    android:src="@drawable/ic_zoom_in_normal" />
-                            </RelativeLayout>
-
-                            <TextView
-                                android:id="@+id/cardTextViewQuestion"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:padding="@dimen/common_size_10"
-                                android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18" />
-                        </LinearLayout>
-                    </FrameLayout>
+                        <TextView
+                            android:id="@+id/cardTextViewQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:padding="@dimen/common_size_10"
+                            android:textColor="@color/learn_all_text_color"
+                            android:textSize="@dimen/common_text_size_18" />
+                    </LinearLayout>
                 </android.support.v7.widget.CardView>
 
                 <RelativeLayout
@@ -102,6 +100,7 @@
                         android:clickable="true">
 
                         <ImageView
+                            android:id="@+id/image_indicator"
                             android:layout_width="@dimen/progress_indicator_width"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_indicator" />
@@ -290,6 +289,5 @@
                     android:src="@drawable/ic_next" />
             </android.support.v7.widget.CardView>
         </LinearLayout>
-
     </RelativeLayout>
 </tatteam.com.app_common.ui.drawable.FractionFrameLayout>
