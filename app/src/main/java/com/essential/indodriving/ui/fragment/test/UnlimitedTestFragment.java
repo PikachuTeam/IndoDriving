@@ -356,7 +356,11 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             }
             AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(question.answer);
             answerChoicesItem.setActive(true);
-            answerChoicesItem.showTextNotify(question.answer == question.correctAnswer);
+            if (question.fixedAnswer == -1) {
+                answerChoicesItem.showTextNotify(question.answer == question.correctAnswer);
+            } else {
+                answerChoicesItem.showTextNotify(question.answer == question.fixedAnswer);
+            }
             choicesContainer.invalidate();
         }
 
@@ -365,25 +369,33 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             if (question.answer1 != null) {
                 AnswerChoicesItem answer1 = new AnswerChoicesItem(mContext, DataSource.ANSWER_A);
                 answer1.setChoice(question.answer1);
-                answer1.changeCheckboxColor(question.correctAnswer == 0);
+                answer1.changeCheckboxColor(question.fixedAnswer != -1 ?
+                        question.fixedAnswer == DataSource.ANSWER_A :
+                        question.correctAnswer == DataSource.ANSWER_A);
                 answerChoicesItems.add(answer1);
             }
             if (question.answer2 != null) {
                 AnswerChoicesItem answer2 = new AnswerChoicesItem(mContext, DataSource.ANSWER_B);
                 answer2.setChoice(question.answer2);
-                answer2.changeCheckboxColor(question.correctAnswer == 1);
+                answer2.changeCheckboxColor(question.fixedAnswer != -1 ?
+                        question.fixedAnswer == DataSource.ANSWER_B :
+                        question.correctAnswer == DataSource.ANSWER_B);
                 answerChoicesItems.add(answer2);
             }
             if (question.answer3 != null) {
                 AnswerChoicesItem answer3 = new AnswerChoicesItem(mContext, DataSource.ANSWER_C);
                 answer3.setChoice(question.answer3);
-                answer3.changeCheckboxColor(question.correctAnswer == 2);
+                answer3.changeCheckboxColor(question.fixedAnswer != -1 ?
+                        question.fixedAnswer == DataSource.ANSWER_C :
+                        question.correctAnswer == DataSource.ANSWER_C);
                 answerChoicesItems.add(answer3);
             }
             if (question.answer4 != null) {
                 AnswerChoicesItem answer4 = new AnswerChoicesItem(mContext, DataSource.ANSWER_D);
                 answer4.setChoice(question.answer4);
-                answer4.changeCheckboxColor(question.correctAnswer == 3);
+                answer4.changeCheckboxColor(question.fixedAnswer != -1 ?
+                        question.fixedAnswer == DataSource.ANSWER_D :
+                        question.correctAnswer == DataSource.ANSWER_D);
                 answerChoicesItems.add(answer4);
             }
             resetAllChoices(answerChoicesItems);

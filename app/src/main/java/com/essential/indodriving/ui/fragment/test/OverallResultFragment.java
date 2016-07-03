@@ -53,6 +53,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private int totalNotAnswered;
     private int mSimType;
     private int examId;
+    private int numberOfQuestions;
     private boolean mNeedSaving;
     private float[] yData;
     private ArrayList<Question> questions;
@@ -62,9 +63,10 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
+        numberOfQuestions = calculateNumberOfQuestions();
         totalCorrectAnswer = calculateCorrectAnswer();
         totalWrongAnswer = calculateWrongAnswer();
-        totalNotAnswered = Constants.TOTAL_QUESTIONS - totalCorrectAnswer - totalWrongAnswer;
+        totalNotAnswered = numberOfQuestions - totalCorrectAnswer - totalWrongAnswer;
         isSaved = false;
     }
 
@@ -185,6 +187,15 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         return tmp;
     }
 
+    private int calculateNumberOfQuestions() {
+        int tmp = 0;
+        int size = questions.size();
+        for (int i = 0; i < size; i++) {
+            if (!questions.get(i).isAds) tmp++;
+        }
+        return tmp;
+    }
+
     private void setText() {
         switch (mFragmentType) {
             case DoTestFragment.TAG_DO_TEST_FRAGMENT:
@@ -204,11 +215,11 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
                 break;
         }
         tvCorrectAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers),
-                totalCorrectAnswer, Constants.TOTAL_QUESTIONS));
+                totalCorrectAnswer, numberOfQuestions));
         tvWrongAnswer.setText(MessageFormat.format(getString(R.string.number_of_answers),
-                totalWrongAnswer, Constants.TOTAL_QUESTIONS));
+                totalWrongAnswer, numberOfQuestions));
         tvNotAnswered.setText(MessageFormat.format(getString(R.string.number_of_answers),
-                totalNotAnswered, Constants.TOTAL_QUESTIONS));
+                totalNotAnswered, numberOfQuestions));
     }
 
     private void findViews(View rootView) {
@@ -298,8 +309,10 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         ArrayList<Question> data = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
-            if (question.answer == question.correctAnswer) {
-                data.add(question);
+            if (question.fixedAnswer != -1) {
+                if (question.answer == question.fixedAnswer) data.add(question);
+            } else {
+                if (question.answer == question.correctAnswer) data.add(question);
             }
         }
         return data;
@@ -309,9 +322,16 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         ArrayList<Question> data = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
-            if (question.answer != question.correctAnswer &&
-                    question.answer != DataSource.ANSWER_NOT_CHOSEN && !question.isAds) {
-                data.add(question);
+            if (question.fixedAnswer != -1) {
+                if (question.answer != DataSource.ANSWER_NOT_CHOSEN &&
+                        question.answer != question.fixedAnswer && !question.isAds) {
+                    data.add(question);
+                }
+            } else {
+                if (question.answer != DataSource.ANSWER_NOT_CHOSEN &&
+                        question.answer != question.correctAnswer && !question.isAds) {
+                    data.add(question);
+                }
             }
         }
         return data;
