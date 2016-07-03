@@ -52,6 +52,8 @@ public class UnlimitedTestFragment extends MyBaseFragment {
     private int mType;
     private boolean mIsProVersion;
     private Typeface mFont;
+    private TextView headerQuestion;
+
     private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener =
             new QuestionNoItemWrapper.OnQuestionNoClickListener() {
                 @Override
@@ -93,6 +95,12 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             mTestHorizontalScrollView.invalidate();
             scrollToCenter(mWrappers.get(mCurrentPosition));
             getMyBaseActivity().showBigAdsIfNeeded();
+
+            if(mQuestions.get(mCurrentPosition).isAds){
+                headerQuestion.setVisibility(View.INVISIBLE);
+            }else{
+                headerQuestion.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -205,13 +213,14 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         mQuestionPager = (ViewPager) rootView.findViewById(R.id.questionPager);
         mTestHorizontalScrollContainer = (HorizontalScrollView) rootView.findViewById(R.id.testHorizontalScrollContainer);
         mTestHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
+        headerQuestion = (TextView) rootView.findViewById(R.id.headerQuestion);
         setFont(rootView);
     }
 
     private void setFont(View rootView) {
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(HomeActivity.defaultFont);
-        ((TextView) rootView.findViewById(R.id.headerQuestion)).setTypeface(mFont);
-        ((TextView) rootView.findViewById(R.id.headerQuestion)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        headerQuestion.setTypeface(mFont);
+        headerQuestion.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     private void getData() {
@@ -288,20 +297,16 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             Question question = mQuestions.get(position);
             View view = View.inflate(mContext, R.layout.item_pager_question, null);
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
-            ViewGroup adsContainer1 = (ViewGroup) view.findViewById(R.id.adsContainer1);
-            ViewGroup adsContainer2 = (ViewGroup) view.findViewById(R.id.adsContainer2);
-            ViewGroup layoutQuestionRoot = (ViewGroup) view.findViewById(R.id.layout_question_root);
+            ViewGroup adsContainer = (ViewGroup) view.findViewById(R.id.adsContainer);
+            ViewGroup layoutTestRoot = (ViewGroup) view.findViewById(R.id.layout_test_root);
             if (!mIsProVersion) {
             }
             if (question.isAds) {
-                adsContainer1.setVisibility(View.VISIBLE);
-                adsContainer2.setVisibility(View.VISIBLE);
-                layoutQuestionRoot.setVisibility(View.GONE);
-                choicesContainer.setVisibility(View.GONE);
-                AdsNativeExpressHandler adsHandler1 = null;
-                AdsNativeExpressHandler adsHandler2 = null;
-                setupAdsIfNeeded(adsHandler1, adsContainer1, adsHandler2, adsContainer2);
+                adsContainer.setVisibility(View.VISIBLE);
+                layoutTestRoot.setVisibility(View.GONE);
+                setupAds(adsContainer);
             } else {
+                view.setVisibility(View.VISIBLE);
                 ImageView questionImage = (ImageView) view.findViewById(R.id.questionImage);
                 TextView textViewQuestion = (TextView) view.findViewById(R.id.textViewQuestion);
                 RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
@@ -448,16 +453,11 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             return false;
         }
 
-        private void setupAdsIfNeeded(AdsNativeExpressHandler adsHandler1, ViewGroup adsContainer1,
-                                      AdsNativeExpressHandler adsHandler2, ViewGroup adsContainer2) {
-            if (adsHandler1 == null) {
-                adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT);
-                adsHandler1.setup();
-            }
-            if (adsHandler2 == null) {
-                adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL);
-                adsHandler2.setup();
-            }
+        private void setupAds(ViewGroup adsContainer) {
+            AdsNativeExpressHandler adsHandler = new AdsNativeExpressHandler(getActivity(), adsContainer,
+                    MyBaseActivity.ADS_BIG_NATIVE_EXPRESS, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_BIG);
+            adsHandler.setup();
         }
+
     }
 }

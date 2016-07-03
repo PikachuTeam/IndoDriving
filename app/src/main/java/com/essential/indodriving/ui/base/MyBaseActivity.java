@@ -33,6 +33,7 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
     public static AppConstant.AdsType ADS_NATIVE_EXPRESS;
     public static AppConstant.AdsType ADS_NATIVE_EXPRESS_CONTENT;
     public static AppConstant.AdsType ADS_NATIVE_EXPRESS_INSTALL;
+    public static AppConstant.AdsType ADS_BIG_NATIVE_EXPRESS;
 
     public static int count;
     private Toolbar toolbar;

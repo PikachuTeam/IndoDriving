@@ -482,8 +482,8 @@ public class LearnAllFragment extends MyBaseFragment implements
     private void setCardData(Question question) {
         layoutAnswerRoot.setVisibility(!question.isAds ? View.VISIBLE : View.GONE);
         layoutQuestionRoot.setVisibility(!question.isAds ? View.VISIBLE : View.GONE);
-        adsContainer1.setVisibility(question.isAds ? View.VISIBLE : View.GONE);
-        adsContainer2.setVisibility(question.isAds ? View.VISIBLE : View.GONE);
+        adsContainer1.setVisibility(question.isAds ? View.VISIBLE : View.INVISIBLE);
+        adsContainer2.setVisibility(question.isAds ? View.VISIBLE : View.INVISIBLE);
         cardArea.scrollTo(0, 0);
         if (question.isAds) {
             setupADSIfNeeded();
@@ -667,12 +667,12 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void setupADSIfNeeded() {
         if (adsHandler1 == null) {
-            adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT);
+            adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler1.setup();
         }
 
         if (adsHandler2 == null) {
-            adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL);
+            adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler2.setup();
         }
     }

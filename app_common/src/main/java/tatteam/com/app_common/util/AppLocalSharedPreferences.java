@@ -139,6 +139,18 @@ public class AppLocalSharedPreferences {
         return currentAdsId.equals(adsId);
     }
 
+    public int[] getAdsSize(AppConstant.AdsType adsType) {
+        int width = pref.getInt(adsType.getType() + "_WIDTH", 0);
+        int height = pref.getInt(adsType.getType() + "_HEIGHT", 0);
+        return new int[]{width, height};
+    }
+
+    public void setAdsSize(AppConstant.AdsType adsType, int width, int height) {
+        editor.putInt(adsType.getType() + "_WIDTH", width);
+        editor.putInt(adsType.getType() + "_HEIGHT", height);
+        editor.commit();
+    }
+
     public void removeAdsId(AppConstant.AdsType adsType) {
         setAdsId(adsType, "");
     }

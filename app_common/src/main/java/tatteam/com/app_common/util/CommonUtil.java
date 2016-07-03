@@ -46,4 +46,12 @@ public class CommonUtil {
         intent2.putExtra(Intent.EXTRA_TEXT, message);
         context.startActivity(Intent.createChooser(intent2, "Share via"));
     }
+
+    public static float dpFromPx(final Context context, final float px) {
+        return px / context.getResources().getDisplayMetrics().density;
+    }
+
+    public static float pxFromDp(final Context context, final float dp) {
+        return dp * context.getResources().getDisplayMetrics().density;
+    }
 }

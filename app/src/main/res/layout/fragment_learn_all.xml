@@ -41,7 +41,8 @@
                         android:gravity="center"
                         android:minHeight="@dimen/learn_all_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/common_size_8"/>
 
                     <LinearLayout
                         android:id="@+id/layout_question_root"
@@ -155,7 +156,8 @@
                         android:gravity="center"
                         android:minHeight="@dimen/learn_all_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/common_size_8"/>
 
                     <RelativeLayout
                         android:id="@+id/layout_answer_root"

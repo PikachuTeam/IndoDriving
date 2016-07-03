@@ -38,19 +38,22 @@ public class SplashActivity extends EssentialSplashActivity {
             MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
             MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
             MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            MyBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
         } else {
             MyBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST;
             MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_DRIVING_TEST;
             MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_DRIVING_TEST;
             MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_CONTENT_DRIVING_TEST;
             MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_INSTALL_DRIVING_TEST;
+            MyBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.BIG_NATIVE_EXPRESS_DRIVING_TEST;
         }
 
         AppCommon.getInstance().syncAdsIfNeeded(MyBaseActivity.ADS_SMALL,
                 MyBaseActivity.ADS_BIG,
                 MyBaseActivity.ADS_NATIVE_EXPRESS,
                 MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT,
-                MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL);
+                MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL,
+                MyBaseActivity.ADS_BIG_NATIVE_EXPRESS);
         PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
         loadConfig();
 

@@ -27,8 +27,8 @@ android {
     productFlavors {
         free {
             applicationId = "com.essential.indodriving.free"
-            versionCode 7
-            versionName "1.6"
+            versionCode 8
+            versionName "1.7"
         }
         pro {
             applicationId = "com.essential.indodriving.pro"

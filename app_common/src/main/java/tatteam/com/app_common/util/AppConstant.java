@@ -33,8 +33,8 @@ public interface AppConstant {
         BIG_BANNER_DRIVING_TEST("big_banner_driving_test"),
         NATIVE_EXPRESS_DRIVING_TEST("native_express_driving_test"),
         NATIVE_EXPRESS_CONTENT_DRIVING_TEST("native_express_content_driving_test"),
-        NATIVE_EXPRESS_INSTALL_DRIVING_TEST("native_express_install_driving_test");
-
+        NATIVE_EXPRESS_INSTALL_DRIVING_TEST("native_express_install_driving_test"),
+        BIG_NATIVE_EXPRESS_DRIVING_TEST("big_native_express_driving_test");
 
         private String type;
 
