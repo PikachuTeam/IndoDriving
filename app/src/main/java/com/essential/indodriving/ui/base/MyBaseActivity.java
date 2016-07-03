@@ -31,6 +31,8 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
     public static AppConstant.AdsType ADS_SMALL;
     public static AppConstant.AdsType ADS_BIG;
     public static AppConstant.AdsType ADS_NATIVE_EXPRESS;
+    public static AppConstant.AdsType ADS_NATIVE_EXPRESS_CONTENT;
+    public static AppConstant.AdsType ADS_NATIVE_EXPRESS_INSTALL;
 
     public static int count;
     private Toolbar toolbar;
@@ -124,7 +126,7 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
     }
 
     public void showBigAdsIfNeeded() {
-        if (!MySetting.getInstance().isProVersion()) {
+        if (false && !MySetting.getInstance().isProVersion()) {
             count++;
             if (count % BIG_ADS_SHOWING_INTERVAL == 0) {
                 adsBigBannerHandler.show();

@@ -8,8 +8,6 @@ import com.essential.indodriving.data.PoolDatabaseLoader;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -38,14 +36,24 @@ public class SplashActivity extends EssentialSplashActivity {
             MyBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_TEST;
             MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_TEST;
             MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
         } else {
             MyBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST;
             MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_DRIVING_TEST;
             MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_DRIVING_TEST;
+            MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_CONTENT_DRIVING_TEST;
+            MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_INSTALL_DRIVING_TEST;
         }
-        AppCommon.getInstance().syncAdsIfNeeded(MyBaseActivity.ADS_SMALL, MyBaseActivity.ADS_BIG, MyBaseActivity.ADS_NATIVE_EXPRESS);
+
+        AppCommon.getInstance().syncAdsIfNeeded(MyBaseActivity.ADS_SMALL,
+                MyBaseActivity.ADS_BIG,
+                MyBaseActivity.ADS_NATIVE_EXPRESS,
+                MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT,
+                MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL);
         PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
         loadConfig();
+
     }
 
     @Override
@@ -56,20 +64,18 @@ public class SplashActivity extends EssentialSplashActivity {
     }
 
     private void loadConfig() {
-//        if (!MySetting.getInstance().isEnableRateToUnlock()) {
-//            Ion.with(getApplicationContext())
-//                    .load(Constants.URL_APP_CONFIG)
-//                    .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
-//                @Override
-//                public void onCompleted(Exception e, JsonObject result) {
-//                    if (result != null) {
-//                        boolean rate_to_unlock = result.get("rate_to_unlock").getAsBoolean();
-//                        if (rate_to_unlock) MySetting.getInstance().setRateToUnlock(rate_to_unlock);
-//                    }
-//                }
-//            });
-//        }
-
-        MySetting.getInstance().setRateToUnlock(FirebaseRemoteConfig.getInstance().getBoolean("rate_to_unlock_enable"));
+        if (!MySetting.getInstance().isEnableRateToUnlock()) {
+            Ion.with(getApplicationContext())
+                    .load(Constants.URL_APP_CONFIG)
+                    .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+                @Override
+                public void onCompleted(Exception e, JsonObject result) {
+                    if (result != null) {
+                        boolean rate_to_unlock = result.get("rate_to_unlock").getAsBoolean();
+                        if (rate_to_unlock) MySetting.getInstance().setRateToUnlock(rate_to_unlock);
+                    }
+                }
+            });
+        }
     }
 }

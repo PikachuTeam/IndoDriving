@@ -439,11 +439,11 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         private void setupAdsIfNeeded(AdsNativeExpressHandler adsHandler1, ViewGroup adsContainer1,
                                       AdsNativeExpressHandler adsHandler2, ViewGroup adsContainer2) {
             if (adsHandler1 == null) {
-                adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS);
+                adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT);
                 adsHandler1.setup();
             }
             if (adsHandler2 == null) {
-                adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS);
+                adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL);
                 adsHandler2.setup();
             }
         }

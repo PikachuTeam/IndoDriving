@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "276784031291",
-    "firebase_url": "https://app-common-a29dc.firebaseio.com",
-    "project_id": "app-common-a29dc",
-    "storage_bucket": "app-common-a29dc.appspot.com"
+    "project_number": "68222759945",
+    "firebase_url": "https://app-common-a97e2.firebaseio.com",
+    "project_id": "app-common-a97e2",
+    "storage_bucket": "app-common-a97e2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:276784031291:android:0ef264ecc9ca3879",
+        "mobilesdk_app_id": "1:68222759945:android:0ef264ecc9ca3879",
         "android_client_info": {
           "package_name": "tatteam.com.app_common"
         }
       },
       "oauth_client": [
         {
-          "client_id": "276784031291-76llecigdjr3489q61cgs7kf1t9csnqe.apps.googleusercontent.com",
+          "client_id": "68222759945-9m6ikfhopg7ck6ml23hb4rpd0nnlb1c7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAOAx_-zKXCroLi4Ry6l0VbF4CJlZJmnEc"
+          "current_key": "AIzaSyBHgxw8VxicQiXMZIg-889WKDxBz2srYaw"
         }
       ],
       "services": {
