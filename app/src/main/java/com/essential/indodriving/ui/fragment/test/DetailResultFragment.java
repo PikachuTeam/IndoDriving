@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.Question;
+import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.ShowResultDialog;

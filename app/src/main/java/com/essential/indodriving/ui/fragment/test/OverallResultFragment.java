@@ -14,8 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.Question;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
@@ -121,7 +121,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         Bundle bundle = getArguments();
         if (bundle != null) {
             mNeedSaving = bundle.getBoolean(Constants.BUNDLE_NEED_SAVING);
-            mSimType = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+            mSimType = bundle.getInt(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
             mFragmentType = bundle.getString(Constants.BUNDLE_FRAGMENT_TYPE, DoTestFragment.TAG_DO_TEST_FRAGMENT);
             examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
         }
@@ -323,12 +323,12 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
             if (question.fixedAnswer != -1) {
-                if (question.answer != DataSource.ANSWER_NOT_CHOSEN &&
+                if (question.answer != DrivingDataSource.ANSWER_NOT_CHOSEN &&
                         question.answer != question.fixedAnswer && !question.isAds) {
                     data.add(question);
                 }
             } else {
-                if (question.answer != DataSource.ANSWER_NOT_CHOSEN &&
+                if (question.answer != DrivingDataSource.ANSWER_NOT_CHOSEN &&
                         question.answer != question.correctAnswer && !question.isAds) {
                     data.add(question);
                 }
@@ -341,7 +341,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
         ArrayList<Question> data = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
-            if (question.answer == DataSource.ANSWER_NOT_CHOSEN && !question.isAds) {
+            if (question.answer == DrivingDataSource.ANSWER_NOT_CHOSEN && !question.isAds) {
                 data.add(question);
             }
         }
@@ -351,7 +351,7 @@ public class OverallResultFragment extends MyBaseFragment implements View.OnClic
     private void saveData() {
         if (!isSaved && mNeedSaving) {
             isSaved = true;
-            DataSource.saveScore(examId, "" + mSimType, totalCorrectAnswer);
+            DrivingDataSource.saveScore(examId, "" + mSimType, totalCorrectAnswer);
         }
     }
 

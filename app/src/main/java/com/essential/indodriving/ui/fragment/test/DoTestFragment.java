@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.Question;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
@@ -68,7 +68,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        questions = DataSource.getQuestionsByTypeAndExamId(type, examId, mIsRandom, NUMBER_OF_QUESTIONS);
+        questions = DrivingDataSource.getQuestionsByTypeAndExamId(type, examId, mIsRandom, NUMBER_OF_QUESTIONS);
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         wrappers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
@@ -190,7 +190,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     @Override
     public void onQuestionPagerItemClick(AnswerChoicesItem item) {
-        if (questions.get(currentPosition).answer == DataSource.ANSWER_NOT_CHOSEN) {
+        if (questions.get(currentPosition).answer == DrivingDataSource.ANSWER_NOT_CHOSEN) {
             questions.get(currentPosition).answer = item.getIndex();
             QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
             if (!wrapper.isHighlight) {
@@ -237,7 +237,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
         examId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
         mIsRandom = bundle.getBoolean(BUNDLE_IS_RANDOM, false);
     }
@@ -407,27 +407,27 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         private ArrayList<AnswerChoicesItem> makeChoices(Question question) {
             ArrayList<AnswerChoicesItem> answerChoicesItems = new ArrayList<>();
             if (question.answer1 != null) {
-                AnswerChoicesItem answer1 = new AnswerChoicesItem(context, DataSource.ANSWER_A);
+                AnswerChoicesItem answer1 = new AnswerChoicesItem(context, DrivingDataSource.ANSWER_A);
                 answer1.setChoice(question.answer1);
                 answerChoicesItems.add(answer1);
             }
             if (question.answer2 != null) {
-                AnswerChoicesItem answer2 = new AnswerChoicesItem(context, DataSource.ANSWER_B);
+                AnswerChoicesItem answer2 = new AnswerChoicesItem(context, DrivingDataSource.ANSWER_B);
                 answer2.setChoice(question.answer2);
                 answerChoicesItems.add(answer2);
             }
             if (question.answer3 != null) {
-                AnswerChoicesItem answer3 = new AnswerChoicesItem(context, DataSource.ANSWER_C);
+                AnswerChoicesItem answer3 = new AnswerChoicesItem(context, DrivingDataSource.ANSWER_C);
                 answer3.setChoice(question.answer3);
                 answerChoicesItems.add(answer3);
             }
             if (question.answer4 != null) {
-                AnswerChoicesItem answer4 = new AnswerChoicesItem(context, DataSource.ANSWER_D);
+                AnswerChoicesItem answer4 = new AnswerChoicesItem(context, DrivingDataSource.ANSWER_D);
                 answer4.setChoice(question.answer4);
                 answerChoicesItems.add(answer4);
             }
             resetAllChoices(answerChoicesItems);
-            if (question.answer != DataSource.ANSWER_NOT_CHOSEN) {
+            if (question.answer != DrivingDataSource.ANSWER_NOT_CHOSEN) {
                 answerChoicesItems.get(question.answer).setActive(true);
             }
             return answerChoicesItems;

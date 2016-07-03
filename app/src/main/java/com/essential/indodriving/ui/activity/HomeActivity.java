@@ -15,16 +15,21 @@ import android.widget.TextView;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.bumptech.glide.Glide;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.sign.Sign;
+import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
 import com.essential.indodriving.ui.widget.UpgradeToProVerDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import java.util.ArrayList;
 
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.util.CloseAppHandler;
@@ -141,21 +146,21 @@ public class HomeActivity extends AppCompatActivity implements
     public void onClick(View v) {
         Intent intent = new Intent(HomeActivity.this, MainActivity.class);
         if (v == buttonLearnSimA) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
         } else if (v == buttonLearnSimAUmum) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A_UMUM);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A_UMUM);
         } else if (v == buttonLearnSimB1) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_B1);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B1);
         } else if (v == buttonLearnSimB1Umum) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_B1_UMUM);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B1_UMUM);
         } else if (v == buttonLearnSimB2) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_B2);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B2);
         } else if (v == buttonLearnSimB2Umum) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_B2_UMUM);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B2_UMUM);
         } else if (v == buttonLearnSimC) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_C);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_C);
         } else if (v == buttonLearnSimD) {
-            intent.putExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_D);
+            intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_D);
         }
         MyBaseActivity.startActivityAnimation(this, intent);
     }

@@ -3,7 +3,7 @@ package com.essential.indodriving.ui.activity;
 import android.os.Bundle;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseActivity;
 import com.essential.indodriving.ui.fragment.ChooseItemFragment;
@@ -34,7 +34,7 @@ public class MainActivity extends MyBaseActivity {
     @Override
     protected void onCreateContentView() {
         super.onCreateContentView();
-        mType = getIntent().getIntExtra(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        mType = getIntent().getIntExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
     }
 
     @Override

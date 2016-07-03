@@ -10,10 +10,12 @@ import tatteam.com.app_common.sqlite.v2.DatabaseLoaderV2;
 public class PoolDatabaseLoader {
 
     private static final String DATABASE_INDO_DRIVING = "indo_driving_2.db";
+    private static final String DATABASE_INDO_SIGN = "indo_sign.db";
 
     private static PoolDatabaseLoader instance;
 
-    private DatabaseLoaderV2 indoDatabaseLoader;
+    private DatabaseLoaderV2 indoDrivingDatabaseLoader;
+    private DatabaseLoaderV2 indoSignDatabaseLoader;
 
     private PoolDatabaseLoader() {
     }
@@ -26,13 +28,20 @@ public class PoolDatabaseLoader {
     }
 
     public void initIfNeeded(Context context) {
-        indoDatabaseLoader = new DatabaseLoaderV2(context, DATABASE_INDO_DRIVING);
-        indoDatabaseLoader.initIfNeeded();
+        indoDrivingDatabaseLoader = new DatabaseLoaderV2(context, DATABASE_INDO_DRIVING);
+        indoDrivingDatabaseLoader.initIfNeeded();
+
+        indoSignDatabaseLoader = new DatabaseLoaderV2(context, DATABASE_INDO_SIGN);
+        indoSignDatabaseLoader.initIfNeeded();
 
     }
 
-    public DatabaseLoaderV2 getIndoDatabaseLoader() {
-        return indoDatabaseLoader;
+    public DatabaseLoaderV2 getIndoDrivingDatabaseLoader() {
+        return indoDrivingDatabaseLoader;
+    }
+
+    public DatabaseLoaderV2 getIndoSignDatabaseLoader(){
+        return indoSignDatabaseLoader;
     }
 
 }

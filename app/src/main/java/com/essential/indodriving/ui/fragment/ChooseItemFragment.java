@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
@@ -33,19 +33,19 @@ public class ChooseItemFragment extends MyBaseFragment {
     @Override
     protected String getTitle() {
         switch (mType) {
-            case DataSource.TYPE_SIM_A_UMUM:
+            case DrivingDataSource.TYPE_SIM_A_UMUM:
                 return getString(R.string.sim_a_umum);
-            case DataSource.TYPE_SIM_B1:
+            case DrivingDataSource.TYPE_SIM_B1:
                 return getString(R.string.sim_b1);
-            case DataSource.TYPE_SIM_B1_UMUM:
+            case DrivingDataSource.TYPE_SIM_B1_UMUM:
                 return getString(R.string.sim_b1_umum);
-            case DataSource.TYPE_SIM_B2:
+            case DrivingDataSource.TYPE_SIM_B2:
                 return getString(R.string.sim_b2);
-            case DataSource.TYPE_SIM_B2_UMUM:
+            case DrivingDataSource.TYPE_SIM_B2_UMUM:
                 return getString(R.string.sim_b2_umum);
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 return getString(R.string.sim_c);
-            case DataSource.TYPE_SIM_D:
+            case DrivingDataSource.TYPE_SIM_D:
                 return getString(R.string.sim_d);
             default:
                 return getString(R.string.sim_a);
@@ -101,8 +101,8 @@ public class ChooseItemFragment extends MyBaseFragment {
     @Override
     protected boolean enableButtonTutorial() {
         switch (mType) {
-            case DataSource.TYPE_SIM_A:
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_C:
                 return true;
             default:
                 return false;
@@ -113,10 +113,10 @@ public class ChooseItemFragment extends MyBaseFragment {
     protected void onMenuItemClick(int id) {
         String url = "";
         switch (mType) {
-            case DataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_A:
                 url = "https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+A";
                 break;
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 url = "https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+C";
                 break;
         }
@@ -156,7 +156,7 @@ public class ChooseItemFragment extends MyBaseFragment {
 
     private void getData() {
         Bundle bundle = getArguments();
-        mType = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        mType = bundle.getInt(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
     }
 
     private void setFont(View rootView, Typeface font) {

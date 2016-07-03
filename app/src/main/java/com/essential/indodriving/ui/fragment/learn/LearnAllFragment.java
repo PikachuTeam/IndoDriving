@@ -34,8 +34,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.Question;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
@@ -150,7 +150,7 @@ public class LearnAllFragment extends MyBaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        questions = DataSource.getAllQuestionByType(type);
+        questions = DrivingDataSource.getAllQuestionByType(type);
         loadState();
         if (!isProVersion) {
             addADS(questions);
@@ -273,19 +273,19 @@ public class LearnAllFragment extends MyBaseFragment implements
     @Override
     protected String getTitle() {
         switch (type) {
-            case DataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_A:
                 return MessageFormat.format(getString(R.string.learn_sim_a), "");
-            case DataSource.TYPE_SIM_A_UMUM:
+            case DrivingDataSource.TYPE_SIM_A_UMUM:
                 return MessageFormat.format(getString(R.string.learn_sim_a_umum), "");
-            case DataSource.TYPE_SIM_B1:
+            case DrivingDataSource.TYPE_SIM_B1:
                 return MessageFormat.format(getString(R.string.learn_sim_b1), "");
-            case DataSource.TYPE_SIM_B1_UMUM:
+            case DrivingDataSource.TYPE_SIM_B1_UMUM:
                 return MessageFormat.format(getString(R.string.learn_sim_b1_umum), "");
-            case DataSource.TYPE_SIM_B2:
+            case DrivingDataSource.TYPE_SIM_B2:
                 return MessageFormat.format(getString(R.string.learn_sim_b2), "");
-            case DataSource.TYPE_SIM_B2_UMUM:
+            case DrivingDataSource.TYPE_SIM_B2_UMUM:
                 return MessageFormat.format(getString(R.string.learn_sim_b2_umum), "");
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 return MessageFormat.format(getString(R.string.learn_sim_c), "");
             default:
                 return MessageFormat.format(getString(R.string.learn_sim_d), "");
@@ -548,19 +548,19 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void makeCorrectAnswer(int correctAnswer) {
         switch (correctAnswer) {
-            case DataSource.ANSWER_A:
+            case DrivingDataSource.ANSWER_A:
                 textViewAnswerA.setTextColor(
                         ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
                 break;
-            case DataSource.ANSWER_B:
+            case DrivingDataSource.ANSWER_B:
                 textViewAnswerB.setTextColor(
                         ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
                 break;
-            case DataSource.ANSWER_C:
+            case DrivingDataSource.ANSWER_C:
                 textViewAnswerC.setTextColor(
                         ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
                 break;
-            case DataSource.ANSWER_D:
+            case DrivingDataSource.ANSWER_D:
                 textViewAnswerD.setTextColor(
                         ContextCompat.getColor(getActivity(), R.color.correct_answer_color));
                 break;
@@ -569,7 +569,7 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
     }
 
     private void enableButton(ImageView button, int image) {

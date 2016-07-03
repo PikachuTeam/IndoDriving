@@ -3,7 +3,7 @@ package com.essential.indodriving;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.ui.base.Constants;
 
 /**
@@ -83,28 +83,28 @@ public class MySetting {
 
     public void savePosition(int type, int position) {
         switch (type) {
-            case DataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_A:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_A, position);
                 break;
-            case DataSource.TYPE_SIM_A_UMUM:
+            case DrivingDataSource.TYPE_SIM_A_UMUM:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_A_UMUM, position);
                 break;
-            case DataSource.TYPE_SIM_B1:
+            case DrivingDataSource.TYPE_SIM_B1:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_B1, position);
                 break;
-            case DataSource.TYPE_SIM_B1_UMUM:
+            case DrivingDataSource.TYPE_SIM_B1_UMUM:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, position);
                 break;
-            case DataSource.TYPE_SIM_B2:
+            case DrivingDataSource.TYPE_SIM_B2:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_B2, position);
                 break;
-            case DataSource.TYPE_SIM_B2_UMUM:
+            case DrivingDataSource.TYPE_SIM_B2_UMUM:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, position);
                 break;
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_C, position);
                 break;
-            case DataSource.TYPE_SIM_D:
+            case DrivingDataSource.TYPE_SIM_D:
                 editor.putInt(PREF_CURRENT_POSITION_SIM_D, position);
                 break;
         }
@@ -113,21 +113,21 @@ public class MySetting {
 
     public int loadPosition(int type) {
         switch (type) {
-            case DataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_A:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_A, 0);
-            case DataSource.TYPE_SIM_A_UMUM:
+            case DrivingDataSource.TYPE_SIM_A_UMUM:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_A_UMUM, 0);
-            case DataSource.TYPE_SIM_B1:
+            case DrivingDataSource.TYPE_SIM_B1:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_B1, 0);
-            case DataSource.TYPE_SIM_B1_UMUM:
+            case DrivingDataSource.TYPE_SIM_B1_UMUM:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_B1_UMUM, 0);
-            case DataSource.TYPE_SIM_B2:
+            case DrivingDataSource.TYPE_SIM_B2:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_B2, 0);
-            case DataSource.TYPE_SIM_B2_UMUM:
+            case DrivingDataSource.TYPE_SIM_B2_UMUM:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_B2_UMUM, 0);
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_C, 0);
-            case DataSource.TYPE_SIM_D:
+            case DrivingDataSource.TYPE_SIM_D:
                 return pref.getInt(PREF_CURRENT_POSITION_SIM_D, 0);
             default:
                 return 0;
@@ -145,28 +145,28 @@ public class MySetting {
 
     public void saveStateShowRuleAgain(int type, boolean isChecked) {
         switch (type) {
-            case DataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_A:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_A, !isChecked);
                 break;
-            case DataSource.TYPE_SIM_A_UMUM:
+            case DrivingDataSource.TYPE_SIM_A_UMUM:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_A_UMUM, !isChecked);
                 break;
-            case DataSource.TYPE_SIM_B1:
+            case DrivingDataSource.TYPE_SIM_B1:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_B1, !isChecked);
                 break;
-            case DataSource.TYPE_SIM_B1_UMUM:
+            case DrivingDataSource.TYPE_SIM_B1_UMUM:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM, !isChecked);
                 break;
-            case DataSource.TYPE_SIM_B2:
+            case DrivingDataSource.TYPE_SIM_B2:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_B2, !isChecked);
                 break;
-            case DataSource.TYPE_SIM_B2_UMUM:
+            case DrivingDataSource.TYPE_SIM_B2_UMUM:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM, !isChecked);
                 break;
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_C, !isChecked);
                 break;
-            case DataSource.TYPE_SIM_D:
+            case DrivingDataSource.TYPE_SIM_D:
                 editor.putBoolean(PREF_SHOW_RULE_AGAIN_SIM_D, !isChecked);
                 break;
         }
@@ -175,21 +175,21 @@ public class MySetting {
 
     public boolean isRuleShowedAgain(int type) {
         switch (type) {
-            case DataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_A:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_A, true);
-            case DataSource.TYPE_SIM_A_UMUM:
+            case DrivingDataSource.TYPE_SIM_A_UMUM:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_A_UMUM, true);
-            case DataSource.TYPE_SIM_B1:
+            case DrivingDataSource.TYPE_SIM_B1:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B1, true);
-            case DataSource.TYPE_SIM_B1_UMUM:
+            case DrivingDataSource.TYPE_SIM_B1_UMUM:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B1_UMUM, true);
-            case DataSource.TYPE_SIM_B2:
+            case DrivingDataSource.TYPE_SIM_B2:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B2, true);
-            case DataSource.TYPE_SIM_B2_UMUM:
+            case DrivingDataSource.TYPE_SIM_B2_UMUM:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_B2_UMUM, true);
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_C, true);
-            case DataSource.TYPE_SIM_D:
+            case DrivingDataSource.TYPE_SIM_D:
                 return pref.getBoolean(PREF_SHOW_RULE_AGAIN_SIM_D, true);
             default:
                 return true;

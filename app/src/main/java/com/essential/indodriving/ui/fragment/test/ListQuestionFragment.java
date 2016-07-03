@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.QuestionPackage;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.driving.QuestionPackage;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.MainActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
@@ -90,7 +90,7 @@ public class ListQuestionFragment extends MyBaseFragment implements
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
         loadState();
-        questionPackages = DataSource.getQuestionPackagesByType(type);
+        questionPackages = DrivingDataSource.getQuestionPackagesByType(type);
         adapter = new ListQuestionAdapter(getActivity(), questionPackages, HomeActivity.defaultFont);
         adapter.setOnRecyclerViewItemClickListener(this);
         setupRecyclerView();
@@ -124,7 +124,7 @@ public class ListQuestionFragment extends MyBaseFragment implements
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
     }
 
     private void setupRecyclerView() {

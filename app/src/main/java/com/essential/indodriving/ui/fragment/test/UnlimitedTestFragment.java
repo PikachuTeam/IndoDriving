@@ -18,8 +18,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.Question;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
@@ -128,7 +128,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         super.onCreate(savedInstanceState);
         getData();
         mIsProVersion = MySetting.getInstance().isProVersion();
-        mQuestions = DataSource.getQuestionsByTypeAndExamId(mType, 1, true, NUMBER_OF_QUESTIONS);
+        mQuestions = DrivingDataSource.getQuestionsByTypeAndExamId(mType, 1, true, NUMBER_OF_QUESTIONS);
         if (!mIsProVersion) {
             addAds(mQuestions);
         }
@@ -367,39 +367,39 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         private ArrayList<AnswerChoicesItem> makeChoices(Question question) {
             ArrayList<AnswerChoicesItem> answerChoicesItems = new ArrayList<>();
             if (question.answer1 != null) {
-                AnswerChoicesItem answer1 = new AnswerChoicesItem(mContext, DataSource.ANSWER_A);
+                AnswerChoicesItem answer1 = new AnswerChoicesItem(mContext, DrivingDataSource.ANSWER_A);
                 answer1.setChoice(question.answer1);
                 answer1.changeCheckboxColor(question.fixedAnswer != -1 ?
-                        question.fixedAnswer == DataSource.ANSWER_A :
-                        question.correctAnswer == DataSource.ANSWER_A);
+                        question.fixedAnswer == DrivingDataSource.ANSWER_A :
+                        question.correctAnswer == DrivingDataSource.ANSWER_A);
                 answerChoicesItems.add(answer1);
             }
             if (question.answer2 != null) {
-                AnswerChoicesItem answer2 = new AnswerChoicesItem(mContext, DataSource.ANSWER_B);
+                AnswerChoicesItem answer2 = new AnswerChoicesItem(mContext, DrivingDataSource.ANSWER_B);
                 answer2.setChoice(question.answer2);
                 answer2.changeCheckboxColor(question.fixedAnswer != -1 ?
-                        question.fixedAnswer == DataSource.ANSWER_B :
-                        question.correctAnswer == DataSource.ANSWER_B);
+                        question.fixedAnswer == DrivingDataSource.ANSWER_B :
+                        question.correctAnswer == DrivingDataSource.ANSWER_B);
                 answerChoicesItems.add(answer2);
             }
             if (question.answer3 != null) {
-                AnswerChoicesItem answer3 = new AnswerChoicesItem(mContext, DataSource.ANSWER_C);
+                AnswerChoicesItem answer3 = new AnswerChoicesItem(mContext, DrivingDataSource.ANSWER_C);
                 answer3.setChoice(question.answer3);
                 answer3.changeCheckboxColor(question.fixedAnswer != -1 ?
-                        question.fixedAnswer == DataSource.ANSWER_C :
-                        question.correctAnswer == DataSource.ANSWER_C);
+                        question.fixedAnswer == DrivingDataSource.ANSWER_C :
+                        question.correctAnswer == DrivingDataSource.ANSWER_C);
                 answerChoicesItems.add(answer3);
             }
             if (question.answer4 != null) {
-                AnswerChoicesItem answer4 = new AnswerChoicesItem(mContext, DataSource.ANSWER_D);
+                AnswerChoicesItem answer4 = new AnswerChoicesItem(mContext, DrivingDataSource.ANSWER_D);
                 answer4.setChoice(question.answer4);
                 answer4.changeCheckboxColor(question.fixedAnswer != -1 ?
-                        question.fixedAnswer == DataSource.ANSWER_D :
-                        question.correctAnswer == DataSource.ANSWER_D);
+                        question.fixedAnswer == DrivingDataSource.ANSWER_D :
+                        question.correctAnswer == DrivingDataSource.ANSWER_D);
                 answerChoicesItems.add(answer4);
             }
             resetAllChoices(answerChoicesItems);
-            if (question.answer != DataSource.ANSWER_NOT_CHOSEN) {
+            if (question.answer != DrivingDataSource.ANSWER_NOT_CHOSEN) {
                 answerChoicesItems.get(question.answer).setActive(true);
                 if (question.fixedAnswer == -1) {
                     answerChoicesItems.get(question.answer).

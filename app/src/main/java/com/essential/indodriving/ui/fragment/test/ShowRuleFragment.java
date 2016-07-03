@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
@@ -58,28 +58,28 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
         findViews(rootView);
 
         switch (mType) {
-            case DataSource.TYPE_SIM_A:
+            case DrivingDataSource.TYPE_SIM_A:
                 textViewRule.setText(getString(R.string.test_rule_sim_a));
                 break;
-            case DataSource.TYPE_SIM_A_UMUM:
+            case DrivingDataSource.TYPE_SIM_A_UMUM:
                 textViewRule.setText(getString(R.string.test_rule_sim_a_umum));
                 break;
-            case DataSource.TYPE_SIM_B1:
+            case DrivingDataSource.TYPE_SIM_B1:
                 textViewRule.setText(getString(R.string.test_rule_sim_b1));
                 break;
-            case DataSource.TYPE_SIM_B1_UMUM:
+            case DrivingDataSource.TYPE_SIM_B1_UMUM:
                 textViewRule.setText(getString(R.string.test_rule_sim_b1_umum));
                 break;
-            case DataSource.TYPE_SIM_B2:
+            case DrivingDataSource.TYPE_SIM_B2:
                 textViewRule.setText(getString(R.string.test_rule_sim_b2));
                 break;
-            case DataSource.TYPE_SIM_B2_UMUM:
+            case DrivingDataSource.TYPE_SIM_B2_UMUM:
                 textViewRule.setText(getString(R.string.test_rule_sim_b2_umum));
                 break;
-            case DataSource.TYPE_SIM_C:
+            case DrivingDataSource.TYPE_SIM_C:
                 textViewRule.setText(getString(R.string.test_rule_sim_c));
                 break;
-            case DataSource.TYPE_SIM_D:
+            case DrivingDataSource.TYPE_SIM_D:
                 textViewRule.setText(getString(R.string.test_rule_sim_d));
                 break;
         }
@@ -114,7 +114,7 @@ public class ShowRuleFragment extends MyBaseFragment implements View.OnClickList
 
     private void getData() {
         Bundle bundle = getArguments();
-        mType = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        mType = bundle.getInt(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
         mExamId = bundle.getInt(Constants.BUNDLE_EXAM_ID, 1);
         mIsRandom = bundle.getBoolean(DoTestFragment.BUNDLE_IS_RANDOM, false);
     }

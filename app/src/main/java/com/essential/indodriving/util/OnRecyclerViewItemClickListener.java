@@ -1,6 +1,6 @@
 package com.essential.indodriving.util;
 
-import com.essential.indodriving.data.QuestionPackage;
+import com.essential.indodriving.data.driving.QuestionPackage;
 
 /**
  * Created by dongc_000 on 2/24/2016.

@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.Question;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 
@@ -136,32 +136,32 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
     }
 
     private void makeAnswerGroup(int correctAnswer) {
-        if (correctAnswer == DataSource.ANSWER_A) {
-            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_TEXT);
-            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_RADIO);
-            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_RADIO);
+        if (correctAnswer == DrivingDataSource.ANSWER_A) {
+            makeChoice(mQuestion.answer1, DrivingDataSource.ANSWER_A, TYPE_TEXT);
+            makeChoice(mQuestion.answer2, DrivingDataSource.ANSWER_B, TYPE_RADIO);
+            makeChoice(mQuestion.answer3, DrivingDataSource.ANSWER_C, TYPE_RADIO);
             if (!TextUtils.isEmpty(mQuestion.answer4)) {
-                makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_RADIO);
+                makeChoice(mQuestion.answer4, DrivingDataSource.ANSWER_D, TYPE_RADIO);
             }
-        } else if (correctAnswer == DataSource.ANSWER_B) {
-            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_RADIO);
-            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_TEXT);
-            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_RADIO);
+        } else if (correctAnswer == DrivingDataSource.ANSWER_B) {
+            makeChoice(mQuestion.answer1, DrivingDataSource.ANSWER_A, TYPE_RADIO);
+            makeChoice(mQuestion.answer2, DrivingDataSource.ANSWER_B, TYPE_TEXT);
+            makeChoice(mQuestion.answer3, DrivingDataSource.ANSWER_C, TYPE_RADIO);
             if (!TextUtils.isEmpty(mQuestion.answer4)) {
-                makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_RADIO);
+                makeChoice(mQuestion.answer4, DrivingDataSource.ANSWER_D, TYPE_RADIO);
             }
-        } else if (correctAnswer == DataSource.ANSWER_C) {
-            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_RADIO);
-            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_RADIO);
-            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_TEXT);
+        } else if (correctAnswer == DrivingDataSource.ANSWER_C) {
+            makeChoice(mQuestion.answer1, DrivingDataSource.ANSWER_A, TYPE_RADIO);
+            makeChoice(mQuestion.answer2, DrivingDataSource.ANSWER_B, TYPE_RADIO);
+            makeChoice(mQuestion.answer3, DrivingDataSource.ANSWER_C, TYPE_TEXT);
             if (!TextUtils.isEmpty(mQuestion.answer4)) {
-                makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_RADIO);
+                makeChoice(mQuestion.answer4, DrivingDataSource.ANSWER_D, TYPE_RADIO);
             }
         } else {
-            makeChoice(mQuestion.answer1, DataSource.ANSWER_A, TYPE_RADIO);
-            makeChoice(mQuestion.answer2, DataSource.ANSWER_B, TYPE_RADIO);
-            makeChoice(mQuestion.answer3, DataSource.ANSWER_C, TYPE_RADIO);
-            makeChoice(mQuestion.answer4, DataSource.ANSWER_D, TYPE_TEXT);
+            makeChoice(mQuestion.answer1, DrivingDataSource.ANSWER_A, TYPE_RADIO);
+            makeChoice(mQuestion.answer2, DrivingDataSource.ANSWER_B, TYPE_RADIO);
+            makeChoice(mQuestion.answer3, DrivingDataSource.ANSWER_C, TYPE_RADIO);
+            makeChoice(mQuestion.answer4, DrivingDataSource.ANSWER_D, TYPE_TEXT);
         }
     }
 
@@ -193,7 +193,7 @@ public class ModifyAnswerDialog extends BaseConfirmDialog implements View.OnClic
     }
 
     private void saveAnswer() {
-        DataSource.modifyAnswer(mQuestion.id, mCurrentAnswer);
+        DrivingDataSource.modifyAnswer(mQuestion.id, mCurrentAnswer);
         if (mOnAnswerModifiedListener != null) {
             mOnAnswerModifiedListener.onAnswerModified(mCurrentAnswer);
         }

@@ -10,7 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
+import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 
@@ -60,10 +60,10 @@ public class TutorialFragment extends MyBaseFragment {
             tutorialContainer.getSettings().setJavaScriptEnabled(true);
             tutorialContainer.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
             switch (type) {
-                case DataSource.TYPE_SIM_A:
+                case DrivingDataSource.TYPE_SIM_A:
                     tutorialContainer.loadUrl("https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+A");
                     break;
-                case DataSource.TYPE_SIM_C:
+                case DrivingDataSource.TYPE_SIM_C:
                     tutorialContainer.loadUrl("https://www.youtube.com/results?search_query=Ujian+Praktek+SIM+C");
                     break;
             }
@@ -80,7 +80,7 @@ public class TutorialFragment extends MyBaseFragment {
 
     private void getData() {
         Bundle bundle = getArguments();
-        type = bundle.getInt(Constants.BUNDLE_TYPE, DataSource.TYPE_SIM_A);
+        type = bundle.getInt(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
     }
 
     private boolean isNetworkAvailable() {

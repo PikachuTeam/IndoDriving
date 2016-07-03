@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.DataSource;
-import com.essential.indodriving.data.Question;
+import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.data.driving.Question;
 
 /**
  * Created by dongc_000 on 2/29/2016.
@@ -122,37 +122,37 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
     }
 
     private void makeAnswerColor(int correctAnswer) {
-        if (question.answer == DataSource.ANSWER_NOT_CHOSEN) {
+        if (question.answer == DrivingDataSource.ANSWER_NOT_CHOSEN) {
             tvAnswer.setText(getContext().getResources().getText(R.string.not_answered));
             tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.not_answered_color));
         } else if (question.answer == correctAnswer) {
             switch (question.answer) {
-                case DataSource.ANSWER_A:
+                case DrivingDataSource.ANSWER_A:
                     tvAnswer.setText("A");
                     break;
-                case DataSource.ANSWER_B:
+                case DrivingDataSource.ANSWER_B:
                     tvAnswer.setText("B");
                     break;
-                case DataSource.ANSWER_C:
+                case DrivingDataSource.ANSWER_C:
                     tvAnswer.setText("C");
                     break;
-                case DataSource.ANSWER_D:
+                case DrivingDataSource.ANSWER_D:
                     tvAnswer.setText("D");
                     break;
             }
             tvAnswer.setTextColor(ContextCompat.getColor(context, R.color.correct_answer_color));
         } else {
             switch (question.answer) {
-                case DataSource.ANSWER_A:
+                case DrivingDataSource.ANSWER_A:
                     tvAnswer.setText("A");
                     break;
-                case DataSource.ANSWER_B:
+                case DrivingDataSource.ANSWER_B:
                     tvAnswer.setText("B");
                     break;
-                case DataSource.ANSWER_C:
+                case DrivingDataSource.ANSWER_C:
                     tvAnswer.setText("C");
                     break;
-                case DataSource.ANSWER_D:
+                case DrivingDataSource.ANSWER_D:
                     tvAnswer.setText("D");
                     break;
             }
