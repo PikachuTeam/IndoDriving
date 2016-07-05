@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="MyMaterialTheme" parent="AppTheme">
+    <style name="MyMaterialTheme" parent="AppTheme.Theory">
         <item name="actionMenuTextColor">@color/toolbar_menu_item_color</item>
     </style>
 
@@ -9,12 +9,18 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Theory" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Sign" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/color_primary_sign</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark_sign</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.ui.activity.ChooseSimActivity;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
@@ -131,7 +132,7 @@ public class ChooseItemFragment extends MyBaseFragment {
         learnAllFragment.setArguments(bundle);
         replaceFragment(learnAllFragment, TAG_CHOOSE_ITEM_FRAGMENT);
 
-        sendItemChosenLog(getTitle(),"LEARNING CARD");
+        sendItemChosenLog(getTitle(), "LEARNING CARD");
     }
 
     private void moveToChooseTestFragment() {
@@ -141,7 +142,7 @@ public class ChooseItemFragment extends MyBaseFragment {
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_CHOOSE_ITEM_FRAGMENT);
 
-        sendItemChosenLog(getTitle(),"WRITTEN TEST");
+        sendItemChosenLog(getTitle(), "WRITTEN TEST");
     }
 
     private void moveToUnlimitedTestFragment() {
@@ -151,7 +152,7 @@ public class ChooseItemFragment extends MyBaseFragment {
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_CHOOSE_ITEM_FRAGMENT);
 
-        sendItemChosenLog(getTitle(),"SIMULATION");
+        sendItemChosenLog(getTitle(), "SIMULATION");
     }
 
     private void getData() {

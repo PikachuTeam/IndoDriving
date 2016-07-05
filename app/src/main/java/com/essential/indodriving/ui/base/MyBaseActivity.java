@@ -66,7 +66,7 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
 
     @Override
     protected int getLayoutResIdContentView() {
-        return R.layout.activity_main;
+        return R.layout.activity_main_theory;
     }
 
     @Override

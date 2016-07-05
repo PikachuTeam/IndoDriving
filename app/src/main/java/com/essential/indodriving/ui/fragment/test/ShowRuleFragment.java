@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.driving.DrivingDataSource;
+import com.essential.indodriving.ui.activity.ChooseSimActivity;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;

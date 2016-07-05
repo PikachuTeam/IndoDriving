@@ -10,8 +10,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
+        android:supportsRtl="true">
+
         <activity
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -21,18 +21,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.ChooseSimActivity"
+            android:label="@string/title_activity_home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Theory" />
+
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:label="@string/title_activity_home"
-            android:parentActivityName=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.SplashActivity" />
-        </activity>
+            android:theme="@style/AppTheme.Sign" />
+
+        <activity
+            android:name=".ui.activity.ChooseSignTypeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Sign" />
     </application>
 </manifest>

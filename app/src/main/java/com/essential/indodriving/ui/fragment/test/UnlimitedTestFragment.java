@@ -96,9 +96,9 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             scrollToCenter(mWrappers.get(mCurrentPosition));
             getMyBaseActivity().showBigAdsIfNeeded();
 
-            if(mQuestions.get(mCurrentPosition).isAds){
+            if (mQuestions.get(mCurrentPosition).isAds) {
                 headerQuestion.setVisibility(View.INVISIBLE);
-            }else{
+            } else {
                 headerQuestion.setVisibility(View.VISIBLE);
             }
         }

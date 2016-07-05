@@ -1,72 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.activity.HomeActivity">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:theme="@style/MyMaterialTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/banner"
+                android:id="@+id/button_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clickable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/toolbar_image"
-                app:layout_collapseMode="parallax" />
+                android:scaleType="fitXY"
+                android:src="@drawable/toolbar_image_sign" />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/img_new" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/MyMaterialTheme.PopupOverlay" />
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/common_size_20"
+                android:layout_marginLeft="@dimen/common_size_20"
+                android:orientation="vertical">
 
-    <include layout="@layout/content_home" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/all_signs" />
 
-    <Button
-        android:id="@+id/btn_consume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Consume"
-        android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/text_sign_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:lineSpacingExtra="1dp"
+                    android:lineSpacingMultiplier="0.6"
+                    android:paddingBottom="@dimen/common_size_20"
+                    android:text="@string/home_screen_sign"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common_text_size_30"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/button_pro_ver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_marginBottom="@dimen/common_size_18"
-        android:layout_marginLeft="@dimen/common_size_15"
-        android:elevation="@dimen/common_size_5"
-        android:padding="@dimen/common_size_10"
-        android:src="@drawable/ic_up_to_pro" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-    <ImageView
-        android:id="@+id/image_100_pro"
-        android:layout_width="@dimen/image_100_pro_size"
-        android:layout_height="@dimen/image_100_pro_size"
-        android:layout_gravity="bottom|left"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_pro_100" />
+            <ImageView
+                android:id="@+id/button_theory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/toolbar_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/common_size_20"
+                android:layout_marginTop="@dimen/common_size_20"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_theory_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:lineSpacingExtra="1dp"
+                    android:lineSpacingMultiplier="0.6"
+                    android:paddingBottom="@dimen/common_size_20"
+                    android:text="@string/home_screen_theory"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common_text_size_30"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/home_image_size"
+                        android:layout_height="@dimen/home_image_size"
+                        android:src="@drawable/ic_motorbike" />
+
+                    <ImageView
+                        android:layout_width="@dimen/home_image_size"
+                        android:layout_height="@dimen/home_image_size"
+                        android:src="@drawable/ic_car" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/button_pro_ver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/common_size_18"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:elevation="@dimen/common_size_5"
+                android:padding="@dimen/common_size_10"
+                android:src="@drawable/ic_up_to_pro" />
+
+            <ImageView
+                android:id="@+id/image_100_pro"
+                android:layout_width="@dimen/image_100_pro_size"
+                android:layout_height="@dimen/image_100_pro_size"
+                android:layout_alignParentBottom="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_pro_100" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:id="@+id/view_overlay"
@@ -80,11 +142,11 @@
         android:id="@+id/floating_actions_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/common_size_15"
-        android:layout_marginRight="@dimen/common_size_20"
+        android:layout_marginBottom="@dimen/common_size_10"
+        android:layout_marginRight="@dimen/common_size_10"
         app:fab_addButtonSize="normal"
         app:fab_labelStyle="@style/floating_menu_labels_style"
-        app:layout_anchor="@id/coordinatorLayout"
+        app:layout_anchor="@+id/coordinator_layout"
         app:layout_anchorGravity="bottom|right">
 
         <com.getbase.floatingactionbutton.FloatingActionButton

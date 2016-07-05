@@ -303,14 +303,16 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
     }
 
     @Override
-    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, int type, BaseConfirmDialog dialog) {
+    public void onConfirmDialogButtonClick(
+            BaseConfirmDialog.ConfirmButton button, int type, BaseConfirmDialog dialog) {
         switch (button) {
             case OK:
                 dialog.dismiss();
                 switch (type) {
                     case BaseConfirmDialog.TYPE_WARNING_1: // happen when user presses back
-                        getFragmentManager().popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG
-                                , FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        getFragmentManager().
+                                popBackStack(ListQuestionFragment.LIST_QUESTION_FRAGMENT_TAG
+                                        , FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         break;
                     case BaseConfirmDialog.TYPE_WARNING_2: // happen when user presses Result
                         moveToNextFragment();
@@ -371,7 +373,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-                Glide.with(DoTestFragment.this).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
+                Glide.with(DoTestFragment.this).
+                        load(question.imageData).dontAnimate().dontTransform().into(questionImage);
                 questionImage.setTag(question);
                 questionImage.setOnClickListener(this);
                 buttonZoomIn.setTag(question);

@@ -91,4 +91,6 @@
     <string name="choose_your_answer">Pilih jawaban yang anda anggap benar</string>
     <string name="action_modify_answer">Jawabanmu</string>
     <string name="thanks_for_contribution">Terima kasih atas kontribusi Anda.\nKami akan mempertimbangkan jawaban anda</string>
+    <string name="home_screen_theory">Soal &amp;\nSimulasi Ujian</string>
+    <string name="home_screen_sign">Rambu\nLalu Lintas</string>
 </resources>

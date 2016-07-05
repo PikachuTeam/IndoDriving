@@ -76,4 +76,11 @@
     <color name="dialog_modify_answer_background">#e5e9ef</color>
     <color name="indicator_dark_color">#C7C632</color>
     <color name="indicator_normal_color">#FFFD00</color>
+
+    <!--Indo Sign Color-->
+    <color name="color_primary_sign">#f03933</color>
+    <color name="color_primary_dark_sign">#ce110b</color>
+    <color name="button_sign_type_normal_color">#b07e7f</color>
+    <color name="button_sign_type_highlight_color">#9B6F70</color>
+    <color name="default_background_color_sign">#e7e7e7</color>
 </resources>
