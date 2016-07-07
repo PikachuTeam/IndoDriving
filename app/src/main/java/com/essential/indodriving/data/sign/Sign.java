@@ -5,6 +5,7 @@ package com.essential.indodriving.data.sign;
  */
 public class Sign {
 
+    public int id;
     public String sign_group;
     public String number;
     public byte[] image;
