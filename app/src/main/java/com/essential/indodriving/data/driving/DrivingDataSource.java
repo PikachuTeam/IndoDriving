@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.essential.indodriving.data.PoolDatabaseLoader;
-import com.essential.indodriving.data.driving.Question;
-import com.essential.indodriving.data.driving.QuestionPackage;
 
 import java.util.ArrayList;
 

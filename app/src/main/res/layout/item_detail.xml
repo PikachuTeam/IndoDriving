@@ -8,14 +8,14 @@
     card_view:cardPreventCornerOverlap="false">
 
     <LinearLayout
-        android:id="@+id/buttonDetailResult"
+        android:id="@+id/button_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/raised_button"
         android:clickable="true">
 
         <ImageView
-            android:id="@+id/questionImage"
+            android:id="@+id/image_question"
             android:layout_width="@dimen/list_detail_result_question_image_size"
             android:layout_height="@dimen/list_detail_result_question_image_size"
             android:layout_gravity="center_vertical"
@@ -23,7 +23,7 @@
             android:layout_marginRight="@dimen/common_size_20" />
 
         <TextView
-            android:id="@+id/textViewQuestion"
+            android:id="@+id/text_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ellipsize="end"

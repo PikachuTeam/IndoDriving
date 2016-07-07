@@ -10,7 +10,7 @@ public class Constants {
     public final static String PREF_NOT_SHOW_THANKS_AGAIN = "not show thanks again";
     public final static String SHARED_PREFERENCES_NAME = "Indo Driving";
     public final static String BUNDLE_TYPE = "type";
-    public final static String BUNDLE_SIGN_TYPE="sign type";
+    public final static String BUNDLE_SIGN_TYPE = "sign type";
     public final static String BUNDLE_EXAM_ID = "exam id";
     public final static String BUNDLE_NEED_SAVING = "need saving";
     public final static String BUNDLE_FRAGMENT_TYPE = "fragment type";

@@ -362,8 +362,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
         public Object instantiateItem(ViewGroup container, int position) {
             Question question = questions.get(position);
             View view = View.inflate(context, R.layout.item_pager_question, null);
-            ImageView questionImage = (ImageView) view.findViewById(R.id.questionImage);
-            TextView textViewQuestion = (TextView) view.findViewById(R.id.textViewQuestion);
+            ImageView questionImage = (ImageView) view.findViewById(R.id.image_question);
+            TextView textViewQuestion = (TextView) view.findViewById(R.id.text_detail);
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
             RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
             ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);

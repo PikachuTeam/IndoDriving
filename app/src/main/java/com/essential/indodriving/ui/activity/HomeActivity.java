@@ -27,13 +27,14 @@ import tatteam.com.app_common.util.CommonUtil;
 public class HomeActivity extends FirstBaseActivity implements
         CloseAppHandler.OnCloseAppListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
+    public static Typeface defaultFont;
     private CoordinatorLayout coordinatorLayout;
     private CloseAppHandler closeAppHandler;
-    public static Typeface defaultFont;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        defaultFont = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
         findViews();
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);

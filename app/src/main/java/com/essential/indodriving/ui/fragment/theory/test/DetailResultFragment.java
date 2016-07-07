@@ -126,7 +126,7 @@ public class DetailResultFragment extends MyBaseFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.item_list_detail_result, parent, false);
+                    inflate(R.layout.item_detail, parent, false);
             return new ViewHolder(view);
         }
 
@@ -163,9 +163,9 @@ public class DetailResultFragment extends MyBaseFragment {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                buttonDetailResult = (LinearLayout) itemView.findViewById(R.id.buttonDetailResult);
-                questionImage = (ImageView) itemView.findViewById(R.id.questionImage);
-                textViewQuestion = (TextView) itemView.findViewById(R.id.textViewQuestion);
+                buttonDetailResult = (LinearLayout) itemView.findViewById(R.id.button_detail);
+                questionImage = (ImageView) itemView.findViewById(R.id.image_question);
+                textViewQuestion = (TextView) itemView.findViewById(R.id.text_detail);
             }
         }
     }

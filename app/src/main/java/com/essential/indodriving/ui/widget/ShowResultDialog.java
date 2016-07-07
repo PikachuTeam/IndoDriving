@@ -86,7 +86,7 @@ public class ShowResultDialog extends Dialog implements View.OnClickListener, Vi
     }
 
     private void findViews() {
-        imgQuestion = (ImageView) findViewById(R.id.questionImage);
+        imgQuestion = (ImageView) findViewById(R.id.image_question);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         tvChoiceA = (TextView) findViewById(R.id.tvChoiceA);
         tvChoiceB = (TextView) findViewById(R.id.tvChoiceB);

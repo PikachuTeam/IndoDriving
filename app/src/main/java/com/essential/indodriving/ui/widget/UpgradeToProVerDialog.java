@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.activity.ChooseSimActivity;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 

@@ -100,4 +100,6 @@
     <string name="direction_sign">Rambu Petunjuk</string>
     <string name="addition_sign">Rambu Tambahan</string>
     <string name="all_sign">All Signs</string>
+    <string name="learn_sign">Dafta Rambu</string>
+    <string name="matching">Pengaturran</string>
 </resources>

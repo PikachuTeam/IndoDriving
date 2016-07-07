@@ -83,4 +83,5 @@
     <color name="button_sign_type_normal_color">#64b07e7f</color>
     <color name="button_sign_type_highlight_color">#789b6f70</color>
     <color name="default_background_color_sign">#e7e7e7</color>
+    <color name="button_choose_sign_type_highlight_color">#78EF413B</color>
 </resources>

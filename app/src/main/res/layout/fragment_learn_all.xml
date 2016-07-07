@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragmentLearnAll"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/app_background_color">
+                                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                        android:id="@+id/fragmentLearnAll"
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="match_parent"
+                                                        android:background="@color/app_background_color">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,20 +29,20 @@
                     android:layout_marginRight="@dimen/common_size_12"
                     android:layout_marginTop="@dimen/common_size_10"
                     android:minHeight="@dimen/learn_all_card_height"
-                    card_view:cardBackgroundColor="@color/white"
-                    card_view:cardCornerRadius="@dimen/common_size_10"
-                    card_view:cardPreventCornerOverlap="false">
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/common_size_10"
+                    app:cardPreventCornerOverlap="false">
 
                     <LinearLayout
                         android:id="@+id/adsContainer1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_size_8"
                         android:background="@drawable/normal_background_with_corner"
                         android:gravity="center"
                         android:minHeight="@dimen/learn_all_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone"
-                        android:layout_margin="@dimen/common_size_8"/>
+                        android:visibility="gone"/>
 
                     <LinearLayout
                         android:id="@+id/layout_question_root"
@@ -64,7 +64,7 @@
                                 android:layout_width="@dimen/learn_all_image_size"
                                 android:layout_height="@dimen/learn_all_image_size"
                                 android:layout_centerHorizontal="true"
-                                android:clickable="true" />
+                                android:clickable="true"/>
 
                             <ImageView
                                 android:id="@+id/buttonZoomIn"
@@ -72,7 +72,7 @@
                                 android:layout_height="@dimen/button_zoom_in_size"
                                 android:layout_toRightOf="@id/cardQuestionImage"
                                 android:clickable="true"
-                                android:src="@drawable/ic_zoom_in_normal" />
+                                android:src="@drawable/ic_zoom_in_normal"/>
                         </RelativeLayout>
 
                         <TextView
@@ -83,59 +83,18 @@
                             android:gravity="center"
                             android:padding="@dimen/common_size_10"
                             android:textColor="@color/learn_all_text_color"
-                            android:textSize="@dimen/common_text_size_18" />
+                            android:textSize="@dimen/common_text_size_18"/>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
-                <RelativeLayout
+                <com.essential.indodriving.ui.widget.LearningCardSeekbar
+                    android:id="@+id/learning_card_seekbar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/progress_area_height"
-                    android:layout_marginTop="@dimen/common_size_5">
-
-                    <RelativeLayout
-                        android:id="@+id/position"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/progress_bar_container_height"
-                        android:clickable="true">
-
-                        <ImageView
-                            android:id="@+id/image_indicator"
-                            android:layout_width="@dimen/progress_indicator_width"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_indicator" />
-
-                        <TextView
-                            android:id="@+id/textViewProgress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:paddingBottom="@dimen/common_size_7"
-                            android:text="174"
-                            android:textColor="@color/text_color_3"
-                            android:textSize="@dimen/common_size_12" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/progressBarContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/progress_bar_container_height"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="@dimen/common_size_20"
-                        android:layout_marginRight="@dimen/common_size_20">
-
-                        <ProgressBar
-                            android:id="@+id/readingProgress"
-                            style="@android:style/Widget.ProgressBar.Horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:maxHeight="@dimen/progress_bar_height"
-                            android:minHeight="@dimen/progress_bar_height"
-                            android:progressDrawable="@drawable/progress_bar" />
-                    </RelativeLayout>
-                </RelativeLayout>
+                    android:layout_marginTop="@dimen/common_size_5"
+                    app:progressDrawable="@drawable/progress_bar"
+                    app:textColor="@color/text_color_3"
+                    app:thumbColor="@color/yellow_star"/>
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -144,20 +103,20 @@
                     android:layout_marginRight="@dimen/common_size_12"
                     android:layout_marginTop="@dimen/common_size_5"
                     android:minHeight="@dimen/learn_all_card_height"
-                    card_view:cardBackgroundColor="@color/white"
-                    card_view:cardCornerRadius="@dimen/common_size_10"
-                    card_view:cardPreventCornerOverlap="false">
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/common_size_10"
+                    app:cardPreventCornerOverlap="false">
 
                     <LinearLayout
                         android:id="@+id/adsContainer2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_size_8"
                         android:background="@drawable/normal_background_with_corner"
                         android:gravity="center"
                         android:minHeight="@dimen/learn_all_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone"
-                        android:layout_margin="@dimen/common_size_8"/>
+                        android:visibility="gone"/>
 
                     <RelativeLayout
                         android:id="@+id/layout_answer_root"
@@ -184,7 +143,7 @@
                                 android:paddingTop="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18" />
+                                android:textSize="@dimen/common_text_size_18"/>
 
                             <TextView
                                 android:id="@+id/textViewAnswerB"
@@ -197,7 +156,7 @@
                                 android:paddingTop="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18" />
+                                android:textSize="@dimen/common_text_size_18"/>
 
                             <TextView
                                 android:id="@+id/textViewAnswerC"
@@ -210,7 +169,7 @@
                                 android:paddingTop="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18" />
+                                android:textSize="@dimen/common_text_size_18"/>
 
                             <TextView
                                 android:id="@+id/textViewAnswerD"
@@ -221,7 +180,7 @@
                                 android:padding="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18" />
+                                android:textSize="@dimen/common_text_size_18"/>
                         </LinearLayout>
 
                         <RelativeLayout
@@ -235,7 +194,7 @@
                                 android:id="@+id/blurryImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="fitXY" />
+                                android:scaleType="fitXY"/>
 
                             <TextView
                                 android:id="@+id/textViewPressToUnlock"
@@ -246,7 +205,7 @@
                                 android:text="@string/click_to_see_answer"
                                 android:textAllCaps="true"
                                 android:textColor="@color/text_color_4"
-                                android:textSize="@dimen/common_text_size_28" />
+                                android:textSize="@dimen/common_text_size_28"/>
                         </RelativeLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -263,8 +222,8 @@
             <android.support.v7.widget.CardView
                 android:layout_width="@dimen/button_previous_width"
                 android:layout_height="@dimen/button_previous_height"
-                card_view:cardCornerRadius="@dimen/common_size_3"
-                card_view:cardPreventCornerOverlap="false">
+                app:cardCornerRadius="@dimen/common_size_3"
+                app:cardPreventCornerOverlap="false">
 
                 <ImageView
                     android:id="@+id/buttonPrevious"
@@ -272,15 +231,15 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
                     android:clickable="false"
-                    android:src="@drawable/ic_previous" />
+                    android:src="@drawable/ic_previous"/>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="@dimen/button_previous_width"
                 android:layout_height="@dimen/button_previous_height"
                 android:layout_marginLeft="@dimen/common_size_80"
-                card_view:cardCornerRadius="@dimen/common_size_3"
-                card_view:cardPreventCornerOverlap="false">
+                app:cardCornerRadius="@dimen/common_size_3"
+                app:cardPreventCornerOverlap="false">
 
                 <ImageView
                     android:id="@+id/buttonNext"
@@ -288,7 +247,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
                     android:clickable="true"
-                    android:src="@drawable/ic_next" />
+                    android:src="@drawable/ic_next"/>
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </RelativeLayout>

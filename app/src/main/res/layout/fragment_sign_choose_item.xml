@@ -14,8 +14,8 @@
         <LinearLayout
             android:id="@+id/linear_learn_sign"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/choose_item_flat_button"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_choose_sign_type"
             android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal">
@@ -24,7 +24,7 @@
                 android:layout_width="@dimen/choose_sign_item_button_size"
                 android:layout_height="@dimen/choose_sign_item_button_size"
                 android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_30"
+                android:layout_marginLeft="@dimen/common_size_40"
                 android:layout_marginTop="@dimen/common_size_5"
                 android:elevation="@dimen/common_size_5"
                 card_view:cardCornerRadius="@dimen/common_size_9"
@@ -44,9 +44,10 @@
                 android:id="@+id/text_learn_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:padding="@dimen/common_size_15"
-                android:text="@string/learn_theory"
+                android:text="@string/learn_sign"
+                android:textAllCaps="true"
                 android:textColor="@color/color_primary_sign"
                 android:textSize="@dimen/common_text_size_35" />
         </LinearLayout>
@@ -54,9 +55,9 @@
         <LinearLayout
             android:id="@+id/linear_unlimited_test"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/common_size_20"
-            android:background="@drawable/choose_item_flat_button"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_size_15"
+            android:background="@drawable/button_choose_sign_type"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -64,7 +65,7 @@
                 android:layout_width="@dimen/choose_sign_item_button_size"
                 android:layout_height="@dimen/choose_sign_item_button_size"
                 android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_30"
+                android:layout_marginLeft="@dimen/common_size_40"
                 android:layout_marginTop="@dimen/common_size_5"
                 android:elevation="@dimen/common_size_5"
                 card_view:cardCornerRadius="@dimen/common_size_9"
@@ -83,9 +84,10 @@
                 android:id="@+id/text_unlimited_test"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:padding="@dimen/common_size_15"
                 android:text="@string/title_written_test"
+                android:textAllCaps="true"
                 android:textColor="@color/color_primary_sign"
                 android:textSize="@dimen/common_text_size_35" />
         </LinearLayout>
@@ -93,9 +95,9 @@
         <LinearLayout
             android:id="@+id/linear_simulation_test"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/common_size_20"
-            android:background="@drawable/choose_item_flat_button"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_size_15"
+            android:background="@drawable/button_choose_sign_type"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -103,7 +105,7 @@
                 android:layout_width="@dimen/choose_sign_item_button_size"
                 android:layout_height="@dimen/choose_sign_item_button_size"
                 android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_30"
+                android:layout_marginLeft="@dimen/common_size_40"
                 android:layout_marginTop="@dimen/common_size_5"
                 android:elevation="@dimen/common_size_5"
                 card_view:cardCornerRadius="@dimen/common_size_9"
@@ -122,9 +124,10 @@
                 android:id="@+id/text_simulation_test"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:padding="@dimen/common_size_15"
                 android:text="@string/simulation_test"
+                android:textAllCaps="true"
                 android:textColor="@color/color_primary_sign"
                 android:textSize="@dimen/common_text_size_35" />
         </LinearLayout>
@@ -133,8 +136,8 @@
             android:id="@+id/linear_matching"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/common_size_20"
-            android:background="@drawable/choose_item_flat_button"
+            android:layout_marginTop="@dimen/common_size_15"
+            android:background="@drawable/button_choose_sign_type"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -142,7 +145,7 @@
                 android:layout_width="@dimen/choose_sign_item_button_size"
                 android:layout_height="@dimen/choose_sign_item_button_size"
                 android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_30"
+                android:layout_marginLeft="@dimen/common_size_40"
                 android:layout_marginTop="@dimen/common_size_5"
                 android:elevation="@dimen/common_size_5"
                 card_view:cardCornerRadius="@dimen/common_size_9"
@@ -162,9 +165,10 @@
                 android:id="@+id/text_matching"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:padding="@dimen/common_size_15"
-                android:text="@string/learn_theory"
+                android:text="@string/matching"
+                android:textAllCaps="true"
                 android:textColor="@color/color_primary_sign"
                 android:textSize="@dimen/common_text_size_35" />
         </LinearLayout>

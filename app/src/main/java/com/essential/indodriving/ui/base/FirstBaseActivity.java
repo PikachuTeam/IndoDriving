@@ -3,7 +3,6 @@ package com.essential.indodriving.ui.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.anjlab.android.iab.v3.BillingProcessor;

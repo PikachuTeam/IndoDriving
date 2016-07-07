@@ -23,8 +23,8 @@ import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
@@ -307,8 +307,8 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 setupAds(adsContainer);
             } else {
                 view.setVisibility(View.VISIBLE);
-                ImageView questionImage = (ImageView) view.findViewById(R.id.questionImage);
-                TextView textViewQuestion = (TextView) view.findViewById(R.id.textViewQuestion);
+                ImageView questionImage = (ImageView) view.findViewById(R.id.image_question);
+                TextView textViewQuestion = (TextView) view.findViewById(R.id.text_detail);
                 RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
                 ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
                 ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(mFont);

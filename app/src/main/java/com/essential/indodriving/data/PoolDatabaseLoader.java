@@ -40,7 +40,7 @@ public class PoolDatabaseLoader {
         return indoDrivingDatabaseLoader;
     }
 
-    public DatabaseLoaderV2 getIndoSignDatabaseLoader(){
+    public DatabaseLoaderV2 getIndoSignDatabaseLoader() {
         return indoSignDatabaseLoader;
     }
 

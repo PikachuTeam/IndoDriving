@@ -7,7 +7,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,18 +51,9 @@ public class ChooseSimActivity extends FirstBaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_sim);
         findViews();
         toolbar_layout.setExpandedTitleTextAppearance(R.style.ExpandedCollapsingToolbar);
         setFont(HomeActivity.defaultFont);
-        if (BuildConfig.DEBUG) {
-            billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
-        } else {
-            if (!MySetting.getInstance().isProVersion() &&
-                    BillingProcessor.isIabServiceAvailable(this)) {
-                billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
-            }
-        }
         setSupportActionBar(toolbar);
         enableBackButton();
     }
@@ -78,16 +68,6 @@ public class ChooseSimActivity extends FirstBaseActivity implements
         super.onResume();
         number = 0;
         refreshUI();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -174,14 +154,6 @@ public class ChooseSimActivity extends FirstBaseActivity implements
     @Override
     public void onMenuCollapsed() {
         overlayView.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void refreshUI() {
-        super.refreshUI();
-        if (BuildConfig.DEBUG) {
-            btn_consume.setVisibility(isProVer ? View.VISIBLE : View.GONE);
-        }
     }
 
     private void findViews() {

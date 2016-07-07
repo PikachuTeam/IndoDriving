@@ -26,7 +26,6 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -39,8 +38,9 @@ import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
+import com.essential.indodriving.ui.widget.LearningCardSeekbar;
 import com.essential.indodriving.ui.widget.ModifyAnswerDialog;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
@@ -54,17 +54,15 @@ import tatteam.com.app_common.ads.AdsNativeExpressHandler;
  * Created by dongc_000 on 2/27/2016.
  */
 public class LearnAllFragment extends MyBaseFragment implements
-        View.OnClickListener, View.OnTouchListener, ModifyAnswerDialog.OnAnswerModifiedListener {
+        View.OnClickListener, View.OnTouchListener, ModifyAnswerDialog.OnAnswerModifiedListener,
+        LearningCardSeekbar.OnProgressChangedListener {
 
     private static final float BITMAP_SCALE = 0.4f;
     private static final float BLUR_RADIUS = 7f;
     private static final long ALPHA_ANIM_DURATION = 600;
     private ImageView cardQuestionImage;
-    private ImageView imageIndicator;
     private TextView cardTextViewQuestion;
-    private TextView textViewProgress;
     private ScrollView cardArea;
-    private ProgressBar readingProgress;
     private TextView textViewAnswerA;
     private TextView textViewAnswerB;
     private TextView textViewAnswerC;
@@ -73,8 +71,7 @@ public class LearnAllFragment extends MyBaseFragment implements
     private ImageView buttonNext;
     private ImageView buttonZoomIn;
     private RelativeLayout imageArea;
-    private RelativeLayout indicator;
-    private RelativeLayout progressBarContainer;
+    private LearningCardSeekbar learningCardSeekbar;
     private RelativeLayout lockedArea;
     private ImageView blurryImage;
     private LinearLayout answerArea;
@@ -84,54 +81,13 @@ public class LearnAllFragment extends MyBaseFragment implements
     private int type;
     private int currentPosition;
     private int mTrialTimesLeft;
-    private float indicatorPosition;
-    private float indicatorPositionOffset;
-    private boolean isFirst;
+    private boolean isBlurred;
     private boolean isRated;
     private boolean isProVersion;
     private boolean isEnableRateToUnlock;
     private AlphaAnimation alphaAnimation;
 
     private AdsNativeExpressHandler adsHandler1, adsHandler2;
-
-    private View.OnTouchListener mIndicatorTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_MOVE:
-                    float realX = event.getRawX() - getResources().getDimension(R.dimen.common_size_20);
-                    float ratio = realX / readingProgress.getWidth();
-                    int numberOfQuestions = questions.size();
-                    int tmp = (int) (ratio * numberOfQuestions);
-                    if (tmp > 0 && tmp < questions.size()) {
-                        currentPosition = tmp;
-                        setCardData(questions.get(currentPosition));
-                        if (currentPosition == 0) {
-                            disableButton(buttonPrevious, R.drawable.ic_previous);
-                            if (!buttonNext.isEnabled()) {
-                                enableButton(buttonNext, R.drawable.ic_next);
-                            }
-                        } else if (currentPosition == numberOfQuestions - 1) {
-                            disableButton(buttonNext, R.drawable.ic_next);
-                            if (!buttonPrevious.isEnabled()) {
-                                enableButton(buttonPrevious, R.drawable.ic_previous);
-                            }
-                        } else if (currentPosition > 0 && currentPosition < numberOfQuestions) {
-                            if (!buttonNext.isEnabled()) {
-                                enableButton(buttonNext, R.drawable.ic_next);
-                            }
-                            if (!buttonPrevious.isEnabled()) {
-                                enableButton(buttonPrevious, R.drawable.ic_previous);
-                            }
-                        }
-                        modifyToolbar();
-                    }
-                    break;
-            }
-            return false;
-        }
-    };
-
     private Handler refreshAdsHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
@@ -157,7 +113,6 @@ public class LearnAllFragment extends MyBaseFragment implements
         }
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        isFirst = true;
         alphaAnimation = new AlphaAnimation(0f, 1f);
         alphaAnimation.setDuration(ALPHA_ANIM_DURATION);
     }
@@ -165,17 +120,17 @@ public class LearnAllFragment extends MyBaseFragment implements
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
+        setListeners();
         buttonZoomIn.setColorFilter(ContextCompat.getColor(getActivity()
                 , R.color.learn_all_button_zoom_in_normal_color)
                 , PorterDuff.Mode.SRC_ATOP);
         if (currentPosition >= questions.size()) {
             currentPosition = 0;
         }
+        learningCardSeekbar.setMaxProgress(questions.size());
         Question question = questions.get(currentPosition);
         setCardData(question);
         modifyToolbar();
-        readingProgress.setMax(questions.size());
-        readingProgress.setProgress(currentPosition + 1);
         if (currentPosition == 0) {
             disableButton(buttonPrevious, R.drawable.ic_previous);
             buttonNext.setColorFilter(ContextCompat.getColor(getActivity()
@@ -194,70 +149,15 @@ public class LearnAllFragment extends MyBaseFragment implements
                     , R.color.learn_all_button_normal_color)
                     , PorterDuff.Mode.SRC_ATOP);
         }
-        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (isFirst) {
-                    isFirst = false;
-                    indicatorPositionOffset = (float) readingProgress.getWidth() / questions.size();
-                }
-                indicatorPosition = progressBarContainer.getX() - indicator.getWidth() / 2
-                        + indicatorPositionOffset * (currentPosition + 1);
-                indicator.setX(indicatorPosition);
-                if (getActivity() != null) {
-                    if (isEnableRateToUnlock && !isProVersion && !isRated) {
-                        if (currentPosition >= 10) {
-                            if (lockedArea.getVisibility() == View.GONE) {
-                                lockedArea.setVisibility(View.VISIBLE);
-                            }
-                            try {
-                                Bitmap blurBitmap = getBlurredBackground(getScreenshot(answerArea));
-                                blurryImage.setImageBitmap(blurBitmap);
-                                lockedArea.startAnimation(alphaAnimation);
-                            } catch (Exception e) {
-                                blurryImage.setBackgroundResource(R.drawable.default_blur_background);
-                            }
-
-                        } else {
-                            if (lockedArea.getVisibility() == View.VISIBLE) {
-                                lockedArea.setVisibility(View.GONE);
-                            }
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (getActivity() != null && !isBlurred) {
+                            makeBlurEffectIfNeed();
                         }
                     }
-                }
-            }
-        });
-        progressBarContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    float rate = event.getX() / readingProgress.getWidth();
-                    float tmp = questions.size() * rate;
-                    currentPosition = (int) tmp;
-                    setCardData(questions.get(currentPosition));
-                    if (currentPosition == 0) {
-                        disableButton(buttonPrevious, R.drawable.ic_previous);
-                        if (!buttonNext.isEnabled()) {
-                            enableButton(buttonNext, R.drawable.ic_next);
-                        }
-                    } else if (currentPosition == questions.size() - 1) {
-                        disableButton(buttonNext, R.drawable.ic_next);
-                        if (!buttonPrevious.isEnabled()) {
-                            enableButton(buttonPrevious, R.drawable.ic_previous);
-                        }
-                    } else if (currentPosition > 0 && currentPosition < questions.size()) {
-                        if (!buttonNext.isEnabled()) {
-                            enableButton(buttonNext, R.drawable.ic_next);
-                        }
-                        if (!buttonPrevious.isEnabled()) {
-                            enableButton(buttonPrevious, R.drawable.ic_previous);
-                        }
-                    }
-                    modifyToolbar();
-                }
-                return false;
-            }
-        });
+                });
         if (!isProVersion) {
             setupADSIfNeeded();
             refreshAdsHandler.sendEmptyMessage(0);
@@ -323,7 +223,6 @@ public class LearnAllFragment extends MyBaseFragment implements
             lockedArea.setVisibility(View.GONE);
             getButtonModifyAnswer().setVisibility(View.VISIBLE);
         }
-
         modifyToolbar();
     }
 
@@ -342,8 +241,6 @@ public class LearnAllFragment extends MyBaseFragment implements
                 }
                 modifyToolbar();
                 setCardData(questions.get(currentPosition));
-                indicatorPosition += indicatorPositionOffset;
-                indicator.setX(indicatorPosition);
                 getMyBaseActivity().showBigAdsIfNeeded();
             }
         } else if (v == buttonPrevious) {
@@ -359,8 +256,6 @@ public class LearnAllFragment extends MyBaseFragment implements
                 }
                 modifyToolbar();
                 setCardData(questions.get(currentPosition));
-                indicatorPosition -= indicatorPositionOffset;
-                indicator.setX(indicatorPosition);
                 getMyBaseActivity().showBigAdsIfNeeded();
             }
         } else if (v == cardQuestionImage) {
@@ -428,13 +323,18 @@ public class LearnAllFragment extends MyBaseFragment implements
         questions.get(currentPosition).fixedAnswer = correctAnswer;
     }
 
+    @Override
+    public void onProgressChanged(int progress) {
+        currentPosition = progress;
+        setCardData(questions.get(currentPosition));
+        modifyToolbar();
+    }
+
     private void findViews(View rootView) {
+        learningCardSeekbar = (LearningCardSeekbar) rootView.findViewById(R.id.learning_card_seekbar);
         cardQuestionImage = (ImageView) rootView.findViewById(R.id.cardQuestionImage);
-        imageIndicator = (ImageView) rootView.findViewById(R.id.image_indicator);
         cardArea = (ScrollView) rootView.findViewById(R.id.cardArea);
         cardTextViewQuestion = (TextView) rootView.findViewById(R.id.cardTextViewQuestion);
-        textViewProgress = (TextView) rootView.findViewById(R.id.textViewProgress);
-        readingProgress = (ProgressBar) rootView.findViewById(R.id.readingProgress);
         textViewAnswerA = (TextView) rootView.findViewById(R.id.textViewAnswerA);
         textViewAnswerB = (TextView) rootView.findViewById(R.id.textViewAnswerB);
         textViewAnswerC = (TextView) rootView.findViewById(R.id.textViewAnswerC);
@@ -443,19 +343,18 @@ public class LearnAllFragment extends MyBaseFragment implements
         buttonNext = (ImageView) rootView.findViewById(R.id.buttonNext);
         buttonZoomIn = (ImageView) rootView.findViewById(R.id.buttonZoomIn);
         imageArea = (RelativeLayout) rootView.findViewById(R.id.imageArea);
-        indicator = (RelativeLayout) rootView.findViewById(R.id.position);
-        progressBarContainer = (RelativeLayout) rootView.findViewById(R.id.progressBarContainer);
         lockedArea = (RelativeLayout) rootView.findViewById(R.id.lockedArea);
         answerArea = (LinearLayout) rootView.findViewById(R.id.answerArea);
         blurryImage = (ImageView) rootView.findViewById(R.id.blurryImage);
         ((TextView) rootView.findViewById(R.id.textViewPressToUnlock)).
                 setTypeface(HomeActivity.defaultFont);
-
         layoutAnswerRoot = rootView.findViewById(R.id.layout_answer_root);
         layoutQuestionRoot = rootView.findViewById(R.id.layout_question_root);
         adsContainer1 = (ViewGroup) rootView.findViewById(R.id.adsContainer1);
         adsContainer2 = (ViewGroup) rootView.findViewById(R.id.adsContainer2);
+    }
 
+    private void setListeners() {
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
         buttonNext.setOnTouchListener(this);
@@ -463,7 +362,7 @@ public class LearnAllFragment extends MyBaseFragment implements
         cardQuestionImage.setOnClickListener(this);
         buttonZoomIn.setOnTouchListener(this);
         lockedArea.setOnClickListener(this);
-        indicator.setOnTouchListener(mIndicatorTouchListener);
+        learningCardSeekbar.setOnProgressChangedListener(this);
     }
 
     private void saveState() {
@@ -487,10 +386,7 @@ public class LearnAllFragment extends MyBaseFragment implements
         cardArea.scrollTo(0, 0);
         if (question.isAds) {
             setupADSIfNeeded();
-            textViewProgress.setText(null);
-            readingProgress.setProgress(currentPosition + 1);
-//            imageIndicator.setColorFilter(
-//                    ContextCompat.getColor(getActivity(), R.color.indicator_dark_color));
+            learningCardSeekbar.setProgress(currentPosition + 1, false);
         } else {
             if (question.imageData == null) {
                 imageArea.setVisibility(View.GONE);
@@ -528,10 +424,8 @@ public class LearnAllFragment extends MyBaseFragment implements
             makeCorrectAnswer(
                     question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
             int tmp = currentPosition + 1;
-            imageIndicator.setColorFilter(
-                    ContextCompat.getColor(getActivity(), R.color.indicator_normal_color));
-            textViewProgress.setText("" + (tmp - tmp / Constants.LEARN_ALL_ADS_BREAK));
-            readingProgress.setProgress(tmp);
+            learningCardSeekbar.setProgress((tmp - tmp / Constants.LEARN_ALL_ADS_BREAK), tmp);
+            isBlurred = false;
         }
     }
 
@@ -675,5 +569,27 @@ public class LearnAllFragment extends MyBaseFragment implements
             adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler2.setup();
         }
+    }
+
+    private void makeBlurEffectIfNeed() {
+        if (isEnableRateToUnlock && !isProVersion && !isRated) {
+            if (currentPosition >= 10) {
+                if (lockedArea.getVisibility() == View.GONE) {
+                    lockedArea.setVisibility(View.VISIBLE);
+                }
+                try {
+                    Bitmap blurBitmap = getBlurredBackground(getScreenshot(answerArea));
+                    blurryImage.setImageBitmap(blurBitmap);
+                    lockedArea.startAnimation(alphaAnimation);
+                } catch (Exception e) {
+                    blurryImage.setBackgroundResource(R.drawable.default_blur_background);
+                }
+            } else {
+                if (lockedArea.getVisibility() == View.VISIBLE) {
+                    lockedArea.setVisibility(View.GONE);
+                }
+            }
+        }
+        isBlurred = true;
     }
 }

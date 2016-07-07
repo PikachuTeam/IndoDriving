@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.essential.indodriving.data.PoolDatabaseLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -13,13 +14,16 @@ import java.util.Random;
  */
 public class SignDataSource {
 
-    public static final String GROUP_All = null;
-    public static final String GROUP_Nomor_Rute = "Nomor Rute";
+    public static final String GROUP_ALL = null;
     public static final String GROUP_Rambu_Larangan = "Rambu Larangan";
     public static final String GROUP_Rambu_Peringatan = "Rambu Peringatan";
     public static final String GROUP_Rambu_Perintah = "Rambu Perintah";
     public static final String GROUP_Rambu_Petunjuk = "Rambu Petunjuk";
     public static final String GROUP_Rambu_Tambahan = "Rambu Tambahan";
+    private final static String COLUMN_SIGN_GROUP = "sign_group";
+    private final static String COLUMN_NUMBER = "number";
+    private final static String COLUMN_IMAGE = "image";
+    private final static String COLUMN_DEFINITION = "definitionF";
 
     public static final int TOTAL_QUESTION = 20;
     public static final int TOTAL_ANSWER = 4;
@@ -42,7 +46,7 @@ public class SignDataSource {
         SQLiteDatabase sqLiteDatabase = openConnection();
         String query = "SELECT * from sign";
         if (groupName != null) {
-            query = "SELECT * from sign where sign.sign_group = '" + groupName + "'";
+            query = "SELECT * from sign where" + COLUMN_SIGN_GROUP + " = '" + groupName + "' ";
         }
         if (random) {
             query = query.concat(" order by random()");
@@ -52,13 +56,18 @@ public class SignDataSource {
         }
         Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{});
         cursor.moveToFirst();
+        HashMap<String, Integer> columnIndexes = new HashMap<>();
+        columnIndexes.put(COLUMN_SIGN_GROUP, cursor.getColumnIndex(COLUMN_SIGN_GROUP));
+        columnIndexes.put(COLUMN_NUMBER, cursor.getColumnIndex(COLUMN_NUMBER));
+        columnIndexes.put(COLUMN_IMAGE, cursor.getColumnIndex(COLUMN_IMAGE));
+        columnIndexes.put(COLUMN_DEFINITION, cursor.getColumnIndex(COLUMN_DEFINITION));
         while (!cursor.isAfterLast()) {
             Sign sign = new Sign();
             sign.id = cursor.getInt(0);
-            sign.sign_group = cursor.getString(1);
-            sign.number = cursor.getString(2);
-            sign.image = cursor.getBlob(3);
-            sign.definition = cursor.getString(4);
+            sign.sign_group = cursor.getString(columnIndexes.get(COLUMN_SIGN_GROUP));
+            sign.number = cursor.getString(columnIndexes.get(COLUMN_NUMBER));
+            sign.image = cursor.getBlob(columnIndexes.get(COLUMN_IMAGE));
+            sign.definition = cursor.getString(columnIndexes.get(COLUMN_DEFINITION));
             signs.add(sign);
             cursor.moveToNext();
         }
@@ -81,7 +90,8 @@ public class SignDataSource {
             int min = sign.id - ID_AROUND;
             int max = sign.id + ID_AROUND;
             int limit = TOTAL_ANSWER - 1;
-            String query = "select tbl_around.definition from (select * from sign where sign.id >= " + min + " and sign.id <= " + max + " and sign.id != " + sign.id + ") as tbl_around order by random() limit " + limit;
+            String query = "select tbl_around.definition from (select * from sign where sign.id >= " +
+                    min + " and sign.id <= " + max + " and sign.id != " + sign.id + ") as tbl_around order by random() limit " + limit;
             Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{});
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
