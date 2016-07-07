@@ -80,7 +80,7 @@
     <!--Indo Sign Color-->
     <color name="color_primary_sign">#f03933</color>
     <color name="color_primary_dark_sign">#ce110b</color>
-    <color name="button_sign_type_normal_color">#b07e7f</color>
-    <color name="button_sign_type_highlight_color">#9B6F70</color>
+    <color name="button_sign_type_normal_color">#64b07e7f</color>
+    <color name="button_sign_type_highlight_color">#789b6f70</color>
     <color name="default_background_color_sign">#e7e7e7</color>
 </resources>

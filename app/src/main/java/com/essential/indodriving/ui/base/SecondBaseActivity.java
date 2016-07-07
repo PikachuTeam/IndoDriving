@@ -25,7 +25,7 @@ import tatteam.com.app_common.util.AppConstant;
 /**
  * Created by dongc_000 on 2/17/2016.
  */
-public abstract class MyBaseActivity extends BaseActivity implements BillingProcessor.IBillingHandler {
+public abstract class SecondBaseActivity extends BaseActivity implements BillingProcessor.IBillingHandler {
 
     public final static int BIG_ADS_SHOWING_INTERVAL = 20;
     public static AppConstant.AdsType ADS_SMALL;
@@ -62,11 +62,6 @@ public abstract class MyBaseActivity extends BaseActivity implements BillingProc
 
     public CoordinatorLayout getMainCoordinatorLayout() {
         return mainCoordinatorLayout;
-    }
-
-    @Override
-    protected int getLayoutResIdContentView() {
-        return R.layout.activity_main_theory;
     }
 
     @Override

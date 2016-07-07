@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/color_primary_sign"
+    android:elevation="@dimen/common_size_5"
+    android:theme="@style/MyMaterialTheme"
+    app:layout_collapseMode="pin"
+    app:popupTheme="@style/MyMaterialTheme.PopupOverlay">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/common_size_5"
+            android:textAllCaps="true"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/common_text_size_28" />
+
+        <TextView
+            android:id="@+id/buttonResult"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toolbar_flat_button"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_size_5"
+            android:paddingLeft="@dimen/common_size_7"
+            android:paddingRight="@dimen/common_size_7"
+            android:text="@string/result"
+            android:textAllCaps="true"
+            android:textColor="@color/do_test_highlight_color"
+            android:textSize="@dimen/common_text_size_28" />
+
+        <TextView
+            android:id="@+id/buttonTutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toolbar_flat_button"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_size_5"
+            android:paddingLeft="@dimen/common_size_7"
+            android:paddingRight="@dimen/common_size_7"
+            android:text="@string/tips"
+            android:textAllCaps="true"
+            android:textColor="@color/do_test_highlight_color"
+            android:textSize="@dimen/common_text_size_28" />
+
+        <TextView
+            android:id="@+id/button_modify_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toolbar_flat_button"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_size_5"
+            android:paddingLeft="@dimen/common_size_7"
+            android:paddingRight="@dimen/common_size_7"
+            android:text="@string/action_modify_answer"
+            android:textAllCaps="true"
+            android:textColor="@color/do_test_highlight_color"
+            android:textSize="@dimen/common_text_size_28" />
+
+        <LinearLayout
+            android:id="@+id/buttonShare"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/toolbar_flat_button"
+            android:clickable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/common_size_30"
+                android:layout_height="@dimen/common_size_30"
+                android:src="@drawable/ic_share" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

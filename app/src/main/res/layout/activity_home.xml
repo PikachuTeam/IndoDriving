@@ -40,7 +40,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/all_signs" />
+                    android:src="@drawable/img_all_signs" />
 
                 <TextView
                     android:id="@+id/text_sign_title"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:lineSpacingExtra="1dp"
-                    android:lineSpacingMultiplier="0.6"
+                    android:lineSpacingMultiplier="0.65"
                     android:paddingBottom="@dimen/common_size_20"
                     android:text="@string/home_screen_sign"
                     android:textAllCaps="true"
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:lineSpacingExtra="1dp"
-                    android:lineSpacingMultiplier="0.6"
+                    android:lineSpacingMultiplier="0.65"
                     android:paddingBottom="@dimen/common_size_20"
                     android:text="@string/home_screen_theory"
                     android:textAllCaps="true"

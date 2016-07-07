@@ -5,15 +5,15 @@ import android.os.Bundle;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseActivity;
-import com.essential.indodriving.ui.fragment.ChooseItemFragment;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
+import com.essential.indodriving.ui.fragment.theory.ChooseItemFragment;
 
 import tatteam.com.app_common.ui.fragment.BaseFragment;
 
 /**
  * Created by dongc_000 on 2/17/2016.
  */
-public class MainActivity extends MyBaseActivity {
+public class TheoryMainActivity extends SecondBaseActivity {
 
     private int mType;
 
@@ -40,6 +40,11 @@ public class MainActivity extends MyBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected int getLayoutResIdContentView() {
+        return R.layout.activity_main_theory;
     }
 
     @Override

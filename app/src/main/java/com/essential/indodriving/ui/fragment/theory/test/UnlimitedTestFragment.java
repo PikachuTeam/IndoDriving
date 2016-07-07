@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.test;
+package com.essential.indodriving.ui.fragment.theory.test;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -23,7 +23,7 @@ import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseActivity;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
@@ -455,7 +455,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
 
         private void setupAds(ViewGroup adsContainer) {
             AdsNativeExpressHandler adsHandler = new AdsNativeExpressHandler(getActivity(), adsContainer,
-                    MyBaseActivity.ADS_BIG_NATIVE_EXPRESS, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_BIG);
+                    SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_BIG);
             adsHandler.setup();
         }
 

@@ -23,8 +23,9 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait" />
+            android:name=".ui.activity.TheoryMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Theory" />
 
         <activity
             android:name=".ui.activity.ChooseSimActivity"
@@ -35,10 +36,15 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Sign" />
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".ui.activity.ChooseSignTypeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Sign" />
+
+        <activity
+            android:name=".ui.activity.SignMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Sign" />
     </application>

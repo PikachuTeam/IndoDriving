@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.test;
+package com.essential.indodriving.ui.fragment.theory.test;
 
 import android.app.FragmentManager;
 import android.graphics.PorterDuff;
@@ -19,7 +19,7 @@ import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.ui.fragment.ChooseItemFragment;
+import com.essential.indodriving.ui.fragment.theory.ChooseItemFragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;

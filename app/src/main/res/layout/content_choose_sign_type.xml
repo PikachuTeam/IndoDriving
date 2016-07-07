@@ -23,10 +23,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
+            android:layout_height="@dimen/choose_sign_button_height">
 
             <LinearLayout
-                android:id="@+id/buttonLearnSimA"
+                android:id="@+id/button_prohibition_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_sign_type"
@@ -35,17 +35,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/common_size_40"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_car" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_65"
+                    android:src="@drawable/sign_prohibition" />
 
                 <TextView
-                    android:id="@+id/textViewSimA"
+                    android:id="@+id/text_prohibition_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_a"
+                    android:text="@string/prohibition_sign"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
@@ -59,10 +59,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
+            android:layout_height="@dimen/choose_sign_button_height">
 
             <LinearLayout
-                android:id="@+id/buttonLearnSimAUmum"
+                android:id="@+id/button_warning_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_sign_type"
@@ -71,17 +71,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/common_size_40"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_car" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_65"
+                    android:src="@drawable/sign_warning" />
 
                 <TextView
-                    android:id="@+id/textViewSimAUmum"
+                    android:id="@+id/text_warning_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_a_umum"
+                    android:text="@string/warning_sign"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
@@ -95,10 +95,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
+            android:layout_height="@dimen/choose_sign_button_height">
 
             <LinearLayout
-                android:id="@+id/buttonLearnSimB1"
+                android:id="@+id/button_command_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_sign_type"
@@ -107,17 +107,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_small_truck" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_65"
+                    android:src="@drawable/sign_command" />
 
                 <TextView
-                    android:id="@+id/textViewSimB1"
+                    android:id="@+id/text_command_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_b1"
+                    android:text="@string/command_sign"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
@@ -131,10 +131,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
+            android:layout_height="@dimen/choose_sign_button_height">
 
             <LinearLayout
-                android:id="@+id/buttonLearnSimB1Umum"
+                android:id="@+id/button_direction_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_sign_type"
@@ -143,17 +143,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_small_truck" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_65"
+                    android:src="@drawable/sign_direction" />
 
                 <TextView
-                    android:id="@+id/textViewSimB1Umum"
+                    android:id="@+id/text_direction_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_b1_umum"
+                    android:text="@string/direction_sign"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
@@ -167,10 +167,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
+            android:layout_height="@dimen/choose_sign_button_height">
 
             <LinearLayout
-                android:id="@+id/buttonLearnSimB2"
+                android:id="@+id/button_additional_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_sign_type"
@@ -179,17 +179,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_big_truck" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_65"
+                    android:src="@drawable/sign_addition" />
 
                 <TextView
-                    android:id="@+id/textViewSimB2"
+                    android:id="@+id/text_additional_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_b2"
+                    android:text="@string/addition_sign"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>
@@ -203,10 +203,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
+            android:layout_height="@dimen/choose_sign_button_height">
 
             <LinearLayout
-                android:id="@+id/buttonLearnSimB2Umum"
+                android:id="@+id/button_all_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_sign_type"
@@ -215,89 +215,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_big_truck" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_65"
+                    android:src="@drawable/img_all_signs" />
 
                 <TextView
-                    android:id="@+id/textViewSimB2Umum"
+                    android:id="@+id/text_all_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_b2_umum"
-                    android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
-
-            <LinearLayout
-                android:id="@+id/buttonLearnSimC"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_sign_type"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_motorbike" />
-
-                <TextView
-                    android:id="@+id/textViewSimC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_c"
-                    android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sim_button_height">
-
-            <LinearLayout
-                android:id="@+id/buttonLearnSimD"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_sign_type"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/choose_sim_button_image_size"
-                    android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
-                    android:src="@drawable/ic_disabled_motorbike" />
-
-                <TextView
-                    android:id="@+id/textViewSimD"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/sim_d"
+                    android:text="@string/all_sign"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>

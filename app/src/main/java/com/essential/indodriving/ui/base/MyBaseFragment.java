@@ -59,8 +59,8 @@ public abstract class MyBaseFragment extends BaseFragment {
         CommonUtil.sharePlainText(getActivity(), sharedText);
     }
 
-    public MyBaseActivity getMyBaseActivity() {
-        return (MyBaseActivity) getBaseActivity();
+    public SecondBaseActivity getMyBaseActivity() {
+        return (SecondBaseActivity) getBaseActivity();
     }
 
     public TextView getButtonModifyAnswer() {

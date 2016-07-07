@@ -70,10 +70,11 @@
     <string name="title_tutorial">Tips</string>
     <string name="title_overall_result">Hasil</string>
     <string name="title_detail_result">Hasil</string>
+    <string name="title_written_test">Tes Tertulis</string>
+    <string name="title_sign">Rambu Lalu Lintas</string>
+
     <string name="your_answer">Pilihanmu:\u0020</string>
     <string name="number_of_answers">{0}/{1}</string>
-
-    <string name="title_written_test">Tes Tertulis</string>
     <string name="rate_us">Penilaian</string>
     <string name="more_apps">Aplikasi</string>
     <string name="remove_ads">Remove Ads</string>
@@ -93,4 +94,10 @@
     <string name="thanks_for_contribution">Terima kasih atas kontribusi Anda.\nKami akan mempertimbangkan jawaban anda</string>
     <string name="home_screen_theory">Soal &amp;\nSimulasi Ujian</string>
     <string name="home_screen_sign">Rambu\nLalu Lintas</string>
+    <string name="prohibition_sign">Rambu Larangan</string>
+    <string name="warning_sign">Rambu Peringatan</string>
+    <string name="command_sign">Rambu Perintah</string>
+    <string name="direction_sign">Rambu Petunjuk</string>
+    <string name="addition_sign">Rambu Tambahan</string>
+    <string name="all_sign">All Signs</string>
 </resources>

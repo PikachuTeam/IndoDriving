@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.test;
+package com.essential.indodriving.ui.fragment.theory.test;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -22,7 +22,7 @@ import com.essential.indodriving.R;
 import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.data.driving.QuestionPackage;
 import com.essential.indodriving.ui.activity.HomeActivity;
-import com.essential.indodriving.ui.activity.MainActivity;
+import com.essential.indodriving.ui.activity.TheoryMainActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
@@ -56,7 +56,7 @@ public class ListQuestionFragment extends MyBaseFragment implements
                     switch (button) {
                         case OK:
                             dialog.dismiss();
-                            ((MainActivity) getActivity()).handlePurchasing();
+                            ((TheoryMainActivity) getActivity()).handlePurchasing();
                             break;
                         case CANCEL:
                             dialog.dismiss();

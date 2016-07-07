@@ -53,5 +53,7 @@
     <dimen name="modify_dialog_height">320dp</dimen>
     <dimen name="dialog_width">300dp</dimen>
 
-    <dimen name="home_image_size">35dp</dimen>
+    <dimen name="home_image_size">40dp</dimen>
+    <dimen name="choose_sign_button_height">100dp</dimen>
+    <dimen name="choose_sign_item_button_size">90dp</dimen>
 </resources>

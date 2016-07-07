@@ -3,13 +3,13 @@
     android:id="@+id/mainCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background_color">
+    android:background="@color/default_background_color_sign">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/theory_toolbar" />
+        <include layout="@layout/sign_toolbar" />
 
         <FrameLayout
             android:id="@+id/fragmentContainer"

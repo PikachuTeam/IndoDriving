@@ -42,13 +42,6 @@
 
     <include layout="@layout/content_choose_sign_type" />
 
-    <Button
-        android:id="@+id/btn_consume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Consume"
-        android:visibility="gone" />
-
     <ImageView
         android:id="@+id/button_pro_ver"
         android:layout_width="wrap_content"

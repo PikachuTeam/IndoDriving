@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.learn;
+package com.essential.indodriving.ui.fragment.theory.learn;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

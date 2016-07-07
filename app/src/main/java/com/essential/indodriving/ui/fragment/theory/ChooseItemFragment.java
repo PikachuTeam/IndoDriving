@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment;
+package com.essential.indodriving.ui.fragment.theory;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,13 +9,12 @@ import android.widget.TextView;
 
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.driving.DrivingDataSource;
-import com.essential.indodriving.ui.activity.ChooseSimActivity;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.ui.fragment.learn.LearnAllFragment;
-import com.essential.indodriving.ui.fragment.test.ListQuestionFragment;
-import com.essential.indodriving.ui.fragment.test.UnlimitedTestFragment;
+import com.essential.indodriving.ui.fragment.theory.learn.LearnAllFragment;
+import com.essential.indodriving.ui.fragment.theory.test.ListQuestionFragment;
+import com.essential.indodriving.ui.fragment.theory.test.UnlimitedTestFragment;
 
 /**
  * Created by dongc_000 on 2/24/2016.

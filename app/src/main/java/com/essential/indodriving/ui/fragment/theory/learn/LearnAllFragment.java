@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.learn;
+package com.essential.indodriving.ui.fragment.theory.learn;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -39,7 +39,7 @@ import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseActivity;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.ModifyAnswerDialog;
 import com.essential.indodriving.ui.widget.RatingDialog;
@@ -667,12 +667,12 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void setupADSIfNeeded() {
         if (adsHandler1 == null) {
-            adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
+            adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler1.setup();
         }
 
         if (adsHandler2 == null) {
-            adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
+            adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler2.setup();
         }
     }

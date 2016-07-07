@@ -6,19 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
-import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
+import com.essential.indodriving.ui.base.FirstBaseActivity;
 import com.essential.indodriving.ui.widget.UpgradeToProVerDialog;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.util.CloseAppHandler;
@@ -27,38 +24,19 @@ import tatteam.com.app_common.util.CommonUtil;
 /**
  * Created by yue on 04/07/2016.
  */
-public class HomeActivity extends AppCompatActivity implements
-        CloseAppHandler.OnCloseAppListener, View.OnClickListener,
-        BaseConfirmDialog.OnConfirmDialogButtonClickListener, BillingProcessor.IBillingHandler, FloatingActionsMenu.OnFloatingActionsMenuUpdateListener {
+public class HomeActivity extends FirstBaseActivity implements
+        CloseAppHandler.OnCloseAppListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
 
-    public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";
-    private FloatingActionsMenu floatingActionsMenu;
     private CoordinatorLayout coordinatorLayout;
-    private View buttonProVer;
-    private View overlayView;
-    private View imageProVer;
-    private BillingProcessor billingProcessor;
     private CloseAppHandler closeAppHandler;
     public static Typeface defaultFont;
-    private boolean isProVer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        defaultFont = Typeface.createFromAsset(getAssets(), "fonts/Menu Sim.ttf");
-        isProVer = MySetting.getInstance().isProVersion();
         findViews();
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
-        if (BuildConfig.DEBUG) {
-            billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
-        } else {
-            if (!MySetting.getInstance().isProVersion() &&
-                    BillingProcessor.isIabServiceAvailable(this)) {
-                billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
-            }
-        }
     }
 
     @Override
@@ -73,6 +51,11 @@ public class HomeActivity extends AppCompatActivity implements
             billingProcessor.release();
         }
         super.onDestroy();
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_home;
     }
 
     @Override
@@ -120,12 +103,13 @@ public class HomeActivity extends AppCompatActivity implements
                 AppCommon.getInstance().openMoreAppDialog(this);
                 break;
             case R.id.fab_rate_us:
-                CommonUtil.openApplicationOnGooglePlay(this, PACKAGE_NAME_FREE_VER);
+                CommonUtil.openApplicationOnGooglePlay(this, Constants.PACKAGE_NAME_FREE_VER);
                 break;
             case R.id.fab_share:
                 sharingEvent();
                 break;
             case R.id.button_sign:
+                startActivity(new Intent(this, ChooseSignTypeActivity.class));
                 break;
             case R.id.button_theory:
                 startActivity(new Intent(this, ChooseSimActivity.class));
@@ -140,11 +124,7 @@ public class HomeActivity extends AppCompatActivity implements
         switch (button) {
             case OK:
                 dialog.dismiss();
-                if (billingProcessor != null && billingProcessor.isInitialized()) {
-                    if (!billingProcessor.isPurchased(Constants.PURCHASE_PRO_VERSION_ID)) {
-                        billingProcessor.purchase(this, Constants.PURCHASE_PRO_VERSION_ID);
-                    }
-                }
+                purchaseApp();
                 break;
             case CANCEL:
                 dialog.dismiss();
@@ -172,9 +152,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     @Override
     public void onBillingInitialized() {
-        boolean isProVersion = billingProcessor.isPurchased(Constants.PURCHASE_PRO_VERSION_ID);
-        MySetting.getInstance().setProVersion(isProVersion);
-        refreshUI();
+        billingInitialized();
     }
 
     @Override
@@ -188,36 +166,15 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     private void findViews() {
-        // Find views
-        floatingActionsMenu = (FloatingActionsMenu) findViewById(R.id.floating_actions_menu);
+//        // Find views
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
-        buttonProVer = findViewById(R.id.button_pro_ver);
-        overlayView = findViewById(R.id.view_overlay);
-        imageProVer = findViewById(R.id.image_100_pro);
-
-        // Set listener
-        buttonProVer.setOnClickListener(this);
-        overlayView.setOnClickListener(this);
-        floatingActionsMenu.setOnFloatingActionsMenuUpdateListener(this);
-        findViewById(R.id.fab_more_apps).setOnClickListener(this);
-        findViewById(R.id.fab_rate_us).setOnClickListener(this);
-        findViewById(R.id.fab_share).setOnClickListener(this);
+//
+//        // Set listener
         findViewById(R.id.button_theory).setOnClickListener(this);
         findViewById(R.id.button_sign).setOnClickListener(this);
 
         // Set font
-        ((TextView) findViewById(R.id.text_sign_title)).setTypeface(defaultFont);
         ((TextView) findViewById(R.id.text_theory_title)).setTypeface(defaultFont);
-    }
-
-    private void refreshUI() {
-        imageProVer.setVisibility(isProVer ? View.VISIBLE : View.GONE);
-        buttonProVer.setVisibility(isProVer ? View.GONE : View.VISIBLE);
-    }
-
-    private void sharingEvent() {
-        String androidLink = "https://play.google.com/store/apps/details?id=" + getPackageName();
-        String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
-        CommonUtil.sharePlainText(this, sharedText);
+        ((TextView) findViewById(R.id.text_sign_title)).setTypeface(defaultFont);
     }
 }

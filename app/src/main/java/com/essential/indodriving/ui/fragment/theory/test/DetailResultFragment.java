@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.test;
+package com.essential.indodriving.ui.fragment.theory.test;
 
 import android.content.Context;
 import android.os.Bundle;

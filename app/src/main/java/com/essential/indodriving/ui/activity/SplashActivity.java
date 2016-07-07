@@ -6,7 +6,7 @@ import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.data.PoolDatabaseLoader;
 import com.essential.indodriving.ui.base.Constants;
-import com.essential.indodriving.ui.base.MyBaseActivity;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -33,27 +33,27 @@ public class SplashActivity extends EssentialSplashActivity {
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
         if (BuildConfig.DEBUG) {
-            MyBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_TEST;
-            MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_TEST;
-            MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
-            MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
-            MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
-            MyBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            SecondBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_TEST;
+            SecondBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_TEST;
+            SecondBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
         } else {
-            MyBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST;
-            MyBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_DRIVING_TEST;
-            MyBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_DRIVING_TEST;
-            MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_CONTENT_DRIVING_TEST;
-            MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_INSTALL_DRIVING_TEST;
-            MyBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.BIG_NATIVE_EXPRESS_DRIVING_TEST;
+            SecondBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST;
+            SecondBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_DRIVING_TEST;
+            SecondBaseActivity.ADS_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_DRIVING_TEST;
+            SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_CONTENT_DRIVING_TEST;
+            SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_INSTALL_DRIVING_TEST;
+            SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.BIG_NATIVE_EXPRESS_DRIVING_TEST;
         }
 
-        AppCommon.getInstance().syncAdsIfNeeded(MyBaseActivity.ADS_SMALL,
-                MyBaseActivity.ADS_BIG,
-                MyBaseActivity.ADS_NATIVE_EXPRESS,
-                MyBaseActivity.ADS_NATIVE_EXPRESS_CONTENT,
-                MyBaseActivity.ADS_NATIVE_EXPRESS_INSTALL,
-                MyBaseActivity.ADS_BIG_NATIVE_EXPRESS);
+        AppCommon.getInstance().syncAdsIfNeeded(SecondBaseActivity.ADS_SMALL,
+                SecondBaseActivity.ADS_BIG,
+                SecondBaseActivity.ADS_NATIVE_EXPRESS,
+                SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT,
+                SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL,
+                SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS);
         PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
         loadConfig();
 
