@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.FirstBaseActivity;
@@ -93,27 +94,27 @@ public class ChooseSignTypeActivity extends FirstBaseActivity implements
                 sharingEvent();
                 break;
             case R.id.button_prohibition_sign:
-                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, Constants.TYPE_PROHIBITION_SIGN);
+                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_PROHIBITION_SIGN);
                 startActivity(intent);
                 break;
             case R.id.button_warning_sign:
-                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, Constants.TYPE_WARNING_SIGN);
+                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_WARNING_SIGN);
                 startActivity(intent);
                 break;
             case R.id.button_command_sign:
-                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, Constants.TYPE_COMMAND_SIGN);
+                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_COMMAND_SIGN);
                 startActivity(intent);
                 break;
             case R.id.button_direction_sign:
-                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, Constants.TYPE_DIRECTION_SIGN);
+                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_DIRECTION_SIGN);
                 startActivity(intent);
                 break;
             case R.id.button_additional_sign:
-                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, Constants.TYPE_ADDITIONAL_SIGN);
+                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_ADDITIONAL_SIGN);
                 startActivity(intent);
                 break;
             case R.id.button_all_sign:
-                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, Constants.TYPE_ALL_SIGN);
+                intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_ALL);
                 startActivity(intent);
                 break;
         }

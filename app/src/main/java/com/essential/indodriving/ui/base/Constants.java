@@ -12,6 +12,7 @@ public class Constants {
     public final static String BUNDLE_TYPE = "type";
     public final static String BUNDLE_SIGN_TYPE = "sign type";
     public final static String BUNDLE_EXAM_ID = "exam id";
+    public final static String BUNDLE_CURRENT_POSITION="current position";
     public final static String BUNDLE_NEED_SAVING = "need saving";
     public final static String BUNDLE_FRAGMENT_TYPE = "fragment type";
     public final static String KEY_HOLDER_QUESTIONS = "questions";
@@ -22,10 +23,4 @@ public class Constants {
     public final static int LEARN_ALL_ADS_BREAK = 8;
     public final static int WRITTEN_TEST_ADS_BREAK = 5;
     public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";
-    public final static int TYPE_PROHIBITION_SIGN = 1;
-    public final static int TYPE_WARNING_SIGN = 2;
-    public final static int TYPE_COMMAND_SIGN = 3;
-    public final static int TYPE_DIRECTION_SIGN = 4;
-    public final static int TYPE_ADDITIONAL_SIGN = 5;
-    public final static int TYPE_ALL_SIGN = 6;
 }

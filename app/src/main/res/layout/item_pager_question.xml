@@ -29,7 +29,7 @@
                     android:layout_marginTop="@dimen/common_size_5">
 
                     <ImageView
-                        android:id="@+id/image_question"
+                        android:id="@+id/image_sign"
                         android:layout_width="@dimen/question_image_size"
                         android:layout_height="@dimen/question_image_size"
                         android:layout_centerHorizontal="true"
@@ -39,7 +39,7 @@
                         android:id="@+id/buttonZoomIn"
                         android:layout_width="@dimen/button_zoom_in_size"
                         android:layout_height="@dimen/button_zoom_in_size"
-                        android:layout_toRightOf="@id/image_question"
+                        android:layout_toRightOf="@id/image_sign"
                         android:clickable="true"
                         android:src="@drawable/ic_zoom_in_normal" />
                 </RelativeLayout>

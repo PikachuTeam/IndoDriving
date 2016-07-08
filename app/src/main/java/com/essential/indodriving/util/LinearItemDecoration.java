@@ -10,15 +10,15 @@ import com.essential.indodriving.R;
 /**
  * Created by yue on 14/05/2016.
  */
-public class ListItemDecoration extends RecyclerView.ItemDecoration {
+public class LinearItemDecoration extends RecyclerView.ItemDecoration {
 
     private int mSpace;
 
-    public ListItemDecoration(Context context) {
+    public LinearItemDecoration(Context context) {
         mSpace = context.getResources().getDimensionPixelSize(R.dimen.common_size_5);
     }
 
-    public ListItemDecoration(int space) {
+    public LinearItemDecoration(int space) {
         mSpace = space;
     }
 

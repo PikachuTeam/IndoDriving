@@ -195,4 +195,13 @@ public class MySetting {
                 return true;
         }
     }
+
+    public void saveSignPosition(String type, int position) {
+        editor.putInt(type, position);
+        editor.commit();
+    }
+
+    public int loadSignPosition(String type) {
+        return pref.getInt(type, 0);
+    }
 }

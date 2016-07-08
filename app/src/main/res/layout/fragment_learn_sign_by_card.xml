@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragmentLearnAll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background_color_sign">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/card_area"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/indicatorArea"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:layout_marginRight="@dimen/common_size_12"
+                    android:layout_marginTop="@dimen/common_size_10"
+                    android:minHeight="@dimen/learn_sign_card_height"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/common_size_10"
+                    app:cardPreventCornerOverlap="false">
+
+                    <LinearLayout
+                        android:id="@+id/adsContainer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_size_8"
+                        android:background="@drawable/normal_background_with_corner"
+                        android:gravity="center"
+                        android:minHeight="@dimen/learn_sign_card_height"
+                        android:orientation="horizontal"
+                        android:visibility="gone"/>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_question_root"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/normal_background_with_corner"
+                        android:minHeight="@dimen/learn_sign_card_height">
+
+                        <ImageView
+                            android:id="@+id/image_sign"
+                            android:layout_width="@dimen/learn_sign_image_size"
+                            android:layout_height="@dimen/learn_sign_image_size"
+                            android:layout_centerInParent="true"
+                            android:clickable="true"/>
+
+                        <ImageView
+                            android:id="@+id/button_zoom_in"
+                            android:layout_width="@dimen/button_zoom_in_size"
+                            android:layout_height="@dimen/button_zoom_in_size"
+                            android:layout_alignTop="@+id/image_sign"
+                            android:layout_toRightOf="@+id/image_sign"
+                            android:clickable="true"
+                            android:src="@drawable/ic_zoom_in_normal"/>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <com.essential.indodriving.ui.widget.LearningCardSeekbar
+                    android:id="@+id/learning_card_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/progress_area_height"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    app:progressDrawable="@drawable/sign_progress_bar"
+                    app:textColor="@color/white"
+                    app:thumbColor="@color/color_primary_sign"/>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:layout_marginRight="@dimen/common_size_12"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:minHeight="@dimen/learn_sign_card_height"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/common_size_10"
+                    app:cardPreventCornerOverlap="false">
+
+                    <LinearLayout
+                        android:id="@+id/adsContainer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_size_8"
+                        android:background="@drawable/normal_background_with_corner"
+                        android:gravity="center"
+                        android:minHeight="@dimen/learn_all_card_height"
+                        android:orientation="horizontal"
+                        android:visibility="gone"/>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_answer_root"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/learn_sign_card_height">
+
+                        <TextView
+                            android:id="@+id/text_definition"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/normal_background_with_corner"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:minHeight="@dimen/learn_sign_card_height"
+                            android:padding="@dimen/common_size_10"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/common_text_size_18"/>
+
+                        <RelativeLayout
+                            android:id="@+id/locked_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/answerArea"
+                            android:layout_alignTop="@+id/answerArea"
+                            android:minHeight="@dimen/learn_sign_card_height">
+
+                            <ImageView
+                                android:id="@+id/image_blur"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"/>
+
+                            <TextView
+                                android:id="@+id/text_press_to_unlock"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:text="@string/click_to_see_answer"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_color_4"
+                                android:textSize="@dimen/common_text_size_28"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/indicatorArea"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/learn_all_indicator_area_height"
+            android:layout_alignParentBottom="true"
+            android:gravity="center">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/button_previous_width"
+                android:layout_height="@dimen/button_previous_height"
+                app:cardCornerRadius="@dimen/common_size_3"
+                app:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:id="@+id/button_previous"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/raised_button"
+                    android:clickable="false"
+                    android:src="@drawable/ic_previous"/>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/button_previous_width"
+                android:layout_height="@dimen/button_previous_height"
+                android:layout_marginLeft="@dimen/common_size_80"
+                app:cardCornerRadius="@dimen/common_size_3"
+                app:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:id="@+id/button_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/raised_button"
+                    android:clickable="true"
+                    android:src="@drawable/ic_next"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+</tatteam.com.app_common.ui.drawable.FractionFrameLayout>

@@ -307,7 +307,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 setupAds(adsContainer);
             } else {
                 view.setVisibility(View.VISIBLE);
-                ImageView questionImage = (ImageView) view.findViewById(R.id.image_question);
+                ImageView questionImage = (ImageView) view.findViewById(R.id.image_sign);
                 TextView textViewQuestion = (TextView) view.findViewById(R.id.text_detail);
                 RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
                 ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);

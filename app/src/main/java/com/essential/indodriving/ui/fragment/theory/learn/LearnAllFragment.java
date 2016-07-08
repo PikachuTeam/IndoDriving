@@ -248,8 +248,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                 currentPosition--;
                 if (currentPosition == 0) {
                     disableButton(buttonPrevious, R.drawable.ic_previous);
-                }
-                if (currentPosition != questions.size()) {
+                } else if (currentPosition != questions.size()) {
                     if (!buttonNext.isEnabled()) {
                         enableButton(buttonNext, R.drawable.ic_next);
                     }
@@ -328,6 +327,16 @@ public class LearnAllFragment extends MyBaseFragment implements
         currentPosition = progress;
         setCardData(questions.get(currentPosition));
         modifyToolbar();
+        if (progress == 0) {
+            disableButton(buttonPrevious, R.drawable.ic_previous);
+            if (!buttonNext.isEnabled()) enableButton(buttonNext, R.drawable.ic_next);
+        } else if (progress == questions.size() - 1) {
+            disableButton(buttonNext, R.drawable.ic_next);
+            if (!buttonPrevious.isEnabled()) enableButton(buttonPrevious, R.drawable.ic_previous);
+        } else {
+            if (!buttonNext.isEnabled()) enableButton(buttonNext, R.drawable.ic_next);
+            if (!buttonPrevious.isEnabled()) enableButton(buttonPrevious, R.drawable.ic_previous);
+        }
     }
 
     private void findViews(View rootView) {
@@ -372,6 +381,7 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void loadState() {
         currentPosition = MySetting.getInstance().loadPosition(type);
+        if (currentPosition > questions.size() - 1) currentPosition = questions.size() - 1;
         isProVersion = MySetting.getInstance().isProVersion();
         isRated = isProVersion ? true : MySetting.getInstance().isRated();
         isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
@@ -423,8 +433,12 @@ public class LearnAllFragment extends MyBaseFragment implements
             resetAllAnswers();
             makeCorrectAnswer(
                     question.fixedAnswer != -1 ? question.fixedAnswer : question.correctAnswer);
-            int tmp = currentPosition + 1;
-            learningCardSeekbar.setProgress((tmp - tmp / Constants.LEARN_ALL_ADS_BREAK), tmp);
+            if (!isProVersion) {
+                int tmp = currentPosition + 1;
+                learningCardSeekbar.setProgress((tmp - tmp / Constants.LEARN_ALL_ADS_BREAK), tmp);
+            } else {
+                learningCardSeekbar.setProgress(currentPosition + 1, true);
+            }
             isBlurred = false;
         }
     }

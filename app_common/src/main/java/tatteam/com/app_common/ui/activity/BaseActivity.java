@@ -119,7 +119,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         getFragmentManager().popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
-    public void replaceFragment(BaseFragment fragment, String fragmentTag, String transactionTag, boolean needCommitAllowingStateLoss) {
+    public void replaceFragment(
+            BaseFragment fragment, String fragmentTag,
+            String transactionTag, boolean needCommitAllowingStateLoss) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit,
                 R.anim.fragment_slide_left_enter, R.anim.fragment_slide_right_exit);
@@ -129,6 +131,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             transaction.commit();
         }
+    }
+
+    public void replaceFragmentWithCustomAnimation(
+            BaseFragment fragment, String fragmentTag, String transactionTag,
+            int enter, int exit, int popEnter, int popExit) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(enter, exit, popEnter, popExit).
+                replace(fragmentContainerId, fragment, fragmentTag).
+                addToBackStack(transactionTag).commit();
     }
 
     public void onCloseActivity() {

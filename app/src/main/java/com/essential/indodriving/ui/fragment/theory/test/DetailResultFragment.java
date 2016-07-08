@@ -18,7 +18,7 @@ import com.essential.indodriving.data.driving.Question;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.ShowResultDialog;
-import com.essential.indodriving.util.ListItemDecoration;
+import com.essential.indodriving.util.LinearItemDecoration;
 
 import java.util.ArrayList;
 
@@ -93,7 +93,7 @@ public class DetailResultFragment extends MyBaseFragment {
         }
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listDetailResult.setLayoutManager(layoutManager);
-        listDetailResult.addItemDecoration(new ListItemDecoration(getActivity()));
+        listDetailResult.addItemDecoration(new LinearItemDecoration(getActivity()));
         listDetailResult.setAdapter(adapter);
         getMyBaseActivity().showBigAdsIfNeeded();
     }
@@ -164,7 +164,7 @@ public class DetailResultFragment extends MyBaseFragment {
             public ViewHolder(View itemView) {
                 super(itemView);
                 buttonDetailResult = (LinearLayout) itemView.findViewById(R.id.button_detail);
-                questionImage = (ImageView) itemView.findViewById(R.id.image_question);
+                questionImage = (ImageView) itemView.findViewById(R.id.image_sign);
                 textViewQuestion = (TextView) itemView.findViewById(R.id.text_detail);
             }
         }

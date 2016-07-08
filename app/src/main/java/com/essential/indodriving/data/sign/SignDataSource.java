@@ -15,15 +15,16 @@ import java.util.Random;
 public class SignDataSource {
 
     public static final String GROUP_ALL = null;
-    public static final String GROUP_Rambu_Larangan = "Rambu Larangan";
-    public static final String GROUP_Rambu_Peringatan = "Rambu Peringatan";
-    public static final String GROUP_Rambu_Perintah = "Rambu Perintah";
-    public static final String GROUP_Rambu_Petunjuk = "Rambu Petunjuk";
-    public static final String GROUP_Rambu_Tambahan = "Rambu Tambahan";
+    public static final String GROUP_PROHIBITION_SIGN = "Rambu Larangan";
+    public static final String GROUP_WARNING_SIGN = "Rambu Peringatan";
+    public static final String GROUP_COMMAND_SIGN = "Rambu Perintah";
+    public static final String GROUP_DIRECTION_SIGN = "Rambu Petunjuk";
+    public static final String GROUP_ADDITIONAL_SIGN = "Rambu Tambahan";
+    private final static String COLUMN_ID = "id";
     private final static String COLUMN_SIGN_GROUP = "sign_group";
     private final static String COLUMN_NUMBER = "number";
     private final static String COLUMN_IMAGE = "image";
-    private final static String COLUMN_DEFINITION = "definitionF";
+    private final static String COLUMN_DEFINITION = "definition";
 
     public static final int TOTAL_QUESTION = 20;
     public static final int TOTAL_ANSWER = 4;
@@ -46,7 +47,7 @@ public class SignDataSource {
         SQLiteDatabase sqLiteDatabase = openConnection();
         String query = "SELECT * from sign";
         if (groupName != null) {
-            query = "SELECT * from sign where" + COLUMN_SIGN_GROUP + " = '" + groupName + "' ";
+            query = "SELECT * from sign where " + COLUMN_SIGN_GROUP + " = '" + groupName + "'";
         }
         if (random) {
             query = query.concat(" order by random()");
@@ -57,13 +58,14 @@ public class SignDataSource {
         Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{});
         cursor.moveToFirst();
         HashMap<String, Integer> columnIndexes = new HashMap<>();
+        columnIndexes.put(COLUMN_ID, cursor.getColumnIndex(COLUMN_ID));
         columnIndexes.put(COLUMN_SIGN_GROUP, cursor.getColumnIndex(COLUMN_SIGN_GROUP));
         columnIndexes.put(COLUMN_NUMBER, cursor.getColumnIndex(COLUMN_NUMBER));
         columnIndexes.put(COLUMN_IMAGE, cursor.getColumnIndex(COLUMN_IMAGE));
         columnIndexes.put(COLUMN_DEFINITION, cursor.getColumnIndex(COLUMN_DEFINITION));
         while (!cursor.isAfterLast()) {
             Sign sign = new Sign();
-            sign.id = cursor.getInt(0);
+            sign.id = cursor.getInt(columnIndexes.get(COLUMN_ID));
             sign.sign_group = cursor.getString(columnIndexes.get(COLUMN_SIGN_GROUP));
             sign.number = cursor.getString(columnIndexes.get(COLUMN_NUMBER));
             sign.image = cursor.getBlob(columnIndexes.get(COLUMN_IMAGE));

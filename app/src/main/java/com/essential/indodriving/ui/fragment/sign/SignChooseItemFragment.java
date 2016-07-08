@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.activity.HomeActivity;
+import com.essential.indodriving.ui.activity.SignMainActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 
@@ -14,33 +16,21 @@ import com.essential.indodriving.ui.base.MyBaseFragment;
  */
 public class SignChooseItemFragment extends MyBaseFragment implements View.OnClickListener {
 
-    private int type;
+    public final static String TAG_SIGN_CHOOSE_ITEM_FRAGMENT = "Fragment Sign Choose Item";
+    private String type;
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         getData();
         setListeners(rootView);
         setFonts(rootView);
+        ((SignMainActivity) getMyBaseActivity()).getActionLearningSignByCard().setVisibility(View.GONE);
+        ((SignMainActivity) getMyBaseActivity()).getActionLearningSignByList().setVisibility(View.GONE);
     }
 
     @Override
     protected String getTitle() {
-        switch (type) {
-            case Constants.TYPE_PROHIBITION_SIGN:
-                return getString(R.string.prohibition_sign);
-            case Constants.TYPE_WARNING_SIGN:
-                return getString(R.string.warning_sign);
-            case Constants.TYPE_DIRECTION_SIGN:
-                return getString(R.string.direction_sign);
-            case Constants.TYPE_ADDITIONAL_SIGN:
-                return getString(R.string.addition_sign);
-            case Constants.TYPE_ALL_SIGN:
-                return getString(R.string.all_sign);
-            case Constants.TYPE_COMMAND_SIGN:
-                return getString(R.string.command_sign);
-            default:
-                return getString(R.string.prohibition_sign);
-        }
+        return type;
     }
 
     @Override
@@ -50,9 +40,13 @@ public class SignChooseItemFragment extends MyBaseFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        MyBaseFragment fragment=null;
         switch (v.getId()) {
             case R.id.linear_learn_sign:
             case R.id.button_learn_sign:
+                fragment = new LearnSignByListFragment();
+                bundle.putString(Constants.BUNDLE_SIGN_TYPE, type);
                 break;
             case R.id.linear_unlimited_test:
             case R.id.button_unlimited_test:
@@ -64,6 +58,10 @@ public class SignChooseItemFragment extends MyBaseFragment implements View.OnCli
             case R.id.button_matching:
                 break;
         }
+        if(fragment!=null){
+            fragment.setArguments(bundle);
+            replaceFragment(fragment, TAG_SIGN_CHOOSE_ITEM_FRAGMENT);
+        }
     }
 
     @Override
@@ -74,7 +72,7 @@ public class SignChooseItemFragment extends MyBaseFragment implements View.OnCli
     private void getData() {
         Bundle bundle = getArguments();
         type = bundle != null ?
-                bundle.getInt(Constants.BUNDLE_SIGN_TYPE) : Constants.TYPE_PROHIBITION_SIGN;
+                bundle.getString(Constants.BUNDLE_SIGN_TYPE) : SignDataSource.GROUP_PROHIBITION_SIGN;
     }
 
     private void setListeners(View rootView) {

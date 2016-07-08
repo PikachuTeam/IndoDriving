@@ -2,8 +2,10 @@ package com.essential.indodriving.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.fragment.sign.SignChooseItemFragment;
@@ -15,12 +17,15 @@ import tatteam.com.app_common.ui.fragment.BaseFragment;
  */
 public class SignMainActivity extends SecondBaseActivity {
 
-    private int type;
+    private String type;
+    private View actionLearningSignByCard;
+    private View actionLearningSignByList;
 
     @Override
     protected void onCreateContentView() {
         super.onCreateContentView();
         getData();
+        findViews();
     }
 
     @Override
@@ -32,7 +37,7 @@ public class SignMainActivity extends SecondBaseActivity {
     protected BaseFragment getFragmentContent() {
         SignChooseItemFragment fragment = new SignChooseItemFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constants.BUNDLE_SIGN_TYPE, type);
+        bundle.putString(Constants.BUNDLE_SIGN_TYPE, type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -42,10 +47,23 @@ public class SignMainActivity extends SecondBaseActivity {
         return R.layout.activity_main_sign;
     }
 
+    public View getActionLearningSignByCard(){
+        return actionLearningSignByCard;
+    }
+
+    public View getActionLearningSignByList(){
+        return actionLearningSignByList;
+    }
+
     private void getData() {
         Intent intent = getIntent();
         type = intent != null ?
-                intent.getIntExtra(Constants.BUNDLE_SIGN_TYPE, Constants.TYPE_PROHIBITION_SIGN) :
-                Constants.TYPE_PROHIBITION_SIGN;
+                intent.getStringExtra(Constants.BUNDLE_SIGN_TYPE) :
+                SignDataSource.GROUP_PROHIBITION_SIGN;
+    }
+
+    private void findViews() {
+        actionLearningSignByCard = findViewById(R.id.action_learning_sign_by_card);
+        actionLearningSignByList = findViewById(R.id.action_learning_sign_by_list);
     }
 }

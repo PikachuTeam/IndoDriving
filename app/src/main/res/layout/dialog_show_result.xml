@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/image_question"
+                        android:id="@+id/image_sign"
                         android:layout_width="@dimen/dialog_show_result_question_image_size"
                         android:layout_height="@dimen/dialog_show_result_question_image_size"
                         android:layout_centerHorizontal="true"
@@ -46,7 +46,7 @@
                         android:id="@+id/buttonZoomIn"
                         android:layout_width="@dimen/button_zoom_in_size"
                         android:layout_height="@dimen/button_zoom_in_size"
-                        android:layout_toRightOf="@+id/image_question"
+                        android:layout_toRightOf="@+id/image_sign"
                         android:clickable="true"
                         android:src="@drawable/ic_zoom_in_normal" />
                 </RelativeLayout>

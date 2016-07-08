@@ -10,5 +10,5 @@ public class Sign {
     public String number;
     public byte[] image;
     public String definition;
-
+    public boolean isAds;
 }
