@@ -3,21 +3,12 @@ package com.essential.indodriving.ui.fragment.sign.learn;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
-import android.support.v8.renderscript.Allocation;
-import android.support.v8.renderscript.Element;
-import android.support.v8.renderscript.RenderScript;
-import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,10 +31,10 @@ import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.base.SecondBaseActivity;
-import com.essential.indodriving.ui.fragment.sign.SignChooseItemFragment;
 import com.essential.indodriving.ui.widget.LearningCardSeekbar;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
+import com.essential.indodriving.util.ImageHelper;
 
 import java.util.List;
 
@@ -52,10 +43,9 @@ import tatteam.com.app_common.ads.AdsNativeExpressHandler;
 /**
  * Created by yue on 08/07/2016.
  */
-public class LearnSignByCardFragment extends MyBaseFragment implements LearningCardSeekbar.OnProgressChangedListener, View.OnTouchListener, View.OnClickListener {
+public class LearnSignByCardFragment extends MyBaseFragment implements
+        LearningCardSeekbar.OnProgressChangedListener, View.OnTouchListener, View.OnClickListener {
 
-    private final float BITMAP_SCALE = 0.4f;
-    private final float BLUR_RADIUS = 7f;
     private final long ALPHA_ANIM_DURATION = 600;
     private View actionLearningSignByList;
     private ScrollView cardArea;
@@ -382,24 +372,29 @@ public class LearnSignByCardFragment extends MyBaseFragment implements LearningC
 
     private void setupADSIfNeeded() {
         if (adsHandler1 == null) {
-            adsHandler1 = new AdsNativeExpressHandler(getActivity(), adsContainer1, SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
+            adsHandler1 = new AdsNativeExpressHandler(getActivity(),
+                    adsContainer1, SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT,
+                    AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler1.setup();
         }
 
         if (adsHandler2 == null) {
-            adsHandler2 = new AdsNativeExpressHandler(getActivity(), adsContainer2, SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
+            adsHandler2 = new AdsNativeExpressHandler(getActivity(),
+                    adsContainer2, SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL,
+                    AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler2.setup();
         }
     }
 
     private void makeBlurEffectIfNeed() {
         if (isEnableRateToUnlock && !isProVersion && !isRated) {
-            if (currentPosition >= 10) {
+            if (currentPosition >= Constants.LOCK_START_INDEX) {
                 if (lockedArea.getVisibility() == View.GONE) {
                     lockedArea.setVisibility(View.VISIBLE);
                 }
                 try {
-                    Bitmap blurBitmap = getBlurredBackground(getScreenshot(textDefinition));
+                    Bitmap blurBitmap = ImageHelper.blur(getActivity(),
+                            ImageHelper.captureView(textDefinition));
                     blurryImage.setImageBitmap(blurBitmap);
                     lockedArea.startAnimation(alphaAnimation);
                 } catch (Exception e) {
@@ -412,31 +407,6 @@ public class LearnSignByCardFragment extends MyBaseFragment implements LearningC
             }
         }
         isBlurred = true;
-    }
-
-    private Bitmap getScreenshot(View v) {
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        v.draw(c);
-        return b;
-    }
-
-    private Bitmap getBlurredBackground(Bitmap image) throws Exception {
-        int width = Math.round(image.getWidth() * BITMAP_SCALE);
-        int height = Math.round(image.getHeight() * BITMAP_SCALE);
-        Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
-        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
-        RenderScript rs = RenderScript.create(getActivity());
-        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-        Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
-        Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
-        theIntrinsic.setRadius(BLUR_RADIUS);
-        theIntrinsic.setInput(tmpIn);
-        theIntrinsic.forEach(tmpOut);
-        tmpOut.copyTo(outputBitmap);
-        rs.destroy();
-        return getRoundedCornerBitmap(Bitmap.createScaledBitmap(
-                outputBitmap, image.getWidth(), image.getHeight(), false));
     }
 
     private void enableButton(ImageView button, int image) {
@@ -453,24 +423,6 @@ public class LearnSignByCardFragment extends MyBaseFragment implements LearningC
         button.setColorFilter(ContextCompat.getColor(getActivity()
                 , R.color.learn_all_button_disabled_color)
                 , PorterDuff.Mode.SRC_ATOP);
-    }
-
-    private Bitmap getRoundedCornerBitmap(Bitmap src) {
-        Bitmap output = Bitmap.createBitmap(
-                src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, src.getWidth(), src.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = getResources().getDimension(tatteam.com.app_common.R.dimen.common_size_10);
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(src, rect, rect, paint);
-        return output;
     }
 
     private void saveState() {

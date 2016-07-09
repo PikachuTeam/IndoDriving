@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.fragment.sign.learn;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +16,12 @@ import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.sign.Sign;
 import com.essential.indodriving.data.sign.SignDataSource;
+import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.SignMainActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.ShowSignDialog;
+import com.essential.indodriving.util.ImageHelper;
 import com.essential.indodriving.util.LinearItemDecoration;
 import com.essential.indodriving.util.OnSignRecyclerViewItemClickListener;
 
@@ -37,6 +40,9 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     private String type;
     private int currentPosition;
     private boolean isFirst;
+    private boolean isRated;
+    private boolean isProVersion;
+    private boolean isEnableRateToUnlock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,6 +116,9 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     private void loadState() {
         currentPosition = MySetting.getInstance().loadSignPosition(type);
         if (currentPosition > signs.size() - 1) currentPosition = signs.size() - 1;
+        isProVersion = MySetting.getInstance().isProVersion();
+        isRated = isProVersion ? true : MySetting.getInstance().isRated();
+        isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
     }
 
     private void moveToLearningSignByCardFragment() {
@@ -123,7 +132,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
                 R.animator.card_flip_right_in, R.animator.card_flip_right_out);
     }
 
-    private static class ListSignsAdapter extends RecyclerView.Adapter<ListSignsAdapter.ItemHolder> {
+    private class ListSignsAdapter extends RecyclerView.Adapter<ListSignsAdapter.ItemHolder> {
 
         private Context context;
         private List<Sign> signs;
@@ -161,6 +170,18 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
                     }
                 }
             });
+            if (isEnableRateToUnlock && !isProVersion && !isRated) {
+                if (position >= Constants.LOCK_START_INDEX) {
+                    Bitmap blurImage = ImageHelper.
+                            blur(context, ImageHelper.captureView(holder.buttonDetail));
+                    if (holder.lockedArea.getVisibility() == View.GONE)
+                        holder.lockedArea.setVisibility(View.VISIBLE);
+                    holder.blurryImage.setImageBitmap(blurImage);
+                } else {
+                    if (holder.lockedArea.getVisibility() == View.VISIBLE)
+                        holder.lockedArea.setVisibility(View.GONE);
+                }
+            }
         }
 
         @Override
@@ -173,12 +194,18 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
             ImageView imageQuestion;
             TextView textDetail;
             View buttonDetail;
+            View lockedArea;
+            ImageView blurryImage;
 
             public ItemHolder(View itemView) {
                 super(itemView);
                 imageQuestion = (ImageView) itemView.findViewById(R.id.image_sign);
                 textDetail = (TextView) itemView.findViewById(R.id.text_detail);
                 buttonDetail = itemView.findViewById(R.id.button_detail);
+                lockedArea = itemView.findViewById(R.id.locked_area);
+                blurryImage = (ImageView) itemView.findViewById(R.id.image_blur);
+                ((TextView) itemView.findViewById(R.id.text_press_to_unlock)).
+                        setTypeface(HomeActivity.defaultFont);
             }
         }
     }

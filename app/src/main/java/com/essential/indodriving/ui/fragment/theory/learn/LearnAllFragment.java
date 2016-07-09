@@ -3,21 +3,12 @@ package com.essential.indodriving.ui.fragment.theory.learn;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
-import android.support.v8.renderscript.Allocation;
-import android.support.v8.renderscript.Element;
-import android.support.v8.renderscript.RenderScript;
-import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,6 +35,7 @@ import com.essential.indodriving.ui.widget.LearningCardSeekbar;
 import com.essential.indodriving.ui.widget.ModifyAnswerDialog;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
+import com.essential.indodriving.util.ImageHelper;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -496,49 +488,6 @@ public class LearnAllFragment extends MyBaseFragment implements
                 , PorterDuff.Mode.SRC_ATOP);
     }
 
-    private Bitmap getRoundedCornerBitmap(Bitmap src) {
-        Bitmap output = Bitmap.createBitmap(
-                src.getWidth(), src.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, src.getWidth(), src.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = getResources().getDimension(tatteam.com.app_common.R.dimen.common_size_10);
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(src, rect, rect, paint);
-        return output;
-    }
-
-    private Bitmap getScreenshot(View v) {
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        v.draw(c);
-        return b;
-    }
-
-    private Bitmap getBlurredBackground(Bitmap image) throws Exception {
-        int width = Math.round(image.getWidth() * BITMAP_SCALE);
-        int height = Math.round(image.getHeight() * BITMAP_SCALE);
-        Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
-        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
-        RenderScript rs = RenderScript.create(getActivity());
-        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-        Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
-        Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
-        theIntrinsic.setRadius(BLUR_RADIUS);
-        theIntrinsic.setInput(tmpIn);
-        theIntrinsic.forEach(tmpOut);
-        tmpOut.copyTo(outputBitmap);
-        rs.destroy();
-        return getRoundedCornerBitmap(Bitmap.createScaledBitmap(
-                outputBitmap, image.getWidth(), image.getHeight(), false));
-    }
-
     private void modifyToolbar() {
         if (!isRated && !isProVersion) {
             if (currentPosition >= 10 &&
@@ -587,12 +536,13 @@ public class LearnAllFragment extends MyBaseFragment implements
 
     private void makeBlurEffectIfNeed() {
         if (isEnableRateToUnlock && !isProVersion && !isRated) {
-            if (currentPosition >= 10) {
+            if (currentPosition >= Constants.LOCK_START_INDEX) {
                 if (lockedArea.getVisibility() == View.GONE) {
                     lockedArea.setVisibility(View.VISIBLE);
                 }
                 try {
-                    Bitmap blurBitmap = getBlurredBackground(getScreenshot(answerArea));
+                    Bitmap blurBitmap = ImageHelper.blur(getActivity(),
+                            ImageHelper.captureView(answerArea));
                     blurryImage.setImageBitmap(blurBitmap);
                     lockedArea.startAnimation(alphaAnimation);
                 } catch (Exception e) {

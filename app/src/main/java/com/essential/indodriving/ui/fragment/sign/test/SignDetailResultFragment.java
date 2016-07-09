@@ -153,13 +153,13 @@ public class SignDetailResultFragment extends MyBaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            public LinearLayout buttonDetailResult;
+            public View buttonDetailResult;
             public ImageView imageSign;
             public TextView textDefinition;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                buttonDetailResult = (LinearLayout) itemView.findViewById(R.id.button_detail);
+                buttonDetailResult = itemView.findViewById(R.id.button_detail);
                 imageSign = (ImageView) itemView.findViewById(R.id.image_sign);
                 textDefinition = (TextView) itemView.findViewById(R.id.text_detail);
             }

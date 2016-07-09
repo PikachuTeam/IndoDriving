@@ -444,7 +444,8 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(i);
                 answerChoicesItem.setActive(false);
             }
-            AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(question.answer);
+            AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem)
+                    choicesContainer.getChildAt(question.answer);
             answerChoicesItem.setActive(true);
             choicesContainer.invalidate();
         }

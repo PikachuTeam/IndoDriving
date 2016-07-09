@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -25,7 +26,6 @@ import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.widget.AnswerChoicesItem;
 import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
@@ -35,13 +35,14 @@ import com.essential.indodriving.util.OnQuestionPagerItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import tatteam.com.app_common.ads.AdsNativeExpressHandler;
-
 /**
- * Created by yue on 08/07/2016.
+ * Created by yue on 09/07/2016.
  */
-public class SignUnlimitedTestFragment extends MyBaseFragment implements QuestionNoItemWrapper.OnQuestionNoClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener, OnQuestionPagerItemClickListener, ViewPager.OnPageChangeListener {
+public class SignDoTestFragment extends MyBaseFragment implements
+        OnQuestionPagerItemClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener,
+        QuestionNoItemWrapper.OnQuestionNoClickListener, ViewPager.OnPageChangeListener {
 
+    public final static int INTERVAL = 1000, TOTAL_TIME = 1801000;
     public final static String TAG_WRITTEN_TEST_FRAGMENT = "Written Test Fragment";
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
@@ -51,8 +52,15 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
     private List<QuestionNoItemWrapper> wrappers;
     private Typeface font;
     private TextView headerQuestion;
+    private TextView textViewMinute1;
+    private TextView textViewMinute2;
+    private TextView textViewSecond1;
+    private TextView textViewSecond2;
     private String type;
+    private CountDownTimer timer;
+    private int minute1, minute2, second1, second2;
     private int currentPosition;
+    private int mTimeLeft;
     private boolean isProVer;
 
     @Override
@@ -61,9 +69,6 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
         getData();
         loadState();
         questions = SignDataSource.getQuestions(type);
-        if (!isProVer) {
-            addAds(questions);
-        }
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         wrappers = new ArrayList<>();
         int numberOfQuestions = questions.size();
@@ -84,6 +89,11 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
             wrapper.setOnQuestionNoClickListener(this);
             wrappers.add(wrapper);
         }
+        minute1 = 3;
+        minute2 = 0;
+        second1 = 0;
+        second2 = 0;
+        mTimeLeft = 0;
         currentPosition = 0;
     }
 
@@ -98,6 +108,33 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
         for (int i = 0; i < size; i++) {
             testHorizontalScrollView.addView(wrappers.get(i).getView());
         }
+        textViewMinute1.setText("" + minute1);
+        textViewMinute2.setText("" + minute2);
+        textViewSecond1.setText("" + second1);
+        textViewSecond2.setText("" + second2);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        timer = new CountDownTimer(TOTAL_TIME - INTERVAL * mTimeLeft, INTERVAL) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                makeTime();
+            }
+
+            @Override
+            public void onFinish() {
+                moveToNextFragment();
+            }
+        };
+        timer.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
     }
 
     @Override
@@ -112,6 +149,7 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
 
     @Override
     public void onBackPressed() {
+        timer.cancel();
         WarningDialog warningDialog = new WarningDialog(getActivity(), BaseConfirmDialog.TYPE_WARNING_1
                 , HomeActivity.defaultFont);
         warningDialog.addListener(this);
@@ -126,6 +164,7 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
     @Override
     protected void onMenuItemClick(int id) {
         if (id == MyBaseFragment.BUTTON_RESULT) {
+            timer.cancel();
             WarningDialog warningDialog = new WarningDialog(getActivity(),
                     BaseConfirmDialog.TYPE_WARNING_2, HomeActivity.defaultFont);
             warningDialog.addListener(this);
@@ -163,6 +202,18 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
                 break;
             case CANCEL:
                 dialog.dismiss();
+                timer = new CountDownTimer(TOTAL_TIME - INTERVAL * mTimeLeft, INTERVAL) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        makeTime();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        moveToNextFragment();
+                    }
+                };
+                timer.start();
                 break;
         }
     }
@@ -205,12 +256,15 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
     }
 
     private void findViews(View rootView) {
-        rootView.findViewById(R.id.linear_clock).setVisibility(View.GONE);
         questionPager = (ViewPager) rootView.findViewById(R.id.questionPager);
         testHorizontalScrollContainer = (HorizontalScrollView)
                 rootView.findViewById(R.id.testHorizontalScrollContainer);
         testHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
         headerQuestion = (TextView) rootView.findViewById(R.id.headerQuestion);
+        textViewMinute1 = (TextView) rootView.findViewById(R.id.textViewMinute1);
+        textViewMinute2 = (TextView) rootView.findViewById(R.id.textViewMinute2);
+        textViewSecond1 = (TextView) rootView.findViewById(R.id.textViewSecond1);
+        textViewSecond2 = (TextView) rootView.findViewById(R.id.textViewSecond2);
         rootView.findViewById(R.id.root_layout).setBackgroundColor(
                 ContextCompat.getColor(getActivity(), R.color.default_background_color_sign));
         setFont(rootView);
@@ -224,22 +278,6 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
 
     private void loadState() {
         isProVer = MySetting.getInstance().isProVersion();
-    }
-
-    private void addAds(List<SignQuestion> questions) {
-        int count = 0;
-        int size = questions.size();
-        for (int i = 0; i < size; i++) {
-            count++;
-            if (count % Constants.WRITTEN_TEST_ADS_BREAK == 0) {
-                SignQuestion question = new SignQuestion();
-                question.isAds = true;
-                questions.add(i, question);
-                count++;
-                size++;
-                i++;
-            }
-        }
     }
 
     private void resetAllWrapper() {
@@ -276,6 +314,27 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
         replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
     }
 
+    private void makeTime() {
+        second2--;
+        if (second2 == -1) {
+            second2 = 9;
+            second1--;
+            if (second1 == -1) {
+                second1 = 5;
+                minute2--;
+                if (minute2 == -1) {
+                    minute2 = 9;
+                    minute1--;
+                }
+            }
+        }
+        textViewMinute1.setText("" + minute1);
+        textViewMinute2.setText("" + minute2);
+        textViewSecond1.setText("" + second1);
+        textViewSecond2.setText("" + second2);
+        mTimeLeft++;
+    }
+
     private class ViewPagerAdapter extends PagerAdapter implements
             AnswerChoicesItem.OnChooseAnswerListener, View.OnClickListener, View.OnTouchListener {
 
@@ -302,35 +361,27 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
             SignQuestion question = questions.get(position);
             View view = View.inflate(context, R.layout.item_pager_test_sign, null);
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choices_container);
-            ViewGroup adsContainer = (ViewGroup) view.findViewById(R.id.adsContainer);
-            ViewGroup layoutTestRoot = (ViewGroup) view.findViewById(R.id.layout_test_root);
-            if (question.isAds) {
-                adsContainer.setVisibility(View.VISIBLE);
-                layoutTestRoot.setVisibility(View.GONE);
-                setupAds(adsContainer);
-            } else {
-                view.setVisibility(View.VISIBLE);
-                ImageView imageSign = (ImageView) view.findViewById(R.id.image_sign);
-                ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.button_zoom_in);
-                ((TextView) view.findViewById(R.id.header_choice)).setTypeface(HomeActivity.defaultFont);
-                ((TextView) view.findViewById(R.id.header_choice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                Glide.with(context).load(question.image).dontAnimate().dontTransform().into(imageSign);
-                imageSign.setTag(question);
-                imageSign.setOnClickListener(this);
-                buttonZoomIn.setTag(question);
-                buttonZoomIn.setOnTouchListener(this);
-                ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
-                for (int i = 0; i < answerChoicesItems.size(); i++) {
-                    choicesContainer.addView(answerChoicesItems.get(i));
-                    LinearLayout.MarginLayoutParams marginParams =
-                            (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getLayoutParams();
-                    marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
-                    answerChoicesItems.get(i).requestLayout();
-                    answerChoicesItems.get(i).setOnChooseAnswerListener(this);
-                }
-                choicesContainer.invalidate();
-                choicesContainer.setTag(position);
+            view.setVisibility(View.VISIBLE);
+            ImageView imageSign = (ImageView) view.findViewById(R.id.image_sign);
+            ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.button_zoom_in);
+            ((TextView) view.findViewById(R.id.header_choice)).setTypeface(HomeActivity.defaultFont);
+            ((TextView) view.findViewById(R.id.header_choice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+            Glide.with(context).load(question.image).dontAnimate().dontTransform().into(imageSign);
+            imageSign.setTag(question);
+            imageSign.setOnClickListener(this);
+            buttonZoomIn.setTag(question);
+            buttonZoomIn.setOnTouchListener(this);
+            ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
+            for (int i = 0; i < answerChoicesItems.size(); i++) {
+                choicesContainer.addView(answerChoicesItems.get(i));
+                LinearLayout.MarginLayoutParams marginParams =
+                        (LinearLayout.MarginLayoutParams) answerChoicesItems.get(i).getLayoutParams();
+                marginParams.setMargins(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.common_size_5));
+                answerChoicesItems.get(i).requestLayout();
+                answerChoicesItems.get(i).setOnChooseAnswerListener(this);
             }
+            choicesContainer.invalidate();
+            choicesContainer.setTag(position);
             container.addView(view);
             return view;
         }
@@ -352,12 +403,10 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
             for (int i = 0; i < numberOfChoices; i++) {
                 AnswerChoicesItem answerChoicesItem = (AnswerChoicesItem) choicesContainer.getChildAt(i);
                 answerChoicesItem.setActive(false);
-                answerChoicesItem.hideTextNotify();
             }
             AnswerChoicesItem answerChoicesItem =
                     (AnswerChoicesItem) choicesContainer.getChildAt(question.answer);
             answerChoicesItem.setActive(true);
-            answerChoicesItem.showTextNotify(question.answer == question.correctAnswer);
             choicesContainer.invalidate();
         }
 
@@ -368,7 +417,6 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
             for (int i = 0; i < length; i++) {
                 AnswerChoicesItem answerChoice = new AnswerChoicesItem(context, i);
                 answerChoice.setChoice(answers[0]);
-                answerChoice.changeCheckboxColor(question.correctAnswer == i);
                 answerChoicesItems.add(answerChoice);
             }
             resetAllChoices(answerChoicesItems);
@@ -416,12 +464,6 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
                 image.setImageResource(R.drawable.ic_zoom_in_highlight);
             }
             return false;
-        }
-
-        private void setupAds(ViewGroup adsContainer) {
-            AdsNativeExpressHandler adsHandler = new AdsNativeExpressHandler(getActivity(), adsContainer,
-                    SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_BIG);
-            adsHandler.setup();
         }
     }
 }
