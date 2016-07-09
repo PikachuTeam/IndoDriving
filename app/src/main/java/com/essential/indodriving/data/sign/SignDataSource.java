@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class SignDataSource {
 
-    public static final String GROUP_ALL = null;
+    public static final String GROUP_ALL = "All Signs";
     public static final String GROUP_PROHIBITION_SIGN = "Rambu Larangan";
     public static final String GROUP_WARNING_SIGN = "Rambu Peringatan";
     public static final String GROUP_COMMAND_SIGN = "Rambu Perintah";
@@ -47,7 +47,7 @@ public class SignDataSource {
         List<Sign> signs = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
         String query = "SELECT * from sign";
-        if (groupName != null) {
+        if (!groupName.equals(GROUP_ALL)) {
             query = "SELECT * from sign where " + COLUMN_SIGN_GROUP + " = '" + groupName + "'";
         }
         if (random) {

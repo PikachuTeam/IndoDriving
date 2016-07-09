@@ -20,7 +20,6 @@ import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.fragment.sign.SignChooseItemFragment;
-import com.essential.indodriving.ui.fragment.theory.test.DoTestFragment;
 import com.essential.indodriving.ui.fragment.theory.test.UnlimitedTestFragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -134,12 +133,8 @@ public class SignOverallResultFragment extends MyBaseFragment implements
 
     @Override
     public void onBackPressed() {
-        switch (fragmentType) {
-            case SignUnlimitedTestFragment.TAG_WRITTEN_TEST_FRAGMENT:
-                getFragmentManager().popBackStack(SignChooseItemFragment.TAG_SIGN_CHOOSE_ITEM_FRAGMENT,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                break;
-        }
+        getFragmentManager().popBackStack(SignChooseItemFragment.TAG_SIGN_CHOOSE_ITEM_FRAGMENT,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     @Override
@@ -243,9 +238,9 @@ public class SignOverallResultFragment extends MyBaseFragment implements
 
     private void setText() {
         switch (fragmentType) {
-            case DoTestFragment.TAG_DO_TEST_FRAGMENT:
+            case SignDoTestFragment.TAG_SIGN_DO_TEST_FRAGMENT:
                 textViewState.setVisibility(View.VISIBLE);
-                if (totalCorrectAnswer >= 21) {
+                if (totalCorrectAnswer >= 18) {
                     textViewState.setText(getString(R.string.pass));
                     textViewState.setTextColor(
                             ContextCompat.getColor(getActivity(), R.color.correct_answer_color));

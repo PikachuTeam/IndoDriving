@@ -1,7 +1,10 @@
 package com.essential.indodriving.ui.fragment.sign.learn;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,14 +15,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.sign.Sign;
 import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.SignMainActivity;
+import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ShowSignDialog;
 import com.essential.indodriving.util.ImageHelper;
 import com.essential.indodriving.util.LinearItemDecoration;
@@ -43,6 +50,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     private boolean isRated;
     private boolean isProVersion;
     private boolean isEnableRateToUnlock;
+    private boolean isRateClicked;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         getData();
         signs = SignDataSource.getSigns(type);
         isFirst = true;
+        isRateClicked = false;
     }
 
     @Override
@@ -79,6 +88,9 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     public void onResume() {
         super.onResume();
         loadState();
+        if (isRateClicked) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -122,6 +134,9 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     }
 
     private void moveToLearningSignByCardFragment() {
+        if (!isProVersion) {
+            currentPosition += (currentPosition + 1) / Constants.LEARN_ALL_ADS_BREAK;
+        }
         LearnSignByCardFragment fragment = new LearnSignByCardFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.BUNDLE_SIGN_TYPE, type);
@@ -155,10 +170,30 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         }
 
         @Override
-        public void onBindViewHolder(ItemHolder holder, int position) {
+        public void onBindViewHolder(final ItemHolder holder, final int position) {
             Sign sign = signs.get(position);
-            Glide.with(context).load(sign.image).
-                    dontAnimate().dontTransform().into(holder.imageQuestion);
+            if (isEnableRateToUnlock && !isProVersion && !isRated) {
+                Glide.with(context).load(sign.image).asBitmap().into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        holder.imageQuestion.setImageBitmap(resource);
+                        if (position >= Constants.LOCK_START_INDEX) {
+                            Bitmap blurImage = ImageHelper.
+                                    blur(context, ImageHelper.captureView(holder.buttonDetail));
+                            if (holder.lockedArea.getVisibility() == View.GONE)
+                                holder.lockedArea.setVisibility(View.VISIBLE);
+                            holder.blurryImage.setImageBitmap(blurImage);
+                        } else {
+                            if (holder.lockedArea.getVisibility() == View.VISIBLE)
+                                holder.lockedArea.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            } else if (isProVersion || isRated) {
+                Glide.with(context).load(sign.image).into(holder.imageQuestion);
+                if (holder.lockedArea.getVisibility() == View.VISIBLE)
+                    holder.lockedArea.setVisibility(View.GONE);
+            }
             holder.textDetail.setText(sign.definition);
             holder.buttonDetail.setTag(position);
             holder.buttonDetail.setOnClickListener(new View.OnClickListener() {
@@ -170,18 +205,41 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
                     }
                 }
             });
-            if (isEnableRateToUnlock && !isProVersion && !isRated) {
-                if (position >= Constants.LOCK_START_INDEX) {
-                    Bitmap blurImage = ImageHelper.
-                            blur(context, ImageHelper.captureView(holder.buttonDetail));
-                    if (holder.lockedArea.getVisibility() == View.GONE)
-                        holder.lockedArea.setVisibility(View.VISIBLE);
-                    holder.blurryImage.setImageBitmap(blurImage);
-                } else {
-                    if (holder.lockedArea.getVisibility() == View.VISIBLE)
-                        holder.lockedArea.setVisibility(View.GONE);
+            holder.lockedArea.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RatingDialog ratingDialog = new RatingDialog(getActivity(), HomeActivity.defaultFont);
+                    ratingDialog.show();
+                    ratingDialog.addListener(new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
+                        @Override
+                        public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button
+                                , int type, BaseConfirmDialog dialog) {
+                            dialog.dismiss();
+                            switch (button) {
+                                case OK:
+                                    Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+                                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                                    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                            Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                    try {
+                                        startActivity(goToMarket);
+                                    } catch (ActivityNotFoundException e) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://play.google.com/store/apps/details?id="
+                                                        + getActivity().getPackageName())));
+                                    }
+                                    isRated = true;
+                                    isRateClicked = true;
+                                    MySetting.getInstance().setRated();
+                                    break;
+                                case CANCEL:
+                                    break;
+                            }
+                        }
+                    });
                 }
-            }
+            });
         }
 
         @Override

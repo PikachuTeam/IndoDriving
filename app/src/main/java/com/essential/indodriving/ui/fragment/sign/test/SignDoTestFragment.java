@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.data.sign.SignDataSource;
@@ -43,7 +42,7 @@ public class SignDoTestFragment extends MyBaseFragment implements
         QuestionNoItemWrapper.OnQuestionNoClickListener, ViewPager.OnPageChangeListener {
 
     public final static int INTERVAL = 1000, TOTAL_TIME = 1801000;
-    public final static String TAG_WRITTEN_TEST_FRAGMENT = "Written Test Fragment";
+    public final static String TAG_SIGN_DO_TEST_FRAGMENT = "Fragment Sign Do Test";
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
     private HorizontalScrollView testHorizontalScrollContainer;
@@ -61,13 +60,11 @@ public class SignDoTestFragment extends MyBaseFragment implements
     private int minute1, minute2, second1, second2;
     private int currentPosition;
     private int mTimeLeft;
-    private boolean isProVer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        loadState();
         questions = SignDataSource.getQuestions(type);
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
         wrappers = new ArrayList<>();
@@ -108,6 +105,11 @@ public class SignDoTestFragment extends MyBaseFragment implements
         for (int i = 0; i < size; i++) {
             testHorizontalScrollView.addView(wrappers.get(i).getView());
         }
+        headerQuestion.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+        textViewMinute1.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+        textViewMinute2.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+        textViewSecond1.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+        textViewSecond2.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
         textViewMinute1.setText("" + minute1);
         textViewMinute2.setText("" + minute2);
         textViewSecond1.setText("" + second1);
@@ -220,13 +222,29 @@ public class SignDoTestFragment extends MyBaseFragment implements
 
     @Override
     public void onQuestionPagerItemClick(AnswerChoicesItem item) {
-        questions.get(currentPosition).answer = item.getIndex();
-        QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
-        if (!wrapper.isHighlight) {
-            wrapper.setHighlight();
-            testHorizontalScrollView.invalidate();
+        SignQuestion question = questions.get(currentPosition);
+        if (question.answer == DrivingDataSource.ANSWER_NOT_CHOSEN) {
+            question.answer = item.getIndex();
+            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
+            if (!wrapper.isHighlight) {
+                wrapper.setHighlight();
+                testHorizontalScrollView.invalidate();
+            }
+            adapter.refreshChoicesArea(currentPosition);
+            if (currentPosition < questions.size() - 1) {
+                currentPosition++;
+                questionPager.setCurrentItem(currentPosition, true);
+                scrollToCenter(wrappers.get(currentPosition));
+            }
+        } else {
+            question.answer = item.getIndex();
+            QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
+            if (!wrapper.isHighlight) {
+                wrapper.setHighlight();
+                testHorizontalScrollView.invalidate();
+            }
+            adapter.refreshChoicesArea(currentPosition);
         }
-        adapter.refreshChoicesArea(currentPosition);
     }
 
     @Override
@@ -276,10 +294,6 @@ public class SignDoTestFragment extends MyBaseFragment implements
                 SignDataSource.GROUP_PROHIBITION_SIGN;
     }
 
-    private void loadState() {
-        isProVer = MySetting.getInstance().isProVersion();
-    }
-
     private void resetAllWrapper() {
         int size = wrappers.size();
         for (int i = 0; i < size; i++) {
@@ -299,6 +313,8 @@ public class SignDoTestFragment extends MyBaseFragment implements
 
     private void setFont(View rootView) {
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(HomeActivity.defaultFont);
+        ((TextView) rootView.findViewById(R.id.textViewTwoDots)).
+                setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
         headerQuestion.setTypeface(font);
         headerQuestion.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
@@ -308,10 +324,10 @@ public class SignDoTestFragment extends MyBaseFragment implements
         SignOverallResultFragment fragment = new SignOverallResultFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.BUNDLE_NEED_SAVING, false);
-        bundle.putString(Constants.BUNDLE_FRAGMENT_TYPE, TAG_WRITTEN_TEST_FRAGMENT);
+        bundle.putString(Constants.BUNDLE_FRAGMENT_TYPE, TAG_SIGN_DO_TEST_FRAGMENT);
         putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
-        replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
+        replaceFragment(fragment, TAG_SIGN_DO_TEST_FRAGMENT);
     }
 
     private void makeTime() {
@@ -364,12 +380,16 @@ public class SignDoTestFragment extends MyBaseFragment implements
             view.setVisibility(View.VISIBLE);
             ImageView imageSign = (ImageView) view.findViewById(R.id.image_sign);
             ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.button_zoom_in);
-            ((TextView) view.findViewById(R.id.header_choice)).setTypeface(HomeActivity.defaultFont);
-            ((TextView) view.findViewById(R.id.header_choice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+            TextView headerChoice = (TextView) view.findViewById(R.id.header_choice);
+            headerChoice.setTextColor(ContextCompat.getColor(context, R.color.black));
+            headerChoice.setTypeface(HomeActivity.defaultFont);
+            headerChoice.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             Glide.with(context).load(question.image).dontAnimate().dontTransform().into(imageSign);
             imageSign.setTag(question);
             imageSign.setOnClickListener(this);
             buttonZoomIn.setTag(question);
+            buttonZoomIn.setColorFilter(ContextCompat.getColor(context,
+                    R.color.sign_do_test_button_zoom_in_normal_color));
             buttonZoomIn.setOnTouchListener(this);
             ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
             for (int i = 0; i < answerChoicesItems.size(); i++) {
@@ -394,6 +414,37 @@ public class SignDoTestFragment extends MyBaseFragment implements
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
+        }
+
+        @Override
+        public void onChooseAnswer(AnswerChoicesItem item) {
+            if (listener != null) {
+                listener.onQuestionPagerItemClick(item);
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            ImageView image = (ImageView) v;
+            SignQuestion question = (SignQuestion) image.getTag();
+            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+            dialog.show();
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            ImageView image = (ImageView) v;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                image.setColorFilter(ContextCompat.getColor(context,
+                        R.color.sign_do_test_button_zoom_in_normal_color));
+                SignQuestion question = (SignQuestion) image.getTag();
+                ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+                dialog.show();
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                image.setColorFilter(ContextCompat.getColor(context,
+                        R.color.sign_do_test_button_zoom_in_highlight_color));
+            }
+            return false;
         }
 
         public void refreshChoicesArea(int position) {
@@ -435,35 +486,6 @@ public class SignDoTestFragment extends MyBaseFragment implements
                 item.setActive(false);
                 item.hideTextNotify();
             }
-        }
-
-        @Override
-        public void onChooseAnswer(AnswerChoicesItem item) {
-            if (listener != null) {
-                listener.onQuestionPagerItemClick(item);
-            }
-        }
-
-        @Override
-        public void onClick(View v) {
-            ImageView image = (ImageView) v;
-            SignQuestion question = (SignQuestion) image.getTag();
-            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
-            dialog.show();
-        }
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            ImageView image = (ImageView) v;
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                image.setImageResource(R.drawable.ic_zoom_in_normal);
-                SignQuestion question = (SignQuestion) image.getTag();
-                ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
-                dialog.show();
-            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                image.setImageResource(R.drawable.ic_zoom_in_highlight);
-            }
-            return false;
         }
     }
 }

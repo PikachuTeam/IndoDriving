@@ -71,8 +71,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/choose_sign_type_image_size"
+                    android:layout_height="@dimen/choose_sign_type_image_size"
                     android:layout_marginLeft="@dimen/common_size_65"
                     android:src="@drawable/sign_prohibition" />
 
@@ -107,8 +107,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/choose_sign_type_image_size"
+                    android:layout_height="@dimen/choose_sign_type_image_size"
                     android:layout_marginLeft="@dimen/common_size_65"
                     android:src="@drawable/sign_warning" />
 
@@ -143,8 +143,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/choose_sign_type_image_size"
+                    android:layout_height="@dimen/choose_sign_type_image_size"
                     android:layout_marginLeft="@dimen/common_size_65"
                     android:src="@drawable/sign_command" />
 
@@ -179,8 +179,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/choose_sign_type_image_size"
+                    android:layout_height="@dimen/choose_sign_type_image_size"
                     android:layout_marginLeft="@dimen/common_size_65"
                     android:src="@drawable/sign_direction" />
 
@@ -215,8 +215,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/choose_sign_type_image_size"
+                    android:layout_height="@dimen/choose_sign_type_image_size"
                     android:layout_marginLeft="@dimen/common_size_65"
                     android:src="@drawable/sign_addition" />
 

@@ -98,6 +98,7 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
         for (int i = 0; i < size; i++) {
             testHorizontalScrollView.addView(wrappers.get(i).getView());
         }
+        headerQuestion.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
     }
 
     @Override
@@ -312,12 +313,16 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
                 view.setVisibility(View.VISIBLE);
                 ImageView imageSign = (ImageView) view.findViewById(R.id.image_sign);
                 ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.button_zoom_in);
-                ((TextView) view.findViewById(R.id.header_choice)).setTypeface(HomeActivity.defaultFont);
-                ((TextView) view.findViewById(R.id.header_choice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                TextView headerChoice = (TextView) view.findViewById(R.id.header_choice);
+                headerChoice.setTextColor(ContextCompat.getColor(context, R.color.black));
+                headerChoice.setTypeface(HomeActivity.defaultFont);
+                headerChoice.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
                 Glide.with(context).load(question.image).dontAnimate().dontTransform().into(imageSign);
                 imageSign.setTag(question);
                 imageSign.setOnClickListener(this);
                 buttonZoomIn.setTag(question);
+                buttonZoomIn.setColorFilter(ContextCompat.getColor(context,
+                        R.color.sign_do_test_button_zoom_in_normal_color));
                 buttonZoomIn.setOnTouchListener(this);
                 ArrayList<AnswerChoicesItem> answerChoicesItems = makeChoices(question);
                 for (int i = 0; i < answerChoicesItems.size(); i++) {
@@ -343,6 +348,38 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
+        }
+
+
+        @Override
+        public void onChooseAnswer(AnswerChoicesItem item) {
+            if (listener != null) {
+                listener.onQuestionPagerItemClick(item);
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            ImageView image = (ImageView) v;
+            SignQuestion question = (SignQuestion) image.getTag();
+            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+            dialog.show();
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            ImageView image = (ImageView) v;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                image.setColorFilter(ContextCompat.getColor(context,
+                        R.color.sign_do_test_button_zoom_in_normal_color));
+                SignQuestion question = (SignQuestion) image.getTag();
+                ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
+                dialog.show();
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                image.setColorFilter(ContextCompat.getColor(context,
+                        R.color.sign_do_test_button_zoom_in_highlight_color));
+            }
+            return false;
         }
 
         public void refreshChoicesArea(int position) {
@@ -387,35 +424,6 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
                 item.setActive(false);
                 item.hideTextNotify();
             }
-        }
-
-        @Override
-        public void onChooseAnswer(AnswerChoicesItem item) {
-            if (listener != null) {
-                listener.onQuestionPagerItemClick(item);
-            }
-        }
-
-        @Override
-        public void onClick(View v) {
-            ImageView image = (ImageView) v;
-            SignQuestion question = (SignQuestion) image.getTag();
-            ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
-            dialog.show();
-        }
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            ImageView image = (ImageView) v;
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                image.setImageResource(R.drawable.ic_zoom_in_normal);
-                SignQuestion question = (SignQuestion) image.getTag();
-                ZoomInImageDialog dialog = new ZoomInImageDialog(context, question.image);
-                dialog.show();
-            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                image.setImageResource(R.drawable.ic_zoom_in_highlight);
-            }
-            return false;
         }
 
         private void setupAds(ViewGroup adsContainer) {

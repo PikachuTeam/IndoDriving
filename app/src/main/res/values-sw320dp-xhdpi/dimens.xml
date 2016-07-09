@@ -53,11 +53,12 @@
     <dimen name="modify_dialog_height">320dp</dimen>
     <dimen name="dialog_width">300dp</dimen>
 
-    <dimen name="home_image_size">40dp</dimen>
+    <dimen name="home_image_size">50dp</dimen>
     <dimen name="choose_sign_button_height">100dp</dimen>
     <dimen name="choose_sign_item_button_size">90dp</dimen>
     <dimen name="learn_sign_image_size">110dp</dimen>
     <dimen name="learn_sign_card_height">150dp</dimen>
     <dimen name="item_match_image_size">100dp</dimen>
     <dimen name="test_sign_image_size">100dp</dimen>
+    <dimen name="choose_sign_type_image_size">60dp</dimen>
 </resources>
