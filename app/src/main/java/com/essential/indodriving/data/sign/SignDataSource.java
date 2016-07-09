@@ -79,6 +79,41 @@ public class SignDataSource {
         return signs;
     }
 
+    public static List<Sign> findSignsByDefinition(String groupName, String definition) {
+        List<Sign> signs = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = openConnection();
+        String query = "select * from sign where " + COLUMN_DEFINITION + " like '%" + definition + "%'";
+        if (!groupName.equals(GROUP_ALL)) {
+            query = "select * from sign where " + COLUMN_SIGN_GROUP + " = '" + groupName + "' and "
+                    + COLUMN_DEFINITION + " like '%" + definition + "%'";
+        }
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+        HashMap<String, Integer> columnIndexes = new HashMap<>();
+        columnIndexes.put(COLUMN_ID, cursor.getColumnIndex(COLUMN_ID));
+        columnIndexes.put(COLUMN_SIGN_GROUP, cursor.getColumnIndex(COLUMN_SIGN_GROUP));
+        columnIndexes.put(COLUMN_NUMBER, cursor.getColumnIndex(COLUMN_NUMBER));
+        columnIndexes.put(COLUMN_IMAGE, cursor.getColumnIndex(COLUMN_IMAGE));
+        columnIndexes.put(COLUMN_DEFINITION, cursor.getColumnIndex(COLUMN_DEFINITION));
+        while (!cursor.isAfterLast()) {
+            Sign sign = new Sign();
+            sign.id = cursor.getInt(columnIndexes.get(COLUMN_ID));
+            sign.sign_group = cursor.getString(columnIndexes.get(COLUMN_SIGN_GROUP));
+            sign.number = cursor.getString(columnIndexes.get(COLUMN_NUMBER));
+            sign.image = cursor.getBlob(columnIndexes.get(COLUMN_IMAGE));
+            sign.definition = cursor.getString(columnIndexes.get(COLUMN_DEFINITION));
+            signs.add(sign);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeConnection();
+        return signs;
+    }
+
     public static List<SignQuestion> getQuestions(String groupName) {
         List<Sign> signs = getSigns(groupName, true, TOTAL_QUESTION);
         List<SignQuestion> questions = new ArrayList<>();

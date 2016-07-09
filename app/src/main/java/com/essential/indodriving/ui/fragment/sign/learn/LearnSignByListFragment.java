@@ -27,6 +27,7 @@ import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.widget.RatingDialog;
+import com.essential.indodriving.ui.widget.SearchView;
 import com.essential.indodriving.ui.widget.ShowSignDialog;
 import com.essential.indodriving.util.ImageHelper;
 import com.essential.indodriving.util.LinearItemDecoration;
@@ -37,11 +38,12 @@ import java.util.List;
 /**
  * Created by yue on 07/07/2016.
  */
-public class LearnSignByListFragment extends MyBaseFragment implements OnSignRecyclerViewItemClickListener {
+public class LearnSignByListFragment extends MyBaseFragment implements OnSignRecyclerViewItemClickListener, SearchView.OnSearchViewInteractListener {
 
     public final static String TAG_LEARN_SIGN_BY_LIST_FRAGMENT = "Fragment Learn Sign By List";
     private View actionLearningSignByCard;
     private RecyclerView recyclerViewSign;
+    private SearchView searchView;
     private List<Sign> signs;
     private ListSignsAdapter adapter;
     private String type;
@@ -115,6 +117,18 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         }
     }
 
+    @Override
+    public void onSearch(CharSequence s) {
+        List<Sign> tmp = SignDataSource.findSignsByDefinition(type, s.toString());
+        if (tmp != null) refreshList(tmp);
+    }
+
+    @Override
+    public void onCancel() {
+        List<Sign> tmp = SignDataSource.getSigns(type);
+        refreshList(tmp);
+    }
+
     private void getData() {
         Bundle bundle = getArguments();
         type = bundle != null ? bundle.getString(Constants.BUNDLE_SIGN_TYPE) :
@@ -123,6 +137,8 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
 
     private void findViews(View rootView) {
         recyclerViewSign = (RecyclerView) rootView.findViewById(R.id.recycler_view_sign);
+        searchView = (SearchView) rootView.findViewById(R.id.search_view);
+        searchView.setOnSearchViewInteractListener(this);
     }
 
     private void loadState() {
@@ -145,6 +161,12 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         replaceFragment(fragment, TAG_LEARN_SIGN_BY_LIST_FRAGMENT,
                 R.animator.card_flip_left_in, R.animator.card_flip_left_out,
                 R.animator.card_flip_right_in, R.animator.card_flip_right_out);
+    }
+
+    private void refreshList(List<Sign> signs) {
+        this.signs.clear();
+        this.signs.addAll(signs);
+        adapter.notifyDataSetChanged();
     }
 
     private class ListSignsAdapter extends RecyclerView.Adapter<ListSignsAdapter.ItemHolder> {
