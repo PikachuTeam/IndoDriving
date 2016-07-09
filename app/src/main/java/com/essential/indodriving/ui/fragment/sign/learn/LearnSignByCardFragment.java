@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.sign;
+package com.essential.indodriving.ui.fragment.sign.learn;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -40,6 +40,7 @@ import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
 import com.essential.indodriving.ui.base.SecondBaseActivity;
+import com.essential.indodriving.ui.fragment.sign.SignChooseItemFragment;
 import com.essential.indodriving.ui.widget.LearningCardSeekbar;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
@@ -183,11 +184,6 @@ public class LearnSignByCardFragment extends MyBaseFragment implements LearningC
     @Override
     protected int getLayoutResIdContentView() {
         return R.layout.fragment_learn_sign_by_card;
-    }
-
-    @Override
-    public void onBackPressed() {
-        popToFragment(SignChooseItemFragment.TAG_SIGN_CHOOSE_ITEM_FRAGMENT);
     }
 
     @Override

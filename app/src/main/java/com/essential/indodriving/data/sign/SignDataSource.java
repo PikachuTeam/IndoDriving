@@ -7,6 +7,7 @@ import com.essential.indodriving.data.PoolDatabaseLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -38,12 +39,12 @@ public class SignDataSource {
         PoolDatabaseLoader.getInstance().getIndoSignDatabaseLoader().closeConnection();
     }
 
-    public static ArrayList<Sign> getSigns(String groupName) {
+    public static List<Sign> getSigns(String groupName) {
         return getSigns(groupName, false, -1);
     }
 
-    public static ArrayList<Sign> getSigns(String groupName, boolean random, int limit) {
-        ArrayList<Sign> signs = new ArrayList<>();
+    public static List<Sign> getSigns(String groupName, boolean random, int limit) {
+        List<Sign> signs = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
         String query = "SELECT * from sign";
         if (groupName != null) {
@@ -78,16 +79,18 @@ public class SignDataSource {
         return signs;
     }
 
-    public static ArrayList<SignQuestion> getQuestions(String groupName) {
-        ArrayList<Sign> signs = getSigns(groupName, true, TOTAL_QUESTION);
-        ArrayList<SignQuestion> questions = new ArrayList<>();
+    public static List<SignQuestion> getQuestions(String groupName) {
+        List<Sign> signs = getSigns(groupName, true, TOTAL_QUESTION);
+        List<SignQuestion> questions = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
+        int index = 0;
         for (Sign sign : signs) {
             SignQuestion question = new SignQuestion();
+            question.index = ++index;
             questions.add(question);
             question.signId = sign.id;
             question.image = sign.image;
-            ArrayList<String> defArray = new ArrayList<>();
+            List<String> defArray = new ArrayList<>();
             defArray.add(sign.definition);
             int min = sign.id - ID_AROUND;
             int max = sign.id + ID_AROUND;

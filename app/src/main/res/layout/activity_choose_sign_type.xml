@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.activity.ChooseSignTypeActivity">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/coordinatorLayout"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:fitsSystemWindows="true"
+                                                 tools:context=".ui.activity.ChooseSignTypeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -29,18 +29,18 @@
                 android:clickable="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/toolbar_image_sign"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/MyMaterialTheme.PopupOverlay" />
+                app:popupTheme="@style/MyMaterialTheme.PopupOverlay"/>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_choose_sign_type" />
+    <include layout="@layout/content_choose_sign_type"/>
 
     <ImageView
         android:id="@+id/button_pro_ver"
@@ -51,7 +51,7 @@
         android:layout_marginLeft="@dimen/common_size_15"
         android:elevation="@dimen/common_size_5"
         android:padding="@dimen/common_size_10"
-        android:src="@drawable/ic_up_to_pro" />
+        android:src="@drawable/ic_up_to_pro"/>
 
     <ImageView
         android:id="@+id/image_100_pro"
@@ -59,7 +59,7 @@
         android:layout_height="@dimen/image_100_pro_size"
         android:layout_gravity="bottom|left"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_pro_100" />
+        android:src="@drawable/ic_pro_100"/>
 
     <View
         android:id="@+id/view_overlay"
@@ -67,7 +67,7 @@
         android:layout_height="match_parent"
         android:background="@color/overlay_view_color"
         android:clickable="true"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/floating_actions_menu"
@@ -75,6 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_size_15"
         android:layout_marginRight="@dimen/common_size_20"
+        app:fab_addButtonColorNormal="@color/color_primary_sign"
+        app:fab_addButtonColorPressed="@color/color_primary_dark_sign"
         app:fab_addButtonSize="normal"
         app:fab_labelStyle="@style/floating_menu_labels_style"
         app:layout_anchor="@id/coordinatorLayout"
@@ -84,24 +86,30 @@
             android:id="@+id/fab_rate_us"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/color_primary_sign"
+            app:fab_colorPressed="@color/color_primary_dark_sign"
             app:fab_icon="@drawable/ic_star"
             app:fab_size="mini"
-            app:fab_title="@string/rate_us" />
+            app:fab_title="@string/rate_us"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_more_apps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/color_primary_sign"
+            app:fab_colorPressed="@color/color_primary_dark_sign"
             app:fab_icon="@drawable/ic_shopping"
             app:fab_size="mini"
-            app:fab_title="@string/more_apps" />
+            app:fab_title="@string/more_apps"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/color_primary_sign"
+            app:fab_colorPressed="@color/color_primary_dark_sign"
             app:fab_icon="@drawable/ic_share"
             app:fab_size="mini"
-            app:fab_title="@string/share" />
+            app:fab_title="@string/share"/>
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </android.support.design.widget.CoordinatorLayout>

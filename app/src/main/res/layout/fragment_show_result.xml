@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/app_background_color"
@@ -25,7 +27,7 @@
                 android:text="@string/fail"
                 android:textAllCaps="true"
                 android:textColor="@color/wrong_answer_color"
-                android:textSize="@dimen/common_text_size_28" />
+                android:textSize="@dimen/common_text_size_28"/>
 
             <LinearLayout
                 android:id="@+id/chartContainer"
@@ -36,7 +38,7 @@
                 android:layout_marginTop="@dimen/common_size_15"
                 android:clickable="false"
                 android:gravity="center"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"/>
         </LinearLayout>
 
         <LinearLayout
@@ -70,7 +72,7 @@
                         android:layout_height="@dimen/common_size_37"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/common_size_10"
-                        android:src="@drawable/ic_answer" />
+                        android:src="@drawable/ic_answer"/>
 
                     <TextView
                         android:id="@+id/textViewCorrectAnswer"
@@ -81,7 +83,7 @@
                         android:layout_toRightOf="@+id/imgCorrectAnswer"
                         android:text="@string/correct_answer"
                         android:textColor="@color/correct_answer_color"
-                        android:textSize="@dimen/common_text_size_22" />
+                        android:textSize="@dimen/common_text_size_22"/>
 
                     <TextView
                         android:id="@+id/tvCorrectAnswer"
@@ -93,7 +95,7 @@
                         android:layout_marginRight="@dimen/common_size_43"
                         android:text="@string/total_correct_answers"
                         android:textColor="@color/correct_answer_color"
-                        android:textSize="@dimen/common_text_size_22" />
+                        android:textSize="@dimen/common_text_size_22"/>
 
                     <ImageView
                         android:id="@+id/buttonNext1"
@@ -104,7 +106,7 @@
                         android:layout_marginRight="@dimen/common_size_5"
                         android:background="@drawable/bg_button_next"
                         android:clickable="true"
-                        android:src="@drawable/ic_next" />
+                        android:src="@drawable/ic_next"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -131,7 +133,7 @@
                         android:layout_height="@dimen/common_size_37"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/common_size_10"
-                        android:src="@drawable/ic_answer" />
+                        android:src="@drawable/ic_answer"/>
 
                     <TextView
                         android:id="@+id/textViewWrongAnswer"
@@ -142,7 +144,7 @@
                         android:layout_toRightOf="@+id/imgWrongAnswer"
                         android:text="@string/wrong_answer"
                         android:textColor="@color/wrong_answer_color"
-                        android:textSize="@dimen/common_text_size_22" />
+                        android:textSize="@dimen/common_text_size_22"/>
 
                     <TextView
                         android:id="@+id/tvWrongAnswer"
@@ -153,7 +155,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/common_size_43"
                         android:textColor="@color/wrong_answer_color"
-                        android:textSize="@dimen/common_text_size_22" />
+                        android:textSize="@dimen/common_text_size_22"/>
 
                     <ImageView
                         android:id="@+id/buttonNext2"
@@ -164,7 +166,7 @@
                         android:layout_marginRight="@dimen/common_size_5"
                         android:background="@drawable/bg_button_next"
                         android:clickable="true"
-                        android:src="@drawable/ic_next" />
+                        android:src="@drawable/ic_next"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -191,7 +193,7 @@
                         android:layout_height="@dimen/common_size_37"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/common_size_10"
-                        android:src="@drawable/ic_answer" />
+                        android:src="@drawable/ic_answer"/>
 
                     <TextView
                         android:id="@+id/textViewNotAnswered"
@@ -206,7 +208,7 @@
                         android:singleLine="true"
                         android:text="@string/not_answered"
                         android:textColor="@color/not_answered_color"
-                        android:textSize="@dimen/common_text_size_22" />
+                        android:textSize="@dimen/common_text_size_22"/>
 
                     <TextView
                         android:id="@+id/tvNotAnswered"
@@ -217,7 +219,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/common_size_43"
                         android:textColor="@color/not_answered_color"
-                        android:textSize="@dimen/common_text_size_22" />
+                        android:textSize="@dimen/common_text_size_22"/>
 
                     <ImageView
                         android:id="@+id/buttonNext3"
@@ -228,7 +230,7 @@
                         android:layout_marginRight="@dimen/common_size_5"
                         android:background="@drawable/bg_button_next"
                         android:clickable="true"
-                        android:src="@drawable/ic_next" />
+                        android:src="@drawable/ic_next"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>

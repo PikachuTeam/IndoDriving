@@ -20,7 +20,6 @@ import com.essential.indodriving.data.driving.DrivingDataSource;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.FirstBaseActivity;
-import com.essential.indodriving.ui.base.SecondBaseActivity;
 
 public class ChooseSimActivity extends FirstBaseActivity implements
         View.OnClickListener, BillingProcessor.IBillingHandler {
@@ -73,7 +72,10 @@ public class ChooseSimActivity extends FirstBaseActivity implements
     @Override
     public void onBackPressed() {
         if (floatingActionsMenu.isExpanded()) floatingActionsMenu.collapse();
-        else super.onBackPressed();
+        else {
+            super.onBackPressed();
+            closeActivityWithAnimation();
+        }
     }
 
     @Override
@@ -105,7 +107,7 @@ public class ChooseSimActivity extends FirstBaseActivity implements
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_D);
                 break;
         }
-        SecondBaseActivity.startActivityAnimation(this, intent);
+        startActivityWithAnimation(intent);
     }
 
     @Override

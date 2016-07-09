@@ -42,16 +42,16 @@ public class UnlimitedTestFragment extends MyBaseFragment {
 
     public final static String TAG_WRITTEN_TEST_FRAGMENT = "Written Test Fragment";
     private final int NUMBER_OF_QUESTIONS = 20;
-    private ViewPager mQuestionPager;
-    private LinearLayout mTestHorizontalScrollView;
-    private HorizontalScrollView mTestHorizontalScrollContainer;
-    private ViewPagerAdapter mAdapter;
-    private ArrayList<Question> mQuestions;
-    private ArrayList<QuestionNoItemWrapper> mWrappers;
-    private int mCurrentPosition;
-    private int mType;
-    private boolean mIsProVersion;
-    private Typeface mFont;
+    private ViewPager questionPager;
+    private LinearLayout testHorizontalScrollView;
+    private HorizontalScrollView testHorizontalScrollContainer;
+    private ViewPagerAdapter adapter;
+    private ArrayList<Question> questions;
+    private ArrayList<QuestionNoItemWrapper> wrappers;
+    private int currentPosition;
+    private int type;
+    private boolean isProVer;
+    private Typeface font;
     private TextView headerQuestion;
 
     private QuestionNoItemWrapper.OnQuestionNoClickListener mOnQuestionNoClickListener =
@@ -60,10 +60,10 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 public void onQuestionNoClick(QuestionNoItemWrapper item) {
                     resetAllWrapper();
                     item.setActive(true);
-                    mTestHorizontalScrollView.invalidate();
-                    int index = mWrappers.indexOf(item);
-                    mQuestionPager.setCurrentItem(index, true);
-                    mCurrentPosition = index;
+                    testHorizontalScrollView.invalidate();
+                    int index = wrappers.indexOf(item);
+                    questionPager.setCurrentItem(index, true);
+                    currentPosition = index;
                     scrollToCenter(item);
                     getMyBaseActivity().showBigAdsIfNeeded();
                 }
@@ -72,13 +72,13 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             new OnQuestionPagerItemClickListener() {
                 @Override
                 public void onQuestionPagerItemClick(AnswerChoicesItem item) {
-                    mQuestions.get(mCurrentPosition).answer = item.getIndex();
-                    QuestionNoItemWrapper wrapper = mWrappers.get(mCurrentPosition);
+                    questions.get(currentPosition).answer = item.getIndex();
+                    QuestionNoItemWrapper wrapper = wrappers.get(currentPosition);
                     if (!wrapper.isHighlight) {
                         wrapper.setHighlight();
-                        mTestHorizontalScrollView.invalidate();
+                        testHorizontalScrollView.invalidate();
                     }
-                    mAdapter.refreshChoicesArea(mCurrentPosition);
+                    adapter.refreshChoicesArea(currentPosition);
                 }
             };
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -89,14 +89,14 @@ public class UnlimitedTestFragment extends MyBaseFragment {
 
         @Override
         public void onPageSelected(int position) {
-            mCurrentPosition = position;
+            currentPosition = position;
             resetAllWrapper();
-            mWrappers.get(mCurrentPosition).setActive(true);
-            mTestHorizontalScrollView.invalidate();
-            scrollToCenter(mWrappers.get(mCurrentPosition));
+            wrappers.get(currentPosition).setActive(true);
+            testHorizontalScrollView.invalidate();
+            scrollToCenter(wrappers.get(currentPosition));
             getMyBaseActivity().showBigAdsIfNeeded();
 
-            if (mQuestions.get(mCurrentPosition).isAds) {
+            if (questions.get(currentPosition).isAds) {
                 headerQuestion.setVisibility(View.INVISIBLE);
             } else {
                 headerQuestion.setVisibility(View.VISIBLE);
@@ -135,17 +135,17 @@ public class UnlimitedTestFragment extends MyBaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getData();
-        mIsProVersion = MySetting.getInstance().isProVersion();
-        mQuestions = DrivingDataSource.getQuestionsByTypeAndExamId(mType, 1, true, NUMBER_OF_QUESTIONS);
-        if (!mIsProVersion) {
-            addAds(mQuestions);
+        isProVer = MySetting.getInstance().isProVersion();
+        questions = DrivingDataSource.getQuestionsByTypeAndExamId(type, 1, true, NUMBER_OF_QUESTIONS);
+        if (!isProVer) {
+            addAds(questions);
         }
-        mFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
-        mWrappers = new ArrayList<>();
-        int numberOfQuestions = mQuestions.size();
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
+        wrappers = new ArrayList<>();
+        int numberOfQuestions = questions.size();
         for (int i = 0; i < numberOfQuestions; i++) {
             QuestionNoItemWrapper wrapper = new QuestionNoItemWrapper(getActivity());
-            Question question = mQuestions.get(i);
+            Question question = questions.get(i);
             if (question.isAds) {
                 wrapper.setText("", HomeActivity.defaultFont);
             } else {
@@ -157,21 +157,21 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 wrapper.setActive(false);
             }
             wrapper.setOnQuestionNoClickListener(mOnQuestionNoClickListener);
-            mWrappers.add(wrapper);
+            wrappers.add(wrapper);
         }
-        mCurrentPosition = 0;
+        currentPosition = 0;
     }
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
-        mAdapter = new ViewPagerAdapter(getActivity(), mQuestions);
-        mAdapter.setOnQuestionPagerItemClickListener(mOnQuestionPagerItemClickListener);
-        mQuestionPager.setAdapter(mAdapter);
-        mQuestionPager.addOnPageChangeListener(mOnPageChangeListener);
-        int size = mWrappers.size();
+        adapter = new ViewPagerAdapter(getActivity(), questions);
+        adapter.setOnQuestionPagerItemClickListener(mOnQuestionPagerItemClickListener);
+        questionPager.setAdapter(adapter);
+        questionPager.addOnPageChangeListener(mOnPageChangeListener);
+        int size = wrappers.size();
         for (int i = 0; i < size; i++) {
-            mTestHorizontalScrollView.addView(mWrappers.get(i).getView());
+            testHorizontalScrollView.addView(wrappers.get(i).getView());
         }
     }
 
@@ -210,38 +210,38 @@ public class UnlimitedTestFragment extends MyBaseFragment {
 
     private void findViews(View rootView) {
         rootView.findViewById(R.id.linear_clock).setVisibility(View.GONE);
-        mQuestionPager = (ViewPager) rootView.findViewById(R.id.questionPager);
-        mTestHorizontalScrollContainer = (HorizontalScrollView) rootView.findViewById(R.id.testHorizontalScrollContainer);
-        mTestHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
+        questionPager = (ViewPager) rootView.findViewById(R.id.questionPager);
+        testHorizontalScrollContainer = (HorizontalScrollView) rootView.findViewById(R.id.testHorizontalScrollContainer);
+        testHorizontalScrollView = (LinearLayout) rootView.findViewById(R.id.testHorizontalScrollView);
         headerQuestion = (TextView) rootView.findViewById(R.id.headerQuestion);
         setFont(rootView);
     }
 
     private void setFont(View rootView) {
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(HomeActivity.defaultFont);
-        headerQuestion.setTypeface(mFont);
+        headerQuestion.setTypeface(font);
         headerQuestion.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     private void getData() {
         Bundle bundle = getArguments();
-        if (bundle != null) mType = bundle.getInt(Constants.BUNDLE_TYPE);
+        if (bundle != null) type = bundle.getInt(Constants.BUNDLE_TYPE);
     }
 
     private void resetAllWrapper() {
-        int size = mWrappers.size();
+        int size = wrappers.size();
         for (int i = 0; i < size; i++) {
-            mWrappers.get(i).setActive(false);
+            wrappers.get(i).setActive(false);
         }
     }
 
     private void scrollToCenter(QuestionNoItemWrapper questionNoItemWrapper) {
-        int centerX = mTestHorizontalScrollContainer.getWidth() / 2;
+        int centerX = testHorizontalScrollContainer.getWidth() / 2;
         int[] itemPos = new int[]{0, 0};
         questionNoItemWrapper.getView().getLocationOnScreen(itemPos);
         int x = itemPos[0];
         int offset = x - centerX + questionNoItemWrapper.getView().getWidth() / 2;
-        mTestHorizontalScrollContainer.smoothScrollTo(mTestHorizontalScrollContainer.getScrollX() + offset, 0);
+        testHorizontalScrollContainer.smoothScrollTo(testHorizontalScrollContainer.getScrollX() + offset, 0);
     }
 
     private void moveToNextFragment() {
@@ -250,7 +250,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.BUNDLE_NEED_SAVING, false);
         bundle.putString(Constants.BUNDLE_FRAGMENT_TYPE, TAG_WRITTEN_TEST_FRAGMENT);
-        putHolder(Constants.KEY_HOLDER_QUESTIONS, mQuestions);
+        putHolder(Constants.KEY_HOLDER_QUESTIONS, questions);
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_WRITTEN_TEST_FRAGMENT);
     }
@@ -299,7 +299,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
             LinearLayout choicesContainer = (LinearLayout) view.findViewById(R.id.choicesContainer);
             ViewGroup adsContainer = (ViewGroup) view.findViewById(R.id.adsContainer);
             ViewGroup layoutTestRoot = (ViewGroup) view.findViewById(R.id.layout_test_root);
-            if (!mIsProVersion) {
+            if (!isProVer) {
             }
             if (question.isAds) {
                 adsContainer.setVisibility(View.VISIBLE);
@@ -311,7 +311,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                 TextView textViewQuestion = (TextView) view.findViewById(R.id.text_detail);
                 RelativeLayout imageArea = (RelativeLayout) view.findViewById(R.id.imageArea);
                 ImageView buttonZoomIn = (ImageView) view.findViewById(R.id.buttonZoomIn);
-                ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(mFont);
+                ((TextView) view.findViewById(R.id.headerChoice)).setTypeface(font);
                 ((TextView) view.findViewById(R.id.headerChoice)).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
                 if (question.imageData == null) {
                     imageArea.setVisibility(View.GONE);
@@ -458,6 +458,5 @@ public class UnlimitedTestFragment extends MyBaseFragment {
                     SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_BIG);
             adsHandler.setup();
         }
-
     }
 }

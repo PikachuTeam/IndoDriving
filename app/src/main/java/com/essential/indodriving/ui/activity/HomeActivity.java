@@ -110,10 +110,10 @@ public class HomeActivity extends FirstBaseActivity implements
                 sharingEvent();
                 break;
             case R.id.button_sign:
-                startActivity(new Intent(this, ChooseSignTypeActivity.class));
+                startActivityWithAnimation(new Intent(this, ChooseSignTypeActivity.class));
                 break;
             case R.id.button_theory:
-                startActivity(new Intent(this, ChooseSimActivity.class));
+                startActivityWithAnimation(new Intent(this, ChooseSimActivity.class));
                 break;
         }
     }

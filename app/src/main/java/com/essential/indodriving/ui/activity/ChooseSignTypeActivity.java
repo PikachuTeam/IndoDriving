@@ -69,7 +69,10 @@ public class ChooseSignTypeActivity extends FirstBaseActivity implements
     @Override
     public void onBackPressed() {
         if (floatingActionsMenu.isExpanded()) floatingActionsMenu.collapse();
-        else super.onBackPressed();
+        else {
+            super.onBackPressed();
+            closeActivityWithAnimation();
+        }
     }
 
     @Override
@@ -95,27 +98,27 @@ public class ChooseSignTypeActivity extends FirstBaseActivity implements
                 break;
             case R.id.button_prohibition_sign:
                 intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_PROHIBITION_SIGN);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.button_warning_sign:
                 intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_WARNING_SIGN);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.button_command_sign:
                 intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_COMMAND_SIGN);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.button_direction_sign:
                 intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_DIRECTION_SIGN);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.button_additional_sign:
                 intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_ADDITIONAL_SIGN);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.button_all_sign:
                 intent.putExtra(Constants.BUNDLE_SIGN_TYPE, SignDataSource.GROUP_ALL);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 break;
         }
     }

@@ -69,6 +69,10 @@ public class QuestionNoItemWrapper {
         textViewNumber.setTypeface(font);
     }
 
+    public void setBackgroundResource(int drawable) {
+        questionNoWrapper.setBackgroundResource(drawable);
+    }
+
     public View getView() {
         return this.view;
     }

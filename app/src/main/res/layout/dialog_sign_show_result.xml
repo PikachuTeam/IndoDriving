@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/dialogShowRuleContainer"
+              android:layout_width="@dimen/dialog_show_result_width"
+              android:layout_height="wrap_content"
+              android:background="@android:color/transparent"
+              android:clickable="true"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_size_5"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="@dimen/dialog_show_result_width"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/questionArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:layout_marginRight="@dimen/common_size_15"
+                android:layout_marginTop="@dimen/common_size_15"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/image_sign"
+                    android:layout_width="@dimen/dialog_show_result_question_image_size"
+                    android:layout_height="@dimen/dialog_show_result_question_image_size"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:clickable="true"/>
+
+                <ImageView
+                    android:id="@+id/buttonZoomIn"
+                    android:layout_width="@dimen/button_zoom_in_size"
+                    android:layout_height="@dimen/button_zoom_in_size"
+                    android:layout_toRightOf="@+id/image_sign"
+                    android:clickable="true"
+                    android:src="@drawable/ic_zoom_in_normal"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/scrollArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_10"
+                    android:layout_marginRight="@dimen/common_size_10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvChoiceA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_a"
+                        android:textSize="@dimen/common_text_size_18"/>
+
+                    <TextView
+                        android:id="@+id/tvChoiceB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_b"
+                        android:textSize="@dimen/common_text_size_18"/>
+
+                    <TextView
+                        android:id="@+id/tvChoiceC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_c"
+                        android:textSize="@dimen/common_text_size_18"/>
+
+                    <TextView
+                        android:id="@+id/tvChoiceD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/choice_d"
+                        android:textSize="@dimen/common_text_size_18"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="@string/your_answer"
+                        android:textSize="@dimen/common_text_size_18"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvAnswer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_size_5"
+                        android:text="Alo"
+                        android:textSize="@dimen/common_text_size_18"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

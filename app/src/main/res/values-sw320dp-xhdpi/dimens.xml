@@ -58,4 +58,6 @@
     <dimen name="choose_sign_item_button_size">90dp</dimen>
     <dimen name="learn_sign_image_size">110dp</dimen>
     <dimen name="learn_sign_card_height">150dp</dimen>
+    <dimen name="item_match_image_size">100dp</dimen>
+    <dimen name="test_sign_image_size">100dp</dimen>
 </resources>

@@ -26,6 +26,42 @@
             android:layout_height="@dimen/choose_sign_button_height">
 
             <LinearLayout
+                android:id="@+id/button_all_sign"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_sign_type"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_65"
+                    android:src="@drawable/img_all_signs" />
+
+                <TextView
+                    android:id="@+id/text_all_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_12"
+                    android:text="@string/all_sign"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/choose_sim_button_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_screen_stroke_line_size"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_screen_stroke_line_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/choose_sign_button_height">
+
+            <LinearLayout
                 android:id="@+id/button_prohibition_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -190,42 +226,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_12"
                     android:text="@string/addition_sign"
-                    android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/choose_sign_button_height">
-
-            <LinearLayout
-                android:id="@+id/button_all_sign"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_sign_type"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_size_65"
-                    android:src="@drawable/img_all_signs" />
-
-                <TextView
-                    android:id="@+id/text_all_sign"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_size_12"
-                    android:text="@string/all_sign"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/choose_sim_button_text_size" />
             </LinearLayout>

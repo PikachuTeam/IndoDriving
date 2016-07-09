@@ -1,4 +1,4 @@
-package com.essential.indodriving.ui.fragment.theory.test;
+package com.essential.indodriving.ui.fragment.sign.test;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,23 +14,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.essential.indodriving.R;
-import com.essential.indodriving.data.driving.Question;
+import com.essential.indodriving.data.sign.SignQuestion;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.ui.widget.ShowResultDialog;
+import com.essential.indodriving.ui.widget.SignShowResultDialog;
 import com.essential.indodriving.util.LinearItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by dongc_000 on 2/29/2016.
+ * Created by yue on 09/07/2016.
  */
-public class DetailResultFragment extends MyBaseFragment {
+public class SignDetailResultFragment extends MyBaseFragment {
 
     private TextView textType;
     private TextView textReport;
-    private RecyclerView listDetailResult;
-    private ArrayList<Question> questions;
+    private RecyclerView detailResultRecyclerView;
+    private List<SignQuestion> questions;
     private DetailResultAdapter adapter;
     private int type;
 
@@ -92,21 +93,21 @@ public class DetailResultFragment extends MyBaseFragment {
                 break;
         }
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        listDetailResult.setLayoutManager(layoutManager);
-        listDetailResult.addItemDecoration(new LinearItemDecoration(getActivity()));
-        listDetailResult.setAdapter(adapter);
+        detailResultRecyclerView.setLayoutManager(layoutManager);
+        detailResultRecyclerView.addItemDecoration(new LinearItemDecoration(getActivity()));
+        detailResultRecyclerView.setAdapter(adapter);
         getMyBaseActivity().showBigAdsIfNeeded();
     }
 
     private void findViews(View rootView) {
         textType = (TextView) rootView.findViewById(R.id.text_type);
-        listDetailResult = (RecyclerView) rootView.findViewById(R.id.listDetailResult);
+        detailResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.listDetailResult);
         textReport = (TextView) rootView.findViewById(R.id.text_report);
     }
 
     private void getData() {
         if (containHolder(Constants.KEY_HOLDER_QUESTIONS)) {
-            questions = (ArrayList<Question>) getHolder(Constants.KEY_HOLDER_QUESTIONS);
+            questions = (List<SignQuestion>) getHolder(Constants.KEY_HOLDER_QUESTIONS);
         } else {
             questions = new ArrayList<>();
         }
@@ -115,10 +116,10 @@ public class DetailResultFragment extends MyBaseFragment {
 
     private class DetailResultAdapter extends RecyclerView.Adapter<DetailResultAdapter.ViewHolder> {
 
-        private ArrayList<Question> questions;
+        private List<SignQuestion> questions;
         private Context context;
 
-        public DetailResultAdapter(Context context, ArrayList<Question> questions) {
+        public DetailResultAdapter(Context context, List<SignQuestion> questions) {
             this.context = context;
             this.questions = questions;
         }
@@ -132,19 +133,14 @@ public class DetailResultFragment extends MyBaseFragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            final Question question = questions.get(position);
-            if (question.imageData != null) {
-                holder.questionImage.setVisibility(View.VISIBLE);
-                Glide.with(DetailResultFragment.this).load(question.imageData).
-                        dontAnimate().dontTransform().into(holder.questionImage);
-            } else {
-                holder.questionImage.setVisibility(View.GONE);
-            }
-            holder.textViewQuestion.setText(question.question);
+            final SignQuestion question = questions.get(position);
+            Glide.with(context).load(question.image).
+                    dontAnimate().dontTransform().into(holder.imageSign);
+            holder.textDefinition.setText(question.answerArray[question.correctAnswer]);
             holder.buttonDetailResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShowResultDialog dialog = new ShowResultDialog(context, question);
+                    SignShowResultDialog dialog = new SignShowResultDialog(context, question);
                     dialog.show();
                 }
             });
@@ -158,14 +154,14 @@ public class DetailResultFragment extends MyBaseFragment {
         class ViewHolder extends RecyclerView.ViewHolder {
 
             public LinearLayout buttonDetailResult;
-            public ImageView questionImage;
-            public TextView textViewQuestion;
+            public ImageView imageSign;
+            public TextView textDefinition;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 buttonDetailResult = (LinearLayout) itemView.findViewById(R.id.button_detail);
-                questionImage = (ImageView) itemView.findViewById(R.id.image_sign);
-                textViewQuestion = (TextView) itemView.findViewById(R.id.text_detail);
+                imageSign = (ImageView) itemView.findViewById(R.id.image_sign);
+                textDefinition = (TextView) itemView.findViewById(R.id.text_detail);
             }
         }
     }

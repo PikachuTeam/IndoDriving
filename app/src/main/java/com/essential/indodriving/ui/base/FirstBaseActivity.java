@@ -1,5 +1,6 @@
 package com.essential.indodriving.ui.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -45,22 +46,6 @@ public abstract class FirstBaseActivity extends AppCompatActivity implements
 
     protected abstract int getLayoutResId();
 
-    private void findViews() {
-        // Find views
-        floatingActionsMenu = (FloatingActionsMenu) findViewById(R.id.floating_actions_menu);
-        buttonProVer = findViewById(R.id.button_pro_ver);
-        overlayView = findViewById(R.id.view_overlay);
-        imageProVer = findViewById(R.id.image_100_pro);
-
-        // Set listener
-        buttonProVer.setOnClickListener(this);
-        overlayView.setOnClickListener(this);
-        floatingActionsMenu.setOnFloatingActionsMenuUpdateListener(this);
-        findViewById(R.id.fab_more_apps).setOnClickListener(this);
-        findViewById(R.id.fab_rate_us).setOnClickListener(this);
-        findViewById(R.id.fab_share).setOnClickListener(this);
-    }
-
     protected void refreshUI() {
         imageProVer.setVisibility(isProVer ? View.VISIBLE : View.GONE);
         buttonProVer.setVisibility(isProVer ? View.GONE : View.VISIBLE);
@@ -89,5 +74,30 @@ public abstract class FirstBaseActivity extends AppCompatActivity implements
     protected void enableBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+    }
+
+    protected void startActivityWithAnimation(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.activity_slide_right_enter, R.anim.activity_slide_left_exit);
+    }
+
+    protected void closeActivityWithAnimation() {
+        overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
+    }
+
+    private void findViews() {
+        // Find views
+        floatingActionsMenu = (FloatingActionsMenu) findViewById(R.id.floating_actions_menu);
+        buttonProVer = findViewById(R.id.button_pro_ver);
+        overlayView = findViewById(R.id.view_overlay);
+        imageProVer = findViewById(R.id.image_100_pro);
+
+        // Set listener
+        buttonProVer.setOnClickListener(this);
+        overlayView.setOnClickListener(this);
+        floatingActionsMenu.setOnFloatingActionsMenuUpdateListener(this);
+        findViewById(R.id.fab_more_apps).setOnClickListener(this);
+        findViewById(R.id.fab_rate_us).setOnClickListener(this);
+        findViewById(R.id.fab_share).setOnClickListener(this);
     }
 }

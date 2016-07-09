@@ -10,6 +10,8 @@ import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.SignMainActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.fragment.sign.learn.LearnSignByListFragment;
+import com.essential.indodriving.ui.fragment.sign.test.SignUnlimitedTestFragment;
 
 /**
  * Created by yue on 07/07/2016.
@@ -40,16 +42,17 @@ public class SignChooseItemFragment extends MyBaseFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        Bundle bundle = new Bundle();
         MyBaseFragment fragment=null;
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.BUNDLE_SIGN_TYPE, type);
         switch (v.getId()) {
             case R.id.linear_learn_sign:
             case R.id.button_learn_sign:
                 fragment = new LearnSignByListFragment();
-                bundle.putString(Constants.BUNDLE_SIGN_TYPE, type);
                 break;
             case R.id.linear_unlimited_test:
             case R.id.button_unlimited_test:
+                fragment=new SignUnlimitedTestFragment();
                 break;
             case R.id.linear_simulation_test:
             case R.id.button_simulation_test:
