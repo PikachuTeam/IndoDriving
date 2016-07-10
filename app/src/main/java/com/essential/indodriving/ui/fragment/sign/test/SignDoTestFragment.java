@@ -477,8 +477,6 @@ public class SignDoTestFragment extends MyBaseFragment implements
             resetAllChoices(answerChoicesItems);
             if (question.answer != DrivingDataSource.ANSWER_NOT_CHOSEN) {
                 answerChoicesItems.get(question.answer).setActive(true);
-                answerChoicesItems.get(question.answer).
-                        showTextNotify(question.correctAnswer == question.answer);
             }
             return answerChoicesItems;
         }
