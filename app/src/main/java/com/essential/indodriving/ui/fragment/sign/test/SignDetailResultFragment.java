@@ -140,8 +140,7 @@ public class SignDetailResultFragment extends MyBaseFragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             final SignQuestion question = questions.get(position);
-            Glide.with(context).load(question.image).
-                    dontAnimate().dontTransform().into(holder.imageSign);
+            Glide.with(context).load(question.image).dontAnimate().dontTransform().into(holder.imageSign);
             holder.textDefinition.setText(question.answerArray[question.correctAnswer]);
             holder.buttonDetailResult.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -394,8 +394,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-                Glide.with(LearnAllFragment.this).load(question.imageData).
-                        dontAnimate().dontTransform().into(cardQuestionImage);
+                Glide.with(LearnAllFragment.this).load(question.imageData).dontAnimate().dontTransform().into(cardQuestionImage);
             }
             cardTextViewQuestion.setText(question.question);
             if (question.answer1 != null) {

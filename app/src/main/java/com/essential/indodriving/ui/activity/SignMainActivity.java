@@ -67,4 +67,15 @@ public class SignMainActivity extends SecondBaseActivity {
         actionLearningSignByCard = findViewById(R.id.action_learning_sign_by_card);
         actionLearningSignByList = findViewById(R.id.action_learning_sign_by_list);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_slide_left_enter, R.anim.activity_slide_right_exit);
+    }
 }

@@ -135,8 +135,7 @@ public class DetailResultFragment extends MyBaseFragment {
             final Question question = questions.get(position);
             if (question.imageData != null) {
                 holder.questionImage.setVisibility(View.VISIBLE);
-                Glide.with(DetailResultFragment.this).load(question.imageData).
-                        dontAnimate().dontTransform().into(holder.questionImage);
+                Glide.with(DetailResultFragment.this).load(question.imageData).dontAnimate().dontTransform().into(holder.questionImage);
             } else {
                 holder.questionImage.setVisibility(View.GONE);
             }

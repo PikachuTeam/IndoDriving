@@ -266,8 +266,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
                                 }
                             });
                 } else if (isProVersion || isRated) {
-                    Glide.with(context).load(sign.image).
-                            dontAnimate().dontTransform().into(holder.imageQuestion);
+                    Glide.with(context).load(sign.image).dontAnimate().dontTransform().into(holder.imageQuestion);
                     if (holder.lockedArea.getVisibility() == View.VISIBLE)
                         holder.lockedArea.setVisibility(View.GONE);
                 }

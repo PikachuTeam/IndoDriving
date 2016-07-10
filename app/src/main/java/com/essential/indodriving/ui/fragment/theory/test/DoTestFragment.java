@@ -373,8 +373,7 @@ public class DoTestFragment extends MyBaseFragment implements ViewPager.OnPageCh
                 imageArea.setVisibility(View.GONE);
             } else {
                 imageArea.setVisibility(View.VISIBLE);
-                Glide.with(DoTestFragment.this).
-                        load(question.imageData).dontAnimate().dontTransform().into(questionImage);
+                Glide.with(DoTestFragment.this).load(question.imageData).dontAnimate().dontTransform().into(questionImage);
                 questionImage.setTag(question);
                 questionImage.setOnClickListener(this);
                 buttonZoomIn.setTag(question);

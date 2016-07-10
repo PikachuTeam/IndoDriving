@@ -94,4 +94,5 @@
     <color name="search_text_color">#A3A0A0</color>
     <color name="search_view_shadow">#78918e8e</color>
     <color name="search_view_stroke_line">#AEAAAA</color>
+    <color name="sign_rate_to_unlock">#ce4c47</color>
 </resources>
