@@ -44,6 +44,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     private View actionLearningSignByCard;
     private RecyclerView recyclerViewSign;
     private SearchView searchView;
+    private TextView textNotFound;
     private List<Sign> signs;
     private ListSignsAdapter adapter;
     private String type;
@@ -121,10 +122,18 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     public void onSearch(CharSequence s) {
         List<Sign> tmp = SignDataSource.findSignsByDefinition(type, s.toString());
         if (tmp != null) refreshList(tmp);
+        else if (textNotFound.getVisibility() == View.GONE) {
+            textNotFound.setVisibility(View.VISIBLE);
+            recyclerViewSign.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onCancel() {
+        if (textNotFound.getVisibility() == View.VISIBLE) {
+            textNotFound.setVisibility(View.GONE);
+            recyclerViewSign.setVisibility(View.VISIBLE);
+        }
         List<Sign> tmp = SignDataSource.getSigns(type);
         refreshList(tmp);
     }
@@ -138,6 +147,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     private void findViews(View rootView) {
         recyclerViewSign = (RecyclerView) rootView.findViewById(R.id.recycler_view_sign);
         searchView = (SearchView) rootView.findViewById(R.id.search_view);
+        textNotFound = (TextView) rootView.findViewById(R.id.text_not_found);
         searchView.setOnSearchViewInteractListener(this);
     }
 
@@ -150,13 +160,11 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     }
 
     private void moveToLearningSignByCardFragment() {
-        if (!isProVersion) {
-            currentPosition += (currentPosition + 1) / Constants.LEARN_ALL_ADS_BREAK;
-        }
+        int id = signs.get(currentPosition).id;
         LearnSignByCardFragment fragment = new LearnSignByCardFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.BUNDLE_SIGN_TYPE, type);
-        bundle.putInt(Constants.BUNDLE_CURRENT_POSITION, currentPosition);
+        bundle.putInt(Constants.BUNDLE_SIGN_ID, id);
         fragment.setArguments(bundle);
         replaceFragment(fragment, TAG_LEARN_SIGN_BY_LIST_FRAGMENT,
                 R.animator.card_flip_left_in, R.animator.card_flip_left_out,

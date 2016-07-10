@@ -13,6 +13,7 @@ public class Constants {
     public final static String BUNDLE_SIGN_TYPE = "sign type";
     public final static String BUNDLE_EXAM_ID = "exam id";
     public final static String BUNDLE_CURRENT_POSITION = "current position";
+    public final static String BUNDLE_SIGN_ID = "sign id";
     public final static String BUNDLE_NEED_SAVING = "need saving";
     public final static String BUNDLE_FRAGMENT_TYPE = "fragment type";
     public final static String KEY_HOLDER_QUESTIONS = "questions";

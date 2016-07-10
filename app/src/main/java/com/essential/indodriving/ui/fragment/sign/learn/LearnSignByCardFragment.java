@@ -86,9 +86,11 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getData();
-        loadState();
+        Bundle bundle = getArguments();
+        type = bundle.getString(Constants.BUNDLE_SIGN_TYPE);
         signs = SignDataSource.getSigns(type);
+        currentPosition = getPositionById(bundle.getInt(Constants.BUNDLE_SIGN_ID));
+        loadState();
         if (!isProVersion) {
             addADS(signs);
         }
@@ -280,14 +282,6 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
         }
     }
 
-    private void getData() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            type = bundle.getString(Constants.BUNDLE_SIGN_TYPE);
-            currentPosition = bundle.getInt(Constants.BUNDLE_CURRENT_POSITION);
-        }
-    }
-
     private void findViews(View rootView) {
         learningCardSeekbar = (LearningCardSeekbar) rootView.findViewById(R.id.learning_card_seekbar);
         cardArea = (ScrollView) rootView.findViewById(R.id.card_area);
@@ -346,6 +340,15 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
                 i++;
             }
         }
+    }
+
+    private int getPositionById(int signId) {
+        int size = signs.size();
+        for (int i = 0; i < size; i++) {
+            if (signs.get(i).id == signId)
+                return i;
+        }
+        return 0;
     }
 
     private void setCardData(Sign sign) {
