@@ -169,7 +169,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         int size = signs.size();
         for (int i = 0; i < size; i++) {
             count++;
-            if (count % Constants.WRITTEN_TEST_ADS_BREAK == 0) {
+            if (count % Constants.LEARN_ALL_ADS_BREAK == 0) {
                 Sign sign = new Sign();
                 sign.isAds = true;
                 signs.add(i, sign);
@@ -253,6 +253,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
                                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                                     holder.imageQuestion.setImageBitmap(resource);
                                     if (position >= Constants.LOCK_START_INDEX) {
+                                        holder.lockedArea.setVisibility(View.GONE);
                                         Bitmap blurImage = ImageHelper.
                                                 blur(context, ImageHelper.captureView(holder.buttonDetail));
                                         if (holder.lockedArea.getVisibility() == View.GONE)

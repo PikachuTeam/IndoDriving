@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -66,9 +65,11 @@ public class SignDetailResultFragment extends MyBaseFragment {
                 textType.setText(getString(R.string.title_correct_answer));
                 if (questions.size() == 0) {
                     textReport.setVisibility(View.VISIBLE);
+                    detailResultRecyclerView.setVisibility(View.GONE);
                     textReport.setText(getString(R.string.no_correct_answer));
                 } else {
                     textReport.setVisibility(View.GONE);
+                    detailResultRecyclerView.setVisibility(View.VISIBLE);
                 }
                 break;
             case 1:
@@ -77,8 +78,10 @@ public class SignDetailResultFragment extends MyBaseFragment {
                 if (questions.size() == 0) {
                     textReport.setVisibility(View.VISIBLE);
                     textReport.setText(getString(R.string.no_wrong_answer));
+                    detailResultRecyclerView.setVisibility(View.GONE);
                 } else {
                     textReport.setVisibility(View.GONE);
+                    detailResultRecyclerView.setVisibility(View.VISIBLE);
                 }
                 break;
             case 2:
@@ -87,8 +90,10 @@ public class SignDetailResultFragment extends MyBaseFragment {
                 if (questions.size() == 0) {
                     textReport.setVisibility(View.VISIBLE);
                     textReport.setText(getString(R.string.answer_all));
+                    detailResultRecyclerView.setVisibility(View.GONE);
                 } else {
                     textReport.setVisibility(View.GONE);
+                    detailResultRecyclerView.setVisibility(View.VISIBLE);
                 }
                 break;
         }
@@ -103,6 +108,7 @@ public class SignDetailResultFragment extends MyBaseFragment {
         textType = (TextView) rootView.findViewById(R.id.text_type);
         detailResultRecyclerView = (RecyclerView) rootView.findViewById(R.id.listDetailResult);
         textReport = (TextView) rootView.findViewById(R.id.text_report);
+        textReport.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
     }
 
     private void getData() {

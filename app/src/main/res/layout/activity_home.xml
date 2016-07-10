@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordinator_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/coordinator_layout"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,13 +21,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/toolbar_image_sign" />
+                android:src="@drawable/toolbar_image_sign"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/img_new" />
+                android:src="@drawable/img_new"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/img_all_signs" />
+                    android:src="@drawable/img_all_signs"/>
 
                 <TextView
                     android:id="@+id/text_sign_title"
@@ -54,7 +54,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common_text_size_30"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/toolbar_image" />
+                android:src="@drawable/toolbar_image"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common_text_size_30"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -100,12 +100,17 @@
                     <ImageView
                         android:layout_width="@dimen/home_image_size"
                         android:layout_height="@dimen/home_image_size"
-                        android:src="@drawable/ic_motorbike" />
+                        android:src="@drawable/ic_motorbike"/>
 
                     <ImageView
                         android:layout_width="@dimen/home_image_size"
                         android:layout_height="@dimen/home_image_size"
-                        android:src="@drawable/ic_car" />
+                        android:src="@drawable/ic_car"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/home_image_size"
+                        android:layout_height="@dimen/home_image_size"
+                        android:src="@drawable/ic_small_truck"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -118,7 +123,7 @@
                 android:layout_marginLeft="@dimen/common_size_15"
                 android:elevation="@dimen/common_size_5"
                 android:padding="@dimen/common_size_10"
-                android:src="@drawable/ic_up_to_pro" />
+                android:src="@drawable/ic_up_to_pro"/>
 
             <ImageView
                 android:id="@+id/image_100_pro"
@@ -126,7 +131,7 @@
                 android:layout_height="@dimen/image_100_pro_size"
                 android:layout_alignParentBottom="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_pro_100" />
+                android:src="@drawable/ic_pro_100"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -136,7 +141,7 @@
         android:layout_height="match_parent"
         android:background="@color/overlay_view_color"
         android:clickable="true"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/floating_actions_menu"
@@ -155,7 +160,7 @@
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_star"
             app:fab_size="mini"
-            app:fab_title="@string/rate_us" />
+            app:fab_title="@string/rate_us"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_more_apps"
@@ -163,7 +168,7 @@
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_shopping"
             app:fab_size="mini"
-            app:fab_title="@string/more_apps" />
+            app:fab_title="@string/more_apps"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_share"
@@ -171,6 +176,6 @@
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_share"
             app:fab_size="mini"
-            app:fab_title="@string/share" />
+            app:fab_title="@string/share"/>
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </android.support.design.widget.CoordinatorLayout>

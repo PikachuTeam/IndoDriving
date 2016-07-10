@@ -59,9 +59,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:paddingLeft="@dimen/common_size_5"
+                android:paddingRight="@dimen/common_size_5"
                 android:text="@string/click_to_see_answer"
                 android:textAllCaps="true"
-                android:textColor="@color/text_color_4"
+                android:textColor="@color/color_primary_dark_sign"
                 android:textSize="@dimen/common_text_size_28"/>
         </FrameLayout>
     </FrameLayout>

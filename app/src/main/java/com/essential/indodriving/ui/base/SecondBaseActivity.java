@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.base;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.ui.activity.BaseActivity;
+import tatteam.com.app_common.ui.fragment.BaseFragment;
 import tatteam.com.app_common.util.AppConstant;
 
 /**
