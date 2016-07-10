@@ -34,7 +34,7 @@ public class ShowSignDialog extends Dialog {
         setContentView(R.layout.dialog_show_sign);
         findViews();
         if (sign != null) {
-            Glide.with(getContext()).load(sign.image).into(imageSign);
+            Glide.with(getContext()).load(sign.image).dontAnimate().dontTransform().into(imageSign);
             textDefinition.setText(sign.definition);
         }
     }

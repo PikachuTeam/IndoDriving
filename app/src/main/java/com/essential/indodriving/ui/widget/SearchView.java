@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,8 +51,18 @@ public class SearchView extends RelativeLayout implements TextWatcher, View.OnCl
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (start == 0) {
-            buttonCancel.setVisibility(VISIBLE);
-            textSearch.setTypeface(null, Typeface.NORMAL);
+            if (before == 0) {
+                if (count == 0) {
+                    buttonCancel.setVisibility(GONE);
+                    textSearch.setTypeface(null, Typeface.ITALIC);
+                } else {
+                    buttonCancel.setVisibility(VISIBLE);
+                    textSearch.setTypeface(null, Typeface.NORMAL);
+                }
+            } else if (count == 0) {
+                buttonCancel.setVisibility(GONE);
+                textSearch.setTypeface(null, Typeface.ITALIC);
+            }
         }
         if (listener != null) {
             listener.onSearch(s);

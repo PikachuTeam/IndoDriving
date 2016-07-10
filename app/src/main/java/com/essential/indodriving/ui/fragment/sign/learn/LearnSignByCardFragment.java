@@ -86,14 +86,8 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        type = bundle.getString(Constants.BUNDLE_SIGN_TYPE);
-        signs = SignDataSource.getSigns(type);
-        currentPosition = getPositionById(bundle.getInt(Constants.BUNDLE_SIGN_ID));
+        getData();
         loadState();
-        if (!isProVersion) {
-            addADS(signs);
-        }
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         alphaAnimation = new AlphaAnimation(0f, 1f);
@@ -300,6 +294,17 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
                 setTypeface(HomeActivity.defaultFont);
     }
 
+    private void getData() {
+        if (containHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST)) {
+            signs = (List<Sign>) getHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST);
+        }
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            type = bundle.getString(Constants.BUNDLE_SIGN_TYPE);
+            currentPosition = bundle.getInt(Constants.BUNDLE_CURRENT_POSITION);
+        }
+    }
+
     private void setListeners() {
         buttonNext.setOnClickListener(this);
         buttonPrevious.setOnClickListener(this);
@@ -324,31 +329,6 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
             });
         }
         ((SignMainActivity) getMyBaseActivity()).getActionLearningSignByCard().setVisibility(View.GONE);
-    }
-
-    private void addADS(List<Sign> signs) {
-        int count = 0;
-        int size = signs.size();
-        for (int i = 0; i < size; i++) {
-            count++;
-            if (count % Constants.LEARN_ALL_ADS_BREAK == 0) {
-                Sign sign = new Sign();
-                sign.isAds = true;
-                signs.add(i, sign);
-                count++;
-                size++;
-                i++;
-            }
-        }
-    }
-
-    private int getPositionById(int signId) {
-        int size = signs.size();
-        for (int i = 0; i < size; i++) {
-            if (signs.get(i).id == signId)
-                return i;
-        }
-        return 0;
     }
 
     private void setCardData(Sign sign) {

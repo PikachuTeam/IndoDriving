@@ -41,7 +41,7 @@ public class SignDoTestFragment extends MyBaseFragment implements
         OnQuestionPagerItemClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener,
         QuestionNoItemWrapper.OnQuestionNoClickListener, ViewPager.OnPageChangeListener {
 
-    public final static int INTERVAL = 1000, TOTAL_TIME = 1801000;
+    public final static int INTERVAL = 1000, TOTAL_TIME = 1201000;
     public final static String TAG_SIGN_DO_TEST_FRAGMENT = "Fragment Sign Do Test";
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
@@ -86,7 +86,7 @@ public class SignDoTestFragment extends MyBaseFragment implements
             wrapper.setOnQuestionNoClickListener(this);
             wrappers.add(wrapper);
         }
-        minute1 = 3;
+        minute1 = 2;
         minute2 = 0;
         second1 = 0;
         second2 = 0;
@@ -312,6 +312,10 @@ public class SignDoTestFragment extends MyBaseFragment implements
     }
 
     private void setFont(View rootView) {
+        textViewMinute1.setTypeface(HomeActivity.defaultFont);
+        textViewMinute2.setTypeface(HomeActivity.defaultFont);
+        textViewSecond1.setTypeface(HomeActivity.defaultFont);
+        textViewSecond2.setTypeface(HomeActivity.defaultFont);
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).setTypeface(HomeActivity.defaultFont);
         ((TextView) rootView.findViewById(R.id.textViewTwoDots)).
                 setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
@@ -467,7 +471,7 @@ public class SignDoTestFragment extends MyBaseFragment implements
             int length = answers.length;
             for (int i = 0; i < length; i++) {
                 AnswerChoicesItem answerChoice = new AnswerChoicesItem(context, i);
-                answerChoice.setChoice(answers[0]);
+                answerChoice.setChoice(answers[i]);
                 answerChoicesItems.add(answerChoice);
             }
             resetAllChoices(answerChoicesItems);

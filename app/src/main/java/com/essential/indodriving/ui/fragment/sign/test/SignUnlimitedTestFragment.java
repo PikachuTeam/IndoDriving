@@ -404,7 +404,7 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
             int length = answers.length;
             for (int i = 0; i < length; i++) {
                 AnswerChoicesItem answerChoice = new AnswerChoicesItem(context, i);
-                answerChoice.setChoice(answers[0]);
+                answerChoice.setChoice(answers[i]);
                 answerChoice.changeCheckboxColor(question.correctAnswer == i);
                 answerChoicesItems.add(answerChoice);
             }

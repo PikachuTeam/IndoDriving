@@ -87,8 +87,8 @@
     <color name="match_color">#780f9d58</color>
     <color name="not_match_color">#0aff5019</color>
     <color name="flat_button_highlight_color">#e6e3e3</color>
-    <color name="sign_button_normal_color">#f03933</color>
-    <color name="sign_button_highlight_color">#c8ec423c</color>
+    <color name="sign_button_normal_color">#454343</color>
+    <color name="sign_button_highlight_color">#96454343</color>
     <color name="sign_do_test_button_zoom_in_normal_color">#454343</color>
     <color name="sign_do_test_button_zoom_in_highlight_color">#96454343</color>
     <color name="search_text_color">#A3A0A0</color>
