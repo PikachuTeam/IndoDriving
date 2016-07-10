@@ -37,7 +37,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/common_size_40"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_car" />
 
                 <TextView
@@ -73,7 +73,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/common_size_40"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_car" />
 
                 <TextView
@@ -109,7 +109,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_small_truck" />
 
                 <TextView
@@ -145,7 +145,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_small_truck" />
 
                 <TextView
@@ -181,7 +181,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_big_truck" />
 
                 <TextView
@@ -217,7 +217,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_big_truck" />
 
                 <TextView
@@ -253,7 +253,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_motorbike" />
 
                 <TextView
@@ -289,7 +289,7 @@
                 <ImageView
                     android:layout_width="@dimen/choose_sim_button_image_size"
                     android:layout_height="@dimen/choose_sim_button_image_size"
-                    android:layout_marginLeft="@dimen/common_size_80"
+                    android:layout_marginLeft="@dimen/common_size_50"
                     android:src="@drawable/ic_disabled_motorbike" />
 
                 <TextView

@@ -25,11 +25,13 @@ import tatteam.com.app_common.util.CommonUtil;
  * Created by yue on 04/07/2016.
  */
 public class HomeActivity extends FirstBaseActivity implements
-        CloseAppHandler.OnCloseAppListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener {
+        CloseAppHandler.OnCloseAppListener {
 
     public static Typeface defaultFont;
     private CoordinatorLayout coordinatorLayout;
     private CloseAppHandler closeAppHandler;
+    protected View imageNew;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,32 +42,12 @@ public class HomeActivity extends FirstBaseActivity implements
         closeAppHandler.setListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshUI();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (billingProcessor != null) {
-            billingProcessor.release();
-        }
-        super.onDestroy();
-    }
 
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_home;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (billingProcessor != null &&
-                !billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -91,26 +73,11 @@ public class HomeActivity extends FirstBaseActivity implements
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
-            case R.id.button_pro_ver:
-                UpgradeToProVerDialog dialog = new UpgradeToProVerDialog(this);
-                dialog.setOnConfirmDialogButtonClickListener(this);
-                dialog.show();
-                break;
-            case R.id.view_overlay:
-                floatingActionsMenu.collapse();
-                break;
-            case R.id.fab_more_apps:
-                AppCommon.getInstance().openMoreAppDialog(this);
-                break;
-            case R.id.fab_rate_us:
-                CommonUtil.openApplicationOnGooglePlay(this, Constants.PACKAGE_NAME_FREE_VER);
-                break;
-            case R.id.fab_share:
-                sharingEvent();
-                break;
             case R.id.button_sign:
                 startActivityWithAnimation(new Intent(this, ChooseSignTypeActivity.class));
+                MySetting.getInstance().setSignNew(false);
                 break;
             case R.id.button_theory:
                 startActivityWithAnimation(new Intent(this, ChooseSimActivity.class));
@@ -118,64 +85,30 @@ public class HomeActivity extends FirstBaseActivity implements
         }
     }
 
-    @Override
-    public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button,
-                                           @BaseConfirmDialog.DialogTypeDef int dialogType,
-                                           BaseConfirmDialog dialog) {
-        switch (button) {
-            case OK:
-                dialog.dismiss();
-                purchaseApp();
-                break;
-            case CANCEL:
-                dialog.dismiss();
-                break;
-        }
-    }
 
-    @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
-        if (Constants.PURCHASE_PRO_VERSION_ID.equals(productId)) {
-            MySetting.getInstance().setProVersion(true);
-            refreshUI();
-        }
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-
-    }
-
-    @Override
-    public void onBillingError(int errorCode, Throwable error) {
-
-    }
-
-    @Override
-    public void onBillingInitialized() {
-        billingInitialized();
-    }
-
-    @Override
-    public void onMenuExpanded() {
-        overlayView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onMenuCollapsed() {
-        overlayView.setVisibility(View.GONE);
-    }
 
     private void findViews() {
 //        // Find views
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
-//
-//        // Set listener
+        imageNew = findViewById(R.id.img_new);
+
+// Set listener
         findViewById(R.id.button_theory).setOnClickListener(this);
         findViewById(R.id.button_sign).setOnClickListener(this);
 
         // Set font
         ((TextView) findViewById(R.id.text_theory_title)).setTypeface(defaultFont);
         ((TextView) findViewById(R.id.text_sign_title)).setTypeface(defaultFont);
+    }
+
+    @Override
+    protected void refreshUI() {
+        super.refreshUI();
+
+        if (!MySetting.getInstance().isSignNew()) {
+            imageNew.setVisibility(View.GONE);
+        } else {
+            imageNew.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -15,12 +15,13 @@ import java.util.Random;
  */
 public class SignDataSource {
 
-    public static final String GROUP_ALL = "All Signs";
+    public static final String GROUP_ALL = "Semua rambu";
     public static final String GROUP_PROHIBITION_SIGN = "Rambu Larangan";
     public static final String GROUP_WARNING_SIGN = "Rambu Peringatan";
     public static final String GROUP_COMMAND_SIGN = "Rambu Perintah";
     public static final String GROUP_DIRECTION_SIGN = "Rambu Petunjuk";
-    public static final String GROUP_ADDITIONAL_SIGN = "Rambu Tambahan";
+    public static final String GROUP_ADDITIONAL_SIGN = "Rambu Tambahan & Nomor Rute";
+
     private final static String COLUMN_ID = "id";
     private final static String COLUMN_SIGN_GROUP = "sign_group";
     private final static String COLUMN_NUMBER = "number";
@@ -47,7 +48,10 @@ public class SignDataSource {
         List<Sign> signs = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = openConnection();
         String query = "SELECT * from sign";
-        if (!groupName.equals(GROUP_ALL)) {
+        if(groupName.equals(GROUP_ADDITIONAL_SIGN)){
+            query = "select * from sign where sign_group ='Nomor Rute' or sign_group = 'Rambu Tambahan'";
+        }
+        else if (!groupName.equals(GROUP_ALL)) {
             query = "SELECT * from sign where " + COLUMN_SIGN_GROUP + " = '" + groupName + "'";
         }
         if (random) {

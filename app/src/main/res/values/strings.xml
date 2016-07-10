@@ -98,10 +98,10 @@
     <string name="warning_sign">Rambu Peringatan</string>
     <string name="command_sign">Rambu Perintah</string>
     <string name="direction_sign">Rambu Petunjuk</string>
-    <string name="addition_sign">Rambu Tambahan</string>
-    <string name="all_sign">All Signs</string>
+    <string name="addition_sign">Rambu Tambahan &amp; Nomor Rute</string>
+    <string name="all_sign">Semua rambu</string>
     <string name="learn_sign">Dafta Rambu</string>
     <string name="matching">Pengaturran</string>
     <string name="sign_do_test_rule">This test contains 20 questions. You will pass if you have 18/20 correct answers</string>
-    <string name="search_view_hint_text">Search</string>
+    <string name="search_view_hint_text">Pencarian</string>
 </resources>

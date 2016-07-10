@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:id="@+id/coordinator_layout"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,14 +20,15 @@
                 android:id="@+id/button_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/toolbar_image_sign"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/toolbar_image_sign" />
 
             <ImageView
+                android:id="@+id/img_new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/img_new"/>
+                android:src="@drawable/img_new" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,23 +39,25 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_all_signs"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_size_60"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/img_all_signs" />
 
                 <TextView
                     android:id="@+id/text_sign_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/common_size_15"
+                    android:layout_marginTop="@dimen/common_size_5"
                     android:lineSpacingExtra="1dp"
                     android:lineSpacingMultiplier="0.65"
-                    android:paddingBottom="@dimen/common_size_20"
                     android:text="@string/home_screen_sign"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common_text_size_30"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -67,8 +70,8 @@
                 android:id="@+id/button_theory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/toolbar_image"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/toolbar_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,14 +86,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/common_size_8"
+                    android:layout_marginTop="@dimen/common_size_15"
                     android:lineSpacingExtra="1dp"
                     android:lineSpacingMultiplier="0.65"
-                    android:paddingBottom="@dimen/common_size_20"
                     android:text="@string/home_screen_theory"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common_text_size_30"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -98,19 +102,19 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/home_image_size"
-                        android:layout_height="@dimen/home_image_size"
-                        android:src="@drawable/ic_motorbike"/>
+                        android:layout_width="@dimen/common_size_50"
+                        android:layout_height="@dimen/common_size_50"
+                        android:src="@drawable/ic_motorbike" />
 
                     <ImageView
-                        android:layout_width="@dimen/home_image_size"
-                        android:layout_height="@dimen/home_image_size"
-                        android:src="@drawable/ic_car"/>
+                        android:layout_width="@dimen/common_size_50"
+                        android:layout_height="@dimen/common_size_50"
+                        android:src="@drawable/ic_car" />
 
                     <ImageView
-                        android:layout_width="@dimen/home_image_size"
-                        android:layout_height="@dimen/home_image_size"
-                        android:src="@drawable/ic_small_truck"/>
+                        android:layout_width="@dimen/common_size_50"
+                        android:layout_height="@dimen/common_size_50"
+                        android:src="@drawable/ic_small_truck" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -123,7 +127,7 @@
                 android:layout_marginLeft="@dimen/common_size_15"
                 android:elevation="@dimen/common_size_5"
                 android:padding="@dimen/common_size_10"
-                android:src="@drawable/ic_up_to_pro"/>
+                android:src="@drawable/ic_up_to_pro" />
 
             <ImageView
                 android:id="@+id/image_100_pro"
@@ -131,7 +135,7 @@
                 android:layout_height="@dimen/image_100_pro_size"
                 android:layout_alignParentBottom="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_pro_100"/>
+                android:src="@drawable/ic_pro_100" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -141,7 +145,7 @@
         android:layout_height="match_parent"
         android:background="@color/overlay_view_color"
         android:clickable="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/floating_actions_menu"
@@ -160,7 +164,7 @@
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_star"
             app:fab_size="mini"
-            app:fab_title="@string/rate_us"/>
+            app:fab_title="@string/rate_us" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_more_apps"
@@ -168,7 +172,7 @@
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_shopping"
             app:fab_size="mini"
-            app:fab_title="@string/more_apps"/>
+            app:fab_title="@string/more_apps" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_share"
@@ -176,6 +180,6 @@
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_share"
             app:fab_size="mini"
-            app:fab_title="@string/share"/>
+            app:fab_title="@string/share" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </android.support.design.widget.CoordinatorLayout>

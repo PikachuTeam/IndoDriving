@@ -7,17 +7,16 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.driving.DrivingDataSource;
-import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.FirstBaseActivity;
 
@@ -31,21 +30,6 @@ public class ChooseSimActivity extends FirstBaseActivity implements
     private CollapsingToolbarLayout toolbar_layout;
     private int number;
 
-    private BaseConfirmDialog.OnConfirmDialogButtonClickListener mOnConfirmDialogButtonClickListener =
-            new BaseConfirmDialog.OnConfirmDialogButtonClickListener() {
-                @Override
-                public void onConfirmDialogButtonClick(BaseConfirmDialog.ConfirmButton button, @BaseConfirmDialog.DialogTypeDef int dialogType, BaseConfirmDialog dialog) {
-                    switch (button) {
-                        case OK:
-                            dialog.dismiss();
-                            purchaseApp();
-                            break;
-                        case CANCEL:
-                            dialog.dismiss();
-                            break;
-                    }
-                }
-            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,97 +50,50 @@ public class ChooseSimActivity extends FirstBaseActivity implements
     protected void onResume() {
         super.onResume();
         number = 0;
-        refreshUI();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (floatingActionsMenu.isExpanded()) floatingActionsMenu.collapse();
-        else {
-            super.onBackPressed();
-            closeActivityWithAnimation();
-        }
     }
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         Intent intent = new Intent(ChooseSimActivity.this, TheoryMainActivity.class);
         switch (v.getId()) {
             case R.id.buttonLearnSimA:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.buttonLearnSimAUmum:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_A_UMUM);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.buttonLearnSimB1:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B1);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.buttonLearnSimB1Umum:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B1_UMUM);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.buttonLearnSimB2:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B2);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.buttonLearnSimB2Umum:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_B2_UMUM);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.buttonLearnSimC:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_C);
+                startActivityWithAnimation(intent);
                 break;
             case R.id.buttonLearnSimD:
                 intent.putExtra(Constants.BUNDLE_TYPE, DrivingDataSource.TYPE_SIM_D);
+                startActivityWithAnimation(intent);
                 break;
         }
-        startActivityWithAnimation(intent);
-    }
-
-    @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
-        if (Constants.PURCHASE_PRO_VERSION_ID.equals(productId)) {
-            MySetting.getInstance().setProVersion(true);
-            refreshUI();
-        }
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
 
     }
 
-    @Override
-    public void onBillingError(int errorCode, Throwable error) {
 
-    }
-
-    @Override
-    public void onBillingInitialized() {
-        billingInitialized();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (billingProcessor != null && !billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (billingProcessor != null) {
-            billingProcessor.release();
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    public void onMenuExpanded() {
-        overlayView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onMenuCollapsed() {
-        overlayView.setVisibility(View.GONE);
-    }
 
     private void findViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -202,6 +139,7 @@ public class ChooseSimActivity extends FirstBaseActivity implements
                 }
             }
         });
+
     }
 
     private void setFont(Typeface font) {
@@ -213,5 +151,16 @@ public class ChooseSimActivity extends FirstBaseActivity implements
         ((TextView) findViewById(R.id.textViewSimB2Umum)).setTypeface(font);
         ((TextView) findViewById(R.id.textViewSimC)).setTypeface(font);
         ((TextView) findViewById(R.id.textViewSimD)).setTypeface(font);
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        if (floatingActionsMenu.isExpanded()) floatingActionsMenu.collapse();
+        else {
+            super.onBackPressed();
+            closeActivityWithAnimation();
+        }
     }
 }

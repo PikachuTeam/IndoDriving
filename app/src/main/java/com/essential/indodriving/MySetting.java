@@ -10,6 +10,8 @@ import com.essential.indodriving.ui.base.Constants;
  * Created by ThanhNH-Mac on 6/23/16.
  */
 public class MySetting {
+
+    private final static String PREF_IS_SIGN_NEW = "is_sign_new";
     private final static String PREF_IS_PRO_VERSION = "is_pro_version";
     private final static String PREF_IS_RATE_APP = "is_rate_app";
     private final static String PREF_IS_ENABLE_RATE_TO_UNLOCK = "is_enable_rate_to_unlock";
@@ -203,5 +205,14 @@ public class MySetting {
 
     public int loadSignPosition(String type) {
         return pref.getInt(type, 0);
+    }
+
+    public boolean isSignNew() {
+        return pref.getBoolean(PREF_IS_SIGN_NEW, true);
+    }
+
+    public void setSignNew(boolean isSignNew) {
+        editor.putBoolean(PREF_IS_SIGN_NEW, isSignNew);
+        editor.commit();
     }
 }

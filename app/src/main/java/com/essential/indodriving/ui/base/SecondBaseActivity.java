@@ -189,6 +189,8 @@ public abstract class SecondBaseActivity extends BaseActivity implements Billing
                 getMyCurrentFragment().onMenuItemClick(MyBaseFragment.BUTTON_MODIFY_ANSWER);
             }
         });
+
+        textViewTitle.setSelected(true);
     }
 
     private void setFont(Typeface font) {

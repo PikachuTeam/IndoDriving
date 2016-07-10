@@ -36,7 +36,7 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Sign" />
 
         <activity
             android:name=".ui.activity.ChooseSignTypeActivity"

@@ -63,6 +63,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         super.onCreate(savedInstanceState);
         getData();
         originSigns = SignDataSource.getSigns(type);
+        isProVersion = MySetting.getInstance().isProVersion();
         if (!isProVersion) {
             addAds(originSigns);
         }
