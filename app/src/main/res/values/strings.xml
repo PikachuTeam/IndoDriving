@@ -8,7 +8,7 @@
     <string name="sim_b2_umum">Sim B2 Umum</string>
     <string name="sim_c">Sim C</string>
     <string name="sim_d">Sim D</string>
-    <string name="learn_theory">Soal Teori</string>
+    <string name="learn_theory">Soal Ujian</string>
     <string name="tips">Tips</string>
     <string name="score">{0}/30</string>
     <string name="simulation_test">Simulasi Ujian</string>
@@ -19,7 +19,7 @@
     <string name="correct_answer">Benar</string>
     <string name="wrong_answer">Salah</string>
     <string name="not_answered">Tidak dijawab</string>
-    <string name="title_activity_home">Soal &amp; Simulasi Ujian</string>
+    <string name="title_activity_home">Soal Ujian</string>
     <string name="dialog_warning_text">Apakah anda ingin menyelesaikan tes?</string>
     <string name="ok">OK</string>
     <string name="cancel">Batal</string>
@@ -92,7 +92,7 @@
     <string name="choose_your_answer">Pilih jawaban yang anda anggap benar</string>
     <string name="action_modify_answer">Jawabanmu</string>
     <string name="thanks_for_contribution">Terima kasih atas kontribusi Anda.\nKami akan mempertimbangkan jawaban anda</string>
-    <string name="home_screen_theory">Soal &amp;\nSimulasi Ujian</string>
+    <string name="home_screen_theory">Soal Ujian SIM</string>
     <string name="home_screen_sign">Rambu\nLalu Lintas</string>
     <string name="prohibition_sign">Rambu Larangan</string>
     <string name="warning_sign">Rambu Peringatan</string>
@@ -104,5 +104,5 @@
     <string name="matching">Pengaturran</string>
     <string name="sign_do_test_rule">This test contains 20 questions. You will pass if you have 18/20 correct answers</string>
     <string name="search_view_hint_text">CARI</string>
-    <string name ="search_no_item">Item cocok dengan pencarian anda</string>
+    <string name ="search_no_item">Item tidak cocok dengan pencarian anda</string>
 </resources>
