@@ -39,6 +39,7 @@ public class SplashActivity extends EssentialSplashActivity {
             SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
             SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
             SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
+            SecondBaseActivity.ADS_SMALL_NATIVE_EXPRESS = AppConstant.AdsType.NATIVE_EXPRESS_TEST;
         } else {
             SecondBaseActivity.ADS_SMALL = AppConstant.AdsType.SMALL_BANNER_DRIVING_TEST;
             SecondBaseActivity.ADS_BIG = AppConstant.AdsType.BIG_BANNER_DRIVING_TEST;
@@ -46,6 +47,7 @@ public class SplashActivity extends EssentialSplashActivity {
             SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT = AppConstant.AdsType.NATIVE_EXPRESS_CONTENT_DRIVING_TEST;
             SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL = AppConstant.AdsType.NATIVE_EXPRESS_INSTALL_DRIVING_TEST;
             SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS = AppConstant.AdsType.BIG_NATIVE_EXPRESS_DRIVING_TEST;
+            SecondBaseActivity.ADS_SMALL_NATIVE_EXPRESS = AppConstant.AdsType.SMALL_NATIVE_EXPRESS_DRIVING_TEST;
         }
 
         AppCommon.getInstance().syncAdsIfNeeded(SecondBaseActivity.ADS_SMALL,
@@ -53,7 +55,8 @@ public class SplashActivity extends EssentialSplashActivity {
                 SecondBaseActivity.ADS_NATIVE_EXPRESS,
                 SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT,
                 SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL,
-                SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS);
+                SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS,
+                SecondBaseActivity.ADS_SMALL_NATIVE_EXPRESS);
         PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
         loadConfig();
 

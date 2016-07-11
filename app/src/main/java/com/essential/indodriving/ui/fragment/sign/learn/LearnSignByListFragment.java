@@ -27,16 +27,20 @@ import com.essential.indodriving.ui.activity.SignMainActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.SearchView;
 import com.essential.indodriving.ui.widget.ShowSignDialog;
 import com.essential.indodriving.util.ImageHelper;
 import com.essential.indodriving.util.LinearItemDecoration;
 import com.essential.indodriving.util.OnSignRecyclerViewItemClickListener;
+import com.google.android.gms.ads.AdSize;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tatteam.com.app_common.ads.AdsNativeExpressHandler;
+import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.util.CommonUtil;
 
 /**
@@ -257,9 +261,14 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
             if (sign.isAds) {
                 holder.buttonDetail.setVisibility(View.GONE);
                 holder.adsContainer.setVisibility(View.VISIBLE);
+                holder.adsContainer.removeAllViews();
+                AdsSmallBannerHandler adsHandler = new AdsSmallBannerHandler(getActivity(),holder.adsContainer, SecondBaseActivity.ADS_SMALL,
+                        AdSize.LARGE_BANNER);
+                adsHandler.setup();
             } else {
                 holder.buttonDetail.setVisibility(View.VISIBLE);
                 holder.adsContainer.setVisibility(View.GONE);
+                holder.adsContainer.removeAllViews();
                 if (isEnableRateToUnlock && !isProVersion && !isRated) {
                     Glide.with(context).load(sign.image).asBitmap().dontAnimate().dontTransform()
                             .into(new SimpleTarget<Bitmap>() {
