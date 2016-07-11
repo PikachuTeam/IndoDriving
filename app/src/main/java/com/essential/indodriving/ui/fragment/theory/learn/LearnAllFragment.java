@@ -103,8 +103,6 @@ public class LearnAllFragment extends MyBaseFragment implements
         if (!isProVersion) {
             addADS(questions);
         }
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         alphaAnimation = new AlphaAnimation(0f, 1f);
         alphaAnimation.setDuration(ALPHA_ANIM_DURATION);
     }

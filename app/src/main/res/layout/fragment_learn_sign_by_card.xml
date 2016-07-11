@@ -95,7 +95,7 @@
                         android:layout_margin="@dimen/common_size_8"
                         android:background="@drawable/normal_background_with_corner"
                         android:gravity="center"
-                        android:minHeight="@dimen/learn_all_card_height"
+                        android:minHeight="@dimen/learn_sign_card_height"
                         android:orientation="horizontal"
                         android:visibility="gone"/>
 
