@@ -41,7 +41,7 @@ public class SignDoTestFragment extends MyBaseFragment implements
         OnQuestionPagerItemClickListener, BaseConfirmDialog.OnConfirmDialogButtonClickListener,
         QuestionNoItemWrapper.OnQuestionNoClickListener, ViewPager.OnPageChangeListener {
 
-    public final static int INTERVAL = 1000, TOTAL_TIME = 1201000;
+    public final static int INTERVAL = 1000, TOTAL_TIME = 901000;
     public final static String TAG_SIGN_DO_TEST_FRAGMENT = "Fragment Sign Do Test";
     private ViewPager questionPager;
     private LinearLayout testHorizontalScrollView;
@@ -86,8 +86,8 @@ public class SignDoTestFragment extends MyBaseFragment implements
             wrapper.setOnQuestionNoClickListener(this);
             wrappers.add(wrapper);
         }
-        minute1 = 2;
-        minute2 = 0;
+        minute1 = 1;
+        minute2 = 5;
         second1 = 0;
         second2 = 0;
         mTimeLeft = 0;
