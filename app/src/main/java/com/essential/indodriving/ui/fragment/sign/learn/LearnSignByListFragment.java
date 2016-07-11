@@ -37,6 +37,8 @@ import com.essential.indodriving.util.OnSignRecyclerViewItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import tatteam.com.app_common.util.CommonUtil;
+
 /**
  * Created by yue on 07/07/2016.
  */
@@ -101,6 +103,17 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         if (isRateClicked) {
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        CommonUtil.closeSoftKeyboard(getActivity());
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

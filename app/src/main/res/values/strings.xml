@@ -103,5 +103,5 @@
     <string name="learn_sign">Dafta Rambu</string>
     <string name="matching">Pengaturran</string>
     <string name="sign_do_test_rule">This test contains 20 questions. You will pass if you have 18/20 correct answers</string>
-    <string name="search_view_hint_text">Pencarian</string>
+    <string name="search_view_hint_text">CARI</string>
 </resources>
