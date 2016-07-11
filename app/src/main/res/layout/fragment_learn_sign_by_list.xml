@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="No item found"
+        android:text="@string/search_no_item"
         android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="@dimen/common_text_size_20"
