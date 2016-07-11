@@ -52,4 +52,7 @@
     <dimen name="image_100_pro_size">89.1dp</dimen>
     <dimen name="list_sign_ads_item_height">120dp</dimen>
     <dimen name="sign_home_text_margin_left">150dp</dimen>
+
+    <dimen name="choose_sign_button_height">111dp</dimen>
+    <dimen name="learn_sign_card_height">167dp</dimen>
 </resources>

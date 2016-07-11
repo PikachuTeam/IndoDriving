@@ -50,4 +50,7 @@
     <dimen name="question_number_wrapper_width">96.3dp</dimen>
     <dimen name="not_answered_text_width">247.5dp</dimen>
     <dimen name="image_100_pro_size">180dp</dimen>
+
+    <dimen name="choose_sign_button_height">225dp</dimen>
+    <dimen name="learn_sign_card_height">337.5dp</dimen>
 </resources>

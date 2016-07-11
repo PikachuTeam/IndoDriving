@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/home_screen_image"
-    android:scrollbars="none"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.activity.ChooseSignTypeActivity"
-    tools:showIn="@layout/activity_choose_sign_type">
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@drawable/home_screen_image"
+                                            android:scrollbars="none"
+                                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                            tools:context=".ui.activity.ChooseSignTypeActivity"
+                                            tools:showIn="@layout/activity_choose_sign_type">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_screen_stroke_line_size"
             android:layout_alignParentBottom="true"
-            android:background="@color/home_screen_stroke_line_color" />
+            android:background="@color/home_screen_stroke_line_color"/>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sign_button_height">
 
@@ -34,13 +33,12 @@
                 android:clickable="true"
                 android:orientation="horizontal">
 
-
                 <ImageView
                     android:layout_width="@dimen/choose_item_button_size"
                     android:layout_height="@dimen/choose_sign_type_image_size"
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginRight="@dimen/common_size_2"
-                    android:src="@drawable/img_all_signs" />
+                    android:src="@drawable/img_all_signs"/>
 
                 <TextView
                     android:id="@+id/text_all_sign"
@@ -49,17 +47,17 @@
                     android:gravity="center_vertical|left"
                     android:text="@string/all_sign"
                     android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
+                    android:textSize="@dimen/choose_sim_button_text_size"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
+                android:layout_gravity="bottom"
+                android:background="@color/home_screen_stroke_line_color"/>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sign_button_height">
 
@@ -71,14 +69,13 @@
                 android:clickable="true"
                 android:orientation="horizontal">
 
-
                 <ImageView
                     android:layout_width="@dimen/choose_sign_type_image_size"
                     android:layout_height="@dimen/choose_sign_type_image_size"
-                    android:layout_gravity="center_vertical|right"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/common_size_50"
                     android:layout_marginRight="@dimen/common_size_10"
-                    android:src="@drawable/sign_prohibition" />
+                    android:src="@drawable/sign_prohibition"/>
 
                 <TextView
                     android:id="@+id/text_prohibition_sign"
@@ -87,17 +84,17 @@
                     android:gravity="center_vertical|left"
                     android:text="@string/prohibition_sign"
                     android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
+                    android:textSize="@dimen/choose_sim_button_text_size"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
+                android:layout_gravity="bottom"
+                android:background="@color/home_screen_stroke_line_color"/>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sign_button_height">
 
@@ -117,7 +114,7 @@
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginLeft="@dimen/common_size_50"
                     android:layout_marginRight="@dimen/common_size_10"
-                    android:src="@drawable/sign_warning" />
+                    android:src="@drawable/sign_warning"/>
 
                 <TextView
                     android:id="@+id/text_warning_sign"
@@ -126,17 +123,17 @@
                     android:gravity="center_vertical|left"
                     android:text="@string/warning_sign"
                     android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
+                    android:textSize="@dimen/choose_sim_button_text_size"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
+                android:layout_gravity="bottom"
+                android:background="@color/home_screen_stroke_line_color"/>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sign_button_height">
 
@@ -156,7 +153,7 @@
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginLeft="@dimen/common_size_50"
                     android:layout_marginRight="@dimen/common_size_10"
-                    android:src="@drawable/sign_command" />
+                    android:src="@drawable/sign_command"/>
 
                 <TextView
                     android:id="@+id/text_command_sign"
@@ -165,17 +162,17 @@
                     android:gravity="center_vertical|left"
                     android:text="@string/command_sign"
                     android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
+                    android:textSize="@dimen/choose_sim_button_text_size"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
+                android:layout_gravity="bottom"
+                android:background="@color/home_screen_stroke_line_color"/>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sign_button_height">
 
@@ -195,7 +192,7 @@
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginLeft="@dimen/common_size_50"
                     android:layout_marginRight="@dimen/common_size_10"
-                    android:src="@drawable/sign_direction" />
+                    android:src="@drawable/sign_direction"/>
 
                 <TextView
                     android:id="@+id/text_direction_sign"
@@ -204,17 +201,17 @@
                     android:gravity="center_vertical|left"
                     android:text="@string/direction_sign"
                     android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/choose_sim_button_text_size" />
+                    android:textSize="@dimen/choose_sim_button_text_size"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
+                android:layout_gravity="bottom"
+                android:background="@color/home_screen_stroke_line_color"/>
+        </FrameLayout>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/choose_sign_button_height">
 
@@ -234,7 +231,7 @@
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginLeft="@dimen/common_size_50"
                     android:layout_marginRight="@dimen/common_size_10"
-                    android:src="@drawable/sign_addition" />
+                    android:src="@drawable/sign_addition"/>
 
                 <TextView
                     android:id="@+id/text_additional_sign"
@@ -243,14 +240,14 @@
                     android:gravity="center_vertical|left"
                     android:text="@string/addition_sign"
                     android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/common_text_size_25" />
+                    android:textSize="@dimen/common_text_size_25"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_screen_stroke_line_size"
-                android:layout_alignParentBottom="true"
-                android:background="@color/home_screen_stroke_line_color" />
-        </RelativeLayout>
+                android:layout_gravity="bottom"
+                android:background="@color/home_screen_stroke_line_color"/>
+        </FrameLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

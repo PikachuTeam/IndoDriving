@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,7 +23,6 @@ import com.bumptech.glide.Glide;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.sign.Sign;
-import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.SignMainActivity;
 import com.essential.indodriving.ui.base.BaseConfirmDialog;
@@ -55,7 +53,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private ImageView buttonZoomIn;
     private TextView textDefinition;
     private LearningCardSeekbar learningCardSeekbar;
-    private RelativeLayout lockedArea;
+    private View lockedArea;
     private View layoutAnswerRoot, layoutQuestionRoot;
     private ViewGroup adsContainer1, adsContainer2;
     private ImageView blurryImage;
@@ -282,7 +280,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
         buttonPrevious = (ImageView) rootView.findViewById(R.id.button_previous);
         buttonNext = (ImageView) rootView.findViewById(R.id.button_next);
         buttonZoomIn = (ImageView) rootView.findViewById(R.id.button_zoom_in);
-        lockedArea = (RelativeLayout) rootView.findViewById(R.id.locked_area);
+        lockedArea = rootView.findViewById(R.id.locked_area);
         blurryImage = (ImageView) rootView.findViewById(R.id.image_blur);
         layoutAnswerRoot = rootView.findViewById(R.id.layout_answer_root);
         layoutQuestionRoot = rootView.findViewById(R.id.layout_question_root);
