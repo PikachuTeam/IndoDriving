@@ -2,6 +2,7 @@ package com.essential.indodriving.ui.fragment.match;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,10 +59,18 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
             if (listSign.get(i).id == idSign) {
                 listSign.remove(i);
                 notifyItemRemoved(i);
+                Handler myHandler = new Handler();
+                myHandler.postDelayed(mMyRunnable, 450);
                 break;
             }
         }
     }
+    private Runnable mMyRunnable = new Runnable() {
+        @Override
+        public void run() {
+            notifyDataSetChanged();
+        }
+    };
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {

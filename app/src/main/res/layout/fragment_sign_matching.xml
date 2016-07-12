@@ -44,6 +44,7 @@
             android:layout_marginTop="@dimen/common_size_5"
             android:text="@string/continue_matching"
             android:textColor="@color/white"
+            android:maxLines="1"
             android:textSize="@dimen/common_text_size_35"
             android:textStyle="bold" />
     </RelativeLayout>

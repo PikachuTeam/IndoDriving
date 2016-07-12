@@ -61,7 +61,6 @@ public class SignMatchFragment extends MyBaseFragment implements SignDefinitionA
         rvSignImage.getItemAnimator().setRemoveDuration(250);
         rvSignDefinition.setItemAnimator(new FadeInAnimator(new OvershootInterpolator(1f)));
         rvSignDefinition.getItemAnimator().setRemoveDuration(250);
-
     }
 
 

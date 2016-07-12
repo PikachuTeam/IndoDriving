@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.fragment.match;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,6 +80,7 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
 
     }
 
+
     public int idChecked() {
         for (int i = 0; i < listSign.size(); i++) {
             if (listSign.get(i).selected) return listSign.get(i).id;
@@ -113,10 +115,19 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
             if (listSign.get(i).id == idSign) {
                 listSign.remove(i);
                 notifyItemRemoved(i);
+                Handler myHandler = new Handler();
+                myHandler.postDelayed(mMyRunnable, 450);
                 break;
             }
         }
     }
+
+    private Runnable mMyRunnable = new Runnable() {
+        @Override
+        public void run() {
+            notifyDataSetChanged();
+        }
+    };
 
     public boolean isChecked() {
         for (int i = 0; i < listSign.size(); i++) {
