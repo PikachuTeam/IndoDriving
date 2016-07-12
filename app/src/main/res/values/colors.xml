@@ -67,6 +67,7 @@
     <color name="locked_item_highlight_color">#D8D8D8</color>
 
     <color name="blur_default">#b703719b</color>
+    <color name="blur_default_2">#b7fd5849</color>
     <color name="fab_label">#df343468</color>
     <color name="overlay_view_color">#41000000</color>
     <color name="dialog_rating_star_color">#0095cd</color>
@@ -94,5 +95,6 @@
     <color name="search_text_color">#A3A0A0</color>
     <color name="search_view_shadow">#78918e8e</color>
     <color name="search_view_stroke_line">#AEAAAA</color>
-    <color name="sign_rate_to_unlock">#ce4c47</color>
+    <color name="sign_rate_to_unlock_2">#ce4c47</color>
+    <color name="sign_rate_to_unlock">#fdfdfd</color>
 </resources>

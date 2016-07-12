@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -156,13 +157,13 @@ public class DetailResultFragment extends MyBaseFragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            public LinearLayout buttonDetailResult;
+            public FrameLayout buttonDetailResult;
             public ImageView questionImage;
             public TextView textViewQuestion;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                buttonDetailResult = (LinearLayout) itemView.findViewById(R.id.button_detail);
+                buttonDetailResult = (FrameLayout) itemView.findViewById(R.id.button_detail);
                 questionImage = (ImageView) itemView.findViewById(R.id.image_sign);
                 textViewQuestion = (TextView) itemView.findViewById(R.id.text_detail);
             }

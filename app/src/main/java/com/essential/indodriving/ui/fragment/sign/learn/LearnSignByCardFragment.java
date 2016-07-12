@@ -34,6 +34,7 @@ import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 import com.essential.indodriving.util.ImageHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tatteam.com.app_common.ads.AdsNativeExpressHandler;
@@ -84,8 +85,8 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getData();
         loadState();
+        getData();
         alphaAnimation = new AlphaAnimation(0f, 1f);
         alphaAnimation.setDuration(ALPHA_ANIM_DURATION);
     }
@@ -293,6 +294,12 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private void getData() {
         if (containHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST)) {
             signs = (List<Sign>) getHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST);
+            if (!isProVersion) {
+                List<Sign> temp = new ArrayList<>();
+                temp.addAll(signs);
+                addAds(temp);
+                signs = temp;
+            }
         }
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -412,5 +419,21 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
         isProVersion = MySetting.getInstance().isProVersion();
         isRated = isProVersion ? true : MySetting.getInstance().isRated();
         isEnableRateToUnlock = MySetting.getInstance().isEnableRateToUnlock();
+    }
+
+    private void addAds(List<Sign> signs) {
+        int count = 0;
+        int size = signs.size();
+        for (int i = 0; i < size; i++) {
+            count++;
+            if (count % Constants.LEARN_ALL_ADS_BREAK == 0) {
+                Sign sign = new Sign();
+                sign.isAds = true;
+                signs.add(i, sign);
+                count++;
+                size++;
+                i++;
+            }
+        }
     }
 }

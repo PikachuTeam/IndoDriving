@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<tatteam.com.app_common.ui.drawable.FractionFrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragmentLearnAll"
     android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                         android:gravity="center"
                         android:minHeight="@dimen/learn_sign_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/layout_question_root"
@@ -56,7 +55,7 @@
                             android:layout_width="@dimen/learn_sign_image_size"
                             android:layout_height="@dimen/learn_sign_image_size"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:clickable="true" />
 
                         <ImageView
                             android:id="@+id/button_zoom_in"
@@ -65,7 +64,7 @@
                             android:layout_alignTop="@id/image_sign"
                             android:layout_toRightOf="@id/image_sign"
                             android:clickable="true"
-                            android:src="@drawable/ic_zoom_in_normal"/>
+                            android:src="@drawable/ic_zoom_in_normal" />
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
@@ -76,7 +75,7 @@
                     android:layout_marginTop="@dimen/common_size_5"
                     app:progressDrawable="@drawable/sign_progress_bar"
                     app:textColor="@color/white"
-                    app:thumbColor="@color/color_primary_sign"/>
+                    app:thumbColor="@color/color_primary_sign" />
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -97,7 +96,7 @@
                         android:gravity="center"
                         android:minHeight="@dimen/learn_sign_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/layout_answer_root"
@@ -114,7 +113,7 @@
                             android:minHeight="@dimen/learn_sign_card_height"
                             android:padding="@dimen/common_size_10"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/common_text_size_18"/>
+                            android:textSize="@dimen/common_text_size_18" />
 
                         <FrameLayout
                             android:id="@+id/locked_area"
@@ -128,7 +127,7 @@
                                 android:id="@+id/image_blur"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="fitXY"/>
+                                android:scaleType="fitXY" />
 
                             <TextView
                                 android:id="@+id/text_press_to_unlock"
@@ -140,8 +139,8 @@
                                 android:paddingRight="@dimen/common_size_5"
                                 android:text="@string/click_to_see_answer"
                                 android:textAllCaps="true"
-                                android:textColor="@color/sign_rate_to_unlock"
-                                android:textSize="@dimen/common_text_size_28"/>
+                                android:textColor="@color/sign_rate_to_unlock_2"
+                                android:textSize="@dimen/common_text_size_28" />
                         </FrameLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -167,7 +166,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
                     android:clickable="false"
-                    android:src="@drawable/ic_previous"/>
+                    android:src="@drawable/ic_previous" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -183,7 +182,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
                     android:clickable="true"
-                    android:src="@drawable/ic_next"/>
+                    android:src="@drawable/ic_next" />
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </RelativeLayout>

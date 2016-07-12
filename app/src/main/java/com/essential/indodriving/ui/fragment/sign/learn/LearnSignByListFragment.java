@@ -3,7 +3,6 @@ package com.essential.indodriving.ui.fragment.sign.learn;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.sign.Sign;
@@ -31,7 +28,6 @@ import com.essential.indodriving.ui.base.SecondBaseActivity;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.SearchView;
 import com.essential.indodriving.ui.widget.ShowSignDialog;
-import com.essential.indodriving.util.ImageHelper;
 import com.essential.indodriving.util.LinearItemDecoration;
 import com.essential.indodriving.util.OnSignRecyclerViewItemClickListener;
 import com.google.android.gms.ads.AdSize;
@@ -39,7 +35,6 @@ import com.google.android.gms.ads.AdSize;
 import java.util.ArrayList;
 import java.util.List;
 
-import tatteam.com.app_common.ads.AdsNativeExpressHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.util.CommonUtil;
 
@@ -70,7 +65,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         getData();
         originSigns = SignDataSource.getSigns(type);
         isProVersion = MySetting.getInstance().isProVersion();
-        if (!isProVersion) {
+        if (!isProVersion && false) {
             addAds(originSigns);
         }
         displaySigns = new ArrayList<>();
@@ -262,34 +257,24 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
                 holder.buttonDetail.setVisibility(View.GONE);
                 holder.adsContainer.setVisibility(View.VISIBLE);
                 holder.adsContainer.removeAllViews();
-                AdsSmallBannerHandler adsHandler = new AdsSmallBannerHandler(getActivity(),holder.adsContainer, SecondBaseActivity.ADS_SMALL,
+                AdsSmallBannerHandler adsHandler = new AdsSmallBannerHandler(getActivity(), holder.adsContainer, SecondBaseActivity.ADS_SMALL,
                         AdSize.LARGE_BANNER);
                 adsHandler.setup();
             } else {
                 holder.buttonDetail.setVisibility(View.VISIBLE);
                 holder.adsContainer.setVisibility(View.GONE);
                 holder.adsContainer.removeAllViews();
-                if (isEnableRateToUnlock && !isProVersion && !isRated) {
-                    Glide.with(context).load(sign.image).asBitmap().dontAnimate().dontTransform()
-                            .into(new SimpleTarget<Bitmap>() {
-                                @Override
-                                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                    holder.imageQuestion.setImageBitmap(resource);
-                                    if (position >= Constants.LOCK_START_INDEX) {
-                                        holder.lockedArea.setVisibility(View.GONE);
-                                        Bitmap blurImage = ImageHelper.
-                                                blur(context, ImageHelper.captureView(holder.buttonDetail));
-                                        if (holder.lockedArea.getVisibility() == View.GONE)
-                                            holder.lockedArea.setVisibility(View.VISIBLE);
-                                        holder.blurryImage.setImageBitmap(blurImage);
-                                    } else {
-                                        if (holder.lockedArea.getVisibility() == View.VISIBLE)
-                                            holder.lockedArea.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
+                Glide.with(context).load(sign.image).dontAnimate().dontTransform().into(holder.imageQuestion);
+                if (!isProVersion && !isRated) {
+                    if (isEnableRateToUnlock) {
+                        if (position >= Constants.LOCK_START_INDEX) {
+                            holder.lockedArea.setVisibility(View.VISIBLE);
+                            holder.blurryImage.setBackgroundResource(R.drawable.default_blur_background_2);
+                        } else {
+                            holder.lockedArea.setVisibility(View.GONE);
+                        }
+                    }
                 } else if (isProVersion || isRated) {
-                    Glide.with(context).load(sign.image).dontAnimate().dontTransform().into(holder.imageQuestion);
                     if (holder.lockedArea.getVisibility() == View.VISIBLE)
                         holder.lockedArea.setVisibility(View.GONE);
                 }
