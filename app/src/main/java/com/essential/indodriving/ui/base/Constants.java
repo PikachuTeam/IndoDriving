@@ -24,4 +24,5 @@ public class Constants {
     public final static int WRITTEN_TEST_ADS_BREAK = 5;
     public final static String PACKAGE_NAME_FREE_VER = "com.essential.indodriving.free";
     public final static int LOCK_START_INDEX = 10;
+    public final static int LIMIT_SIGN_MATCHING = 4;
 }

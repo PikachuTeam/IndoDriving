@@ -161,5 +161,25 @@ public class SignDataSource {
         closeConnection();
         return questions;
     }
+    public static List<SignImage> getSignsImage(List<Sign> list) {
+        List<SignImage> signImageList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            SignImage signImage = new SignImage();
+            signImage.id = list.get(i).id;
+            signImage.image = list.get(i).image;
+            signImageList.add(signImage);
+        }
+        return signImageList;
+    }
 
+    public static List<SignDefinition> getSignsDefinition(List<Sign> list) {
+        List<SignDefinition> signDefinitionList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            SignDefinition signDefinition = new SignDefinition();
+            signDefinition.id = list.get(i).id;
+            signDefinition.definition = list.get(i).definition;
+            signDefinitionList.add(signDefinition);
+        }
+        return signDefinitionList;
+    }
 }

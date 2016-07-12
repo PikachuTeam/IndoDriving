@@ -105,4 +105,6 @@
     <string name="sign_do_test_rule">This test contains 20 questions. You will pass if you have 18/20 correct answers</string>
     <string name="search_view_hint_text">CARI</string>
     <string name ="search_no_item">Item tidak cocok dengan pencarian anda</string>
+
+    <string name="continue_matching">Terus ></string>
 </resources>
