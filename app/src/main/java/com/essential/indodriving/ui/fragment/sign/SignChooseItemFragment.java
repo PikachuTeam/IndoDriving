@@ -10,6 +10,7 @@ import com.essential.indodriving.ui.activity.HomeActivity;
 import com.essential.indodriving.ui.activity.SignMainActivity;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.fragment.match.SignMatchFragment;
 import com.essential.indodriving.ui.fragment.sign.learn.LearnSignByListFragment;
 import com.essential.indodriving.ui.fragment.sign.test.SignDoTestFragment;
 import com.essential.indodriving.ui.fragment.sign.test.SignUnlimitedTestFragment;
@@ -61,6 +62,7 @@ public class SignChooseItemFragment extends MyBaseFragment implements View.OnCli
                 break;
             case R.id.linear_matching:
             case R.id.button_matching:
+                fragment = new SignMatchFragment();
                 break;
         }
         if(fragment!=null){

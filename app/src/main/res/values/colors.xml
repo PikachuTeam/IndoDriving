@@ -95,6 +95,10 @@
     <color name="search_text_color">#A3A0A0</color>
     <color name="search_view_shadow">#78918e8e</color>
     <color name="search_view_stroke_line">#AEAAAA</color>
-    <color name="sign_rate_to_unlock_2">#ce4c47</color>
+    <color name="sign_rate_to_unlock">#ce4c47</color>
     <color name="sign_rate_to_unlock">#fdfdfd</color>
+    <color name="transparent">#000f9d58</color>
+    <color name="selected_match">#33ff00</color>
+    <color name="selected_not_match">#ff0000</color>
+
 </resources>

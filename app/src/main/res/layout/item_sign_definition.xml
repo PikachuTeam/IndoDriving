@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/choose_item_button_size"
+    android:layout_centerInParent="true"
+    android:layout_marginTop="@dimen/common_size_8">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="@dimen/common_size_12"
+        app:cardElevation="@dimen/common_size_2"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:id="@+id/card_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_sign_definition"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/common_size_5"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:paddingLeft="@dimen/common_size_12"
+                android:paddingRight="@dimen/common_size_12"
+                android:text="TEST
+                TEST
+                TEST
+                TEST"
+                android:textColor="@color/black"
+
+                android:textSize="@dimen/common_text_size_18" />
+
+            <RelativeLayout
+                android:id="@+id/btn_zoom"
+                android:layout_width="@dimen/common_size_40"
+                android:layout_height="@dimen/common_size_40"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:layout_width="@dimen/common_size_20"
+                    android:layout_height="@dimen/common_size_20"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/brightness_1"
+                    android:src="@drawable/search" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/card_hightlight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"></RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
