@@ -28,6 +28,7 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
     private Context context;
     private List<SignImage> listSign = new ArrayList<>();
     private OnImageItemClick listener;
+    private int idSelected = -1;
 
     public void setListener(OnImageItemClick listener) {
         this.listener = listener;
@@ -54,10 +55,42 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
         else return false;
     }
 
+    public int idChecked() {
+        return idSelected;
+    }
+
+    public void resetCheck() {
+        for (int i = 0; i < listSign.size(); i++) {
+            if (listSign.get(i).id == idSelected) {
+                listSign.get(i).selected = false;
+                listSign.get(i).match = false;
+                break;
+            }
+        }
+        idSelected = -1;
+        notifyDataSetChanged();
+    }
+
+
+    public void setCheck(int idSign, boolean match) {
+        for (int i = 0; i < listSign.size(); i++) {
+            if (listSign.get(i).id == idSign) {
+                listSign.get(i).selected = true;
+                listSign.get(i).match = match;
+                idSelected = idSign;
+            } else {
+                listSign.get(i).selected = false;
+                listSign.get(i).match = false;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public void removeItem(int idSign) {
         for (int i = 0; i < listSign.size(); i++) {
             if (listSign.get(i).id == idSign) {
                 listSign.remove(i);
+                idSelected = -1;
                 notifyItemRemoved(i);
                 Handler myHandler = new Handler();
                 myHandler.postDelayed(mMyRunnable, 450);
@@ -65,6 +98,7 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
             }
         }
     }
+
     private Runnable mMyRunnable = new Runnable() {
         @Override
         public void run() {
@@ -98,12 +132,6 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
                         holder.signImage.setImageBitmap(resource);
                     }
                 });
-        holder.btnZoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyDialog.getInstance(context, listSign.get(position).image).show();
-            }
-        });
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,34 +143,9 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
     }
 
     public boolean isChecked() {
-        for (int i = 0; i < listSign.size(); i++) {
-            if (listSign.get(i).selected) return true;
-        }
-        return false;
-    }
-
-    public int idChecked() {
-        for (int i = 0; i < listSign.size(); i++) {
-            if (listSign.get(i).selected) return listSign.get(i).id;
-        }
-        return 0;
-    }
-
-    public void resetCheck() {
-        for (int i = 0; i < listSign.size(); i++) {
-            listSign.get(i).selected = false;
-            listSign.get(i).match = false;
-        }
-    }
-
-    public void setCheck(int idSign, boolean match) {
-        resetCheck();
-        for (int i = 0; i < listSign.size(); i++) {
-            if (listSign.get(i).id == idSign) {
-                listSign.get(i).selected = true;
-                listSign.get(i).match = match;
-            }
-        }
+        if (idSelected >= 0) return true;
+        else
+            return false;
     }
 
 
@@ -153,7 +156,7 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
 
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout item, btnZoom, hightlight;
+        public RelativeLayout item, hightlight;
         public ImageView signImage;
 
         public ItemHolder(View itemView) {
@@ -161,7 +164,6 @@ public class SignImageAdapter extends RecyclerView.Adapter<SignImageAdapter.Item
             item = (RelativeLayout) itemView.findViewById(R.id.card_image);
             hightlight = (RelativeLayout) itemView.findViewById(R.id.card_hightlight);
             signImage = (ImageView) itemView.findViewById(R.id.iv_sign_image);
-            btnZoom = (RelativeLayout) itemView.findViewById(R.id.btn_zoom);
         }
     }
 

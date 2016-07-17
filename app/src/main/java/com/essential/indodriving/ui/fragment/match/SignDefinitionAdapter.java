@@ -24,6 +24,7 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
     private Context context;
     private List<SignDefinition> listSign = new ArrayList<>();
     private OnDefinitionItemClick listener;
+    private int idSelected = -1;
 
     public void setListener(OnDefinitionItemClick listener) {
         this.listener = listener;
@@ -64,13 +65,6 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
         } else {
             holder.hightlight.setVisibility(View.GONE);
         }
-        holder.btnZoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyDialog.getInstance(context, listSign.get(position).definition).show();
-            }
-        });
-
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,27 +76,33 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
 
 
     public int idChecked() {
-        for (int i = 0; i < listSign.size(); i++) {
-            if (listSign.get(i).selected) return listSign.get(i).id;
-        }
-        return 0;
+        return idSelected;
     }
 
     public void resetCheck() {
         for (int i = 0; i < listSign.size(); i++) {
-            listSign.get(i).selected = false;
-            listSign.get(i).match = false;
+            if (listSign.get(i).id == idSelected) {
+                listSign.get(i).selected = false;
+                listSign.get(i).match = false;
+                break;
+            }
         }
+        idSelected = -1;
+        notifyDataSetChanged();
     }
 
     public void setCheck(int idSign, boolean match) {
-        resetCheck();
         for (int i = 0; i < listSign.size(); i++) {
             if (listSign.get(i).id == idSign) {
                 listSign.get(i).selected = true;
                 listSign.get(i).match = match;
+                idSelected = idSign;
+            } else {
+                listSign.get(i).selected = false;
+                listSign.get(i).match = false;
             }
         }
+        notifyDataSetChanged();
     }
 
     public boolean isEmptyList() {
@@ -114,6 +114,7 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
         for (int i = 0; i < listSign.size(); i++) {
             if (listSign.get(i).id == idSign) {
                 listSign.remove(i);
+                idSelected = -1;
                 notifyItemRemoved(i);
                 Handler myHandler = new Handler();
                 myHandler.postDelayed(mMyRunnable, 450);
@@ -130,10 +131,9 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
     };
 
     public boolean isChecked() {
-        for (int i = 0; i < listSign.size(); i++) {
-            if (listSign.get(i).selected == true) return true;
-        }
-        return false;
+        if (idSelected >= 0) return true;
+        else
+            return false;
     }
 
     @Override
@@ -143,7 +143,7 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
 
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout item, btnZoom, hightlight;
+        public RelativeLayout item, hightlight;
         public TextView signDefinition;
 
         public ItemHolder(View itemView) {
@@ -151,7 +151,6 @@ public class SignDefinitionAdapter extends RecyclerView.Adapter<SignDefinitionAd
             item = (RelativeLayout) itemView.findViewById(R.id.card_image);
             hightlight = (RelativeLayout) itemView.findViewById(R.id.card_hightlight);
             signDefinition = (TextView) itemView.findViewById(R.id.tv_sign_definition);
-            btnZoom = (RelativeLayout) itemView.findViewById(R.id.btn_zoom);
         }
     }
 

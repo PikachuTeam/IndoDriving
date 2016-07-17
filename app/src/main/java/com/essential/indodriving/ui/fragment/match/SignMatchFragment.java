@@ -1,6 +1,7 @@
 package com.essential.indodriving.ui.fragment.match;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,7 +13,9 @@ import com.essential.indodriving.data.sign.Sign;
 import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.FadeInAnimator;
@@ -26,7 +29,9 @@ public class SignMatchFragment extends MyBaseFragment implements SignDefinitionA
     private SignDefinitionAdapter adapterDefinition;
     private RelativeLayout btnContinue;
     private String type = "";
-
+    private List<Sign> listSign;
+    private Handler mHandler = new Handler();
+    private boolean isWaiting;
 
     @Override
 
@@ -43,8 +48,13 @@ public class SignMatchFragment extends MyBaseFragment implements SignDefinitionA
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         type = getArguments().getString(Constants.BUNDLE_SIGN_TYPE);
         init(rootView);
+        updateToolbar();
         refreshData();
 
+    }
+
+    public void updateToolbar() {
+        ((SecondBaseActivity) getActivity()).enableButtonShare(true);
     }
 
     public void init(View rootView) {
@@ -61,13 +71,15 @@ public class SignMatchFragment extends MyBaseFragment implements SignDefinitionA
         rvSignImage.getItemAnimator().setRemoveDuration(250);
         rvSignDefinition.setItemAnimator(new FadeInAnimator(new OvershootInterpolator(1f)));
         rvSignDefinition.getItemAnimator().setRemoveDuration(250);
+
+        listSign = SignDataSource.getSigns(type, true, 0);
     }
 
 
     public void refreshData() {
-        List<Sign> listSign = SignDataSource.getSigns(type, true, Constants.LIMIT_SIGN_MATCHING);
-        adapterImage = new SignImageAdapter(getActivity(), SignDataSource.getSignsImage(listSign));
-        adapterDefinition = new SignDefinitionAdapter(getActivity(), SignDataSource.getSignsDefinition(listSign));
+        ArrayList<Sign> listMatch = getListMatch();
+        adapterImage = new SignImageAdapter(getActivity(), SignDataSource.getSignsImage(listMatch));
+        adapterDefinition = new SignDefinitionAdapter(getActivity(), SignDataSource.getSignsDefinition(listMatch));
         adapterImage.setListener(this);
         adapterDefinition.setListener(this);
         rvSignImage.setAdapter(adapterImage);
@@ -75,77 +87,109 @@ public class SignMatchFragment extends MyBaseFragment implements SignDefinitionA
         btnContinue.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onDefinitionItemClick(int idSign) {
-        if (adapterDefinition.isChecked() && adapterImage.isChecked()) {
-            if (adapterDefinition.idChecked() == adapterImage.idChecked()) {
-                adapterDefinition.removeItem(adapterDefinition.idChecked());
-                adapterImage.removeItem(adapterImage.idChecked());
-                if (adapterImage.isEmptyList()) {
-                    btnContinue.setVisibility(View.VISIBLE);
+    public ArrayList<Sign> getListMatch() {
+        ArrayList<Sign> listResult = new ArrayList<>();
+        int listSize = listSign.size();
+        if (listSize >= 4) {
+            if (listSize == 5) {
+                for (int i = 0; i < Constants.LIMIT_SIGN_MATCHING + 1; i++) {
+                    listResult.add(listSign.get(0));
+                    listSign.remove(0);
                 }
             } else {
-                adapterDefinition.resetCheck();
-                adapterImage.resetCheck();
-                adapterDefinition.notifyDataSetChanged();
-                adapterImage.notifyDataSetChanged();
+                for (int i = 0; i < Constants.LIMIT_SIGN_MATCHING; i++) {
+                    listResult.add(listSign.get(0));
+                    listSign.remove(0);
+                }
             }
         } else {
+            if (listSize == 3 || listSize == 2) {
+                for (int i = 0; i < listSize; i++) {
+                    listResult.add(listSign.get(0));
+                    listSign.remove(0);
+                }
+            }
+        }
+        return listResult;
+    }
+
+    private Runnable removeItem = new Runnable() {
+        @Override
+        public void run() {
+            adapterDefinition.removeItem(adapterDefinition.idChecked());
+            adapterImage.removeItem(adapterImage.idChecked());
+            if (adapterImage.isEmptyList()) {
+                if (listSign.size() > 0) {
+                    refreshData();
+                } else {
+                    btnContinue.setVisibility(View.VISIBLE);
+                }
+            }
+            isWaiting = false;
+        }
+    };
+
+
+    private Runnable resetCheck = new Runnable() {
+        @Override
+        public void run() {
+            adapterDefinition.resetCheck();
+            adapterImage.resetCheck();
+            isWaiting = false;
+        }
+    };
+
+    @Override
+    public void onDefinitionItemClick(int idSign) {
+        if (!isWaiting) {
             if (adapterImage.isChecked()) {
                 if (idSign == adapterImage.idChecked()) {
-                    adapterImage.setCheck(idSign, true);
                     adapterDefinition.setCheck(idSign, true);
+                    mHandler = new Handler();
+                    mHandler.postDelayed(removeItem, 500);
                 } else {
                     adapterImage.setCheck(adapterImage.idChecked(), false);
                     adapterDefinition.setCheck(idSign, false);
+                    mHandler = new Handler();
+                    mHandler.postDelayed(resetCheck, 500);
                 }
+                isWaiting = true;
             } else {
                 adapterDefinition.setCheck(idSign, true);
             }
-            adapterDefinition.notifyDataSetChanged();
-            adapterImage.notifyDataSetChanged();
         }
 
     }
 
     @Override
     public void onImageItemClick(int idSign) {
-        if (adapterDefinition.isChecked() && adapterImage.isChecked()) {
-            if (adapterDefinition.idChecked() == adapterImage.idChecked()) {
-                adapterDefinition.removeItem(adapterDefinition.idChecked());
-                adapterImage.removeItem(adapterImage.idChecked());
-                if (adapterImage.isEmptyList()) {
-                    btnContinue.setVisibility(View.VISIBLE);
-                }
-            } else {
-                adapterDefinition.resetCheck();
-                adapterImage.resetCheck();
-                adapterDefinition.notifyDataSetChanged();
-                adapterImage.notifyDataSetChanged();
-            }
-        } else {
+        if (!isWaiting) {
             if (adapterDefinition.isChecked()) {
                 if (idSign == adapterDefinition.idChecked()) {
-                    adapterDefinition.setCheck(idSign, true);
                     adapterImage.setCheck(idSign, true);
+                    mHandler = new Handler();
+                    mHandler.postDelayed(removeItem, 500);
                 } else {
-                    adapterDefinition.setCheck(adapterDefinition.idChecked(), false);
                     adapterImage.setCheck(idSign, false);
+                    adapterDefinition.setCheck(adapterDefinition.idChecked(), false);
+                    mHandler = new Handler();
+                    mHandler.postDelayed(resetCheck, 500);
                 }
+                isWaiting = true;
             } else {
                 adapterImage.setCheck(idSign, true);
             }
-            adapterDefinition.notifyDataSetChanged();
-            adapterImage.notifyDataSetChanged();
         }
-
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_continue) {
-            refreshData();
+        switch (id) {
+            case R.id.btn_continue: {
+                listSign = SignDataSource.getSigns(type, true, 0);
+                refreshData();
+            }
         }
     }
 }

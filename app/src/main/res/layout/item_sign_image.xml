@@ -25,19 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/common_size_4" />
 
-            <RelativeLayout
-                android:id="@+id/btn_zoom"
-                android:layout_width="@dimen/common_size_30"
-                android:layout_height="@dimen/common_size_30"
-                android:layout_alignParentRight="true">
 
-                <ImageView
-                    android:layout_width="@dimen/common_size_20"
-                    android:layout_height="@dimen/common_size_20"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/brightness_1"
-                    android:src="@drawable/search" />
-            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
