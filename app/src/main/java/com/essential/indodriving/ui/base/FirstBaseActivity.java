@@ -12,6 +12,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.BuildConfig;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.PoolDatabaseLoader;
 import com.essential.indodriving.ui.widget.UpgradeToProVerDialog;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -36,6 +37,10 @@ public abstract class FirstBaseActivity extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
+        AppCommon.getInstance().initIfNeeded(getApplicationContext());
+        MySetting.getInstance().initIfNeeded(getApplicationContext());
+        PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
+
         findViews();
         if (BuildConfig.DEBUG) {
             billingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);

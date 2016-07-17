@@ -100,7 +100,7 @@ public class LearnAllFragment extends MyBaseFragment implements
         getData();
         questions = DrivingDataSource.getAllQuestionByType(type);
         loadState();
-        if (!isProVersion) {
+        if (!isProVersion && false) {
             addADS(questions);
         }
         alphaAnimation = new AlphaAnimation(0f, 1f);
@@ -148,7 +148,7 @@ public class LearnAllFragment extends MyBaseFragment implements
                         }
                     }
                 });
-        if (!isProVersion) {
+        if (!isProVersion&& false) {
             setupADSIfNeeded();
             refreshAdsHandler.sendEmptyMessage(0);
         }

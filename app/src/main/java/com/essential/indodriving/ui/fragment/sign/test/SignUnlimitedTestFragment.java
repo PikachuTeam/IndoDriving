@@ -61,7 +61,7 @@ public class SignUnlimitedTestFragment extends MyBaseFragment implements Questio
         getData();
         loadState();
         questions = SignDataSource.getQuestions(type);
-        if (!isProVer) {
+        if (!isProVer&& false) {
             addAds(questions);
         }
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");

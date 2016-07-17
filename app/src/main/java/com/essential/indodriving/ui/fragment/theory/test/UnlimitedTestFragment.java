@@ -137,7 +137,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         getData();
         isProVer = MySetting.getInstance().isProVersion();
         questions = DrivingDataSource.getQuestionsByTypeAndExamId(type, 1, true, NUMBER_OF_QUESTIONS);
-        if (!isProVer) {
+        if (!isProVer && false) {
             addAds(questions);
         }
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");

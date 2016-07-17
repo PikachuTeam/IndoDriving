@@ -75,7 +75,11 @@ public class AdsNativeExpressHandler extends BaseAdsBannerHandler {
         if (adView != null) {
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.setAdListener(this);
-            adView.loadAd(adRequest);
+            try {
+                adView.loadAd(adRequest);
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
         }
     }
 

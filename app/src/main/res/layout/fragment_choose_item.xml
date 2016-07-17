@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@color/app_background_color"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingRight="@dimen/common_size_3">
 
         <LinearLayout
             android:id="@+id/linear_learn_theory"
@@ -18,7 +19,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/choose_item_flat_button"
             android:clickable="true"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
@@ -42,10 +43,9 @@
 
             <TextView
                 android:id="@+id/text_learn_theory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/common_size_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_size_20"
                 android:text="@string/learn_theory"
                 android:textColor="@color/text_color_1"
                 android:textSize="@dimen/common_text_size_35" />
@@ -57,7 +57,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/common_size_20"
             android:background="@drawable/choose_item_flat_button"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
@@ -81,10 +81,9 @@
 
             <TextView
                 android:id="@+id/text_unlimited_test"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/common_size_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_size_20"
                 android:text="@string/title_written_test"
                 android:textColor="@color/text_color_1"
                 android:textSize="@dimen/common_text_size_35" />
@@ -96,7 +95,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/common_size_20"
             android:background="@drawable/choose_item_flat_button"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
@@ -120,10 +119,9 @@
 
             <TextView
                 android:id="@+id/text_simulation_test"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/common_size_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_size_20"
                 android:text="@string/simulation_test"
                 android:textColor="@color/text_color_1"
                 android:textSize="@dimen/common_text_size_35" />

@@ -1,178 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_background_color_sign">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_centerInParent="true">
 
         <LinearLayout
-            android:id="@+id/linear_learn_sign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_choose_sign_type"
-            android:clickable="true"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingRight="@dimen/common_size_3">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="@dimen/choose_sign_item_button_size"
-                android:layout_height="@dimen/choose_sign_item_button_size"
-                android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_40"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:elevation="@dimen/common_size_5"
-                card_view:cardCornerRadius="@dimen/common_size_9"
-                card_view:cardPreventCornerOverlap="false">
+            <LinearLayout
+                android:id="@+id/linear_learn_sign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_choose_sign_type"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/button_learn_sign"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sign"
-                    android:clickable="true"
-                    android:padding="@dimen/common_size_5"
-                    android:src="@drawable/ic_learn_sign"/>
-            </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/choose_sign_item_button_size"
+                    android:layout_height="@dimen/choose_sign_item_button_size"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginLeft="@dimen/common_size_40"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:elevation="@dimen/common_size_5"
+                    card_view:cardCornerRadius="@dimen/common_size_9"
+                    card_view:cardPreventCornerOverlap="false">
 
-            <TextView
-                android:id="@+id/text_learn_sign"
+                    <ImageView
+                        android:id="@+id/button_learn_sign"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_sign"
+                        android:clickable="true"
+                        android:padding="@dimen/common_size_5"
+                        android:src="@drawable/ic_learn_sign" />
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/text_learn_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_20"
+                    android:text="@string/learn_sign"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_primary_sign"
+                    android:textSize="@dimen/common_text_size_35" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_matching"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="left|center_vertical"
-                android:padding="@dimen/common_size_15"
-                android:text="@string/learn_sign"
-                android:textAllCaps="true"
-                android:textColor="@color/color_primary_sign"
-                android:textSize="@dimen/common_text_size_35"/>
-        </LinearLayout>
+                android:layout_marginTop="@dimen/common_size_20"
+                android:background="@drawable/button_choose_sign_type"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/linear_matching"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/common_size_15"
-            android:background="@drawable/button_choose_sign_type"
-            android:gravity="center"
-            android:visibility="visible"
-            android:orientation="horizontal">
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/choose_sign_item_button_size"
+                    android:layout_height="@dimen/choose_sign_item_button_size"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginLeft="@dimen/common_size_40"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:elevation="@dimen/common_size_5"
+                    card_view:cardCornerRadius="@dimen/common_size_9"
+                    card_view:cardPreventCornerOverlap="false">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="@dimen/choose_sign_item_button_size"
-                android:layout_height="@dimen/choose_sign_item_button_size"
-                android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_40"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:elevation="@dimen/common_size_5"
-                card_view:cardCornerRadius="@dimen/common_size_9"
-                card_view:cardPreventCornerOverlap="false">
+                    <ImageView
+                        android:id="@+id/button_matching"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_sign"
+                        android:clickable="true"
+                        android:padding="@dimen/common_size_3"
+                        android:src="@drawable/ic_matching" />
+                </android.support.v7.widget.CardView>
 
-                <ImageView
-                    android:id="@+id/button_matching"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sign"
-                    android:clickable="true"
-                    android:padding="@dimen/common_size_3"
-                    android:src="@drawable/ic_matching"/>
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/text_matching"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_20"
+                    android:text="@string/matching"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_primary_sign"
+                    android:textSize="@dimen/common_text_size_35" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/text_matching"
+            <LinearLayout
+                android:id="@+id/linear_unlimited_test"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left|center_vertical"
-                android:padding="@dimen/common_size_15"
-                android:text="@string/matching"
-                android:textAllCaps="true"
-                android:textColor="@color/color_primary_sign"
-                android:textSize="@dimen/common_text_size_35"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_size_20"
+                android:background="@drawable/button_choose_sign_type"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/linear_unlimited_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_size_30"
-            android:background="@drawable/button_choose_sign_type"
-            android:gravity="center"
-            android:orientation="horizontal">
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/choose_sign_item_button_size"
+                    android:layout_height="@dimen/choose_sign_item_button_size"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginLeft="@dimen/common_size_40"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:elevation="@dimen/common_size_5"
+                    card_view:cardCornerRadius="@dimen/common_size_9"
+                    card_view:cardPreventCornerOverlap="false">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="@dimen/choose_sign_item_button_size"
-                android:layout_height="@dimen/choose_sign_item_button_size"
-                android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_40"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:elevation="@dimen/common_size_5"
-                card_view:cardCornerRadius="@dimen/common_size_9"
-                card_view:cardPreventCornerOverlap="false">
 
-                <ImageView
-                    android:id="@+id/button_unlimited_test"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sign"
-                    android:clickable="true"
-                    android:src="@drawable/ic_learn"/>
-            </android.support.v7.widget.CardView>
+                    <ImageView
+                        android:id="@+id/button_unlimited_test"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_sign"
+                        android:clickable="true"
+                        android:src="@drawable/ic_learn" />
+                </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/text_unlimited_test"
+                <TextView
+                    android:id="@+id/text_unlimited_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_20"
+                    android:text="@string/title_written_test"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_primary_sign"
+                    android:textSize="@dimen/common_text_size_35" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_simulation_test"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left|center_vertical"
-                android:padding="@dimen/common_size_15"
-                android:text="@string/title_written_test"
-                android:textAllCaps="true"
-                android:textColor="@color/color_primary_sign"
-                android:textSize="@dimen/common_text_size_35"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_size_20"
+                android:background="@drawable/button_choose_sign_type"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/choose_sign_item_button_size"
+                    android:layout_height="@dimen/choose_sign_item_button_size"
+                    android:layout_marginBottom="@dimen/common_size_5"
+                    android:layout_marginLeft="@dimen/common_size_40"
+                    android:layout_marginTop="@dimen/common_size_5"
+                    android:elevation="@dimen/common_size_5"
+                    card_view:cardCornerRadius="@dimen/common_size_9"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <ImageView
+                        android:id="@+id/button_simulation_test"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_sign"
+                        android:clickable="true"
+                        android:src="@drawable/ic_test" />
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/text_simulation_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_size_20"
+                    android:text="@string/simulation_test"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_primary_sign"
+                    android:textSize="@dimen/common_text_size_35" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_simulation_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_size_30"
-            android:background="@drawable/button_choose_sign_type"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="@dimen/choose_sign_item_button_size"
-                android:layout_height="@dimen/choose_sign_item_button_size"
-                android:layout_marginBottom="@dimen/common_size_5"
-                android:layout_marginLeft="@dimen/common_size_40"
-                android:layout_marginTop="@dimen/common_size_5"
-                android:elevation="@dimen/common_size_5"
-                card_view:cardCornerRadius="@dimen/common_size_9"
-                card_view:cardPreventCornerOverlap="false">
-
-                <ImageView
-                    android:id="@+id/button_simulation_test"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_sign"
-                    android:clickable="true"
-                    android:src="@drawable/ic_test"/>
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:id="@+id/text_simulation_test"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left|center_vertical"
-                android:padding="@dimen/common_size_15"
-                android:text="@string/simulation_test"
-                android:textAllCaps="true"
-                android:textColor="@color/color_primary_sign"
-                android:textSize="@dimen/common_text_size_35"/>
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

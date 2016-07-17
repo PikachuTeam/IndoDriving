@@ -133,7 +133,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
                         }
                     }
                 });
-        if (!isProVersion) {
+        if (!isProVersion && false) {
             setupADSIfNeeded();
             refreshAdsHandler.sendEmptyMessage(0);
         }
@@ -294,7 +294,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private void getData() {
         if (containHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST)) {
             signs = (List<Sign>) getHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST);
-            if (!isProVersion) {
+            if (!isProVersion&& false) {
                 List<Sign> temp = new ArrayList<>();
                 temp.addAll(signs);
                 addAds(temp);

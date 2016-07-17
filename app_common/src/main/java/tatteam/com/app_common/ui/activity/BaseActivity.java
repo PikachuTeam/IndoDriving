@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
 
+import tatteam.com.app_common.BaseApplication;
 import tatteam.com.app_common.R;
 import tatteam.com.app_common.ui.fragment.BaseFragment;
 
@@ -60,6 +61,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public BaseApplication getBaseApplication() {
+        return (BaseApplication) getApplication();
     }
 
     public HashMap<String, Object> getMapHolder() {
@@ -123,8 +128,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             BaseFragment fragment, String fragmentTag,
             String transactionTag, boolean needCommitAllowingStateLoss) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit,
-                R.anim.fragment_slide_left_enter, R.anim.fragment_slide_right_exit);
+        if (getBaseApplication().isAnimationSupported()) {
+            transaction.setCustomAnimations(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_left_exit,
+                    R.anim.fragment_slide_left_enter, R.anim.fragment_slide_right_exit);
+        }
         transaction.replace(fragmentContainerId, fragment, fragmentTag).addToBackStack(transactionTag);
         if (needCommitAllowingStateLoss) {
             transaction.commitAllowingStateLoss();
@@ -133,12 +140,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void replaceFragmentWithCustomAnimation(
-            BaseFragment fragment, String fragmentTag, String transactionTag,
-            int enter, int exit, int popEnter, int popExit) {
+    public void replaceFragmentWithOutAnimation(BaseFragment fragment, String fragmentTag, String transactionTag) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(enter, exit, popEnter, popExit).
-                replace(fragmentContainerId, fragment, fragmentTag).
+        transaction.replace(fragmentContainerId, fragment, fragmentTag).
+                addToBackStack(transactionTag).commit();
+    }
+
+    public void replaceFragmentWithCustomAnimation(BaseFragment fragment, String fragmentTag, String transactionTag, int enter, int exit, int popEnter, int popExit) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        if (getBaseApplication().isAnimationSupported()) {
+            transaction.setCustomAnimations(enter, exit, popEnter, popExit);
+        }
+        transaction.replace(fragmentContainerId, fragment, fragmentTag).
+                addToBackStack(transactionTag).commit();
+    }
+
+    public void replaceFragmentWithCustomAnimation(BaseFragment fragment, String fragmentTag, String transactionTag, int enter, int exit) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        if (getBaseApplication().isAnimationSupported()) {
+            transaction.setCustomAnimations(enter, exit);
+        }
+        transaction.replace(fragmentContainerId, fragment, fragmentTag).
                 addToBackStack(transactionTag).commit();
     }
 

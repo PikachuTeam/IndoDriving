@@ -217,9 +217,7 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
         bundle.putString(Constants.BUNDLE_SIGN_TYPE, type);
         bundle.putInt(Constants.BUNDLE_CURRENT_POSITION, position);
         fragment.setArguments(bundle);
-        replaceFragment(fragment, TAG_LEARN_SIGN_BY_LIST_FRAGMENT,
-                R.animator.card_flip_left_in, R.animator.card_flip_left_out,
-                R.animator.card_flip_right_in, R.animator.card_flip_right_out);
+        replaceFragmentWithOutAnimation(fragment, TAG_LEARN_SIGN_BY_LIST_FRAGMENT);
     }
 
     private void refreshList(List<Sign> signs) {

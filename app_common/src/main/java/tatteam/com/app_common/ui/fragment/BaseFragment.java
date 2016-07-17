@@ -102,10 +102,20 @@ public abstract class BaseFragment extends Fragment {
         getBaseActivity().replaceFragment(fragment, fragmentTag, transactionTag, needCommitAllowingStateLoss);
     }
 
-    public void replaceFragment(BaseFragment fragment, String fragmentTag,
-                                int enter, int exit, int popEnter, int popExit) {
+    public void replaceFragmentWithCustomAnimation(BaseFragment fragment, String fragmentTag,
+                                                   int enter, int exit, int popEnter, int popExit) {
         getBaseActivity().replaceFragmentWithCustomAnimation(
                 fragment, fragmentTag, fragmentTag, enter, exit, popEnter, popExit);
+    }
+
+    public void replaceFragmentWithCustomAnimation(BaseFragment fragment, String fragmentTag,
+                                                   int enter, int exit) {
+        getBaseActivity().replaceFragmentWithCustomAnimation(
+                fragment, fragmentTag, fragmentTag, enter, exit);
+    }
+
+    public void replaceFragmentWithOutAnimation(BaseFragment fragment, String fragmentTag) {
+        getBaseActivity().replaceFragmentWithOutAnimation(fragment, fragmentTag, fragmentTag);
     }
 
     protected abstract int getLayoutResIdContentView();

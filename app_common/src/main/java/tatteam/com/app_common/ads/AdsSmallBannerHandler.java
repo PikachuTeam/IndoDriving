@@ -60,6 +60,12 @@ public class AdsSmallBannerHandler extends BaseAdsBannerHandler {
         }
     }
 
+    public void refresh() {
+        if (adView != null && adView.getAdUnitId() != null && !adView.getAdUnitId().isEmpty()) {
+            requestAds(adView);
+        }
+    }
+
     private void requestAds(AdView adView) {
         if (adView != null) {
             AdRequest adRequest = new AdRequest.Builder().build();

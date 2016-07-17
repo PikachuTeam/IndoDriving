@@ -16,8 +16,10 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
+import com.essential.indodriving.data.PoolDatabaseLoader;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.ui.activity.BaseActivity;
@@ -70,6 +72,9 @@ public abstract class SecondBaseActivity extends BaseActivity implements Billing
     @Override
     protected void onCreateContentView() {
         firebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
+        AppCommon.getInstance().initIfNeeded(getApplicationContext());
+        MySetting.getInstance().initIfNeeded(getApplicationContext());
+        PoolDatabaseLoader.getInstance().initIfNeeded(getApplicationContext());
 
         findViews();
         setSupportActionBar(toolbar);

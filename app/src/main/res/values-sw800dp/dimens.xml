@@ -53,4 +53,5 @@
 
     <dimen name="choose_sign_button_height">225dp</dimen>
     <dimen name="learn_sign_card_height">337.5dp</dimen>
+    <dimen name="choose_sign_item_button_size">220dp</dimen>
 </resources>
