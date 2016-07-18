@@ -100,5 +100,5 @@
     <color name="transparent">#000f9d58</color>
     <color name="selected_match">#33ff00</color>
     <color name="selected_not_match">#ff0000</color>
-
+    <color name="bg_continue">#f03933</color>
 </resources>

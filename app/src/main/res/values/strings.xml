@@ -106,5 +106,6 @@
     <string name="search_view_hint_text">CARI</string>
     <string name ="search_no_item">Item tidak cocok dengan pencarian anda</string>
 
-    <string name="continue_matching">Terus ></string>
+    <string name="continue_matching">TERUS ></string>
+    <string name="reset_matching">RESET ~</string>
 </resources>
