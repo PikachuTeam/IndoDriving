@@ -40,24 +40,48 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/btn_continue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/background_continue"
-        android:padding="@dimen/common_size_10">
+        android:id="@+id/layout_continue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_continue"
+        <RelativeLayout
+            android:id="@+id/btn_continue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/common_size_15"
-            android:layout_marginRight="@dimen/common_size_15"
-            android:maxLines="1"
-            android:text="@string/continue_matching"
-            android:textColor="@color/white"
-            android:textSize="@dimen/common_text_size_35"
-            android:textStyle="bold" />
+            android:background="@drawable/background_continue"
+            android:padding="@dimen/common_size_10">
+
+            <TextView
+                android:id="@+id/tv_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/common_size_15"
+                android:layout_marginRight="@dimen/common_size_15"
+                android:maxLines="1"
+                android:text="@string/continue_matching"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_text_size_35"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/adsContainer1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_continue"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:id="@+id/adsContainer2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btn_continue"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal" />
     </RelativeLayout>
 </RelativeLayout>

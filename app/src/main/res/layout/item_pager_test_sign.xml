@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                     android:layout_width="@dimen/test_sign_image_size"
                     android:layout_height="@dimen/test_sign_image_size"
                     android:layout_centerInParent="true"
-                    android:clickable="true"/>
+                    android:clickable="true" />
 
                 <ImageView
                     android:id="@+id/button_zoom_in"
@@ -34,7 +34,7 @@
                     android:layout_height="@dimen/button_zoom_in_size"
                     android:layout_toRightOf="@id/image_sign"
                     android:clickable="true"
-                    android:src="@drawable/ic_zoom_in_normal"/>
+                    android:src="@drawable/ic_zoom_in_normal" />
             </RelativeLayout>
 
             <TextView
@@ -46,7 +46,7 @@
                 android:text="@string/choices"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/common_text_size_16"/>
+                android:textSize="@dimen/common_text_size_16" />
 
             <LinearLayout
                 android:id="@+id/choices_container"
@@ -55,7 +55,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/common_size_5"
                 android:paddingRight="@dimen/common_size_5"
-                android:paddingTop="@dimen/common_size_5"/>
+                android:paddingTop="@dimen/common_size_5" />
         </LinearLayout>
 
         <LinearLayout
@@ -65,7 +65,7 @@
             android:layout_margin="@dimen/common_size_4"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="@dimen/common_size_20"
-            android:visibility="invisible"/>
+            android:paddingTop="@dimen/common_size_25"
+            android:visibility="invisible" />
     </RelativeLayout>
 </ScrollView>

@@ -2,6 +2,8 @@ package com.essential.indodriving.ui.fragment.sign.match;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +13,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.sign.Sign;
 import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
+import com.essential.indodriving.ui.base.SecondBaseActivity;
+import com.google.android.gms.ads.AdSize;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 
 /**
  * Created by admin on 7/11/2016.
@@ -37,6 +44,25 @@ public class SignMatchFragment extends MyBaseFragment {
     private ImageWrapper selectedImage;
     private DefinitionWrapper selectedDefinition;
     private int pageIndex = 0;
+    private ViewGroup adsContainer1, adsContainer2;
+    private View layoutContinue;
+    private boolean isProVersion;
+    private AdsSmallBannerHandler adsHandler1;
+    private AdsSmallBannerHandler adsHandler2;
+
+    private Handler refreshAdsHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            if (adsHandler1 != null) {
+                adsHandler1.refresh();
+            }
+            if (adsHandler2 != null) {
+                adsHandler2.refresh();
+            }
+            refreshAdsHandler.sendEmptyMessageDelayed(0, 40000);
+            return false;
+        }
+    });
 
     @Override
     protected String getTitle() {
@@ -51,6 +77,7 @@ public class SignMatchFragment extends MyBaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isProVersion = MySetting.getInstance().isProVersion();
         type = getArguments().getString(Constants.BUNDLE_SIGN_TYPE);
         List<Sign> signs = SignDataSource.getSigns(type, false, -1);
         Collections.shuffle(signs);
@@ -58,8 +85,21 @@ public class SignMatchFragment extends MyBaseFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        refreshAdsHandler.removeCallbacksAndMessages(null);
+        if (adsHandler1 != null) {
+            adsHandler1.destroy();
+        }
+        if (adsHandler2 != null) {
+            adsHandler2.destroy();
+        }
+        super.onDestroyView();
+    }
+
+    @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
         findViews(rootView);
+        setupAdsIfNeed();
         renderUI();
     }
 
@@ -75,6 +115,10 @@ public class SignMatchFragment extends MyBaseFragment {
         btnContinue = (RelativeLayout) rootView.findViewById(R.id.btn_continue);
         layoutMatching = (LinearLayout) rootView.findViewById(R.id.layout_matching);
         tvContinue = (TextView) rootView.findViewById(R.id.tv_continue);
+        adsContainer1 = (ViewGroup) rootView.findViewById(R.id.adsContainer1);
+        adsContainer2 = (ViewGroup) rootView.findViewById(R.id.adsContainer2);
+        layoutContinue = rootView.findViewById(R.id.layout_continue);
+
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +129,7 @@ public class SignMatchFragment extends MyBaseFragment {
 
     private void renderUI() {
         layoutMatching.setVisibility(View.VISIBLE);
-        btnContinue.setVisibility(View.GONE);
+        layoutContinue.setVisibility(View.GONE);
         layoutImages.removeAllViews();
         layoutDefinitions.removeAllViews();
         imageWrappers = new ArrayList<>();
@@ -105,6 +149,18 @@ public class SignMatchFragment extends MyBaseFragment {
             tvContinue.setText(R.string.reset_matching);
         } else {
             tvContinue.setText(R.string.continue_matching);
+        }
+    }
+
+    private void setupAdsIfNeed() {
+        if (!isProVersion) {
+            adsHandler1 = new AdsSmallBannerHandler(getActivity(), adsContainer1, SecondBaseActivity.ADS_SMALL, AdSize.LARGE_BANNER);
+            adsHandler1.setup();
+
+            adsHandler2 = new AdsSmallBannerHandler(getActivity(), adsContainer2, SecondBaseActivity.ADS_SMALL, AdSize.LARGE_BANNER);
+            adsHandler2.setup();
+
+            refreshAdsHandler.sendEmptyMessage(0);
         }
     }
 
@@ -182,7 +238,7 @@ public class SignMatchFragment extends MyBaseFragment {
 
     private void onCorrectMatching() {
         if (layoutImages.getChildCount() == 0 && layoutDefinitions.getChildCount() == 0) {
-            btnContinue.setVisibility(View.VISIBLE);
+            layoutContinue.setVisibility(View.VISIBLE);
             layoutMatching.setVisibility(View.GONE);
         }
     }

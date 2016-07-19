@@ -30,10 +30,12 @@ import com.essential.indodriving.ui.widget.QuestionNoItemWrapper;
 import com.essential.indodriving.ui.widget.WarningDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 import com.essential.indodriving.util.OnQuestionPagerItemClickListener;
+import com.google.android.gms.ads.AdSize;
 
 import java.util.ArrayList;
 
 import tatteam.com.app_common.ads.AdsNativeExpressHandler;
+import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 
 /**
  * Created by yue on 07/05/2016.
@@ -137,7 +139,7 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         getData();
         isProVer = MySetting.getInstance().isProVersion();
         questions = DrivingDataSource.getQuestionsByTypeAndExamId(type, 1, true, NUMBER_OF_QUESTIONS);
-        if (!isProVer && false) {
+        if (!isProVer) {
             addAds(questions);
         }
         font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UTM Caviar.ttf");
@@ -454,8 +456,11 @@ public class UnlimitedTestFragment extends MyBaseFragment {
         }
 
         private void setupAds(ViewGroup adsContainer) {
-            AdsNativeExpressHandler adsHandler = new AdsNativeExpressHandler(getActivity(), adsContainer,
-                    SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_BIG);
+//            AdsNativeExpressHandler adsHandler = new AdsNativeExpressHandler(getActivity(), adsContainer,
+//                    SecondBaseActivity.ADS_BIG_NATIVE_EXPRESS, AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_BIG);
+//            adsHandler.setup();
+
+            AdsSmallBannerHandler adsHandler = new AdsSmallBannerHandler(getActivity(), adsContainer, SecondBaseActivity.ADS_SMALL, AdSize.MEDIUM_RECTANGLE);
             adsHandler.setup();
         }
     }

@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tatteam.com.app_common.ui.drawable.FractionFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                        android:id="@+id/fragmentLearnAll"
-                                                        android:layout_width="match_parent"
-                                                        android:layout_height="match_parent"
-                                                        android:background="@color/app_background_color">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragmentLearnAll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/adsContainer3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/indicatorArea"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="horizontal" />
 
         <ScrollView
             android:id="@+id/cardArea"
@@ -42,7 +51,7 @@
                         android:gravity="center"
                         android:minHeight="@dimen/learn_all_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/layout_question_root"
@@ -64,7 +73,7 @@
                                 android:layout_width="@dimen/learn_all_image_size"
                                 android:layout_height="@dimen/learn_all_image_size"
                                 android:layout_centerHorizontal="true"
-                                android:clickable="true"/>
+                                android:clickable="true" />
 
                             <ImageView
                                 android:id="@+id/buttonZoomIn"
@@ -72,7 +81,7 @@
                                 android:layout_height="@dimen/button_zoom_in_size"
                                 android:layout_toRightOf="@id/cardQuestionImage"
                                 android:clickable="true"
-                                android:src="@drawable/ic_zoom_in_normal"/>
+                                android:src="@drawable/ic_zoom_in_normal" />
                         </RelativeLayout>
 
                         <TextView
@@ -83,7 +92,7 @@
                             android:gravity="center"
                             android:padding="@dimen/common_size_10"
                             android:textColor="@color/learn_all_text_color"
-                            android:textSize="@dimen/common_text_size_18"/>
+                            android:textSize="@dimen/common_text_size_18" />
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
@@ -94,7 +103,7 @@
                     android:layout_marginTop="@dimen/common_size_5"
                     app:progressDrawable="@drawable/progress_bar"
                     app:textColor="@color/text_color_3"
-                    app:thumbColor="@color/yellow_star"/>
+                    app:thumbColor="@color/yellow_star" />
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -116,7 +125,7 @@
                         android:gravity="center"
                         android:minHeight="@dimen/learn_all_card_height"
                         android:orientation="horizontal"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/layout_answer_root"
@@ -143,7 +152,7 @@
                                 android:paddingTop="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18"/>
+                                android:textSize="@dimen/common_text_size_18" />
 
                             <TextView
                                 android:id="@+id/textViewAnswerB"
@@ -156,7 +165,7 @@
                                 android:paddingTop="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18"/>
+                                android:textSize="@dimen/common_text_size_18" />
 
                             <TextView
                                 android:id="@+id/textViewAnswerC"
@@ -169,7 +178,7 @@
                                 android:paddingTop="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18"/>
+                                android:textSize="@dimen/common_text_size_18" />
 
                             <TextView
                                 android:id="@+id/textViewAnswerD"
@@ -180,7 +189,7 @@
                                 android:padding="@dimen/common_size_5"
                                 android:text="Alo"
                                 android:textColor="@color/learn_all_text_color"
-                                android:textSize="@dimen/common_text_size_18"/>
+                                android:textSize="@dimen/common_text_size_18" />
                         </LinearLayout>
 
                         <RelativeLayout
@@ -194,7 +203,7 @@
                                 android:id="@+id/blurryImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="fitXY"/>
+                                android:scaleType="fitXY" />
 
                             <TextView
                                 android:id="@+id/textViewPressToUnlock"
@@ -205,7 +214,7 @@
                                 android:text="@string/click_to_see_answer"
                                 android:textAllCaps="true"
                                 android:textColor="@color/text_color_4"
-                                android:textSize="@dimen/common_text_size_28"/>
+                                android:textSize="@dimen/common_text_size_28" />
                         </RelativeLayout>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -231,7 +240,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
                     android:clickable="false"
-                    android:src="@drawable/ic_previous"/>
+                    android:src="@drawable/ic_previous" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -247,7 +256,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/raised_button"
                     android:clickable="true"
-                    android:src="@drawable/ic_next"/>
+                    android:src="@drawable/ic_next" />
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </RelativeLayout>

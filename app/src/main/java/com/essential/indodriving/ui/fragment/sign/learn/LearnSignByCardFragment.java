@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +32,13 @@ import com.essential.indodriving.ui.widget.LearningCardSeekbar;
 import com.essential.indodriving.ui.widget.RatingDialog;
 import com.essential.indodriving.ui.widget.ZoomInImageDialog;
 import com.essential.indodriving.util.ImageHelper;
+import com.google.android.gms.ads.AdSize;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tatteam.com.app_common.ads.AdsNativeExpressHandler;
+import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 
 /**
  * Created by yue on 08/07/2016.
@@ -56,7 +57,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private LearningCardSeekbar learningCardSeekbar;
     private View lockedArea;
     private View layoutAnswerRoot, layoutQuestionRoot;
-    private ViewGroup adsContainer1, adsContainer2;
+    private ViewGroup adsContainer1, adsContainer2, adsContainer3;
     private ImageView blurryImage;
     private List<Sign> signs;
     private String type;
@@ -68,6 +69,8 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private AlphaAnimation alphaAnimation;
 
     private AdsNativeExpressHandler adsHandler1, adsHandler2;
+    private AdsSmallBannerHandler adsHandler3;
+
     private Handler refreshAdsHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
@@ -77,7 +80,10 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
             if (adsHandler2 != null) {
                 adsHandler2.refresh();
             }
-            refreshAdsHandler.sendEmptyMessageDelayed(0, 30000);
+            if (adsHandler3 != null) {
+                adsHandler3.refresh();
+            }
+            refreshAdsHandler.sendEmptyMessageDelayed(0, 40000);
             return false;
         }
     });
@@ -133,7 +139,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
                         }
                     }
                 });
-        if (!isProVersion && false) {
+        if (!isProVersion) {
             setupADSIfNeeded();
             refreshAdsHandler.sendEmptyMessage(0);
         }
@@ -156,6 +162,15 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     @Override
     public void onDestroyView() {
         refreshAdsHandler.removeCallbacksAndMessages(null);
+        if (adsHandler1 != null) {
+            adsHandler1.destroy();
+        }
+        if (adsHandler2 != null) {
+            adsHandler2.destroy();
+        }
+        if (adsHandler3 != null) {
+            adsHandler3.destroy();
+        }
         super.onDestroyView();
     }
 
@@ -285,6 +300,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
         layoutQuestionRoot = rootView.findViewById(R.id.layout_question_root);
         adsContainer1 = (ViewGroup) rootView.findViewById(R.id.adsContainer1);
         adsContainer2 = (ViewGroup) rootView.findViewById(R.id.adsContainer2);
+        adsContainer3 = (ViewGroup) rootView.findViewById(R.id.adsContainer3);
         imageSign = (ImageView) rootView.findViewById(R.id.image_sign);
         textDefinition = (TextView) rootView.findViewById(R.id.text_definition);
         ((TextView) rootView.findViewById(R.id.text_press_to_unlock)).
@@ -294,7 +310,7 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private void getData() {
         if (containHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST)) {
             signs = (List<Sign>) getHolder(LearnSignByListFragment.HOLDER_SIGNS_LIST);
-            if (!isProVersion&& false) {
+            if (!isProVersion) {
                 List<Sign> temp = new ArrayList<>();
                 temp.addAll(signs);
                 addAds(temp);
@@ -337,8 +353,12 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private void setCardData(Sign sign) {
         layoutAnswerRoot.setVisibility(!sign.isAds ? View.VISIBLE : View.GONE);
         layoutQuestionRoot.setVisibility(!sign.isAds ? View.VISIBLE : View.GONE);
-        adsContainer1.setVisibility(sign.isAds ? View.VISIBLE : View.INVISIBLE);
-        adsContainer2.setVisibility(sign.isAds ? View.VISIBLE : View.INVISIBLE);
+//        adsContainer1.setVisibility(sign.isAds ? View.VISIBLE : View.INVISIBLE);
+//        adsContainer2.setVisibility(sign.isAds ? View.VISIBLE : View.INVISIBLE);
+
+        cardArea.setVisibility(!sign.isAds ? View.VISIBLE : View.GONE);
+        adsContainer3.setVisibility(sign.isAds ? View.VISIBLE : View.INVISIBLE);
+
         cardArea.scrollTo(0, 0);
         if (sign.isAds) {
             setupADSIfNeeded();
@@ -357,18 +377,22 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     }
 
     private void setupADSIfNeeded() {
-        if (adsHandler1 == null) {
+        if (adsHandler1 == null && false) {
             adsHandler1 = new AdsNativeExpressHandler(getActivity(),
                     adsContainer1, SecondBaseActivity.ADS_NATIVE_EXPRESS_CONTENT,
                     AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler1.setup();
         }
 
-        if (adsHandler2 == null) {
+        if (adsHandler2 == null && false) {
             adsHandler2 = new AdsNativeExpressHandler(getActivity(),
                     adsContainer2, SecondBaseActivity.ADS_NATIVE_EXPRESS_INSTALL,
                     AdsNativeExpressHandler.WIDTH_HEIGHT_RATIO_SMALL);
             adsHandler2.setup();
+        }
+        if (adsHandler3 == null) {
+            adsHandler3 = new AdsSmallBannerHandler(getActivity(), adsContainer3, SecondBaseActivity.ADS_SMALL, AdSize.MEDIUM_RECTANGLE);
+            adsHandler3.setup();
         }
     }
 

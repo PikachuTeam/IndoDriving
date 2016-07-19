@@ -87,10 +87,10 @@
             android:id="@+id/adsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:orientation="vertical"
+            android:layout_margin="@dimen/common_size_4"
             android:gravity="center"
-            android:paddingTop="@dimen/common_size_20"
-            android:layout_margin="@dimen/common_size_4"/>
+            android:orientation="vertical"
+            android:paddingTop="@dimen/common_size_25"
+            android:visibility="invisible" />
     </RelativeLayout>
 </ScrollView>
