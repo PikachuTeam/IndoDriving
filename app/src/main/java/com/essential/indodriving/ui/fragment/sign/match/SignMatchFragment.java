@@ -16,7 +16,6 @@ import com.essential.indodriving.data.sign.Sign;
 import com.essential.indodriving.data.sign.SignDataSource;
 import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.MyBaseFragment;
-import com.essential.indodriving.ui.base.SecondBaseActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,14 +59,15 @@ public class SignMatchFragment extends MyBaseFragment {
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
-        updateToolbar();
         findViews(rootView);
         renderUI();
     }
 
-    public void updateToolbar() {
-        ((SecondBaseActivity) getActivity()).enableButtonShare(true);
+    @Override
+    protected boolean enableButtonShare() {
+        return true;
     }
+
 
     private void findViews(View rootView) {
         layoutImages = (LinearLayout) rootView.findViewById(R.id.layout_images);
@@ -103,7 +103,7 @@ public class SignMatchFragment extends MyBaseFragment {
         if (pageIndex == matchPages.size()) {
             pageIndex = 0;
             tvContinue.setText(R.string.reset_matching);
-        }else{
+        } else {
             tvContinue.setText(R.string.continue_matching);
         }
     }

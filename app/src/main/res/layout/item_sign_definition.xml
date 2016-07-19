@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
@@ -11,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/choose_item_button_size"
-
         app:cardCornerRadius="@dimen/common_size_12"
         app:cardElevation="@dimen/common_size_2"
         app:cardUseCompatPadding="true">
@@ -25,21 +23,12 @@
                 android:id="@+id/tv_sign_definition"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="@dimen/common_size_5"
                 android:paddingLeft="@dimen/common_size_15"
                 android:paddingRight="@dimen/common_size_15"
                 android:paddingTop="@dimen/common_size_5"
-                android:paddingBottom="@dimen/common_size_5"
-
-
-                android:text="TEST
-                TEST
-                TEST
-                TEST"
                 android:textColor="@color/black"
-
                 android:textSize="@dimen/common_text_size_18" />
-
-
         </RelativeLayout>
 
         <RelativeLayout
