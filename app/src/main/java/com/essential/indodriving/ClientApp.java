@@ -1,5 +1,8 @@
 package com.essential.indodriving;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.BaseApplication;
 
@@ -11,6 +14,9 @@ public class ClientApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         MySetting.getInstance().initIfNeeded(getApplicationContext());
     }

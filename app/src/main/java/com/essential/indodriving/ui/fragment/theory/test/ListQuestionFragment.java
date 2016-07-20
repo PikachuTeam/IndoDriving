@@ -105,10 +105,8 @@ public class ListQuestionFragment extends MyBaseFragment implements
 
     @Override
     public void refreshUI() {
-        isProVersion = MySetting.getInstance().isProVersion();
-        if (isProVersion) {
-            adapter.notifyDataSetChanged();
-        }
+        loadState();
+        adapter.notifyDataSetChanged();
     }
 
     private void findViews(View rootView) {
@@ -224,19 +222,20 @@ public class ListQuestionFragment extends MyBaseFragment implements
         dialog.dismiss();
         switch (button) {
             case OK:
-                Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
-                }
-                isRated = true;
-                MySetting.getInstance().setRated();
+//                Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+//                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+//                        Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+//                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//                try {
+//                    startActivity(goToMarket);
+//                } catch (ActivityNotFoundException e) {
+//                    startActivity(new Intent(Intent.ACTION_VIEW,
+//                            Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
+//                }
+//                isRated = true;
+//                MySetting.getInstance().setRated();
+                shareFacebook();
                 break;
             case CANCEL:
                 break;

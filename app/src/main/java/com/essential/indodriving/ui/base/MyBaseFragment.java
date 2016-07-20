@@ -59,6 +59,10 @@ public abstract class MyBaseFragment extends BaseFragment {
         CommonUtil.sharePlainText(getActivity(), sharedText);
     }
 
+    public void shareFacebook(){
+        getMyBaseActivity().shareFacebook();
+    }
+
     public SecondBaseActivity getMyBaseActivity() {
         return (SecondBaseActivity) getBaseActivity();
     }

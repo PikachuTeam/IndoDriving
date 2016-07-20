@@ -12,6 +12,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1555387178103861"
+            android:exported="true" />
+
         <activity
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait">

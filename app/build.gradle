@@ -13,7 +13,7 @@ android {
 //    }
     defaultConfig {
         applicationId "com.essential.indodriving"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         renderscriptTargetApi 14
         renderscriptSupportModeEnabled true
@@ -27,8 +27,8 @@ android {
     productFlavors {
         free {
             applicationId = "com.essential.indodriving.free"
-            versionCode 12
-            versionName "1.11"
+            versionCode 13
+            versionName "1.12"
         }
         pro {
             applicationId = "com.essential.indodriving.pro"
@@ -49,5 +49,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.anjlab.android.iab.v3:library:1.0.+'
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 }

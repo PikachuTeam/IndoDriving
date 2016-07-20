@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="facebook_app_id">1555387178103861</string>
+
     <string name="no_internet_connection">Internet Connection Error!</string>
     <string name="sim_a">Sim A</string>
     <string name="sim_a_umum">Sim A Umum</string>
@@ -108,4 +111,6 @@
 
     <string name="continue_matching">TERUS ></string>
     <string name="reset_matching">RESET ~</string>
+
+    <string name="sharing_dialog_text">Bagi aplikasi ini untuk membuka</string>
 </resources>

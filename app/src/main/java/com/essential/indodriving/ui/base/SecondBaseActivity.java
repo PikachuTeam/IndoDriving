@@ -1,9 +1,9 @@
 package com.essential.indodriving.ui.base;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
@@ -17,13 +17,19 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 import com.essential.indodriving.data.PoolDatabaseLoader;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 import tatteam.com.app_common.ui.activity.BaseActivity;
-import tatteam.com.app_common.ui.fragment.BaseFragment;
 import tatteam.com.app_common.util.AppConstant;
 
 /**
@@ -53,7 +59,8 @@ public abstract class SecondBaseActivity extends BaseActivity implements Billing
     private AdsBigBannerHandler adsBigBannerHandler;
     private BillingProcessor mBillingProcessor;
     private FirebaseAnalytics firebaseAnalytics;
-
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
 
     public static void startActivityAnimation(Activity activity, Intent intent) {
         activity.startActivity(intent);
@@ -85,6 +92,7 @@ public abstract class SecondBaseActivity extends BaseActivity implements Billing
             mBillingProcessor = new BillingProcessor(this, Constants.DEV_KEY, this);
         }
         setupAds();
+        setupFacebookSharing();
     }
 
     @Override
@@ -186,7 +194,8 @@ public abstract class SecondBaseActivity extends BaseActivity implements Billing
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMyCurrentFragment().sharingEvent();
+//                getMyCurrentFragment().sharingEvent();
+                shareFacebook();
             }
         });
         mButtonModifyAnswer.setOnClickListener(new View.OnClickListener() {
@@ -221,9 +230,10 @@ public abstract class SecondBaseActivity extends BaseActivity implements Billing
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         if (mBillingProcessor != null && !mBillingProcessor.
                 handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -257,5 +267,39 @@ public abstract class SecondBaseActivity extends BaseActivity implements Billing
             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, itemName);
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         }
+    }
+
+    private void setupFacebookSharing() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                MySetting.getInstance().setRated();
+                getMyCurrentFragment().refreshUI();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+    }
+
+    public void shareFacebook() {
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            String androidLink = "https://play.google.com/store/apps/details?id=" + this.getPackageName();
+            ShareLinkContent content = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(androidLink))
+                    .build();
+            shareDialog.show(content);
+        }
+
     }
 }

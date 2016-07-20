@@ -96,6 +96,13 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
     }
 
     @Override
+    public void refreshUI() {
+        super.refreshUI();
+        loadState();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         loadState();
@@ -299,21 +306,22 @@ public class LearnSignByListFragment extends MyBaseFragment implements OnSignRec
                                 dialog.dismiss();
                                 switch (button) {
                                     case OK:
-                                        Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
-                                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                                        try {
-                                            startActivity(goToMarket);
-                                        } catch (ActivityNotFoundException e) {
-                                            startActivity(new Intent(Intent.ACTION_VIEW,
-                                                    Uri.parse("http://play.google.com/store/apps/details?id="
-                                                            + getActivity().getPackageName())));
-                                        }
-                                        isRated = true;
-                                        isRateClicked = true;
-                                        MySetting.getInstance().setRated();
+//                                        Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+//                                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//                                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+//                                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+//                                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//                                        try {
+//                                            startActivity(goToMarket);
+//                                        } catch (ActivityNotFoundException e) {
+//                                            startActivity(new Intent(Intent.ACTION_VIEW,
+//                                                    Uri.parse("http://play.google.com/store/apps/details?id="
+//                                                            + getActivity().getPackageName())));
+//                                        }
+//                                        isRated = true;
+//                                        isRateClicked = true;
+//                                        MySetting.getInstance().setRated();
+                                        shareFacebook();
                                         break;
                                     case CANCEL:
                                         break;
