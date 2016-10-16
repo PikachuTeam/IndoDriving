@@ -1,10 +1,7 @@
 package com.essential.indodriving.ui.fragment.sign.learn;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -63,7 +60,6 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
     private String type;
     private int currentPosition;
     private boolean isBlurred;
-    private boolean isRated;
     private boolean isProVersion;
     private boolean isEnableRateToUnlock;
     private AlphaAnimation alphaAnimation;
@@ -274,22 +270,8 @@ public class LearnSignByCardFragment extends MyBaseFragment implements
                     dialog.dismiss();
                     switch (button) {
                         case OK:
-//                            Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
-//                            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-//                            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-//                                    Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-//                                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-//                            try {
-//                                startActivity(goToMarket);
-//                            } catch (ActivityNotFoundException e) {
-//                                startActivity(new Intent(Intent.ACTION_VIEW,
-//                                        Uri.parse("http://play.google.com/store/apps/details?id="
-//                                                + getActivity().getPackageName())));
-//                            }
-//                            isRated = true;
-//                            MySetting.getInstance().setRated();
-
-                            shareFacebook();
+                            rateApp();
+//                            shareFacebook();
                             break;
                         case CANCEL:
                             break;

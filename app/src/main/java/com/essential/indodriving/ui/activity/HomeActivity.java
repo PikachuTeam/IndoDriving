@@ -9,17 +9,11 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.anjlab.android.iab.v3.TransactionDetails;
 import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
-import com.essential.indodriving.ui.base.BaseConfirmDialog;
-import com.essential.indodriving.ui.base.Constants;
 import com.essential.indodriving.ui.base.FirstBaseActivity;
-import com.essential.indodriving.ui.widget.UpgradeToProVerDialog;
 
-import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.util.CloseAppHandler;
-import tatteam.com.app_common.util.CommonUtil;
 
 /**
  * Created by yue on 04/07/2016.

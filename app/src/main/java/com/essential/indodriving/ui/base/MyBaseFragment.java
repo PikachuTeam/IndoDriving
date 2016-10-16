@@ -1,10 +1,14 @@
 package com.essential.indodriving.ui.base;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.essential.indodriving.MySetting;
 import com.essential.indodriving.R;
 
 import tatteam.com.app_common.ui.fragment.BaseFragment;
@@ -16,6 +20,8 @@ import tatteam.com.app_common.util.CommonUtil;
 public abstract class MyBaseFragment extends BaseFragment {
 
     public final static int BUTTON_RESULT = 1, BUTTON_TUTORIAL = 2, BUTTON_MODIFY_ANSWER = 3;
+
+    protected boolean isRated;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +65,25 @@ public abstract class MyBaseFragment extends BaseFragment {
         CommonUtil.sharePlainText(getActivity(), sharedText);
     }
 
-    public void shareFacebook(){
+    public void shareFacebook() {
         getMyBaseActivity().shareFacebook();
+    }
+
+    public void rateApp() {
+        Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id="
+                            + getActivity().getPackageName())));
+        }
+        isRated = true;
+        MySetting.getInstance().setRated();
     }
 
     public SecondBaseActivity getMyBaseActivity() {

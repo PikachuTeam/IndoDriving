@@ -36,7 +36,6 @@ import com.google.android.gms.ads.AdSize;
 import java.util.ArrayList;
 import java.util.List;
 
-import tatteam.com.app_common.ads.AdsNativeExpressHandler;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 
 /**
